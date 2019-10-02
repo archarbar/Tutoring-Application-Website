@@ -10,7 +10,7 @@ The objective of this project is to design a software solution for a new tutorin
 |  William Zhang  |  Software Eng. | U2 |
 |  Victor Zhong   |  Software Eng. | U2 |
 
-## Deliverable 1
+## Deliverable 1: Due October 13, 2019
 |  Team members   |	     Responsibility     | Hours|
 |-----------------|-------------------------|------|
 |    Michael Li   | Build System and Continuous Integration  | 5 |
@@ -19,4 +19,8 @@ The objective of this project is to design a software solution for a new tutorin
 |  William Zhang  | Testing of Persistence  | 5 |
 |  Victor Zhong   |  Persistence Layer  | 5 |
 
-Requirements Model done as a group.
+   * [Report](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Report-(Sprint-1))
+   * [Requirements](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Requirements)
+   * [Use Case Diagram](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Use-Case-Diagram)
+   * [Detailed Specification of Five Most Important Use Cases](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Detailed-Specification-of-Five-Most-Important-Use-Cases)
+   * [Class Diagram](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Class-Diagram)
