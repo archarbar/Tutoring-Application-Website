@@ -22,5 +22,5 @@ The objective of this project is to design a software solution for a new tutorin
    * [Report](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Report-(Sprint-1))
    * [Requirements](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Requirements)
    * [Use Case Diagram](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Use-Case-Diagram)
-   * [Detailed Specification of Five Most Important Use Cases](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Detailed-Specification-of-Five-Most-Important-Use-Cases)
    * [Class Diagram](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Class-Diagram)
+   * [Persistence Layer](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Persistence-Layer-Design)
