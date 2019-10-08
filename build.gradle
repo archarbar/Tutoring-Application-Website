@@ -5,5 +5,5 @@
  * Learn how to create Gradle builds at https://guides.gradle.org/creating-new-gradle-builds
  */
  task stage () {
-    dependsOn ':Tutoring-Backend:assemble'
+   dependsOn ':Tutoring-Backend:assemble'
  }
