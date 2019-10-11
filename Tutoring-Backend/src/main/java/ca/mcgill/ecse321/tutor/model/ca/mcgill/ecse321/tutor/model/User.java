@@ -1,37 +1,47 @@
+package ca.mcgill.ecse321.tutor.model;
+
 import javax.persistence.Entity;
 
 @Entity
 public class User{
 private String email;
-   
-   public void setEmail(String value) {
-this.email = value;
-    }
+
+public void setEmail(String value) {
+   this.email = value;
+}
+
 public String getEmail() {
-return this.email;
-    }
+   return this.email;
+}
+
 private String password;
 
 public void setPassword(String value) {
-this.password = value;
-    }
+   this.password = value;
+}
+
 public String getPassword() {
-return this.password;
-    }
+   return this.password;
+}
+
 private String firstName;
 
 public void setFirstName(String value) {
-this.firstName = value;
-    }
+   this.firstName = value;
+}
+
 public String getFirstName() {
-return this.firstName;
-    }
+   return this.firstName;
+}
+
 private String lastName;
 
 public void setLastName(String value) {
-this.lastName = value;
-    }
+   this.lastName = value;
+}
+
 public String getLastName() {
-return this.lastName;
-       }
-   }
+   return this.lastName;
+}
+
+}

@@ -7,13 +7,15 @@ import javax.persistence.Id;
 @Entity
 public class Course{
 private String name;
-   
-   public void setName(String value) {
-this.name = value;
-    }
+
+public void setName(String value) {
+   this.name = value;
+}
+
 public String getName() {
-return this.name;
-    }
+   return this.name;
+}
+
 private Set<Booking> booking;
 
 @OneToMany(mappedBy="course")
@@ -25,14 +27,23 @@ public void setBooking(Set<Booking> bookings) {
    this.booking = bookings;
 }
 
+/**
+ * <pre>
+ *           1..1     1..1
+ * Course ------------------------> CourseLevel
+ *           &lt;       level
+ * </pre>
+ */
 private CourseLevel level;
 
 public void setLevel(CourseLevel value) {
-this.level = value;
-    }
+   this.level = value;
+}
+
 public CourseLevel getLevel() {
-return this.level;
-    }
+   return this.level;
+}
+
 private Set<Tutor> tutor;
 
 @ManyToMany

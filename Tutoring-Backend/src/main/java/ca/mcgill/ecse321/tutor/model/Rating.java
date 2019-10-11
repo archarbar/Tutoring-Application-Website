@@ -5,21 +5,25 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Rating{
 private Integer stars;
-   
-   public void setStars(Integer value) {
-this.stars = value;
-    }
+
+public void setStars(Integer value) {
+   this.stars = value;
+}
+
 public Integer getStars() {
-return this.stars;
-    }
+   return this.stars;
+}
+
 private String comment;
 
 public void setComment(String value) {
-this.comment = value;
-    }
+   this.comment = value;
+}
+
 public String getComment() {
-return this.comment;
-    }
+   return this.comment;
+}
+
 private Integer ratingId;
 
 public void setRatingId(Integer value) {
