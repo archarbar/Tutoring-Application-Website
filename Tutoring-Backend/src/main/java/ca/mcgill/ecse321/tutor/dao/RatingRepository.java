@@ -1,10 +1,9 @@
-package main.java.ca.mcgill.ecse321.tutor.dao;
+package ca.mcgill.ecse321.tutor.dao;
+
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
-import main.java.ca.mcgill.ecse321.tutor.model.Rating;
-import main.java.ca.mcgill.ecse321.tutor.model.Student;
-import main.java.ca.mcgill.ecse321.tutor.model.Tutor;
-import org.springframework.data.repository.CrudRepository;
+import ca.mcgill.ecse321.tutor.model.Rating;
 
 public interface RatingRepository extends CrudRepository<Rating, Integer> {
 	Rating findRatingById(Integer Id);

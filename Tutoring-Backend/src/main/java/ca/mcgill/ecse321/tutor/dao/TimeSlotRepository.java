@@ -1,5 +1,10 @@
-package main.java.ca.mcgill.ecse321.tutor.dao;
+package ca.mcgill.ecse321.tutor.dao;
+import org.springframework.data.repository.CrudRepository;
 
-public class TimeSlorRepository {
+import ca.mcgill.ecse321.tutor.model.TimeSlot;
+
+
+public interface TimeSlotRepository extends CrudRepository<TimeSlot, Integer>{
 
 }
+

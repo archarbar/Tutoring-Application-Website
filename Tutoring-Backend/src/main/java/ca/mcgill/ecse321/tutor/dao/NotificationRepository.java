@@ -1,9 +1,8 @@
-package main.java.ca.mcgill.ecse321.tutor.dao;
+package ca.mcgill.ecse321.tutor.dao;
 
-import main.java.ca.mcgill.ecse321.tutor.model.Notification;
-import main.java.ca.mcgill.ecse321.tutor.model.Tutor;
-import main.java.ca.mcgill.ecse321.tutor.model.Booking;
 import org.springframework.data.repository.CrudRepository;
+
+import ca.mcgill.ecse321.tutor.model.Notification;
 
 public interface NotificationRepository extends CrudRepository<Notification, Integer> {
 	Notification findNotificationById(Integer Id);

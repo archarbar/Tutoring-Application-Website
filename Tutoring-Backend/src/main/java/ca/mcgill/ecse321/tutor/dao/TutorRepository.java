@@ -1,5 +1,11 @@
-package main.java.ca.mcgill.ecse321.tutor.dao;
+package ca.mcgill.ecse321.tutor.dao;
 
-public class TutorRepository {
+
+import org.springframework.data.repository.CrudRepository;
+
+import ca.mcgill.ecse321.tutor.model.Tutor;
+
+public interface TutorRepository extends CrudRepository<Tutor, Integer> {
 
 }
+

@@ -1,10 +1,8 @@
-package main.java.ca.mcgill.ecse321.tutor.dao;
+package ca.mcgill.ecse321.tutor.dao;
 
 import org.springframework.data.repository.CrudRepository;
 
-import main.java.ca.mcgill.ecse321.tutor.model.Course;
-import main.java.ca.mcgill.ecse321.tutor.model.Booking;
-import main.java.ca.mcgill.ecse321.tutor.model.TutoringSession;
+import ca.mcgill.ecse321.tutor.model.Course;
 
 public interface CourseRepository extends CrudRepository<Course, Integer>{
 
