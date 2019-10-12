@@ -7,29 +7,35 @@ import javax.persistence.OneToMany;
 @Entity
 public class Student{
 private String firstName;
-   
-   public void setFirstName(String value) {
-this.firstName = value;
-    }
+
+public void setFirstName(String value) {
+   this.firstName = value;
+}
+
 public String getFirstName() {
-return this.firstName;
-    }
+   return this.firstName;
+}
+
 private String lastName;
 
 public void setLastName(String value) {
-this.lastName = value;
-    }
+   this.lastName = value;
+}
+
 public String getLastName() {
-return this.lastName;
-    }
+   return this.lastName;
+}
+
 private String email;
 
 public void setEmail(String value) {
-this.email = value;
-    }
+   this.email = value;
+}
+
 public String getEmail() {
-return this.email;
-    }
+   return this.email;
+}
+
 private Set<Booking> booking;
 
 @ManyToMany(mappedBy="student")

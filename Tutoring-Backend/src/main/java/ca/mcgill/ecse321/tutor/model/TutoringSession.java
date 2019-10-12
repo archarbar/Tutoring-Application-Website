@@ -2,29 +2,19 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.ManyToOne;
 import javax.persistence.Id;
+import java.sql.Date;
 
 @Entity
 public class TutoringSession{
-private Room room;
+private Booking booking;
 
-@OneToOne(mappedBy="tutoringSession", optional=false)
-public Room getRoom() {
-   return this.room;
+@OneToOne(optional=false)
+public Booking getBooking() {
+   return this.booking;
 }
 
-public void setRoom(Room room) {
-   this.room = room;
-}
-
-private Tutor tutor;
-
-@ManyToOne(optional=false)
-public Tutor getTutor() {
-   return this.tutor;
-}
-
-public void setTutor(Tutor tutor) {
-   this.tutor = tutor;
+public void setBooking(Booking booking) {
+   this.booking = booking;
 }
 
 private TimeSlot timeSlot;
@@ -38,6 +28,28 @@ public void setTimeSlot(TimeSlot timeSlot) {
    this.timeSlot = timeSlot;
 }
 
+private Tutor tutor;
+
+@ManyToOne(optional=false)
+public Tutor getTutor() {
+   return this.tutor;
+}
+
+public void setTutor(Tutor tutor) {
+   this.tutor = tutor;
+}
+
+private Room room;
+
+@OneToOne(mappedBy="tutoringSession", optional=false)
+public Room getRoom() {
+   return this.room;
+}
+
+public void setRoom(Room room) {
+   this.room = room;
+}
+
 private Integer tutoringSessionId;
 
 public void setTutoringSessionId(Integer value) {
@@ -47,15 +59,12 @@ this.tutoringSessionId = value;
 public Integer getTutoringSessionId() {
 return this.tutoringSessionId;
     }
-private Booking booking;
+private Date date;
 
-@OneToOne(optional=false)
-public Booking getBooking() {
-   return this.booking;
-}
-
-public void setBooking(Booking booking) {
-   this.booking = booking;
-}
-
-}
+public void setDate(Date value) {
+this.date = value;
+    }
+public Date getDate() {
+return this.date;
+       }
+   }

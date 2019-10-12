@@ -3,6 +3,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.util.Set;
 import javax.persistence.OneToMany;
+import java.sql.Time;
 
 @Entity
 public class TimeSlot{
@@ -36,5 +37,4 @@ public Set<TutoringSession> getTutoringSession() {
 public void setTutoringSession(Set<TutoringSession> tutoringSessions) {
    this.tutoringSession = tutoringSessions;
 }
-
-}
+   }
