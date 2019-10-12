@@ -1,3 +1,5 @@
+package ca.mcgill.ecse321.tutor.model;
+
 import javax.persistence.Entity;
 import java.util.Set;
 import javax.persistence.ManyToMany;
