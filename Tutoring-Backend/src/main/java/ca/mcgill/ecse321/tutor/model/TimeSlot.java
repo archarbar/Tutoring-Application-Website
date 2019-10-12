@@ -37,21 +37,4 @@ public Set<TutoringSession> getTutoringSession() {
 public void setTutoringSession(Set<TutoringSession> tutoringSessions) {
    this.tutoringSession = tutoringSessions;
 }
-
-private Time startTime;
-
-public void setStartTime(Time value) {
-this.startTime = value;
-    }
-public Time getStartTime() {
-return this.startTime;
-    }
-private Time endTime;
-
-public void setEndTime(Time value) {
-this.endTime = value;
-    }
-public Time getEndTime() {
-return this.endTime;
-       }
    }
