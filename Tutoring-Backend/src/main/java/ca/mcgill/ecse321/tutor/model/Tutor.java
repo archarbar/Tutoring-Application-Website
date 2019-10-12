@@ -1,3 +1,5 @@
+package ca.mcgill.ecse321.tutor.model;
+
 import javax.persistence.Entity;
 import ca.mcgill.ecse321.tutor.model.User;
 import javax.persistence.ManyToOne;
