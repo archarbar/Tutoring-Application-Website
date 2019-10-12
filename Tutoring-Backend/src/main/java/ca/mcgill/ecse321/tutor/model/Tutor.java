@@ -1,5 +1,7 @@
+package main.java.ca.mcgill.ecse321.tutor.model;
+
 import javax.persistence.Entity;
-import ca.mcgill.ecse321.tutor.model.User;
+import main.java.ca.mcgill.ecse321.tutor.model.User;
 import javax.persistence.ManyToOne;
 import java.util.Set;
 import javax.persistence.OneToMany;
