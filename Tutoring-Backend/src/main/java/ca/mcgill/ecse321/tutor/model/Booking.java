@@ -6,8 +6,6 @@ import javax.persistence.OneToOne;
 import java.util.Set;
 import javax.persistence.ManyToMany;
 import java.sql.Date;
-import java.sql.Time;
-//import main.java.ca.mcgill.ecse321.tutor.model.User;
 
 @Entity
 public class Booking{
