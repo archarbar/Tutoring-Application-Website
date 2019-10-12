@@ -1,4 +1,5 @@
+package ca.mcgill.ecse321.tutor.service;
 
-public class TutorRepository {
+public class TutorService {
 
 }

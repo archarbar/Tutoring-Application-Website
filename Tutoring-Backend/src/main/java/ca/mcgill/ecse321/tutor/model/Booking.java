@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import java.util.Set;
+import java.sql.Date;
 import javax.persistence.ManyToMany;
 
 @Entity
