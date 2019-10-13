@@ -1,53 +1,28 @@
-package ca.mcgill.ecse321.tutor.model;
-
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import java.sql.Date;
 import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import java.util.Set;
-import java.sql.Date;
 import javax.persistence.ManyToMany;
-import java.sql.Date;
 
 @Entity
 public class Booking{
-private Course course;
-
-@ManyToOne(optional=false)
-public Course getCourse() {
-   return this.course;
-}
-
-public void setCourse(Course course) {
-   this.course = course;
-}
-
 private String tutorEmail;
-
-public void setTutorEmail(String value) {
-   this.tutorEmail = value;
-}
-
+   
+   public void setTutorEmail(String value) {
+this.tutorEmail = value;
+    }
 public String getTutorEmail() {
-   return this.tutorEmail;
-}
-
-/**
- * <pre>
- *           1..1     1..1
- * Booking ------------------------> Date
- *           &lt;       specificDate
- * </pre>
- */
+return this.tutorEmail;
+    }
 private Date specificDate;
 
 public void setSpecificDate(Date value) {
-   this.specificDate = value;
-}
-
+this.specificDate = value;
+    }
 public Date getSpecificDate() {
-   return this.specificDate;
-}
-
+return this.specificDate;
+    }
 private TimeSlot timeSlot;
 
 @OneToOne(optional=false)
@@ -68,6 +43,17 @@ public Notification getNotification() {
 
 public void setNotification(Notification notification) {
    this.notification = notification;
+}
+
+private Course course;
+
+@ManyToOne(optional=false)
+public Course getCourse() {
+   return this.course;
+}
+
+public void setCourse(Course course) {
+   this.course = course;
 }
 
 private Set<Student> student;

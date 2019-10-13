@@ -1,4 +1,10 @@
+<<<<<<< HEAD
+=======
+package ca.mcgill.ecse321.tutor.service;
 
-public class RoomRepository {
+import ca.mcgill.ecse321.tutor.model.Room;
+>>>>>>> remove-gradleception
+
+public class RoomService {
 
 }

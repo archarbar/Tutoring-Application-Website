@@ -3,7 +3,6 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	id 'java'
 }
-
 apply plugin: 'java'
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
@@ -20,8 +19,6 @@ dependencies {
 	testImplementation 'junit:junit:4.12'
 	testCompile 'junit:junit:4.12'
 }
-<<<<<<< HEAD
-=======
 
 task compile(type: JavaCompile) {
   classpath = sourceSets.main.compileClasspath
@@ -39,4 +36,3 @@ sourceSets {
     java { srcDir 'test/'}
   }
 }
->>>>>>> remove-gradleception

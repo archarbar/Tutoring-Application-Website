@@ -1,4 +1,10 @@
+<<<<<<< HEAD
+=======
+package ca.mcgill.ecse321.tutor.service;
 
-public class ManagerRepository {
+import ca.mcgill.ecse321.tutor.model.Manager;
+>>>>>>> remove-gradleception
+
+public class ManagerService {
 
 }
