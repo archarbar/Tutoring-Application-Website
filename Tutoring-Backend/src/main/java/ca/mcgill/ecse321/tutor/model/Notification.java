@@ -28,7 +28,6 @@ public Tutor getTutor() {
 public void setTutor(Tutor tutor) {
    this.tutor = tutor;
 }
-
 private Integer notificationId;
 
 public void setNotificationId(Integer value) {

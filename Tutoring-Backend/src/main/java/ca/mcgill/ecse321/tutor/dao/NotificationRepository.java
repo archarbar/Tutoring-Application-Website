@@ -11,5 +11,4 @@ public interface NotificationRepository extends CrudRepository<Notification, Int
 	Notification findNotificationById(Integer Id);
 	Notification findByTutor(Tutor tutor);
 	Notification findByBooking(Booking booking);
-
 }

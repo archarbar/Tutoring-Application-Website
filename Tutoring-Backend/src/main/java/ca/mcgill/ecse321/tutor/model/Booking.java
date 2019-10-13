@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.tutor.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import java.util.Set;
@@ -90,6 +91,16 @@ public TutoringSession getTutoringSession() {
 
 public void setTutoringSession(TutoringSession tutoringSession) {
    this.tutoringSession = tutoringSession;
+}
+
+private Integer bookingId;
+
+public void setBookingId(Integer value) {
+	this.bookingId = value;
+}
+@Id
+public Integer getBookingId() {
+	return this.bookingId;
 }
 
 }

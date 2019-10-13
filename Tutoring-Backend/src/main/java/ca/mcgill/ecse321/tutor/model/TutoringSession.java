@@ -51,7 +51,7 @@ public Room getRoom() {
 public void setRoom(Room room) {
    this.room = room;
 }
-
+@Id
 private Integer tutoringSessionId;
 
 public void setTutoringSessionId(Integer value) {
