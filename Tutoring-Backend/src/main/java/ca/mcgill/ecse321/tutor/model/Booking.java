@@ -103,4 +103,14 @@ public class Booking{
 		return this.bookingId;
 	}
 
+private Integer bookingId;
+
+public void setBookingId(Integer value) {
+	this.bookingId = value;
+}
+@Id
+public Integer getBookingId() {
+	return this.bookingId;
+}
+
 }

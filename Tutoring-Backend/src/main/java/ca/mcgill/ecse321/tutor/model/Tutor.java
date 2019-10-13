@@ -90,7 +90,7 @@ private Integer tutorId;
 public void setTutorId(Integer value) {
 this.tutorId = value;
     }
-@Id
+//@Id
 public Integer getTutorId() {
 return this.tutorId;
     }
