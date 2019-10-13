@@ -4,9 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import ca.mcgill.ecse321.tutor.model.User;
 
-public interface UserRepository extends CrudRepository<User, Integer>{
-
-}
+public interface UserRepository extends CrudRepository<User, Integer>{}
 
 
 

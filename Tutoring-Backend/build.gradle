@@ -9,12 +9,6 @@ group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
-jar {
-    manifest {
-        attributes 'Main-Class': 'main.java.ca.mcgill.ecse321.tutor.TutoringApplication'
-    }
-}
-
 repositories {
 	mavenCentral()
 }
@@ -24,8 +18,21 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation "junit:junit:4.12"	
 }
 
+/*
+ * specifying sourceSets is not necessary in this case, since
+ * we are applying the default folder structure assumed by Gradle
+ */
+sourceSets {
+  main {
+    java { srcDir 'src/main/java' }
+  }
+  test {
+    java { srcDir 'src/test/java'}
+  }
+}
 
 task compile(type: JavaCompile) {
   classpath = sourceSets.main.compileClasspath
@@ -34,13 +41,10 @@ task compile(type: JavaCompile) {
   sourceSets.main.java.outputDir = file('build/bin/main')
 }
 
-sourceSets {
-  main {
-    java { srcDir 'main/' }
-  }
-
-  test {
-    java { srcDir 'test/'}
+jar {
+  destinationDir=file('distributable')
+  manifest {
+    attributes 'Main-Class': 'TutoringApplication'
   }
 }
 
