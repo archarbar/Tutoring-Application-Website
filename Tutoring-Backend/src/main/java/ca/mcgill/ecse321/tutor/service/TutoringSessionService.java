@@ -13,7 +13,7 @@ import ca.mcgill.ecse321.tutor.model.TutoringSession;
 
 @Service
 public class TutoringSessionService {
-
+	
 	@Autowired
 	TutoringSessionRepository tutoringSessionRepository;
 
