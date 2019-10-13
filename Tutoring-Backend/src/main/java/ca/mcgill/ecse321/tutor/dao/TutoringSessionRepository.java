@@ -9,9 +9,8 @@ import ca.mcgill.ecse321.tutor.model.TutoringSession;
 public interface TutoringSessionRepository extends CrudRepository<TutoringSession, Integer>{
   
   TutoringSession findTutoringSessionById(Integer tutoringSessionId);
-  
+
   List<TutoringSession> findByTimeSlot(TimeSlot timeSlot);
-  
 }
 
 
