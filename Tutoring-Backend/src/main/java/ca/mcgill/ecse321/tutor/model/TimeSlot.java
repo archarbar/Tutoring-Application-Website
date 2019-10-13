@@ -5,6 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.util.Set;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class TimeSlot{
@@ -38,4 +39,15 @@ public Set<TutoringSession> getTutoringSession() {
 public void setTutoringSession(Set<TutoringSession> tutoringSessions) {
    this.tutoringSession = tutoringSessions;
 }
-   }
+
+private DayOfTheWeek dayOfTheWeek;
+
+@OneToOne(optional=false)
+public DayOfTheWeek getDayOfTheWeek() {
+   return this.dayOfTheWeek;
+}
+
+public void setDDayOfTheWeek(DayOfTheWeek dayOfTheWeek) {
+   this.dayOfTheWeek = dayOfTheWeek;
+}
+	}
