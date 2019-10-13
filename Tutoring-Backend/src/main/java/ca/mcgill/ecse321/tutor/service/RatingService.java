@@ -48,7 +48,12 @@ public class RatingService {
 //	public List<Rating> getAllTutorRatings(Tutor tutor) {
 //		return toList(ratingRepository.findByTutor(tutor));
 //	}
-//	
+	
+//	//	@Transactional
+//	public List<Rating> getAllStudentRatings(Student student) {
+//	return toList(ratingRepository.findByStudent(student));
+//}
+	
 //	private <T> List<T> toList(Iterable<T> iterable){
 //		List<T> resultList = new ArrayList<T>();
 //		for (T t : iterable) {
