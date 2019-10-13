@@ -1,9 +1,6 @@
 package ca.mcgill.ecse321.tutor.dao;
 
-<<<<<<< HEAD
-public class NotificationRepository {
 
-=======
 import org.springframework.data.repository.CrudRepository;
 
 import ca.mcgill.ecse321.tutor.model.Notification;
@@ -14,5 +11,5 @@ public interface NotificationRepository extends CrudRepository<Notification, Int
 	Notification findNotificationById(Integer Id);
 	Notification findByTutor(Tutor tutor);
 	Notification findByBooking(Booking booking);
->>>>>>> remove-gradleception
+
 }
