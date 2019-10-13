@@ -4,9 +4,5 @@ import javax.persistence.Entity;
 
 @Entity
 public enum DayOfTheWeek{
-<<<<<<< HEAD
 	SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY;
-=======
-	MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY;
->>>>>>> remove-gradleception
 }
