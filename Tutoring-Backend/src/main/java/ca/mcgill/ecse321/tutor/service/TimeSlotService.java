@@ -2,15 +2,17 @@ package ca.mcgill.ecse321.tutor.service;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.tutor.dao.TimeSlotRepository;
-import ca.mcgill.ecse321.tutor.model.Student;
 import ca.mcgill.ecse321.tutor.model.TimeSlot;
 import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
+import ca.mcgill.ecse321.tutor.model.TutoringSession;
+import ca.mcgill.ecse321.tutor.model.Tutor;
 
 @Service
 public class TimeSlotService {
@@ -19,12 +21,15 @@ public class TimeSlotService {
 	TimeSlotRepository timeSlotRepository;
 
 	@Transactional
-	public TimeSlot createTimeSlot(Integer timeSlotId, Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek) {
+	public TimeSlot createTimeSlot(Integer timeSlotId, Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek,
+			Set<TutoringSession> tutoringSessions, Tutor tutor) {
 		TimeSlot timeSlot = new TimeSlot();
 		timeSlot.setTimeSlotId(timeSlotId);
 		timeSlot.setStartTime(startTime);
 		timeSlot.setEndTime(endTime);
 		timeSlot.setDayOfTheWeek(dayOfTheWeek);
+		timeSlot.setTutoringSession(tutoringSessions);
+		timeSlot.setTutor(tutor);
 		timeSlotRepository.save(timeSlot);
 		return timeSlot;
 	}

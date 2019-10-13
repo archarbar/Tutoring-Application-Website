@@ -17,43 +17,22 @@ import ca.mcgill.ecse321.tutor.model.Tutor;
 public class RatingService {
 	@Autowired
 	RatingRepository ratingRepository;
-	
+
 	@Transactional
-	public Rating createTutorRating(Integer ratingId, Integer stars, String comment, Tutor tutor) {
+	public Rating createRating(Integer ratingId, Integer stars, String comment, Tutor tutor, Student student) {
 		Rating rating = new Rating();
 		rating.setRatingId(ratingId);
 		rating.setStars(stars);
 		rating.setComment(comment);
 		rating.setTutor(tutor);
-		return rating;
-	}
-	
-	@Transactional
-	public Rating createStudentRating(Integer ratingId, Integer stars, String comment, Student student) {
-		Rating rating = new Rating();
-		rating.setRatingId(ratingId);
-		rating.setStars(stars);
-		rating.setComment(comment);
 		rating.setStudent(student);
 		return rating;
 	}
-	
+
 	@Transactional
-	public Rating getrating(Integer ratingId) {
+	public Rating getRating(Integer ratingId) {
 		Rating rating = ratingRepository.findRatingById(ratingId);
 		return rating;
 	}
-	
-//	@Transactional
-//	public List<Rating> getAllTutorRatings(Tutor tutor) {
-//		return toList(ratingRepository.findByTutor(tutor));
-//	}
-//	
-//	private <T> List<T> toList(Iterable<T> iterable){
-//		List<T> resultList = new ArrayList<T>();
-//		for (T t : iterable) {
-//			resultList.add(t);
-//		}
-//		return resultList;
-//	}
+
 }
