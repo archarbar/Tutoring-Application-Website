@@ -9,6 +9,12 @@ group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'main.java.ca.mcgill.ecse321.tutor.TutoringApplication'
+    }
+}
+
 repositories {
 	mavenCentral()
 }
