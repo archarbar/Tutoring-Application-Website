@@ -10,7 +10,6 @@ public interface TutoringSessionRepository extends CrudRepository<TutoringSessio
   
   TutoringSession findTutoringSessionById(Integer tutoringSessionId);
   
-  List<TimeSlot> findByTimeSlot(TimeSlot timeSlot);
 }
 
 
