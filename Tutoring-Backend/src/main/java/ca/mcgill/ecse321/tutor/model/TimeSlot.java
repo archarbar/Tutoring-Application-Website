@@ -42,12 +42,11 @@ public void setTutoringSession(Set<TutoringSession> tutoringSessions) {
 
 private DayOfTheWeek dayOfTheWeek;
 
-@OneToOne(mappedBy="timeSlot", optional=false)
-public DayOfTheWeek getDayOfTheWeek() {
-   return this.dayOfTheWeek;
+public void setDayOfTheWeek(DayOfTheWeek dayOfTheWeek) {
+  this.dayOfTheWeek = dayOfTheWeek;
 }
 
-public void setDDayOfTheWeek(DayOfTheWeek dayOfTheWeek) {
-   this.dayOfTheWeek = dayOfTheWeek;
+public DayOfTheWeek getDayOfTheWeek() {
+   return this.dayOfTheWeek;
 }
 	}
