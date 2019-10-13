@@ -38,4 +38,14 @@ public Set<TutoringSession> getTutoringSession() {
 public void setTutoringSession(Set<TutoringSession> tutoringSessions) {
    this.tutoringSession = tutoringSessions;
 }
-   }
+
+private DayOfTheWeek dayOfTheWeek;
+
+public void setDayOfTheWeek(DayOfTheWeek dayOfTheWeek) {
+  this.dayOfTheWeek = dayOfTheWeek;
+}
+
+public DayOfTheWeek getDayOfTheWeek() {
+   return this.dayOfTheWeek;
+}
+	}

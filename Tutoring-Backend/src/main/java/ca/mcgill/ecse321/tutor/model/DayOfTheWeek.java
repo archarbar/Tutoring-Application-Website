@@ -4,5 +4,5 @@ import javax.persistence.Entity;
 
 @Entity
 public enum DayOfTheWeek{
-	SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY;
+  SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY;
 }
