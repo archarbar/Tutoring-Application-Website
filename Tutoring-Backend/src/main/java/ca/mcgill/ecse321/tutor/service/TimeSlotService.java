@@ -3,6 +3,8 @@ package ca.mcgill.ecse321.tutor.service;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +40,19 @@ public class TimeSlotService {
 	public TimeSlot getTimeSlot(Integer timeSlotId) {
 		TimeSlot timeSlot = timeSlotRepository.findTimeSlotById(timeSlotId);
 		return timeSlot;
+	}
+
+	@Transactional
+	public List<TimeSlot> getAllTimeSlots(){
+		return toList(timeSlotRepository.findAll());
+	}
+
+	private <T> List<T> toList(Iterable<T> iterable){
+		List<T> resultList = new ArrayList<T>();
+		for (T t : iterable) {
+			resultList.add(t);
+		}
+		return resultList;
 	}
 
 }
