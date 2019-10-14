@@ -10,11 +10,14 @@ import javax.persistence.Table;
 import java.util.Set;
 import java.sql.Date;
 import javax.persistence.ManyToMany;
+import javax.persistence.GeneratedValue;
+
 
 @Entity
 @Table(name = "BOOKING")
 public class Booking{
 	@Id
+	@GeneratedValue
 	@Column(name = "BOOKING ID")
 	private Integer bookingId;
 	@Column(name = "TUTOR EMAIL")
@@ -101,9 +104,6 @@ public class Booking{
 		this.tutoringSession = tutoringSession;
 	}
 
-	public void setBookingId(Integer value) {
-		this.bookingId = value;
-	}
 	public Integer getBookingId() {
 		return this.bookingId;
 	}

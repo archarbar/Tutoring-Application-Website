@@ -1,8 +1,6 @@
 package ca.mcgill.ecse321.tutor.service;
 
-import java.sql.Date;
 import java.sql.Time;
-import java.util.Set;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ca.mcgill.ecse321.tutor.dao.TimeSlotRepository;
 import ca.mcgill.ecse321.tutor.model.TimeSlot;
 import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
-import ca.mcgill.ecse321.tutor.model.TutoringSession;
-import ca.mcgill.ecse321.tutor.model.Tutor;
 
 @Service
 public class TimeSlotService {
@@ -23,15 +19,17 @@ public class TimeSlotService {
 	TimeSlotRepository timeSlotRepository;
 
 	@Transactional
-	public TimeSlot createTimeSlot(Integer timeSlotId, Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek,
-			Set<TutoringSession> tutoringSessions, Tutor tutor) {
+	public TimeSlot createTimeSlot(Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek) {
+		if (startTime == null || endTime == null) {
+			throw new IllegalArgumentException("A time range needs to be specified!");
+		}
+		if (dayOfTheWeek == null) {
+			throw new IllegalArgumentException("A day of the week needs to be specified!");
+		}
 		TimeSlot timeSlot = new TimeSlot();
-		timeSlot.setTimeSlotId(timeSlotId);
 		timeSlot.setStartTime(startTime);
 		timeSlot.setEndTime(endTime);
 		timeSlot.setDayOfTheWeek(dayOfTheWeek);
-		timeSlot.setTutoringSession(tutoringSessions);
-		timeSlot.setTutor(tutor);
 		timeSlotRepository.save(timeSlot);
 		return timeSlot;
 	}

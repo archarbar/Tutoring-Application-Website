@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.GeneratedValue;
 import java.util.Set;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -14,21 +14,21 @@ import java.sql.Time;
 @Entity
 @Table(name = "TIME SLOT")
 public class TimeSlot{
+
 	@Id
+	@GeneratedValue
 	@Column(name = "TIME SLOT ID")
 	private Integer timeSlotId;
 	@Column(name = "START TIME")
 	private Time startTime;
 	@Column(name = "END TIME")
 	private Time endtime;
+	@Column(name = "DAY OF THE WEEK")
+	private DayOfTheWeek dayOfTheWeek;
 	@Column(name = "TUTOR")
 	private Tutor tutor;
 	@Column(name = "TUTORING SESSIONS")
 	private Set<TutoringSession> tutoringSession;
-
-	public void setTimeSlotId(Integer value) {
-		this.timeSlotId = value;
-	}
 
 	public Integer getTimeSlotId() {
 		return this.timeSlotId;
@@ -51,8 +51,6 @@ public class TimeSlot{
 	public void setTutoringSession(Set<TutoringSession> tutoringSessions) {
 		this.tutoringSession = tutoringSessions;
 	}
-
-	private DayOfTheWeek dayOfTheWeek;
 
 	public void setDayOfTheWeek(DayOfTheWeek dayOfTheWeek) {
 		this.dayOfTheWeek = dayOfTheWeek;

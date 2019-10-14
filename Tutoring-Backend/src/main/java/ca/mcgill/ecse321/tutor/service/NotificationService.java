@@ -1,8 +1,6 @@
 package ca.mcgill.ecse321.tutor.service;
 
-import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Notification;
-import ca.mcgill.ecse321.tutor.model.Tutor;
 import ca.mcgill.ecse321.tutor.dao.NotificationRepository;
 
 import java.util.ArrayList;
@@ -19,11 +17,9 @@ public class NotificationService {
 	NotificationRepository notificationRepository;
 
 	@Transactional
-	public Notification createNotification(Integer notificationId, Tutor tutor, Booking booking) {
+	public Notification createNotification() {
 		Notification notification = new Notification();
-		notification.setNotificationId(notificationId);
-		notification.setTutor(tutor);
-		notification.setBooking(booking);
+		notificationRepository.save(notification);
 		return notification;
 	}
 

@@ -9,8 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.tutor.dao.RatingRepository;
 import ca.mcgill.ecse321.tutor.model.Rating;
-import ca.mcgill.ecse321.tutor.model.Student;
-import ca.mcgill.ecse321.tutor.model.Tutor;
 
 @Service
 public class RatingService {
@@ -18,13 +16,17 @@ public class RatingService {
 	RatingRepository ratingRepository;
 
 	@Transactional
-	public Rating createRating(Integer ratingId, Integer stars, String comment, Tutor tutor, Student student) {
+	public Rating createRating(Integer stars, String comment) {
+		if (stars == null) {
+			throw new IllegalArgumentException("A star rating needs to be specified!");
+		}
+		if (comment == null) {
+			throw new IllegalArgumentException("A comment needs to be specified!");
+		}
 		Rating rating = new Rating();
-		rating.setRatingId(ratingId);
 		rating.setStars(stars);
 		rating.setComment(comment);
-		rating.setTutor(tutor);
-		rating.setStudent(student);
+		ratingRepository.save(rating);
 		return rating;
 	}
 

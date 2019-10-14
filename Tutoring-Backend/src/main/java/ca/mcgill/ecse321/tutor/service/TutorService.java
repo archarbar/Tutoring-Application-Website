@@ -1,6 +1,5 @@
 package ca.mcgill.ecse321.tutor.service;
 
-import java.util.Set;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,12 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.tutor.dao.TutorRepository;
 import ca.mcgill.ecse321.tutor.model.Tutor;
-import ca.mcgill.ecse321.tutor.model.Manager;
-import ca.mcgill.ecse321.tutor.model.TutoringSession;
-import ca.mcgill.ecse321.tutor.model.TimeSlot;
-import ca.mcgill.ecse321.tutor.model.Rating;
-import ca.mcgill.ecse321.tutor.model.Notification;
-import ca.mcgill.ecse321.tutor.model.Course;
 
 @Service
 public class TutorService {
@@ -24,18 +17,13 @@ public class TutorService {
 	TutorRepository tutorRepository;
 
 	@Transactional
-	public Tutor createTutor(Integer tutorId, Double hourlyRate, Boolean isApproved, Manager manager, Set<TutoringSession> tutoringSessions,
-			Set<TimeSlot> timeSlots, Set<Rating> ratings, Set<Notification> notifications, Set<Course> courses) {
+	public Tutor createTutor(Double hourlyRate, Boolean isApproved) {
+		if (hourlyRate == null || hourlyRate <= 0) {
+			throw new IllegalArgumentException("A valid hourly rate needs to be specified!");
+		}
 		Tutor tutor = new Tutor();
-		tutor.setTutorId(tutorId);
 		tutor.setHourlyRate(hourlyRate);
 		tutor.setIsApproved(isApproved);
-		tutor.setManager(manager);
-		tutor.setTutoringSession(tutoringSessions);
-		tutor.setTimeSlot(timeSlots);
-		tutor.setRating(ratings);
-		tutor.setNotification(notifications);
-		tutor.setCourse(courses);
 		tutorRepository.save(tutor);
 		return tutor;
 	}

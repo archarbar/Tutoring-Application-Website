@@ -1,16 +1,14 @@
 package ca.mcgill.ecse321.tutor;
 
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
+import ca.mcgill.ecse321.tutor.*;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+
+@RunWith(Suite.class)
+@SuiteClasses({ RoomTests.class, StudentTests.class, TimeSlotTests.class, TutoringSessionTests.class,
+		TutorTests.class })
 public class TutoringApplicationTests {
-
-	@Test
-	public void contextLoads() {
-	}
-
+	
 }

@@ -1,6 +1,5 @@
 package ca.mcgill.ecse321.tutor.service;
 
-import java.util.Set;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.tutor.dao.StudentRepository; 
 import ca.mcgill.ecse321.tutor.model.Student;
-import ca.mcgill.ecse321.tutor.model.Booking;
-import ca.mcgill.ecse321.tutor.model.Rating;
 
 @Service
 public class StudentService {
@@ -20,21 +17,33 @@ public class StudentService {
 	StudentRepository studentRepository;
 
 	@Transactional
-	public Student createStudent(Integer studentId, String firstName, String lastName, String email, Set<Booking> bookings, Set<Rating> ratings) {
+	public Student createStudent(String firstName, String lastName, String email) {
+		if (firstName == null) {
+			throw new IllegalArgumentException("A first name needs to be specified!");
+		}
+		if (lastName == null) {
+			throw new IllegalArgumentException("A last name needs to be specified!");
+		}
+		if (email == null) {
+			throw new IllegalArgumentException("An email needs to be specified!");
+		}
 		Student student = new Student();
-		student.setStudentId(studentId);
 		student.setFirstName(firstName);
 		student.setLastName(lastName);
 		student.setEmail(email);
-		student.setBooking(bookings);
-		student.setRating(ratings);
 		studentRepository.save(student);
 		return student;
 	}
 
 	@Transactional
-	public Student getStudent(Integer studentId) {
+	public Student getStudentById(Integer studentId) {
 		Student student = studentRepository.findStudentById(studentId);
+		return student;
+	}
+	
+	@Transactional 
+	public Student getStudentByName(String firstName, String lastName) {
+		Student student = studentRepository.findByName(firstName, lastName);
 		return student;
 	}
 
