@@ -1,17 +1,34 @@
 package ca.mcgill.ecse321.tutor.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import java.util.Set;
 import java.sql.Date;
 import javax.persistence.ManyToMany;
-import java.sql.Date;
 
 @Entity
+@Table(name = "BOOKING")
 public class Booking{
+	@Id
+	@Column(name = "BOOKING ID")
+	private Integer bookingId;
+	@Column(name = "TUTOR EMAIL")
+	private String tutorEmail;
+	@Column(name = "STUDENTS")
+	private Set<Student> student;
+	@Column(name = "COURSE")
 	private Course course;
+	@Column(name = "DATE")
+	private Date specificDate;
+	@Column(name = "TIME SLOT")
+	private TimeSlot timeSlot;
+	@Column(name = "TUTORING SESSION")
+	private TutoringSession tutoringSession;
 
 	@ManyToOne(optional=false)
 	public Course getCourse() {
@@ -21,8 +38,6 @@ public class Booking{
 	public void setCourse(Course course) {
 		this.course = course;
 	}
-
-	private String tutorEmail;
 
 	public void setTutorEmail(String value) {
 		this.tutorEmail = value;
@@ -39,7 +54,6 @@ public class Booking{
 	 *           &lt;       specificDate
 	 * </pre>
 	 */
-	private Date specificDate;
 
 	public void setSpecificDate(Date value) {
 		this.specificDate = value;
@@ -48,8 +62,6 @@ public class Booking{
 	public Date getSpecificDate() {
 		return this.specificDate;
 	}
-
-	private TimeSlot timeSlot;
 
 	@OneToOne(optional=false)
 	public TimeSlot getTimeSlot() {
@@ -71,8 +83,6 @@ public class Booking{
 		this.notification = notification;
 	}
 
-	private Set<Student> student;
-
 	@ManyToMany
 	public Set<Student> getStudent() {
 		return this.student;
@@ -81,8 +91,6 @@ public class Booking{
 	public void setStudent(Set<Student> students) {
 		this.student = students;
 	}
-
-	private TutoringSession tutoringSession;
 
 	@OneToOne(mappedBy="booking", optional=false)
 	public TutoringSession getTutoringSession() {
@@ -93,14 +101,10 @@ public class Booking{
 		this.tutoringSession = tutoringSession;
 	}
 
-	private Integer bookingId;
-
 	public void setBookingId(Integer value) {
 		this.bookingId = value;
 	}
-	@Id
 	public Integer getBookingId() {
 		return this.bookingId;
 	}
-
 }

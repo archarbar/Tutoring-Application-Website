@@ -1,27 +1,38 @@
 package ca.mcgill.ecse321.tutor.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import java.sql.Date;
 import java.util.Set;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import java.sql.Time;
 
 @Entity
+@Table(name = "TIME SLOT")
 public class TimeSlot{
+	@Id
+	@Column(name = "TIME SLOT ID")
 	private Integer timeSlotId;
+	@Column(name = "START TIME")
+	private Time startTime;
+	@Column(name = "END TIME")
+	private Time endtime;
+	@Column(name = "TUTOR")
+	private Tutor tutor;
+	@Column(name = "TUTORING SESSIONS")
+	private Set<TutoringSession> tutoringSession;
 
 	public void setTimeSlotId(Integer value) {
 		this.timeSlotId = value;
 	}
-	@Id
+
 	public Integer getTimeSlotId() {
 		return this.timeSlotId;
 	}
-	private Tutor tutor;
 
 	@ManyToOne(optional=false)
 	public Tutor getTutor() {
@@ -31,8 +42,6 @@ public class TimeSlot{
 	public void setTutor(Tutor tutor) {
 		this.tutor = tutor;
 	}
-
-	private Set<TutoringSession> tutoringSession;
 
 	@OneToMany(mappedBy="timeSlot")
 	public Set<TutoringSession> getTutoringSession() {
@@ -53,8 +62,6 @@ public class TimeSlot{
 		return this.dayOfTheWeek;
 	}
 
-	private Time startTime;
-
 	public void setStartTime(Time value) {
 		this.startTime = value;
 	}
@@ -62,8 +69,6 @@ public class TimeSlot{
 	public Time getStartTime() {
 		return this.startTime;
 	}
-
-	private Time endtime;
 
 	public void setEndTime(Time value) {
 		this.endtime = value;
