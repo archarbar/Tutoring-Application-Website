@@ -23,14 +23,17 @@ public class TimeSlotService {
 	TimeSlotRepository timeSlotRepository;
 
 	@Transactional
-	public TimeSlot createTimeSlot(Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek,
-			Set<TutoringSession> tutoringSessions, Tutor tutor) {
+	public TimeSlot createTimeSlot(Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek) {
+		if (startTime == null || endTime == null) {
+			throw new IllegalArgumentException("A time range needs to be specified!");
+		}
+		if (dayOfTheWeek == null) {
+			throw new IllegalArgumentException("A day of the week needs to be specified!");
+		}
 		TimeSlot timeSlot = new TimeSlot();
 		timeSlot.setStartTime(startTime);
 		timeSlot.setEndTime(endTime);
 		timeSlot.setDayOfTheWeek(dayOfTheWeek);
-		timeSlot.setTutoringSession(tutoringSessions);
-		timeSlot.setTutor(tutor);
 		timeSlotRepository.save(timeSlot);
 		return timeSlot;
 	}

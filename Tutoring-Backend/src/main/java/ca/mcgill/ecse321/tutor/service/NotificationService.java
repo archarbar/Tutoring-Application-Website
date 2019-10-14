@@ -19,10 +19,8 @@ public class NotificationService {
 	NotificationRepository notificationRepository;
 
 	@Transactional
-	public Notification createNotification(Tutor tutor, Booking booking) {
+	public Notification createNotification() {
 		Notification notification = new Notification();
-		notification.setTutor(tutor);
-		notification.setBooking(booking);
 		notificationRepository.save(notification);
 		return notification;
 	}

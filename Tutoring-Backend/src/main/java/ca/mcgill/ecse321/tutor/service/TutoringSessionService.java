@@ -22,14 +22,12 @@ public class TutoringSessionService {
 	TutoringSessionRepository tutoringSessionRepository;
 
 	@Transactional
-	public TutoringSession createTutoringSession(Date date, TimeSlot timeSlot,
-			Tutor tutor, Room room, Booking booking) {
+	public TutoringSession createTutoringSession(Date date) {
+		if (date == null) {
+			throw new IllegalArgumentException("A date needs to be specified!");
+		}
 		TutoringSession tutoringSession = new TutoringSession();
 		tutoringSession.setDate(date);
-		tutoringSession.setTimeSlot(timeSlot);
-		tutoringSession.setTutor(tutor);
-		tutoringSession.setRoom(room);
-		tutoringSession.setBooking(booking);
 		tutoringSessionRepository.save(tutoringSession);
 		return tutoringSession;
 	}
