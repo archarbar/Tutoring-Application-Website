@@ -23,7 +23,7 @@ public class TutoringSessionService {
 			throw new IllegalArgumentException("A date needs to be specified!");
 		}
 		TutoringSession tutoringSession = new TutoringSession();
-		tutoringSession.setDate(date);
+		tutoringSession.setSessionDate(date);
 		tutoringSessionRepository.save(tutoringSession);
 		return tutoringSession;
 	}

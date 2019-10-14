@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.tutor.dao.CourseRepository;
 import ca.mcgill.ecse321.tutor.model.Course;
-import ca.mcgill.ecse321.tutor.model.CourseLevel;
+import ca.mcgill.ecse321.tutor.model.Level;
 
 @Service
 public class CourseService {
@@ -18,13 +18,13 @@ public class CourseService {
 	CourseRepository courseRepository;
 
 	@Transactional
-	public Course createCourse(String courseName, CourseLevel level) {
+	public Course createCourse(String courseName, Level level) {
 		if (courseName == null) {
 			throw new IllegalArgumentException("A course name needs to be specified!");
 		}
 		Course course = new Course();
-		course.setName(courseName);
-		course.setLevel(level);
+		course.setCourseName(courseName);
+		course.setCourseLevel(level);
 		courseRepository.save(course);
 		return course;
 	}

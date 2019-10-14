@@ -70,5 +70,15 @@ public class TimeSlot{
   public void setTutor(Set<Tutor> tutors) {
     this.tutor = tutors;
   }
+  
+  private DayOfTheWeek dayOfTheWeek;
+  
+  public DayOfTheWeek getDayOfTheWeek() {
+    return this.dayOfTheWeek;
+  }
+  
+  public void setDayOfTheWeek(DayOfTheWeek dayOfTheWeek) {
+    this.dayOfTheWeek = dayOfTheWeek;
+  }
 
 }

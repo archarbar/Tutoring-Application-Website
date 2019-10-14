@@ -83,5 +83,15 @@ public class Booking{
   public void setStudent(Set<Student> students) {
     this.student = students;
   }
+  
+  private String tutorEmail;
+  
+  public String getTutorEmail() {
+    return this.tutorEmail;
+  }
+  
+  public void setTutorEmail(String tutorEmail) {
+    this.tutorEmail = tutorEmail;
+  }
 
 }
