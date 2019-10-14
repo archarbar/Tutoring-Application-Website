@@ -7,40 +7,42 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.ManyToMany;
 import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
 
 @Entity
 @Table(name = "COURSE")
 public class Course{
 
+	@Id
+	@GeneratedValue
+	@Column(name = "COURSE ID")
+	private Integer courseId;
 	@Column(name = "COURSE NAME")
 	private String name;
 	@Column(name = "COURSE LEVEL")
 	private CourseLevel level;
-	@Id
-	@Column(name = "COURSE ID")
-	private Integer courseId;
 	@Column(name  = "BOOKINGS")
 	private Set<Booking> booking;
 	@Column(name = "TUTORS")
 	private Set<Tutor> tutor;
-	
+
 	public void setName(String value) {
-	   this.name = value;
+		this.name = value;
 	}
-	
+
 	public String getName() {
-	   return this.name;
+		return this.name;
 	}
-	
+
 	@OneToMany(mappedBy="course")
 	public Set<Booking> getBooking() {
-	   return this.booking;
+		return this.booking;
 	}
-	
+
 	public void setBooking(Set<Booking> bookings) {
-	   this.booking = bookings;
+		this.booking = bookings;
 	}
-	
+
 	/**
 	 * <pre>
 	 *           1..1     1..1
@@ -48,28 +50,25 @@ public class Course{
 	 *           &lt;       level
 	 * </pre>
 	 */
-	
+
 	public void setLevel(CourseLevel value) {
-	   this.level = value;
+		this.level = value;
 	}
-	
+
 	public CourseLevel getLevel() {
-	   return this.level;
+		return this.level;
 	}
-	
+
 	@ManyToMany
 	public Set<Tutor> getTutor() {
-	   return this.tutor;
+		return this.tutor;
 	}
-	
+
 	public void setTutor(Set<Tutor> tutors) {
-	   this.tutor = tutors;
+		this.tutor = tutors;
 	}
-	
-	public void setCourseId(Integer value) {
-	this.courseId = value;
-	    }
+
 	public Integer getCourseId() {
-	return this.courseId;
-	       }
+		return this.courseId;
+	}
 }

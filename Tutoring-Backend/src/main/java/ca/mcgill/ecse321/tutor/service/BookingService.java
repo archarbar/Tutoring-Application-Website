@@ -24,10 +24,9 @@ public class BookingService {
 	BookingRepository bookingRepository;
 
 	@Transactional
-	public Booking createBooking(Integer bookingId, String tutorEmail, Date specificDate, TimeSlot timeSlot, TutoringSession tutoringSession,
+	public Booking createBooking(String tutorEmail, Date specificDate, TimeSlot timeSlot, TutoringSession tutoringSession,
 			Set<Student> students, Notification notification, Course course) {
 		Booking booking = new Booking();
-		booking.setBookingId(bookingId);
 		booking.setTutorEmail(tutorEmail);
 		booking.setSpecificDate(specificDate);
 		booking.setTimeSlot(timeSlot);

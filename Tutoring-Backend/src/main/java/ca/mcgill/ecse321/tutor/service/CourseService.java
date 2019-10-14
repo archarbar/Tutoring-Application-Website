@@ -21,16 +21,14 @@ public class CourseService {
 	CourseRepository courseRepository;
 
 	@Transactional
-	public Course createCourse(Integer courseId, String courseName, CourseLevel level, Set<Tutor> tutors, Set<Booking> booking) {
+	public Course createCourse(String courseName, CourseLevel level, Set<Tutor> tutors, Set<Booking> booking) {
 		Course course = new Course();
-		course.setCourseId(courseId);
 		course.setName(courseName);
 		course.setLevel(level);
 		course.setTutor(tutors);
 		course.setBooking(booking);
 		courseRepository.save(course);
 		return course;
-
 	}
 
 	@Transactional
