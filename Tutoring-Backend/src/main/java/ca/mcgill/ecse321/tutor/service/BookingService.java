@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.tutor.service;
 
 import java.sql.Date;
-import java.util.Set;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,11 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.tutor.dao.BookingRepository; 
 import ca.mcgill.ecse321.tutor.model.Booking;
-import ca.mcgill.ecse321.tutor.model.Student;
-import ca.mcgill.ecse321.tutor.model.TimeSlot;
-import ca.mcgill.ecse321.tutor.model.TutoringSession;
-import ca.mcgill.ecse321.tutor.model.Notification;
-import ca.mcgill.ecse321.tutor.model.Course;
 
 @Service
 public class BookingService {

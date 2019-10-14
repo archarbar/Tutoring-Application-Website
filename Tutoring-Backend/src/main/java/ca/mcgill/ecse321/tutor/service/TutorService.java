@@ -1,6 +1,5 @@
 package ca.mcgill.ecse321.tutor.service;
 
-import java.util.Set;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,12 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.tutor.dao.TutorRepository;
 import ca.mcgill.ecse321.tutor.model.Tutor;
-import ca.mcgill.ecse321.tutor.model.Manager;
-import ca.mcgill.ecse321.tutor.model.TutoringSession;
-import ca.mcgill.ecse321.tutor.model.TimeSlot;
-import ca.mcgill.ecse321.tutor.model.Rating;
-import ca.mcgill.ecse321.tutor.model.Notification;
-import ca.mcgill.ecse321.tutor.model.Course;
 
 @Service
 public class TutorService {

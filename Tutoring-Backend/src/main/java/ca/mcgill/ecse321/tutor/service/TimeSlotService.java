@@ -1,8 +1,6 @@
 package ca.mcgill.ecse321.tutor.service;
 
-import java.sql.Date;
 import java.sql.Time;
-import java.util.Set;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ca.mcgill.ecse321.tutor.dao.TimeSlotRepository;
 import ca.mcgill.ecse321.tutor.model.TimeSlot;
 import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
-import ca.mcgill.ecse321.tutor.model.TutoringSession;
-import ca.mcgill.ecse321.tutor.model.Tutor;
 
 @Service
 public class TimeSlotService {

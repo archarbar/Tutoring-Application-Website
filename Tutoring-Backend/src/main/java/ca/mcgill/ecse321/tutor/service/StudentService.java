@@ -1,6 +1,5 @@
 package ca.mcgill.ecse321.tutor.service;
 
-import java.util.Set;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.tutor.dao.StudentRepository; 
 import ca.mcgill.ecse321.tutor.model.Student;
-import ca.mcgill.ecse321.tutor.model.Booking;
-import ca.mcgill.ecse321.tutor.model.Rating;
 
 @Service
 public class StudentService {
