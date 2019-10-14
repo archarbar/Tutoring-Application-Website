@@ -1,13 +1,24 @@
 package ca.mcgill.ecse321.tutor.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.ManyToOne;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 
 @Entity
+@Table(name = "NOTIFICATION")
 public class Notification{
+
+	@Id
+	@GeneratedValue
+	@Column(name = "NOTIFICATION ID")
+	private Integer notificationId;
+	@Column(name = "TUTOR")
+	private Tutor tutor;
+	@Column(name = "BOOKING")
 	private Booking booking;
 
 	@OneToOne(optional=false)
@@ -19,8 +30,6 @@ public class Notification{
 		this.booking = booking;
 	}
 
-	private Tutor tutor;
-
 	@ManyToOne(optional=false)
 	public Tutor getTutor() {
 		return this.tutor;
@@ -29,16 +38,9 @@ public class Notification{
 	public void setTutor(Tutor tutor) {
 		this.tutor = tutor;
 	}
-	
-	@Id
-	@GeneratedValue
-	private Integer notificationId;
 
-	public void setNotificationId(Integer value) {
-		this.notificationId = value;
-	}
-	
 	public Integer getNotificationId() {
 		return this.notificationId;
 	}
+
 }

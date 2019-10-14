@@ -2,13 +2,24 @@ package ca.mcgill.ecse321.tutor.model;
 
 import java.util.Set;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 
 @Entity
+@Table(name = "MANAGER")
 public class Manager{
+
+	@Id
+	@GeneratedValue
+	@Column(name = "MANAGER ID")
+	private Integer managerId;
+	@Column(name = "TUTORS")
 	private Set<Tutor> tutor;
+	@Column(name = "ROOMS")
+	private Set<Room> room;
 
 	@OneToMany(mappedBy="manager")
 	public Set<Tutor> getTutor() {
@@ -19,8 +30,6 @@ public class Manager{
 		this.tutor = tutors;
 	}
 
-	private Set<Room> room;
-
 	@OneToMany(mappedBy="manager")
 	public Set<Room> getRoom() {
 		return this.room;
@@ -30,11 +39,4 @@ public class Manager{
 		this.room = rooms;
 	}
 
-	@Id
-	@GeneratedValue
-	private Integer managerId;
-
-	public Integer getManagerId() {
-		return this.managerId;
-	}
 }

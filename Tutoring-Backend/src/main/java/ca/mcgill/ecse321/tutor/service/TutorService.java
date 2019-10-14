@@ -24,10 +24,9 @@ public class TutorService {
 	TutorRepository tutorRepository;
 
 	@Transactional
-	public Tutor createTutor(Integer tutorId, Double hourlyRate, Boolean isApproved, Manager manager, Set<TutoringSession> tutoringSessions,
+	public Tutor createTutor(Double hourlyRate, Boolean isApproved, Manager manager, Set<TutoringSession> tutoringSessions,
 			Set<TimeSlot> timeSlots, Set<Rating> ratings, Set<Notification> notifications, Set<Course> courses) {
 		Tutor tutor = new Tutor();
-		tutor.setTutorId(tutorId);
 		tutor.setHourlyRate(hourlyRate);
 		tutor.setIsApproved(isApproved);
 		tutor.setManager(manager);

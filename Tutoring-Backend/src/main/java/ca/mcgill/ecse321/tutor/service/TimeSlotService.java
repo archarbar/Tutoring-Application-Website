@@ -23,10 +23,9 @@ public class TimeSlotService {
 	TimeSlotRepository timeSlotRepository;
 
 	@Transactional
-	public TimeSlot createTimeSlot(Integer timeSlotId, Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek,
+	public TimeSlot createTimeSlot(Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek,
 			Set<TutoringSession> tutoringSessions, Tutor tutor) {
 		TimeSlot timeSlot = new TimeSlot();
-		timeSlot.setTimeSlotId(timeSlotId);
 		timeSlot.setStartTime(startTime);
 		timeSlot.setEndTime(endTime);
 		timeSlot.setDayOfTheWeek(dayOfTheWeek);

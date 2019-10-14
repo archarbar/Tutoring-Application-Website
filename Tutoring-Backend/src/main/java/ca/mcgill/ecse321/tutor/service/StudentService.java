@@ -20,9 +20,8 @@ public class StudentService {
 	StudentRepository studentRepository;
 
 	@Transactional
-	public Student createStudent(Integer studentId, String firstName, String lastName, String email, Set<Booking> bookings, Set<Rating> ratings) {
+	public Student createStudent(String firstName, String lastName, String email, Set<Booking> bookings, Set<Rating> ratings) {
 		Student student = new Student();
-		student.setStudentId(studentId);
 		student.setFirstName(firstName);
 		student.setLastName(lastName);
 		student.setEmail(email);

@@ -1,17 +1,36 @@
 package ca.mcgill.ecse321.tutor.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import ca.mcgill.ecse321.tutor.model.User;
 import javax.persistence.ManyToOne;
 import java.util.Set;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.ManyToMany;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 
 @Entity
+@Table(name = "TUTOR")
 public class Tutor extends User{
+
+	@Id
+	@GeneratedValue
+	@Column(name = "TUTOR ID")
+	private Integer tutorId;
+	@Column(name = "MANAGER")
 	private Manager manager;
+	@Column(name = "HOURLY RATE")
+	private double hourlyRate;
+	@Column(name = "COURSES TAUGHT")
+	private Set<Course> course;
+	@Column(name = "TIME SLOTS")
+	private Set<TimeSlot> timeSlot;
+	@Column(name = "TUTORING SESSIONS")
+	private Set<TutoringSession> tutoringSession;
+	@Column(name = "RATINGS")
+	private Set<Rating> rating;
 
 	@ManyToOne(optional=false)
 	public Manager getManager() {
@@ -22,8 +41,6 @@ public class Tutor extends User{
 		this.manager = manager;
 	}
 
-	private double hourlyRate;
-
 	public void setHourlyRate(double value) {
 		this.hourlyRate = value;
 	}
@@ -31,8 +48,6 @@ public class Tutor extends User{
 	public double getHourlyRate() {
 		return this.hourlyRate;
 	}
-
-	private Set<TimeSlot> timeSlot;
 
 	@OneToMany(mappedBy="tutor")
 	public Set<TimeSlot> getTimeSlot() {
@@ -54,8 +69,6 @@ public class Tutor extends User{
 		this.notification = notifications;
 	}
 
-	private Set<TutoringSession> tutoringSession;
-
 	@OneToMany(mappedBy="tutor")
 	public Set<TutoringSession> getTutoringSession() {
 		return this.tutoringSession;
@@ -64,8 +77,6 @@ public class Tutor extends User{
 	public void setTutoringSession(Set<TutoringSession> tutoringSessions) {
 		this.tutoringSession = tutoringSessions;
 	}
-
-	private Set<Course> course;
 
 	@ManyToMany(mappedBy="tutor")
 	public Set<Course> getCourse() {
@@ -86,14 +97,13 @@ public class Tutor extends User{
 		return this.isApproved;
 	}
 
-	@Id
-	@GeneratedValue
-	private Integer tutorId;
-	
+	public void setTutorId(Integer value) {
+		this.tutorId = value;
+	}
+
 	public Integer getTutorId() {
 		return this.tutorId;
 	}
-	private Set<Rating> rating;
 
 	@OneToMany(mappedBy="tutor")
 	public Set<Rating> getRating() {
@@ -102,6 +112,7 @@ public class Tutor extends User{
 
 	public void setRating(Set<Rating> ratings) {
 		this.rating = ratings;
+
 	}
 
 }

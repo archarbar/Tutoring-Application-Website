@@ -22,10 +22,9 @@ public class TutoringSessionService {
 	TutoringSessionRepository tutoringSessionRepository;
 
 	@Transactional
-	public TutoringSession createTutoringSession(Integer tutoringSessionId, Date date, TimeSlot timeSlot,
+	public TutoringSession createTutoringSession(Date date, TimeSlot timeSlot,
 			Tutor tutor, Room room, Booking booking) {
 		TutoringSession tutoringSession = new TutoringSession();
-		tutoringSession.setTutoringSessionId(tutoringSessionId);
 		tutoringSession.setDate(date);
 		tutoringSession.setTimeSlot(timeSlot);
 		tutoringSession.setTutor(tutor);

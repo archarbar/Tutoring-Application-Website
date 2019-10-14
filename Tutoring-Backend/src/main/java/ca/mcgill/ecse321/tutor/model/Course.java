@@ -1,15 +1,30 @@
 package ca.mcgill.ecse321.tutor.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.util.Set;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.ManyToMany;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 
 @Entity
+@Table(name = "COURSE")
 public class Course{
+
+	@Id
+	@GeneratedValue
+	@Column(name = "COURSE ID")
+	private Integer courseId;
+	@Column(name = "COURSE NAME")
 	private String name;
+	@Column(name = "COURSE LEVEL")
+	private CourseLevel level;
+	@Column(name  = "BOOKINGS")
+	private Set<Booking> booking;
+	@Column(name = "TUTORS")
+	private Set<Tutor> tutor;
 
 	public void setName(String value) {
 		this.name = value;
@@ -18,8 +33,6 @@ public class Course{
 	public String getName() {
 		return this.name;
 	}
-
-	private Set<Booking> booking;
 
 	@OneToMany(mappedBy="course")
 	public Set<Booking> getBooking() {
@@ -37,7 +50,6 @@ public class Course{
 	 *           &lt;       level
 	 * </pre>
 	 */
-	private CourseLevel level;
 
 	public void setLevel(CourseLevel value) {
 		this.level = value;
@@ -47,8 +59,6 @@ public class Course{
 		return this.level;
 	}
 
-	private Set<Tutor> tutor;
-
 	@ManyToMany
 	public Set<Tutor> getTutor() {
 		return this.tutor;
@@ -57,10 +67,6 @@ public class Course{
 	public void setTutor(Set<Tutor> tutors) {
 		this.tutor = tutors;
 	}
-
-	@Id
-	@GeneratedValue
-	private Integer courseId;
 
 	public Integer getCourseId() {
 		return this.courseId;

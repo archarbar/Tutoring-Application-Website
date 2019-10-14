@@ -19,9 +19,8 @@ public class RatingService {
 	RatingRepository ratingRepository;
 
 	@Transactional
-	public Rating createRating(Integer ratingId, Integer stars, String comment, Tutor tutor, Student student) {
+	public Rating createRating(Integer stars, String comment, Tutor tutor, Student student) {
 		Rating rating = new Rating();
-		rating.setRatingId(ratingId);
 		rating.setStars(stars);
 		rating.setComment(comment);
 		rating.setTutor(tutor);

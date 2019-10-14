@@ -21,10 +21,6 @@ dependencies {
 	testImplementation "junit:junit:4.12"	
 }
 
-/*
- * specifying sourceSets is not necessary in this case, since
- * we are applying the default folder structure assumed by Gradle
- */
 sourceSets {
   main {
     java { srcDir 'src/main/java' }
