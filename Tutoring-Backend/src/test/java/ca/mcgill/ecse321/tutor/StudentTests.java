@@ -37,7 +37,7 @@ public class StudentTests {
 		String lastName = "Li";
 		String email = "mlej@live.com";
 		try {
-		studentService.createStudent(firstName, lastName, email, null, null);
+		studentService.createStudent(firstName, lastName, email);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
