@@ -17,13 +17,15 @@ public class TutorService {
 	TutorRepository tutorRepository;
 
 	@Transactional
-	public Tutor createTutor(Double hourlyRate, Boolean isApproved) {
-		if (hourlyRate == null || hourlyRate <= 0) {
-			throw new IllegalArgumentException("A valid hourly rate needs to be specified!");
+	public Tutor createTutor(String firstName, String lastName, String email, String password) {
+		if (firstName == null || lastName == null || email == null || password == null) {
+			throw new IllegalArgumentException("Tutor name, email and password need to be specified!");
 		}
 		Tutor tutor = new Tutor();
-		tutor.setHourlyRate(hourlyRate);
-		tutor.setIsApproved(isApproved);
+		tutor.setFirstName(firstName);
+		tutor.setLastName(lastName);
+		tutor.setEmail(email);
+		tutor.setPassword(password);
 		tutorRepository.save(tutor);
 		return tutor;
 	}
