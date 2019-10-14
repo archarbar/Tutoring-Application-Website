@@ -9,15 +9,15 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Notification{
-  private Integer notificationId;
+  private Integer id;
 
-  public void setNotificationId(Integer value) {
-    this.notificationId = value;
+  public void setId(Integer value) {
+    this.id = value;
   }
   @Id
   @GeneratedValue()
-  public Integer getNotificationId() {
-    return this.notificationId;
+  public Integer getId() {
+    return this.id;
   }
   private Boolean isRead;
 

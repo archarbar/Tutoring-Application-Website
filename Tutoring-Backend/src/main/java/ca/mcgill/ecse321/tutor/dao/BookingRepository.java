@@ -12,6 +12,6 @@ public interface BookingRepository extends CrudRepository<Booking, Integer>{
 
 	Booking findBookingById(Integer bookingId);
 	
-	List<Booking> findBookingByDate(Date date);
+	List<Booking> findBookingBySpecificDate(Date specificDate);
 	
 }

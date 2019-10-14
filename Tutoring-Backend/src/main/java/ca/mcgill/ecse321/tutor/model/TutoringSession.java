@@ -20,15 +20,15 @@ public class TutoringSession{
   public Date getSessionDate() {
     return this.sessionDate;
   }
-  private Integer tutoringSessionId;
+  private Integer id;
 
-  public void setTutoringSessionId(Integer value) {
-    this.tutoringSessionId = value;
+  public void setId(Integer value) {
+    this.id = value;
   }
   @Id
   @GeneratedValue()
-  public Integer getTutoringSessionId() {
-    return this.tutoringSessionId;
+  public Integer getId() {
+    return this.id;
   }
   private Set<Rating> rating;
 

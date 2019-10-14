@@ -10,15 +10,15 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Course{
-  private Integer courseId;
+  private Integer id;
 
-  public void setCourseId(Integer value) {
-    this.courseId = value;
+  public void setId(Integer value) {
+    this.id = value;
   }
   @Id
   @GeneratedValue()
-  public Integer getCourseId() {
-    return this.courseId;
+  public Integer getId() {
+    return this.id;
   }
   private String courseName;
 

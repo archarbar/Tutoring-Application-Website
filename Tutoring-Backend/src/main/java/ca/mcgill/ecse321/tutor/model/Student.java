@@ -33,15 +33,15 @@ public class Student{
   public String getEmail() {
     return this.email;
   }
-  private Integer studentId;
+  private Integer id;
 
-  public void setStudentId(Integer value) {
-    this.studentId = value;
+  public void setId(Integer value) {
+    this.id = value;
   }
   @Id
   @GeneratedValue()
-  public Integer getStudentId() {
-    return this.studentId;
+  public Integer getId() {
+    return this.id;
   }
   private Set<Rating> rating;
 

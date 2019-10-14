@@ -12,15 +12,15 @@ import javax.persistence.ManyToMany;
 
 @Entity
 public class TimeSlot{
-  private Integer timeSlotId;
+  private Integer id;
 
-  public void setTimeSlotId(Integer value) {
-    this.timeSlotId = value;
+  public void setId(Integer value) {
+    this.id = value;
   }
   @Id
   @GeneratedValue()
-  public Integer getTimeSlotId() {
-    return this.timeSlotId;
+  public Integer getId() {
+    return this.id;
   }
   private Time startTime;
 

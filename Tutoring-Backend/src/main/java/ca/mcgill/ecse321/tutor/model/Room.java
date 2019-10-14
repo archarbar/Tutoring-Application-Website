@@ -9,15 +9,15 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Room{
-  private Integer roomId;
+  private Integer id;
 
-  public void setRoomId(Integer value) {
-    this.roomId = value;
+  public void setId(Integer value) {
+    this.id = value;
   }
   @Id
   @GeneratedValue()
-  public Integer getRoomId() {
-    return this.roomId;
+  public Integer getId() {
+    return this.id;
   }
   private Integer roomCapacity;
 

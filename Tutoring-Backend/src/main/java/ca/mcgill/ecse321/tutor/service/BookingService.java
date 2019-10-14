@@ -44,10 +44,16 @@ public class BookingService {
 	}
 
 	@Transactional
-	public Booking getBooking(Integer bookingId) {
+	public Booking getBookingById(Integer bookingId) {
 		Booking booking = bookingRepository.findBookingById(bookingId);
 		return booking;
 	}
+	
+	@Transactional
+    public Booking getBookingBySpecificDate(Date specificDate) {
+        Booking booking = bookingRepository.getBookingBySpecificDate(specificDate);
+        return booking;
+    }
 
 	@Transactional
 	public List<Booking> getAllBookings(){

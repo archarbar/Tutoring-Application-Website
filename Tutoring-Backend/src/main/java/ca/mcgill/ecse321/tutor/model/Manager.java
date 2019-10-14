@@ -9,15 +9,15 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Manager{
-  private Integer managerId;
+  private Integer id;
 
-  public void setManagerId(Integer value) {
-    this.managerId = value;
+  public void setId(Integer value) {
+    this.id = value;
   }
   @Id
   @GeneratedValue()
-  public Integer getManagerId() {
-    return this.managerId;
+  public Integer getId() {
+    return this.id;
   }
   private Set<Tutor> tutor;
 

@@ -8,15 +8,15 @@ import ca.mcgill.ecse321.tutor.model.Tutor;
 
 @Entity
 public class Rating{
-  private Integer ratingId;
+  private Integer id;
 
-  public void setRatingId(Integer value) {
-    this.ratingId = value;
+  public void setId(Integer value) {
+    this.id = value;
   }
   @Id
   @GeneratedValue()
-  public Integer getRatingId() {
-    return this.ratingId;
+  public Integer getId() {
+    return this.id;
   }
   private Integer stars;
 

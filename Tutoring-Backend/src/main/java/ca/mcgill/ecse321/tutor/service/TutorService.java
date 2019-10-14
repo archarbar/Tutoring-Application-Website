@@ -32,10 +32,16 @@ public class TutorService {
 	}
 
 	@Transactional
-	public Tutor getTutor(Integer tutorId) {
-		Tutor tutor = tutorRepository.findTutorById(tutorId);
+	public Tutor getTutorByUserId(Integer userId) {
+		Tutor tutor = tutorRepository.findTutorByUserId(userId);
 		return tutor;
 	}
+	
+	@Transactional
+    public Tutor getTutorByEmail(String tutorEmail) {
+        Tutor tutor = tutorRepository.findTutorByEmail(tutorEmail);
+        return tutor;
+    }
 
 	@Transactional
 	public List<Tutor> getAllTutors(){
