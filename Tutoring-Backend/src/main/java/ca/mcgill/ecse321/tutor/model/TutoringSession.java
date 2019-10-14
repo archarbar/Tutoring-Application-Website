@@ -1,82 +1,88 @@
 package ca.mcgill.ecse321.tutor.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.ManyToOne;
-import javax.persistence.Id;
 import java.sql.Date;
+import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
+import java.util.Set;
+import javax.persistence.OneToMany;
+import ca.mcgill.ecse321.tutor.model.Tutor;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
-@Table(name = "TUTORING SESSION")
 public class TutoringSession{
+  private Date sessionDate;
 
-	@Id
-	@GeneratedValue
-	@Column(name = "TUTORING SESSION ID")
-	private Integer tutoringSessionId;
-	@Column(name = "TUTOR")
-	private Tutor tutor;
-	@Column(name = "DATE")
-	private Date date;
-	@Column(name = "TIME SLOT")
-	private TimeSlot timeSlot;
-	@Column(name = "ROOM")
-	private Room room;
-	@Column(name = "BOOKING")
-	private Booking booking;
+  public void setSessionDate(Date value) {
+    this.sessionDate = value;
+  }
+  public Date getSessionDate() {
+    return this.sessionDate;
+  }
+  private Integer tutoringSessionId;
 
-	@OneToOne(optional=false)
-	public Booking getBooking() {
-		return this.booking;
-	}
+  public void setTutoringSessionId(Integer value) {
+    this.tutoringSessionId = value;
+  }
+  @Id
+  @GeneratedValue()
+  public Integer getTutoringSessionId() {
+    return this.tutoringSessionId;
+  }
+  private Set<Rating> rating;
 
-	public void setBooking(Booking booking) {
-		this.booking = booking;
-	}
+  @OneToMany(mappedBy="tutoringSession")
+  public Set<Rating> getRating() {
+    return this.rating;
+  }
 
-	@ManyToOne(optional=false)
-	public TimeSlot getTimeSlot() {
-		return this.timeSlot;
-	}
+  public void setRating(Set<Rating> ratings) {
+    this.rating = ratings;
+  }
 
-	public void setTimeSlot(TimeSlot timeSlot) {
-		this.timeSlot = timeSlot;
-	}
+  private Tutor tutor;
 
-	@ManyToOne(optional=false)
-	public Tutor getTutor() {
-		return this.tutor;
-	}
+  @ManyToOne(optional=false)
+  public Tutor getTutor() {
+    return this.tutor;
+  }
 
-	public void setTutor(Tutor tutor) {
-		this.tutor = tutor;
-	}
+  public void setTutor(Tutor tutor) {
+    this.tutor = tutor;
+  }
 
-	@OneToOne(mappedBy="tutoringSession", optional=false)
-	public Room getRoom() {
-		return this.room;
-	}
+  private Room room;
 
-	public void setRoom(Room room) {
-		this.room = room;
-	}
+  @ManyToOne(optional=false)
+  public Room getRoom() {
+    return this.room;
+  }
 
-	public void setTutoringSessionId(Integer value) {
-		this.tutoringSessionId = value;
-	}
+  public void setRoom(Room room) {
+    this.room = room;
+  }
 
-	public Integer getTutoringSessionId() {
-		return this.tutoringSessionId;
-	}
+  private TimeSlot timeSlot;
 
-	public void setDate(Date value) {
-		this.date = value;
-	}
+  @ManyToOne(optional=false)
+  public TimeSlot getTimeSlot() {
+    return this.timeSlot;
+  }
 
-	public Date getDate() {
-		return this.date;
-	}
+  public void setTimeSlot(TimeSlot timeSlot) {
+    this.timeSlot = timeSlot;
+  }
+
+  private Booking booking;
+
+  @OneToOne(mappedBy="tutoringSession", optional=false)
+  public Booking getBooking() {
+    return this.booking;
+  }
+
+  public void setBooking(Booking booking) {
+    this.booking = booking;
+  }
+
 }

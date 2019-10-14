@@ -1,74 +1,61 @@
 package ca.mcgill.ecse321.tutor.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import java.util.Set;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.ManyToMany;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
+import ca.mcgill.ecse321.tutor.model.Tutor;
+import java.util.Set;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
-@Table(name = "COURSE")
 public class Course{
+  private Integer courseId;
 
-	@Id
-	@GeneratedValue
-	@Column(name = "COURSE ID")
-	private Integer courseId;
-	@Column(name = "COURSE NAME")
-	private String name;
-	@Column(name = "COURSE LEVEL")
-	private CourseLevel level;
-	@Column(name  = "BOOKINGS")
-	private Set<Booking> booking;
-	@Column(name = "TUTORS")
-	private Set<Tutor> tutor;
+  public void setCourseId(Integer value) {
+    this.courseId = value;
+  }
+  @Id
+  @GeneratedValue()
+  public Integer getCourseId() {
+    return this.courseId;
+  }
+  private String courseName;
 
-	public void setName(String value) {
-		this.name = value;
-	}
+  public void setCourseName(String value) {
+    this.courseName = value;
+  }
+  public String getCourseName() {
+    return this.courseName;
+  }
+  private Level courseLevel;
 
-	public String getName() {
-		return this.name;
-	}
+  public void setCourseLevel(Level value) {
+    this.courseLevel = value;
+  }
+  public Level getCourseLevel() {
+    return this.courseLevel;
+  }
+  private Set<Tutor> tutor;
 
-	@OneToMany(mappedBy="course")
-	public Set<Booking> getBooking() {
-		return this.booking;
-	}
+  @ManyToMany(mappedBy="course")
+  public Set<Tutor> getTutor() {
+    return this.tutor;
+  }
 
-	public void setBooking(Set<Booking> bookings) {
-		this.booking = bookings;
-	}
+  public void setTutor(Set<Tutor> tutors) {
+    this.tutor = tutors;
+  }
 
-	/**
-	 * <pre>
-	 *           1..1     1..1
-	 * Course ------------------------> CourseLevel
-	 *           &lt;       level
-	 * </pre>
-	 */
+  private Set<Booking> booking;
 
-	public void setLevel(CourseLevel value) {
-		this.level = value;
-	}
+  @OneToMany(mappedBy="course")
+  public Set<Booking> getBooking() {
+    return this.booking;
+  }
 
-	public CourseLevel getLevel() {
-		return this.level;
-	}
+  public void setBooking(Set<Booking> bookings) {
+    this.booking = bookings;
+  }
 
-	@ManyToMany
-	public Set<Tutor> getTutor() {
-		return this.tutor;
-	}
-
-	public void setTutor(Set<Tutor> tutors) {
-		this.tutor = tutors;
-	}
-
-	public Integer getCourseId() {
-		return this.courseId;
-	}
 }

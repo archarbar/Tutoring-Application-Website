@@ -1,78 +1,74 @@
 package ca.mcgill.ecse321.tutor.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.GeneratedValue;
+import java.sql.Time;
 import java.util.Set;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import java.sql.Time;
+import javax.persistence.OneToOne;
+import ca.mcgill.ecse321.tutor.model.Tutor;
+import javax.persistence.ManyToMany;
 
 @Entity
-@Table(name = "TIME SLOT")
 public class TimeSlot{
+  private Integer timeSlotId;
 
-	@Id
-	@GeneratedValue
-	@Column(name = "TIME SLOT ID")
-	private Integer timeSlotId;
-	@Column(name = "START TIME")
-	private Time startTime;
-	@Column(name = "END TIME")
-	private Time endtime;
-	@Column(name = "DAY OF THE WEEK")
-	private DayOfTheWeek dayOfTheWeek;
-	@Column(name = "TUTOR")
-	private Tutor tutor;
-	@Column(name = "TUTORING SESSIONS")
-	private Set<TutoringSession> tutoringSession;
+  public void setTimeSlotId(Integer value) {
+    this.timeSlotId = value;
+  }
+  @Id
+  @GeneratedValue()
+  public Integer getTimeSlotId() {
+    return this.timeSlotId;
+  }
+  private Time startTime;
 
-	public Integer getTimeSlotId() {
-		return this.timeSlotId;
-	}
+  public void setStartTime(Time value) {
+    this.startTime = value;
+  }
+  public Time getStartTime() {
+    return this.startTime;
+  }
+  private Time endTime;
 
-	@ManyToOne(optional=false)
-	public Tutor getTutor() {
-		return this.tutor;
-	}
+  public void setEndTime(Time value) {
+    this.endTime = value;
+  }
+  public Time getEndTime() {
+    return this.endTime;
+  }
+  private Set<TutoringSession> tutoringSession;
 
-	public void setTutor(Tutor tutor) {
-		this.tutor = tutor;
-	}
+  @OneToMany(mappedBy="timeSlot")
+  public Set<TutoringSession> getTutoringSession() {
+    return this.tutoringSession;
+  }
 
-	@OneToMany(mappedBy="timeSlot")
-	public Set<TutoringSession> getTutoringSession() {
-		return this.tutoringSession;
-	}
+  public void setTutoringSession(Set<TutoringSession> tutoringSessions) {
+    this.tutoringSession = tutoringSessions;
+  }
 
-	public void setTutoringSession(Set<TutoringSession> tutoringSessions) {
-		this.tutoringSession = tutoringSessions;
-	}
+  private Booking booking;
 
-	public void setDayOfTheWeek(DayOfTheWeek dayOfTheWeek) {
-		this.dayOfTheWeek = dayOfTheWeek;
-	}
+  @OneToOne(mappedBy="timeSlot", optional=false)
+  public Booking getBooking() {
+    return this.booking;
+  }
 
-	public DayOfTheWeek getDayOfTheWeek() {
-		return this.dayOfTheWeek;
-	}
+  public void setBooking(Booking booking) {
+    this.booking = booking;
+  }
 
-	public void setStartTime(Time value) {
-		this.startTime = value;
-	}
+  private Set<Tutor> tutor;
 
-	public Time getStartTime() {
-		return this.startTime;
-	}
+  @ManyToMany(mappedBy="timeSlot")
+  public Set<Tutor> getTutor() {
+    return this.tutor;
+  }
 
-	public void setEndTime(Time value) {
-		this.endtime = value;
-	}
+  public void setTutor(Set<Tutor> tutors) {
+    this.tutor = tutors;
+  }
 
-	public Time getEndTime() {
-		return this.endtime;
-	}
 }

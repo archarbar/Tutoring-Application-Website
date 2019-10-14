@@ -1,110 +1,87 @@
 package ca.mcgill.ecse321.tutor.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import java.sql.Date;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
 import java.util.Set;
-import java.sql.Date;
 import javax.persistence.ManyToMany;
-import javax.persistence.GeneratedValue;
-
 
 @Entity
-@Table(name = "BOOKING")
 public class Booking{
-	@Id
-	@GeneratedValue
-	@Column(name = "BOOKING ID")
-	private Integer bookingId;
-	@Column(name = "TUTOR EMAIL")
-	private String tutorEmail;
-	@Column(name = "STUDENTS")
-	private Set<Student> student;
-	@Column(name = "COURSE")
-	private Course course;
-	@Column(name = "DATE")
-	private Date specificDate;
-	@Column(name = "TIME SLOT")
-	private TimeSlot timeSlot;
-	@Column(name = "TUTORING SESSION")
-	private TutoringSession tutoringSession;
+  private Integer id;
 
-	@ManyToOne(optional=false)
-	public Course getCourse() {
-		return this.course;
-	}
+  @Id
+  @GeneratedValue()
+  public Integer getId() {
+    return this.id;
+  }
+  public void setId(Integer value) {
+    this.id = value;
+  }
+  private Date specificDate;
 
-	public void setCourse(Course course) {
-		this.course = course;
-	}
+  public void setSpecificDate(Date value) {
+    this.specificDate = value;
+  }
+  public Date getSpecificDate() {
+    return this.specificDate;
+  }
+  private Course course;
 
-	public void setTutorEmail(String value) {
-		this.tutorEmail = value;
-	}
+  @ManyToOne(optional=false)
+  public Course getCourse() {
+    return this.course;
+  }
 
-	public String getTutorEmail() {
-		return this.tutorEmail;
-	}
+  public void setCourse(Course course) {
+    this.course = course;
+  }
 
-	/**
-	 * <pre>
-	 *           1..1     1..1
-	 * Booking ------------------------> Date
-	 *           &lt;       specificDate
-	 * </pre>
-	 */
+  private Notification notification;
 
-	public void setSpecificDate(Date value) {
-		this.specificDate = value;
-	}
+  @OneToOne(optional=false)
+  public Notification getNotification() {
+    return this.notification;
+  }
 
-	public Date getSpecificDate() {
-		return this.specificDate;
-	}
+  public void setNotification(Notification notification) {
+    this.notification = notification;
+  }
 
-	@OneToOne(optional=false)
-	public TimeSlot getTimeSlot() {
-		return this.timeSlot;
-	}
+  private TutoringSession tutoringSession;
 
-	public void setTimeSlot(TimeSlot timeSlot) {
-		this.timeSlot = timeSlot;
-	}
+  @OneToOne(optional=false)
+  public TutoringSession getTutoringSession() {
+    return this.tutoringSession;
+  }
 
-	private Notification notification;
+  public void setTutoringSession(TutoringSession tutoringSession) {
+    this.tutoringSession = tutoringSession;
+  }
 
-	@OneToOne(mappedBy="booking", optional=false)
-	public Notification getNotification() {
-		return this.notification;
-	}
+  private TimeSlot timeSlot;
 
-	public void setNotification(Notification notification) {
-		this.notification = notification;
-	}
+  @OneToOne(optional=false)
+  public TimeSlot getTimeSlot() {
+    return this.timeSlot;
+  }
 
-	@ManyToMany
-	public Set<Student> getStudent() {
-		return this.student;
-	}
+  public void setTimeSlot(TimeSlot timeSlot) {
+    this.timeSlot = timeSlot;
+  }
 
-	public void setStudent(Set<Student> students) {
-		this.student = students;
-	}
+  private Set<Student> student;
 
-	@OneToOne(mappedBy="booking", optional=false)
-	public TutoringSession getTutoringSession() {
-		return this.tutoringSession;
-	}
+  @ManyToMany
+  public Set<Student> getStudent() {
+    return this.student;
+  }
 
-	public void setTutoringSession(TutoringSession tutoringSession) {
-		this.tutoringSession = tutoringSession;
-	}
+  public void setStudent(Set<Student> students) {
+    this.student = students;
+  }
 
-	public Integer getBookingId() {
-		return this.bookingId;
-	}
 }
