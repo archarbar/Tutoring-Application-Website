@@ -3,58 +3,57 @@ package ca.mcgill.ecse321.tutor.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.GeneratedValue;
 
 @Entity
 public class Rating{
-private Integer stars;
+	private Integer stars;
 
-public void setStars(Integer value) {
-   this.stars = value;
-}
+	public void setStars(Integer value) {
+		this.stars = value;
+	}
 
-public Integer getStars() {
-   return this.stars;
-}
+	public Integer getStars() {
+		return this.stars;
+	}
 
-private String comment;
+	private String comment;
 
-public void setComment(String value) {
-   this.comment = value;
-}
+	public void setComment(String value) {
+		this.comment = value;
+	}
 
-public String getComment() {
-   return this.comment;
-}
+	public String getComment() {
+		return this.comment;
+	}
 
-private Integer ratingId;
+	@Id
+	@GeneratedValue
+	private Integer ratingId;
 
-public void setRatingId(Integer value) {
-this.ratingId = value;
-    }
-@Id
-public Integer getRatingId() {
-return this.ratingId;
-    }
-private Tutor tutor;
+	public Integer getRatingId() {
+		return this.ratingId;
+	}
+	private Tutor tutor;
 
-@ManyToOne(optional=false)
-public Tutor getTutor() {
-   return this.tutor;
-}
+	@ManyToOne(optional=false)
+	public Tutor getTutor() {
+		return this.tutor;
+	}
 
-public void setTutor(Tutor tutor) {
-   this.tutor = tutor;
-}
+	public void setTutor(Tutor tutor) {
+		this.tutor = tutor;
+	}
 
-private Student student;
+	private Student student;
 
-@ManyToOne(optional=false)
-public Student getStudent() {
-   return this.student;
-}
+	@ManyToOne(optional=false)
+	public Student getStudent() {
+		return this.student;
+	}
 
-public void setStudent(Student student) {
-   this.student = student;
-}
+	public void setStudent(Student student) {
+		this.student = student;
+	}
 
 }

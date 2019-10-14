@@ -7,7 +7,7 @@ import javax.persistence.OneToOne;
 import java.util.Set;
 import java.sql.Date;
 import javax.persistence.ManyToMany;
-import java.sql.Date;
+import javax.persistence.GeneratedValue;
 
 @Entity
 public class Booking{
@@ -93,12 +93,10 @@ public class Booking{
 		this.tutoringSession = tutoringSession;
 	}
 
-	private Integer bookingId;
-
-	public void setBookingId(Integer value) {
-		this.bookingId = value;
-	}
 	@Id
+	@GeneratedValue
+	private Integer bookingId;
+	
 	public Integer getBookingId() {
 		return this.bookingId;
 	}

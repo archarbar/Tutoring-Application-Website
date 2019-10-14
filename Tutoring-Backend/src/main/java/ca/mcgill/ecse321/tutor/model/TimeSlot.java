@@ -3,8 +3,7 @@ package ca.mcgill.ecse321.tutor.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
-import java.sql.Date;
+import javax.persistence.GeneratedValue;
 import java.util.Set;
 import javax.persistence.OneToMany;
 
@@ -12,12 +11,11 @@ import java.sql.Time;
 
 @Entity
 public class TimeSlot{
+	
+	@Id
+	@GeneratedValue
 	private Integer timeSlotId;
 
-	public void setTimeSlotId(Integer value) {
-		this.timeSlotId = value;
-	}
-	@Id
 	public Integer getTimeSlotId() {
 		return this.timeSlotId;
 	}
