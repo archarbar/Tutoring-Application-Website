@@ -2,6 +2,8 @@ package ca.mcgill.ecse321.tutor.service;
 
 import java.sql.Date;
 import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +43,19 @@ public class BookingService {
 	public Booking getBooking(Integer bookingId) {
 		Booking booking = bookingRepository.findBookingById(bookingId);
 		return booking;
+	}
+
+	@Transactional
+	public List<Booking> getAllBookings(){
+		return toList(bookingRepository.findAll());
+	}
+
+	private <T> List<T> toList(Iterable<T> iterable){
+		List<T> resultList = new ArrayList<T>();
+		for (T t : iterable) {
+			resultList.add(t);
+		}
+		return resultList;
 	}
 
 }

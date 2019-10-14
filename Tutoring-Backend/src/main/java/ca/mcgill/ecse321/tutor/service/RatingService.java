@@ -2,7 +2,7 @@
 package ca.mcgill.ecse321.tutor.service;
 
 import java.util.ArrayList;
-import java.awt.List;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +33,19 @@ public class RatingService {
 	public Rating getRating(Integer ratingId) {
 		Rating rating = ratingRepository.findRatingById(ratingId);
 		return rating;
+	}
+
+	@Transactional
+	public List<Rating> getAllRatings(){
+		return toList(ratingRepository.findAll());
+	}
+
+	private <T> List<T> toList(Iterable<T> iterable){
+		List<T> resultList = new ArrayList<T>();
+		for (T t : iterable) {
+			resultList.add(t);
+		}
+		return resultList;
 	}
 
 }

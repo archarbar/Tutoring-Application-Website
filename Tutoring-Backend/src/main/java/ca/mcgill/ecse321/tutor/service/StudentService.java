@@ -1,6 +1,8 @@
 package ca.mcgill.ecse321.tutor.service;
 
 import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,19 @@ public class StudentService {
 	public Student getStudent(Integer studentId) {
 		Student student = studentRepository.findStudentById(studentId);
 		return student;
+	}
+
+	@Transactional
+	public List<Student> getAllStudents(){
+		return toList(studentRepository.findAll());
+	}
+
+	private <T> List<T> toList(Iterable<T> iterable){
+		List<T> resultList = new ArrayList<T>();
+		for (T t : iterable) {
+			resultList.add(t);
+		}
+		return resultList;
 	}
 
 }
