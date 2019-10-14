@@ -2,9 +2,6 @@ package ca.mcgill.ecse321.tutor.dao;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +14,10 @@ import ca.mcgill.ecse321.tutor.model.TutoringSession;
 public interface TutorRepository extends CrudRepository<Tutor, Integer> {
 	
   Tutor findTutorById(Integer tutorId);
+  
+  Tutor findTutorbyEmail(String email);
+  
+  Tutor findByName(String firstName, String lastName);
   
   List<Tutor> findByCourse(Course course);
   
