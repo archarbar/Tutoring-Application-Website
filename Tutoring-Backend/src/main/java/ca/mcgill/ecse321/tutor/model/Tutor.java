@@ -6,89 +6,91 @@ import javax.persistence.ManyToOne;
 import java.util.Set;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.DiscriminatorValue;
 
 @Entity
+@DiscriminatorValue("T")
 public class Tutor extends User{
-private Boolean isApproved;
-   
-   public void setIsApproved(Boolean value) {
-this.isApproved = value;
-    }
-public Boolean getIsApproved() {
-return this.isApproved;
-    }
-private double hourlyRate;
+  private Boolean isApproved;
 
-public void setHourlyRate(double value) {
-this.hourlyRate = value;
-    }
-public double getHourlyRate() {
-return this.hourlyRate;
-    }
-private Manager manager;
+  public void setIsApproved(Boolean value) {
+    this.isApproved = value;
+  }
+  public Boolean getIsApproved() {
+    return this.isApproved;
+  }
+  private double hourlyRate;
 
-@ManyToOne(optional=false)
-public Manager getManager() {
-   return this.manager;
-}
+  public void setHourlyRate(double value) {
+    this.hourlyRate = value;
+  }
+  public double getHourlyRate() {
+    return this.hourlyRate;
+  }
+  private Manager manager;
 
-public void setManager(Manager manager) {
-   this.manager = manager;
-}
+  @ManyToOne(optional=false)
+  public Manager getManager() {
+    return this.manager;
+  }
 
-private Set<Course> course;
+  public void setManager(Manager manager) {
+    this.manager = manager;
+  }
 
-@ManyToMany
-public Set<Course> getCourse() {
-   return this.course;
-}
+  private Set<Course> course;
 
-public void setCourse(Set<Course> courses) {
-   this.course = courses;
-}
+  @ManyToMany
+  public Set<Course> getCourse() {
+    return this.course;
+  }
 
-private Set<Notification> notification;
+  public void setCourse(Set<Course> courses) {
+    this.course = courses;
+  }
 
-@OneToMany(mappedBy="tutor")
-public Set<Notification> getNotification() {
-   return this.notification;
-}
+  private Set<Notification> notification;
 
-public void setNotification(Set<Notification> notifications) {
-   this.notification = notifications;
-}
+  @OneToMany(mappedBy="tutor")
+  public Set<Notification> getNotification() {
+    return this.notification;
+  }
 
-private Set<TutoringSession> tutoringSession;
+  public void setNotification(Set<Notification> notifications) {
+    this.notification = notifications;
+  }
 
-@OneToMany(mappedBy="tutor")
-public Set<TutoringSession> getTutoringSession() {
-   return this.tutoringSession;
-}
+  private Set<TutoringSession> tutoringSession;
 
-public void setTutoringSession(Set<TutoringSession> tutoringSessions) {
-   this.tutoringSession = tutoringSessions;
-}
+  @OneToMany(mappedBy="tutor")
+  public Set<TutoringSession> getTutoringSession() {
+    return this.tutoringSession;
+  }
 
-private Set<TimeSlot> timeSlot;
+  public void setTutoringSession(Set<TutoringSession> tutoringSessions) {
+    this.tutoringSession = tutoringSessions;
+  }
 
-@ManyToMany
-public Set<TimeSlot> getTimeSlot() {
-   return this.timeSlot;
-}
+  private Set<TimeSlot> timeSlot;
 
-public void setTimeSlot(Set<TimeSlot> timeSlots) {
-   this.timeSlot = timeSlots;
-}
+  @ManyToMany
+  public Set<TimeSlot> getTimeSlot() {
+    return this.timeSlot;
+  }
 
-private Set<Rating> rating;
+  public void setTimeSlot(Set<TimeSlot> timeSlots) {
+    this.timeSlot = timeSlots;
+  }
 
-@OneToMany(mappedBy="tutor")
-public Set<Rating> getRating() {
-   return this.rating;
-}
+  private Set<Rating> rating;
 
-public void setRating(Set<Rating> ratings) {
-   this.rating = ratings;
-}
+  @OneToMany(mappedBy="tutor")
+  public Set<Rating> getRating() {
+    return this.rating;
+  }
+
+  public void setRating(Set<Rating> ratings) {
+    this.rating = ratings;
+  }
 
 }
