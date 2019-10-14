@@ -9,35 +9,36 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Manager{
-private Integer managerId;
-   
-   public void setManagerId(Integer value) {
-this.managerId = value;
-    }
-@Id
-@GeneratedValue()public Integer getManagerId() {
-return this.managerId;
-    }
-private Set<Tutor> tutor;
+  private Integer managerId;
 
-@OneToMany(mappedBy="manager")
-public Set<Tutor> getTutor() {
-   return this.tutor;
-}
+  public void setManagerId(Integer value) {
+    this.managerId = value;
+  }
+  @Id
+  @GeneratedValue()
+  public Integer getManagerId() {
+    return this.managerId;
+  }
+  private Set<Tutor> tutor;
 
-public void setTutor(Set<Tutor> tutors) {
-   this.tutor = tutors;
-}
+  @OneToMany(mappedBy="manager")
+  public Set<Tutor> getTutor() {
+    return this.tutor;
+  }
 
-private Set<Room> room;
+  public void setTutor(Set<Tutor> tutors) {
+    this.tutor = tutors;
+  }
 
-@OneToMany(mappedBy="manager")
-public Set<Room> getRoom() {
-   return this.room;
-}
+  private Set<Room> room;
 
-public void setRoom(Set<Room> rooms) {
-   this.room = rooms;
-}
+  @OneToMany(mappedBy="manager")
+  public Set<Room> getRoom() {
+    return this.room;
+  }
+
+  public void setRoom(Set<Room> rooms) {
+    this.room = rooms;
+  }
 
 }

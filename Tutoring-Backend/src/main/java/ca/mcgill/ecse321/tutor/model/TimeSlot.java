@@ -12,62 +12,63 @@ import javax.persistence.ManyToMany;
 
 @Entity
 public class TimeSlot{
-private Integer timeSlotId;
-   
-   public void setTimeSlotId(Integer value) {
-this.timeSlotId = value;
-    }
-@Id
-@GeneratedValue()public Integer getTimeSlotId() {
-return this.timeSlotId;
-    }
-private Time startTime;
+  private Integer timeSlotId;
 
-public void setStartTime(Time value) {
-this.startTime = value;
-    }
-public Time getStartTime() {
-return this.startTime;
-    }
-private Time endTime;
+  public void setTimeSlotId(Integer value) {
+    this.timeSlotId = value;
+  }
+  @Id
+  @GeneratedValue()
+  public Integer getTimeSlotId() {
+    return this.timeSlotId;
+  }
+  private Time startTime;
 
-public void setEndTime(Time value) {
-this.endTime = value;
-    }
-public Time getEndTime() {
-return this.endTime;
-    }
-private Set<TutoringSession> tutoringSession;
+  public void setStartTime(Time value) {
+    this.startTime = value;
+  }
+  public Time getStartTime() {
+    return this.startTime;
+  }
+  private Time endTime;
 
-@OneToMany(mappedBy="timeSlot")
-public Set<TutoringSession> getTutoringSession() {
-   return this.tutoringSession;
-}
+  public void setEndTime(Time value) {
+    this.endTime = value;
+  }
+  public Time getEndTime() {
+    return this.endTime;
+  }
+  private Set<TutoringSession> tutoringSession;
 
-public void setTutoringSession(Set<TutoringSession> tutoringSessions) {
-   this.tutoringSession = tutoringSessions;
-}
+  @OneToMany(mappedBy="timeSlot")
+  public Set<TutoringSession> getTutoringSession() {
+    return this.tutoringSession;
+  }
 
-private Booking booking;
+  public void setTutoringSession(Set<TutoringSession> tutoringSessions) {
+    this.tutoringSession = tutoringSessions;
+  }
 
-@OneToOne(mappedBy="timeSlot", optional=false)
-public Booking getBooking() {
-   return this.booking;
-}
+  private Booking booking;
 
-public void setBooking(Booking booking) {
-   this.booking = booking;
-}
+  @OneToOne(mappedBy="timeSlot", optional=false)
+  public Booking getBooking() {
+    return this.booking;
+  }
 
-private Set<Tutor> tutor;
+  public void setBooking(Booking booking) {
+    this.booking = booking;
+  }
 
-@ManyToMany(mappedBy="timeSlot")
-public Set<Tutor> getTutor() {
-   return this.tutor;
-}
+  private Set<Tutor> tutor;
 
-public void setTutor(Set<Tutor> tutors) {
-   this.tutor = tutors;
-}
+  @ManyToMany(mappedBy="timeSlot")
+  public Set<Tutor> getTutor() {
+    return this.tutor;
+  }
+
+  public void setTutor(Set<Tutor> tutors) {
+    this.tutor = tutors;
+  }
 
 }

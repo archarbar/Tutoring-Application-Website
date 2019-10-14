@@ -9,43 +9,44 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Notification{
-private Integer notificationId;
-   
-   public void setNotificationId(Integer value) {
-this.notificationId = value;
-    }
-@Id
-@GeneratedValue()public Integer getNotificationId() {
-return this.notificationId;
-    }
-private Boolean isRead;
+  private Integer notificationId;
 
-public void setIsRead(Boolean value) {
-this.isRead = value;
-    }
-public Boolean getIsRead() {
-return this.isRead;
-    }
-private Tutor tutor;
+  public void setNotificationId(Integer value) {
+    this.notificationId = value;
+  }
+  @Id
+  @GeneratedValue()
+  public Integer getNotificationId() {
+    return this.notificationId;
+  }
+  private Boolean isRead;
 
-@ManyToOne(optional=false)
-public Tutor getTutor() {
-   return this.tutor;
-}
+  public void setIsRead(Boolean value) {
+    this.isRead = value;
+  }
+  public Boolean getIsRead() {
+    return this.isRead;
+  }
+  private Tutor tutor;
 
-public void setTutor(Tutor tutor) {
-   this.tutor = tutor;
-}
+  @ManyToOne(optional=false)
+  public Tutor getTutor() {
+    return this.tutor;
+  }
 
-private Booking booking;
+  public void setTutor(Tutor tutor) {
+    this.tutor = tutor;
+  }
 
-@OneToOne(mappedBy="notification", optional=false)
-public Booking getBooking() {
-   return this.booking;
-}
+  private Booking booking;
 
-public void setBooking(Booking booking) {
-   this.booking = booking;
-}
+  @OneToOne(mappedBy="notification", optional=false)
+  public Booking getBooking() {
+    return this.booking;
+  }
+
+  public void setBooking(Booking booking) {
+    this.booking = booking;
+  }
 
 }

@@ -9,59 +9,60 @@ import javax.persistence.ManyToMany;
 
 @Entity
 public class Student{
-private String firstName;
-   
-   public void setFirstName(String value) {
-this.firstName = value;
-    }
-public String getFirstName() {
-return this.firstName;
-    }
-private String lastName;
+  private String firstName;
 
-public void setLastName(String value) {
-this.lastName = value;
-    }
-public String getLastName() {
-return this.lastName;
-    }
-private String email;
+  public void setFirstName(String value) {
+    this.firstName = value;
+  }
+  public String getFirstName() {
+    return this.firstName;
+  }
+  private String lastName;
 
-public void setEmail(String value) {
-this.email = value;
-    }
-public String getEmail() {
-return this.email;
-    }
-private Integer studentId;
+  public void setLastName(String value) {
+    this.lastName = value;
+  }
+  public String getLastName() {
+    return this.lastName;
+  }
+  private String email;
 
-public void setStudentId(Integer value) {
-this.studentId = value;
-    }
-@Id
-@GeneratedValue()public Integer getStudentId() {
-return this.studentId;
-    }
-private Set<Rating> rating;
+  public void setEmail(String value) {
+    this.email = value;
+  }
+  public String getEmail() {
+    return this.email;
+  }
+  private Integer studentId;
 
-@OneToMany(mappedBy="student")
-public Set<Rating> getRating() {
-   return this.rating;
-}
+  public void setStudentId(Integer value) {
+    this.studentId = value;
+  }
+  @Id
+  @GeneratedValue()
+  public Integer getStudentId() {
+    return this.studentId;
+  }
+  private Set<Rating> rating;
 
-public void setRating(Set<Rating> ratings) {
-   this.rating = ratings;
-}
+  @OneToMany(mappedBy="student")
+  public Set<Rating> getRating() {
+    return this.rating;
+  }
 
-private Set<Booking> booking;
+  public void setRating(Set<Rating> ratings) {
+    this.rating = ratings;
+  }
 
-@ManyToMany(mappedBy="student")
-public Set<Booking> getBooking() {
-   return this.booking;
-}
+  private Set<Booking> booking;
 
-public void setBooking(Set<Booking> bookings) {
-   this.booking = bookings;
-}
+  @ManyToMany(mappedBy="student")
+  public Set<Booking> getBooking() {
+    return this.booking;
+  }
+
+  public void setBooking(Set<Booking> bookings) {
+    this.booking = bookings;
+  }
 
 }

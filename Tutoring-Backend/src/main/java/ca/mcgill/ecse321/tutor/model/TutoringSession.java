@@ -12,76 +12,77 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class TutoringSession{
-private Date sessionDate;
-   
-   public void setSessionDate(Date value) {
-this.sessionDate = value;
-    }
-public Date getSessionDate() {
-return this.sessionDate;
-    }
-private Integer tutoringSessionId;
+  private Date sessionDate;
 
-public void setTutoringSessionId(Integer value) {
-this.tutoringSessionId = value;
-    }
-@Id
-@GeneratedValue()public Integer getTutoringSessionId() {
-return this.tutoringSessionId;
-    }
-private Set<Rating> rating;
+  public void setSessionDate(Date value) {
+    this.sessionDate = value;
+  }
+  public Date getSessionDate() {
+    return this.sessionDate;
+  }
+  private Integer tutoringSessionId;
 
-@OneToMany(mappedBy="tutoringSession")
-public Set<Rating> getRating() {
-   return this.rating;
-}
+  public void setTutoringSessionId(Integer value) {
+    this.tutoringSessionId = value;
+  }
+  @Id
+  @GeneratedValue()
+  public Integer getTutoringSessionId() {
+    return this.tutoringSessionId;
+  }
+  private Set<Rating> rating;
 
-public void setRating(Set<Rating> ratings) {
-   this.rating = ratings;
-}
+  @OneToMany(mappedBy="tutoringSession")
+  public Set<Rating> getRating() {
+    return this.rating;
+  }
 
-private Tutor tutor;
+  public void setRating(Set<Rating> ratings) {
+    this.rating = ratings;
+  }
 
-@ManyToOne(optional=false)
-public Tutor getTutor() {
-   return this.tutor;
-}
+  private Tutor tutor;
 
-public void setTutor(Tutor tutor) {
-   this.tutor = tutor;
-}
+  @ManyToOne(optional=false)
+  public Tutor getTutor() {
+    return this.tutor;
+  }
 
-private Room room;
+  public void setTutor(Tutor tutor) {
+    this.tutor = tutor;
+  }
 
-@ManyToOne(optional=false)
-public Room getRoom() {
-   return this.room;
-}
+  private Room room;
 
-public void setRoom(Room room) {
-   this.room = room;
-}
+  @ManyToOne(optional=false)
+  public Room getRoom() {
+    return this.room;
+  }
 
-private TimeSlot timeSlot;
+  public void setRoom(Room room) {
+    this.room = room;
+  }
 
-@ManyToOne(optional=false)
-public TimeSlot getTimeSlot() {
-   return this.timeSlot;
-}
+  private TimeSlot timeSlot;
 
-public void setTimeSlot(TimeSlot timeSlot) {
-   this.timeSlot = timeSlot;
-}
+  @ManyToOne(optional=false)
+  public TimeSlot getTimeSlot() {
+    return this.timeSlot;
+  }
 
-private Booking booking;
+  public void setTimeSlot(TimeSlot timeSlot) {
+    this.timeSlot = timeSlot;
+  }
 
-@OneToOne(mappedBy="tutoringSession", optional=false)
-public Booking getBooking() {
-   return this.booking;
-}
+  private Booking booking;
 
-public void setBooking(Booking booking) {
-   this.booking = booking;
-}
+  @OneToOne(mappedBy="tutoringSession", optional=false)
+  public Booking getBooking() {
+    return this.booking;
+  }
+
+  public void setBooking(Booking booking) {
+    this.booking = booking;
+  }
 
 }

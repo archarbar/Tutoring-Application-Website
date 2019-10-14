@@ -11,76 +11,77 @@ import javax.persistence.ManyToMany;
 
 @Entity
 public class Booking{
-private Integer bookingId;
-   
-   public void setBookingId(Integer value) {
-this.bookingId = value;
-    }
-@Id
-@GeneratedValue()public Integer getBookingId() {
-return this.bookingId;
-    }
-private Date specificDate;
+  private Integer id;
 
-public void setSpecificDate(Date value) {
-this.specificDate = value;
-    }
-public Date getSpecificDate() {
-return this.specificDate;
-    }
-private Course course;
+  @Id
+  @GeneratedValue()
+  public Integer getId() {
+    return this.id;
+  }
+  public void setId(Integer value) {
+    this.id = value;
+  }
+  private Date specificDate;
 
-@ManyToOne(optional=false)
-public Course getCourse() {
-   return this.course;
-}
+  public void setSpecificDate(Date value) {
+    this.specificDate = value;
+  }
+  public Date getSpecificDate() {
+    return this.specificDate;
+  }
+  private Course course;
 
-public void setCourse(Course course) {
-   this.course = course;
-}
+  @ManyToOne(optional=false)
+  public Course getCourse() {
+    return this.course;
+  }
 
-private Notification notification;
+  public void setCourse(Course course) {
+    this.course = course;
+  }
 
-@OneToOne(optional=false)
-public Notification getNotification() {
-   return this.notification;
-}
+  private Notification notification;
 
-public void setNotification(Notification notification) {
-   this.notification = notification;
-}
+  @OneToOne(optional=false)
+  public Notification getNotification() {
+    return this.notification;
+  }
 
-private TutoringSession tutoringSession;
+  public void setNotification(Notification notification) {
+    this.notification = notification;
+  }
 
-@OneToOne(optional=false)
-public TutoringSession getTutoringSession() {
-   return this.tutoringSession;
-}
+  private TutoringSession tutoringSession;
 
-public void setTutoringSession(TutoringSession tutoringSession) {
-   this.tutoringSession = tutoringSession;
-}
+  @OneToOne(optional=false)
+  public TutoringSession getTutoringSession() {
+    return this.tutoringSession;
+  }
 
-private TimeSlot timeSlot;
+  public void setTutoringSession(TutoringSession tutoringSession) {
+    this.tutoringSession = tutoringSession;
+  }
 
-@OneToOne(optional=false)
-public TimeSlot getTimeSlot() {
-   return this.timeSlot;
-}
+  private TimeSlot timeSlot;
 
-public void setTimeSlot(TimeSlot timeSlot) {
-   this.timeSlot = timeSlot;
-}
+  @OneToOne(optional=false)
+  public TimeSlot getTimeSlot() {
+    return this.timeSlot;
+  }
 
-private Set<Student> student;
+  public void setTimeSlot(TimeSlot timeSlot) {
+    this.timeSlot = timeSlot;
+  }
 
-@ManyToMany
-public Set<Student> getStudent() {
-   return this.student;
-}
+  private Set<Student> student;
 
-public void setStudent(Set<Student> students) {
-   this.student = students;
-}
+  @ManyToMany
+  public Set<Student> getStudent() {
+    return this.student;
+  }
+
+  public void setStudent(Set<Student> students) {
+    this.student = students;
+  }
 
 }

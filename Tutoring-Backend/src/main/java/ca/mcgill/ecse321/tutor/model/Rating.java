@@ -8,62 +8,63 @@ import ca.mcgill.ecse321.tutor.model.Tutor;
 
 @Entity
 public class Rating{
-private Integer ratingId;
-   
-   public void setRatingId(Integer value) {
-this.ratingId = value;
-    }
-@Id
-@GeneratedValue()public Integer getRatingId() {
-return this.ratingId;
-    }
-private Integer stars;
+  private Integer ratingId;
 
-public void setStars(Integer value) {
-this.stars = value;
-    }
-public Integer getStars() {
-return this.stars;
-    }
-private String comment;
+  public void setRatingId(Integer value) {
+    this.ratingId = value;
+  }
+  @Id
+  @GeneratedValue()
+  public Integer getRatingId() {
+    return this.ratingId;
+  }
+  private Integer stars;
 
-public void setComment(String value) {
-this.comment = value;
-    }
-public String getComment() {
-return this.comment;
-    }
-private TutoringSession tutoringSession;
+  public void setStars(Integer value) {
+    this.stars = value;
+  }
+  public Integer getStars() {
+    return this.stars;
+  }
+  private String comment;
 
-@ManyToOne(optional=false)
-public TutoringSession getTutoringSession() {
-   return this.tutoringSession;
-}
+  public void setComment(String value) {
+    this.comment = value;
+  }
+  public String getComment() {
+    return this.comment;
+  }
+  private TutoringSession tutoringSession;
 
-public void setTutoringSession(TutoringSession tutoringSession) {
-   this.tutoringSession = tutoringSession;
-}
+  @ManyToOne(optional=false)
+  public TutoringSession getTutoringSession() {
+    return this.tutoringSession;
+  }
 
-private Student student;
+  public void setTutoringSession(TutoringSession tutoringSession) {
+    this.tutoringSession = tutoringSession;
+  }
 
-@ManyToOne(optional=false)
-public Student getStudent() {
-   return this.student;
-}
+  private Student student;
 
-public void setStudent(Student student) {
-   this.student = student;
-}
+  @ManyToOne(optional=false)
+  public Student getStudent() {
+    return this.student;
+  }
 
-private Tutor tutor;
+  public void setStudent(Student student) {
+    this.student = student;
+  }
 
-@ManyToOne(optional=false)
-public Tutor getTutor() {
-   return this.tutor;
-}
+  private Tutor tutor;
 
-public void setTutor(Tutor tutor) {
-   this.tutor = tutor;
-}
+  @ManyToOne(optional=false)
+  public Tutor getTutor() {
+    return this.tutor;
+  }
+
+  public void setTutor(Tutor tutor) {
+    this.tutor = tutor;
+  }
 
 }
