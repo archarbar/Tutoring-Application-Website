@@ -18,7 +18,8 @@ public class TutorService {
 
 	@Transactional
 	public Tutor createTutor(String firstName, String lastName, String email, String password) {
-		if (firstName == null || lastName == null || email == null || password == null) {
+		if (firstName == null || lastName == null || email == null || password == null || firstName.trim().length() == 0
+			|| lastName.trim().length() == 0 || email.trim().length() == 0 || password.trim().length() == 0) {
 			throw new IllegalArgumentException("Tutor name, email and password need to be specified!");
 		}
 		Tutor tutor = new Tutor();

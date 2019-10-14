@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.tutor.dao.BookingRepository; 
 import ca.mcgill.ecse321.tutor.model.Booking;
+import ca.mcgill.ecse321.tutor.model.Course;
+import ca.mcgill.ecse321.tutor.model.TimeSlot;
 
 @Service
 public class BookingService {
@@ -18,12 +20,21 @@ public class BookingService {
 	BookingRepository bookingRepository;
 
 	@Transactional
-	public Booking createBooking(String tutorEmail, Date specificDate) {
+	public Booking createBooking(String tutorEmail, String studentEmail, Date specificDate, TimeSlot timeSlot, Course course) {
 		if (tutorEmail == null) {
 			throw new IllegalArgumentException("A tutor email needs to be specified!");
 		}
+		if (studentEmail == null) {
+			throw new IllegalArgumentException("A student email needs to be specified!");
+		}
 		if (specificDate == null) {
 			throw new IllegalArgumentException("A date needs to be specified!");
+		}
+		if (timeSlot == null) {
+			throw new IllegalArgumentException("A time slot needs to be specified!");
+		}
+		if (course == null) {
+			throw new IllegalArgumentException("A course needs to be specified!");
 		}
 		Booking booking = new Booking();
 		booking.setTutorEmail(tutorEmail);
