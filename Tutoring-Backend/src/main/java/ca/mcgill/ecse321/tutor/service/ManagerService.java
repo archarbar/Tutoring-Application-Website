@@ -14,24 +14,24 @@ public class ManagerService {
 	@Autowired
 	ManagerRepository managerRepository;
 
-	@Transactional
-	public Manager createManager(String firstName, String lastName, String email) {
-		if (firstName == null) {
-			throw new IllegalArgumentException("A first name needs to be specified!");
-		}
-		if (lastName == null) {
-			throw new IllegalArgumentException("A last name needs to be specified!");
-		}
-		if (email == null) {
-			throw new IllegalArgumentException("An email needs to be specified!");
-		}
-		Manager manager = new Manager();
-		manager.setFirstName(firstName);
-		manager.setLastName(lastName);
-		manager.setEmail(email);
-		managerRepository.save(manager);
-		return manager;
-	}
+//	@Transactional
+//	public Manager createManager(String firstName, String lastName, String email) {
+//		if (firstName == null) {
+//			throw new IllegalArgumentException("A first name needs to be specified!");
+//		}
+//		if (lastName == null) {
+//			throw new IllegalArgumentException("A last name needs to be specified!");
+//		}
+//		if (email == null) {
+//			throw new IllegalArgumentException("An email needs to be specified!");
+//		}
+//		Manager manager = new Manager();
+//		manager.setFirstName(firstName);
+//		manager.setLastName(lastName);
+//		manager.setEmail(email);
+//		managerRepository.save(manager);
+//		return manager;
+//	}
 
 	@Transactional
 	public Manager getManager(Integer managerId) {
