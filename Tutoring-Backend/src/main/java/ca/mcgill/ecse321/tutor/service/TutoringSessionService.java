@@ -36,8 +36,8 @@ public class TutoringSessionService {
 	}
 
 	@Transactional
-	public TutoringSession getTutoringSession(Integer tutoringSessionId) {
-		TutoringSession tutoringSession = tutoringSessionRepository.findTutoringSessionById(tutoringSessionId);
+	public TutoringSession getTutoringSessionByBooking(Booking booking) {
+		TutoringSession tutoringSession = tutoringSessionRepository.findTutoringSessionByBooking(booking);
 		return tutoringSession;
 	}
 

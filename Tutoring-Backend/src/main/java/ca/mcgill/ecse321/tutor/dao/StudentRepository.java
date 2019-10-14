@@ -16,6 +16,8 @@ public interface StudentRepository extends CrudRepository<Student, Integer> {
   
   Student findByRating(Rating rating);
   
+  Student findByName(String firstName, String lastName);
+  
 }
 
 
