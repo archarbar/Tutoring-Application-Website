@@ -37,14 +37,17 @@ public class CourseService {
 
   @Transactional
   public Course getCourseByCourseName(String courseName) {
-    Course course = courseRepository.getCourseByCourseName(courseName);
+    Course course = courseRepository.findCourseByCourseName(courseName);
     return course;
   }
 
   @Transactional
   public Course getCourseByCourseLevel(Level courseLevel) {
-    Course course = courseRepository.getCourseByCourseLevel(courseLevel);
-    return course;
+    List<Course> coursesByLevel = new ArrayList<>();
+    for (Course course : courseRepository.findCourseByCourseLevel(courseLevel)) {
+      coursesByLevel.add(course);
+    }
+    return coursesByLevel;
   }
 
   @Transactional

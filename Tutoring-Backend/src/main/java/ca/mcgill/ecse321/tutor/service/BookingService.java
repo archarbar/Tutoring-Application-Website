@@ -51,7 +51,7 @@ public class BookingService {
 	
 	@Transactional
     public Booking getBookingBySpecificDate(Date specificDate) {
-        Booking booking = bookingRepository.getBookingBySpecificDate(specificDate);
+        Booking booking = bookingRepository.findBookingBySpecificDate(specificDate);
         return booking;
     }
 
