@@ -29,7 +29,6 @@ public class CourseService {
 		course.setBooking(booking);
 		courseRepository.save(course);
 		return course;
-
 	}
 
 	@Transactional

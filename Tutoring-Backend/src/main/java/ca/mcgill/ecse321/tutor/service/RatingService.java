@@ -25,6 +25,7 @@ public class RatingService {
 		rating.setComment(comment);
 		rating.setTutor(tutor);
 		rating.setStudent(student);
+		ratingRepository.save(rating);
 		return rating;
 	}
 

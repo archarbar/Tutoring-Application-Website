@@ -23,6 +23,7 @@ public class NotificationService {
 		Notification notification = new Notification();
 		notification.setTutor(tutor);
 		notification.setBooking(booking);
+		notificationRepository.save(notification);
 		return notification;
 	}
 
