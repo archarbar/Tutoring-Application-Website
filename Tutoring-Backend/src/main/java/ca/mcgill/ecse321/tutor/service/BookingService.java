@@ -24,16 +24,16 @@ public class BookingService {
 	BookingRepository bookingRepository;
 
 	@Transactional
-	public Booking createBooking(String tutorEmail, Date specificDate, TimeSlot timeSlot, TutoringSession tutoringSession,
-			Set<Student> students, Notification notification, Course course) {
+	public Booking createBooking(String tutorEmail, Date specificDate) {
+		if (tutorEmail == null) {
+			throw new IllegalArgumentException("A tutor email needs to be specified!");
+		}
+		if (specificDate == null) {
+			throw new IllegalArgumentException("A date needs to be specified!");
+		}
 		Booking booking = new Booking();
 		booking.setTutorEmail(tutorEmail);
 		booking.setSpecificDate(specificDate);
-		booking.setTimeSlot(timeSlot);
-		booking.setTutoringSession(tutoringSession);
-		booking.setStudent(students);
-		booking.setNotification(notification);
-		booking.setCourse(course);
 		bookingRepository.save(booking);
 		return booking;
 	}

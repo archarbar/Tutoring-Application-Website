@@ -19,12 +19,16 @@ public class RatingService {
 	RatingRepository ratingRepository;
 
 	@Transactional
-	public Rating createRating(Integer stars, String comment, Tutor tutor, Student student) {
+	public Rating createRating(Integer stars, String comment) {
+		if (stars == null) {
+			throw new IllegalArgumentException("A star rating needs to be specified!");
+		}
+		if (comment == null) {
+			throw new IllegalArgumentException("A comment needs to be specified!");
+		}
 		Rating rating = new Rating();
 		rating.setStars(stars);
 		rating.setComment(comment);
-		rating.setTutor(tutor);
-		rating.setStudent(student);
 		ratingRepository.save(rating);
 		return rating;
 	}

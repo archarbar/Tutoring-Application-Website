@@ -21,12 +21,13 @@ public class CourseService {
 	CourseRepository courseRepository;
 
 	@Transactional
-	public Course createCourse(String courseName, CourseLevel level, Set<Tutor> tutors, Set<Booking> booking) {
+	public Course createCourse(String courseName, CourseLevel level) {
+		if (courseName == null) {
+			throw new IllegalArgumentException("A course name needs to be specified!");
+		}
 		Course course = new Course();
 		course.setName(courseName);
 		course.setLevel(level);
-		course.setTutor(tutors);
-		course.setBooking(booking);
 		courseRepository.save(course);
 		return course;
 	}
