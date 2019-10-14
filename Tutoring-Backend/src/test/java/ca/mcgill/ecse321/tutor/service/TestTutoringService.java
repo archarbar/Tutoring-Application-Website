@@ -67,22 +67,43 @@ public class TestTutoringService {
 
 	@After
 	public void clearDatabase() {
+		//we first clear bookings and tutoring sessions to avoid
+		//exceptions due to inconsistencies
+		bookingRepository.deleteAll();
+		tutoringSessionRepository.deleteAll();
+		//then, clear all other tables
 		tutorRepository.deleteAll();
 		studentRepository.deleteAll();
 		managerRepository.deleteAll();
-		bookingRepository.deleteAll();
 		courseRepository.deleteAll();
 		roomRepository.deleteAll();
 		notificationRepository.deleteAll();
 		ratingRepository.deleteAll();
-		tutoringSessionRepository.deleteAll();
 		timeslotRepository.deleteAll();
 
 	}
 	
+	/*
+	 * TUTOR TESTS
+	 */
 	@Test
-	public void test() {
-		
+	public void testCreateTutor() {
+		assertEquals(0, tutorService.getAllTutors().size());
+		String firstName = "Marcus";
+		String lastName = "Fenix";
+		String email = "marcusfenix@gears.com";
+		String password = "locust";
+		try {
+			tutorService.createTutor(firstName, lastName, email, password);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			fail();
+		}
+
+		List<Tutor> allTutors = tutorService.getAllTutors();
+		assertEquals(1, allTutors.size());
+		assertEquals(firstName, allTutors.get(0).getFirstName());
+		assertEquals(email, allTutors.get(0).getEmail());
 	}
 
 
