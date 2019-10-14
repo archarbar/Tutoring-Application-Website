@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.tutor;
+package ca.mcgill.ecse321.tutor.service;
 
 import static org.junit.Assert.*;
 

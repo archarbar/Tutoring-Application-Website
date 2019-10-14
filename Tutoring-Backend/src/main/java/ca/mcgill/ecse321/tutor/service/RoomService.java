@@ -24,8 +24,7 @@ public class RoomService {
 			throw new IllegalArgumentException("A room capacity needs to be specified!");
 		}
 		Room room = new Room();
-		room.setFirstName(roomNumber);
-		room.setLastName(roomCapacity);
+		room.setRoomCapacity(roomCapacity);
 		roomRepository.save(room);
 		return room;
 	}
