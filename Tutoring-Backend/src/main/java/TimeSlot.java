@@ -1,5 +1,3 @@
-package ca.mcgill.ecse321.tutor.model;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
@@ -7,7 +5,6 @@ import java.sql.Time;
 import java.util.Set;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import ca.mcgill.ecse321.tutor.model.Tutor;
 import javax.persistence.ManyToMany;
 
 @Entity

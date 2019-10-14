@@ -1,10 +1,7 @@
-package ca.mcgill.ecse321.tutor.model;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.ManyToOne;
-import ca.mcgill.ecse321.tutor.model.Tutor;
 
 @Entity
 public class Rating{

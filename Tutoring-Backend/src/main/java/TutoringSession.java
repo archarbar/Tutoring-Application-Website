@@ -1,12 +1,9 @@
-package ca.mcgill.ecse321.tutor.model;
-
 import javax.persistence.Entity;
 import java.sql.Date;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import java.util.Set;
 import javax.persistence.OneToMany;
-import ca.mcgill.ecse321.tutor.model.Tutor;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
