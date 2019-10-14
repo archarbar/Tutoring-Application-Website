@@ -17,6 +17,8 @@ import org.junit.Test;
 
 import ca.mcgill.ecse321.tutor.dao.*;
 import ca.mcgill.ecse321.tutor.model.*;
+import ca.mcgill.ecse321.tutor.service.*;
+
 
 public class TestTutoringService {
 
@@ -40,6 +42,28 @@ public class TestTutoringService {
 	private TutoringSessionRepository tutoringSessionRepository;
 	@Autowired
 	private TimeSlotRepository timeslotRepository;
+	
+	@Autowired
+	private TutorService tutorService;
+	@Autowired
+	private StudentService studentService;
+	@Autowired
+	private ManagerService managerService;
+	@Autowired
+	private BookingService bookingService;
+	@Autowired
+	private CourseService courseService;
+	@Autowired
+	private RoomService roomService;
+	@Autowired
+	private NotificationService notificationService;
+	@Autowired
+	private RatingService ratingService;
+	@Autowired
+	private TutoringSessionService tutoringSessionService;
+	@Autowired
+	private TimeSlotService timeslotService;
+
 
 	@After
 	public void clearDatabase() {
