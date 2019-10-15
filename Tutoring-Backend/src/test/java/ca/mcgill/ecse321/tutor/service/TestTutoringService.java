@@ -23,258 +23,303 @@ import ca.mcgill.ecse321.tutor.service.*;
 @SpringBootTest
 public class TestTutoringService {
 
-	@Autowired
-	private TutorRepository tutorRepository;
-	@Autowired
-	private StudentRepository studentRepository;
-	@Autowired
-	private ManagerRepository managerRepository;
-	@Autowired
-	private BookingRepository bookingRepository;
-	@Autowired
-	private CourseRepository courseRepository;
-	@Autowired
-	private RoomRepository roomRepository;
-	@Autowired
-	private NotificationRepository notificationRepository;
-	@Autowired
-	private RatingRepository ratingRepository;
-	@Autowired
-	private TutoringSessionRepository tutoringSessionRepository;
-	@Autowired
-	private TimeSlotRepository timeslotRepository;
-	
-	@Autowired
-	private TutorService tutorService;
-	@Autowired
-	private StudentService studentService;
-	@Autowired
-	private ManagerService managerService;
-	@Autowired
-	private BookingService bookingService;
-	@Autowired
-	private CourseService courseService;
-	@Autowired
-	private RoomService roomService;
-	@Autowired
-	private NotificationService notificationService;
-	@Autowired
-	private RatingService ratingService;
-	@Autowired
-	private TutoringSessionService tutoringSessionService;
-	@Autowired
-	private TimeSlotService timeSlotService;
+  @Autowired
+  private TutorRepository tutorRepository;
+  @Autowired
+  private StudentRepository studentRepository;
+  @Autowired
+  private ManagerRepository managerRepository;
+  @Autowired
+  private BookingRepository bookingRepository;
+  @Autowired
+  private CourseRepository courseRepository;
+  @Autowired
+  private RoomRepository roomRepository;
+  @Autowired
+  private NotificationRepository notificationRepository;
+  @Autowired
+  private RatingRepository ratingRepository;
+  @Autowired
+  private TutoringSessionRepository tutoringSessionRepository;
+  @Autowired
+  private TimeSlotRepository timeslotRepository;
+
+  @Autowired
+  private TutorService tutorService;
+  @Autowired
+  private StudentService studentService;
+  @Autowired
+  private ManagerService managerService;
+  @Autowired
+  private BookingService bookingService;
+  @Autowired
+  private CourseService courseService;
+  @Autowired
+  private RoomService roomService;
+  @Autowired
+  private NotificationService notificationService;
+  @Autowired
+  private RatingService ratingService;
+  @Autowired
+  private TutoringSessionService tutoringSessionService;
+  @Autowired
+  private TimeSlotService timeSlotService;
 
 
-	@After
-	public void clearDatabase() {
-		//we first clear bookings and tutoring sessions to avoid
-		//exceptions due to inconsistencies
-		bookingRepository.deleteAll();
-		tutoringSessionRepository.deleteAll();
-		//then, clear all other tables
-		tutorRepository.deleteAll();
-		studentRepository.deleteAll();
-		managerRepository.deleteAll();
-		courseRepository.deleteAll();
-		roomRepository.deleteAll();
-		notificationRepository.deleteAll();
-		ratingRepository.deleteAll();
-		timeslotRepository.deleteAll();
+  @After
+  public void clearDatabase() {
+    //we first clear bookings and tutoring sessions to avoid
+    //exceptions due to inconsistencies
+    bookingRepository.deleteAll();
+    tutoringSessionRepository.deleteAll();
+    //then, clear all other tables
+    tutorRepository.deleteAll();
+    studentRepository.deleteAll();
+    managerRepository.deleteAll();
+    courseRepository.deleteAll();
+    roomRepository.deleteAll();
+    notificationRepository.deleteAll();
+    ratingRepository.deleteAll();
+    timeslotRepository.deleteAll();
 
-	}
-	
-	/*
-	 * TUTOR TESTS
-	 */
-	@Test
-	public void testCreateTutor() { //test constructor methods
-		assertEquals(0, tutorService.getAllTutors().size());
-		String firstName = "Marcus";
-		String lastName = "Fenix";
-		String email = "marcusfenix@gears.com";
-		String password = "locust";
-		try {
-			tutorService.createTutor(firstName, lastName, email, password);
-		} catch (IllegalArgumentException e) {
-			// Check that no error occurred
-			fail();
-		}
-		List<Tutor> allTutors = tutorService.getAllTutors();
-		assertEquals(1, allTutors.size());
-		assertEquals(firstName, allTutors.get(0).getFirstName());
-		assertEquals(email, allTutors.get(0).getEmail());
-	}
-	
-	@Test
-	public void testCreateTutorNull() {
-		assertEquals(0, tutorService.getAllTutors().size());
-		String firstName = null;
-		String lastName = null;
-		String email = "marcusfenix@gears.com";
-		String password = "locust";
-		String error = null;
-		try {
-			tutorService.createTutor(firstName, lastName, email, password);
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
+  }
 
-		// check error
-		assertEquals("Tutor name, email and password need to be specified!", error);
+  /*
+   * TUTOR TESTS
+   */
+  @Test
+  public void testCreateTutor() { //test constructor methods
+    assertEquals(0, tutorService.getAllTutors().size());
+    String firstName = "Marcus";
+    String lastName = "Fenix";
+    String email = "marcusfenix@gears.com";
+    String password = "locust";
+    try {
+      tutorService.createTutor(firstName, lastName, email, password);
+    } catch (IllegalArgumentException e) {
+      // Check that no error occurred
+      fail();
+    }
+    List<Tutor> allTutors = tutorService.getAllTutors();
+    assertEquals(1, allTutors.size());
+    assertEquals(firstName, allTutors.get(0).getFirstName());
+    assertEquals(email, allTutors.get(0).getEmail());
+  }
 
-		// check no change in memory
-		List<Tutor> allTutors = tutorService.getAllTutors();
-		assertEquals(0, allTutors.size());
-	}
-	
-	@Test
-	public void testCreateTutorEmpty() {
-		assertEquals(0, tutorService.getAllTutors().size());
-		String firstName = "";
-		String lastName = "";
-		String email = "marcusfenix@gears.com";
-		String password = "locust";
-		String error = null;
-		try {
-			tutorService.createTutor(firstName, lastName, email, password);
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
+  @Test
+  public void testCreateTutorNull() {
+    assertEquals(0, tutorService.getAllTutors().size());
+    String firstName = null;
+    String lastName = null;
+    String email = "marcusfenix@gears.com";
+    String password = "locust";
+    String error = null;
+    try {
+      tutorService.createTutor(firstName, lastName, email, password);
+    } catch (IllegalArgumentException e) {
+      error = e.getMessage();
+    }
 
-		// check error
-		assertEquals("Tutor name, email and password need to be specified!", error);
+    // check error
+    assertEquals("Tutor name, email and password need to be specified!", error);
 
-		// check no change in memory
-		List<Tutor> allTutors = tutorService.getAllTutors();
-		assertEquals(0, allTutors.size());
-	}
-	
-	@Test
-	public void testCreateTutorWhiteSpace() {
-		assertEquals(0, tutorService.getAllTutors().size());
-		String firstName = "   ";
-		String lastName = "";
-		String email = "marcusfenix@gears.com";
-		String password = "locust";
-		String error = null;
-		try {
-			tutorService.createTutor(firstName, lastName, email, password);
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
+    // check no change in memory
+    List<Tutor> allTutors = tutorService.getAllTutors();
+    assertEquals(0, allTutors.size());
+  }
 
-		// check error
-		assertEquals("Tutor name, email and password need to be specified!", error);
+  @Test
+  public void testCreateTutorEmpty() {
+    assertEquals(0, tutorService.getAllTutors().size());
+    String firstName = "";
+    String lastName = "";
+    String email = "marcusfenix@gears.com";
+    String password = "locust";
+    String error = null;
+    try {
+      tutorService.createTutor(firstName, lastName, email, password);
+    } catch (IllegalArgumentException e) {
+      error = e.getMessage();
+    }
 
-		// check no change in memory
-		List<Tutor> allTutors = tutorService.getAllTutors();
-		assertEquals(0, allTutors.size());
-	}
-	
-	@Test
-	public void testChangeTutorName() { // test setter methods
-		assertEquals(0, tutorService.getAllTutors().size());
-		String firstName = "Marcus";
-		String lastName = "Fenix";
-		String email = "marcusfenix@gears.com";
-		String password = "locust";
-		String newFirstName = "JD";
-		String newEmail = "jdfenix@gears.com";
-		try {
-			Tutor t = tutorService.createTutor(firstName, lastName, email, password);
-			t.setFirstName(newFirstName);
-			t.setEmail(newEmail);
-			tutorRepository.save(t);
-		} catch (IllegalArgumentException e) {
-			fail();
-		}
-		List<Tutor> allTutors = tutorService.getAllTutors();
-		assertEquals(newFirstName, allTutors.get(0).getFirstName());
-		assertEquals(newEmail, allTutors.get(0).getEmail());
-	}
-	
-	@Test
-	public void testGetTutor() { // test getter method
-		assertEquals(0, tutorService.getAllTutors().size());
-		String firstName = "Marcus";
-		String lastName = "Fenix";
-		String email = "marcusfenix@gears.com";
-		String password = "locust";
-		Tutor tutor = tutorService.createTutor(firstName, lastName, email, password);
-		List<Tutor> allTutors = null;
-		try {
-			allTutors = tutorService.getAllTutors();
-		} catch (IllegalArgumentException e) {
-			fail();
-		}
-		assertEquals(tutor.getUserId(), allTutors.get(0).getUserId());
-	}
-	
-	
-	/*
-	 * BOOKING TESTS
-	 */
-	
-	@Test
-	public void testCreateBooking() { // test constructor method
-		assertEquals(0, bookingService.getAllBookings().size());
-		String tutorEmail = "arthurmorgan@redemption.com";
-		String studentEmail = "johnmarston@redemption.com";
-		Course course = courseService.createCourse("test", Level.CEGEP);
-		TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
-		try {
-			bookingService.createBooking(tutorEmail, studentEmail, Date.valueOf("2019-10-10"), timeSlot, course);
-		} catch (IllegalArgumentException e) {
-			fail();
-		}
-		List<Booking> allBookings = bookingService.getAllBookings();
-		assertEquals(1, allBookings.size());
-		assertEquals("arthurmorgan@redemption.com", allBookings.get(0).getTutorEmail());
-		assertEquals(timeSlot, allBookings.get(0).getTimeSlot());
-		assertEquals(course, allBookings.get(0).getCourse());
-	}
-	
-	@Test
-	public void testCreateBookingNullTimeSlot() { // test constructor method
-		assertEquals(0, bookingService.getAllBookings().size());
-		String error = null;
-		String tutorEmail = "arthurmorgan@redemption.com";
-		String studentEmail = "johnmarston@redemption.com";
-		Course course = courseService.createCourse("test", Level.CEGEP);
-		TimeSlot timeSlot = null;
-		Booking booking = bookingService.createBooking(tutorEmail, studentEmail, Date.valueOf("2019-10-10"), timeSlot, course);
-		List<Booking> allBookings = null;
-		try {
-			allBookings = bookingService.getAllBookings();
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-		// check error
-		assertEquals("A time slot needs to be specified!", error);
-		// check no change in memory
-		assertEquals(0, allBookings.size());
-		assertEquals(booking.getId(), allBookings.get(0).getId());
-	}
-	
-	@Test
-	public void testGetBooking() { // test getter method
-		assertEquals(0, bookingService.getAllBookings().size());
-		String tutorEmail = "arthurmorgan@redemption.com";
-		String studentEmail = "johnmarston@redemption.com";
-		Course course = courseService.createCourse("test", Level.CEGEP);
-		TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
-		Booking booking = bookingService.createBooking(tutorEmail, studentEmail, Date.valueOf("2019-10-10"), timeSlot, course);
-		List<Booking> allBookings = null;
-		try {
-			allBookings = bookingService.getAllBookings();
-		} catch (IllegalArgumentException e) {
-			fail();
-		}
-		assertEquals(booking.getId(), allBookings.get(0).getId());
-	}
-	
-	
-	
+    // check error
+    assertEquals("Tutor name, email and password need to be specified!", error);
+
+    // check no change in memory
+    List<Tutor> allTutors = tutorService.getAllTutors();
+    assertEquals(0, allTutors.size());
+  }
+
+  @Test
+  public void testCreateTutorWhiteSpace() {
+    assertEquals(0, tutorService.getAllTutors().size());
+    String firstName = "   ";
+    String lastName = "";
+    String email = "marcusfenix@gears.com";
+    String password = "locust";
+    String error = null;
+    try {
+      tutorService.createTutor(firstName, lastName, email, password);
+    } catch (IllegalArgumentException e) {
+      error = e.getMessage();
+    }
+
+    // check error
+    assertEquals("Tutor name, email and password need to be specified!", error);
+
+    // check no change in memory
+    List<Tutor> allTutors = tutorService.getAllTutors();
+    assertEquals(0, allTutors.size());
+  }
+
+  @Test
+  public void testChangeTutorName() { // test setter methods
+    assertEquals(0, tutorService.getAllTutors().size());
+    String firstName = "Marcus";
+    String lastName = "Fenix";
+    String email = "marcusfenix@gears.com";
+    String password = "locust";
+    String newFirstName = "JD";
+    String newEmail = "jdfenix@gears.com";
+    try {
+      Tutor t = tutorService.createTutor(firstName, lastName, email, password);
+      t.setFirstName(newFirstName);
+      t.setEmail(newEmail);
+      tutorRepository.save(t);
+    } catch (IllegalArgumentException e) {
+      fail();
+    }
+    List<Tutor> allTutors = tutorService.getAllTutors();
+    assertEquals(newFirstName, allTutors.get(0).getFirstName());
+    assertEquals(newEmail, allTutors.get(0).getEmail());
+  }
+
+  @Test
+  public void testGetTutor() { // test getter method
+    assertEquals(0, tutorService.getAllTutors().size());
+    String firstName = "Marcus";
+    String lastName = "Fenix";
+    String email = "marcusfenix@gears.com";
+    String password = "locust";
+    Tutor tutor = tutorService.createTutor(firstName, lastName, email, password);
+    List<Tutor> allTutors = null;
+    try {
+      allTutors = tutorService.getAllTutors();
+    } catch (IllegalArgumentException e) {
+      fail();
+    }
+    assertEquals(tutor.getUserId(), allTutors.get(0).getUserId());
+  }
+
+
+  /*
+   * BOOKING TESTS
+   */
+
+  @Test
+  public void testCreateBooking() { // test constructor method
+    assertEquals(0, bookingService.getAllBookings().size());
+    String tutorEmail = "arthurmorgan@redemption.com";
+    String studentEmail = "johnmarston@redemption.com";
+    Course course = courseService.createCourse("test", Level.CEGEP);
+    TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
+    try {
+      bookingService.createBooking(tutorEmail, studentEmail, Date.valueOf("2019-10-10"), timeSlot, course);
+    } catch (IllegalArgumentException e) {
+      fail();
+    }
+    List<Booking> allBookings = bookingService.getAllBookings();
+    assertEquals(1, allBookings.size());
+    assertEquals("arthurmorgan@redemption.com", allBookings.get(0).getTutorEmail());
+    assertEquals(timeSlot, allBookings.get(0).getTimeSlot());
+    assertEquals(course, allBookings.get(0).getCourse());
+  }
+
+  @Test
+  public void testCreateBookingNullTimeSlot() { // test constructor method
+    assertEquals(0, bookingService.getAllBookings().size());
+    String error = null;
+    String tutorEmail = "arthurmorgan@redemption.com";
+    String studentEmail = "johnmarston@redemption.com";
+    Course course = courseService.createCourse("test", Level.CEGEP);
+    TimeSlot timeSlot = null;
+    Booking booking = bookingService.createBooking(tutorEmail, studentEmail, Date.valueOf("2019-10-10"), timeSlot, course);
+    List<Booking> allBookings = null;
+    try {
+      allBookings = bookingService.getAllBookings();
+    } catch (IllegalArgumentException e) {
+      error = e.getMessage();
+    }
+    // check error
+    assertEquals("A time slot needs to be specified!", error);
+    // check no change in memory
+    assertEquals(0, allBookings.size());
+    assertEquals(booking.getId(), allBookings.get(0).getId());
+  }
+
+  @Test
+  public void testGetBooking() { // test getter method
+    assertEquals(0, bookingService.getAllBookings().size());
+    String tutorEmail = "arthurmorgan@redemption.com";
+    String studentEmail = "johnmarston@redemption.com";
+    Course course = courseService.createCourse("test", Level.CEGEP);
+    TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
+    Booking booking = bookingService.createBooking(tutorEmail, studentEmail, Date.valueOf("2019-10-10"), timeSlot, course);
+    List<Booking> allBookings = null;
+    try {
+      allBookings = bookingService.getAllBookings();
+    } catch (IllegalArgumentException e) {
+      fail();
+    }
+    assertEquals(booking.getId(), allBookings.get(0).getId());
+  }
+
+  /**
+   * TUTORING SESSION TESTS
+   */
+
+  @Test
+  public void testCreateTutoringSession() {
+    assertEquals(0, tutoringSessionService.getAllTutoringSessions().size());
+
+    Date sessionDate = Date.valueOf("2019-10-14");
+    try {
+      tutoringSessionService.createTutoringSession(sessionDate);
+    }
+    catch (IllegalArgumentException e) {
+      fail();
+    }
+
+    List<TutoringSession> allTutoringSessions = tutoringSessionService.getAllTutoringSessions();
+
+    assertEquals(1, allTutoringSessions.size());
+    assertEquals(sessionDate, allTutoringSessions.get(0).getSessionDate());
+  }
+
+  /**
+   * TIME SLOT TESTS
+   */
+
+  @Test
+  public void testCreateTimeSlot() {
+    assertEquals(0, timeSlotService.getAllTimeSlots().size());
+
+    Time startTime = Time.valueOf("10:35:11");
+    Time endTime = Time.valueOf("12:35:11");
+    try {
+      timeSlotService.createTimeSlot(startTime, endTime, DayOfTheWeek.MONDAY);
+    }
+    catch (IllegalArgumentException e) {
+      fail();
+    }
+
+    List<TimeSlot> allTimeSlots = timeSlotService.getAllTimeSlots();
+
+    assertEquals(1, allTimeSlots.size());
+    assertEquals(startTime, allTimeSlots.get(0).getStartTime());
+    assertEquals(endTime, allTimeSlots.get(0).getEndTime());
+    assertEquals(DayOfTheWeek.MONDAY, allTimeSlots.get(0).getDayOfTheWeek());
+  }
+
 
 }
