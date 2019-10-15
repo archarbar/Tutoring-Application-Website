@@ -65,7 +65,7 @@ public class TutorServiceTests {
 	 */
 	@Test
 	public void testCreateTutor() { //test constructor methods
-//		assertEquals(0, tutorService.getAllTutors().size());
+		assertEquals(0, tutorService.getAllTutors().size());
 		String firstName = "Marcus";
 		String lastName = "Fenix";
 		String email = "marcusfenix@gears.com";

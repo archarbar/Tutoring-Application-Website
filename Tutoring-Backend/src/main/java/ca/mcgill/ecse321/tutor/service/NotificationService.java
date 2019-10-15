@@ -19,14 +19,14 @@ public class NotificationService {
 	NotificationRepository notificationRepository;
 
 	@Transactional
-	public Notification createNotification(Booking booking, String tutorEmail) {
+	public Notification createNotification(Booking booking, Tutor tutor) {
 		if (booking == null) {
 			throw new IllegalArgumentException("A booking needs to be specified!");
 		}
-		if (tutorEmail == null) {
-			throw new IllegalArgumentException("A tutory needs to be specified!");
-		}
+
 		Notification notification = new Notification();
+		notification.setBooking(booking);
+		notification.setTutor(tutor);
 		notificationRepository.save(notification);
 		return notification;
 	}
