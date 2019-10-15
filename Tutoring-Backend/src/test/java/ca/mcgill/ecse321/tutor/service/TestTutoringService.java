@@ -23,6 +23,7 @@ import ca.mcgill.ecse321.tutor.service.*;
 @SpringBootTest
 public class TestTutoringService {
 
+<<<<<<< HEAD
   @Autowired
   private TutorRepository tutorRepository;
   @Autowired
