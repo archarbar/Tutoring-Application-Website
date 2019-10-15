@@ -1,6 +1,8 @@
 package ca.mcgill.ecse321.tutor.service;
 
+import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Notification;
+import ca.mcgill.ecse321.tutor.model.Tutor;
 import ca.mcgill.ecse321.tutor.dao.NotificationRepository;
 
 import java.util.ArrayList;
@@ -17,7 +19,13 @@ public class NotificationService {
 	NotificationRepository notificationRepository;
 
 	@Transactional
-	public Notification createNotification() {
+	public Notification createNotification(Booking booking, String tutorEmail) {
+		if (booking == null) {
+			throw new IllegalArgumentException("A booking needs to be specified!");
+		}
+		if (tutorEmail == null) {
+			throw new IllegalArgumentException("A tutory needs to be specified!");
+		}
 		Notification notification = new Notification();
 		notificationRepository.save(notification);
 		return notification;
