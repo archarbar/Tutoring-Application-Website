@@ -27,13 +27,15 @@ public class TutorService {
 		tutor.setLastName(lastName);
 		tutor.setEmail(email);
 		tutor.setPassword(password);
+		tutor.setHourlyRate(10);
+		tutor.setIsApproved(false);
 		tutorRepository.save(tutor);
 		return tutor;
 	}
 
 	@Transactional
-	public Tutor getTutorByUserId(Integer userId) {
-		Tutor tutor = tutorRepository.findTutorByUserId(userId);
+	public Tutor getTutorById(Integer userId) {
+		Tutor tutor = tutorRepository.findTutorById(userId);
 		return tutor;
 	}
 	

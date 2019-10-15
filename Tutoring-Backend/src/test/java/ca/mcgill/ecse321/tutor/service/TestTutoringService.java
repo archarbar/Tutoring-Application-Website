@@ -82,7 +82,8 @@ public class TestTutoringService {
     ratingRepository.deleteAll();
     timeslotRepository.deleteAll();
   }
-
+  
+  
   /*
    * TUTOR TESTS
    */
@@ -207,7 +208,7 @@ public class TestTutoringService {
     } catch (IllegalArgumentException e) {
       fail();
     }
-    assertEquals(tutor.getUserId(), allTutors.get(0).getUserId());
+    assertEquals(tutor.getId(), allTutors.get(0).getId());
   }
 
   /*

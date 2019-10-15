@@ -8,7 +8,7 @@ import ca.mcgill.ecse321.tutor.model.Tutor;
 @Repository
 public interface TutorRepository extends CrudRepository<Tutor, Integer> {
 	
-  Tutor findTutorByUserId(Integer userId);
+  Tutor findTutorById(Integer userId);
   
   Tutor findTutorByEmail(String email);
 

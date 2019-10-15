@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import ca.mcgill.ecse321.tutor.dao.RoomRepository;
+import ca.mcgill.ecse321.tutor.model.Manager;
 import ca.mcgill.ecse321.tutor.model.Room;
 
 @Service
@@ -17,7 +18,7 @@ public class RoomService {
 	RoomRepository roomRepository;
 
 	@Transactional
-	public Room createRoom(Integer roomNumber, Integer roomCapacity) {
+	public Room createRoom(Integer roomNumber, Integer roomCapacity, Manager manager) {
 		if (roomNumber == null) {
 			throw new IllegalArgumentException("A room number needs to be specified!");
 		}
@@ -25,7 +26,9 @@ public class RoomService {
 			throw new IllegalArgumentException("A room capacity needs to be specified!");
 		}
 		Room room = new Room();
+		room.setRoomNumber(roomNumber);
 		room.setRoomCapacity(roomCapacity);
+		room.setManager(manager);
 		roomRepository.save(room);
 		return room;
 	}

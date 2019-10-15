@@ -9,7 +9,7 @@ import ca.mcgill.ecse321.tutor.model.Level;
 
 public interface CourseRepository extends CrudRepository<Course, Integer>{
 
-	Course findCourseById(Integer courseId);
+	Course findCourseById(Integer id);
 	
 	Course findCourseByCourseName(String courseName);
 	

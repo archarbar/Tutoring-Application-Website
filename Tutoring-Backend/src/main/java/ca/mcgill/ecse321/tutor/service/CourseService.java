@@ -30,8 +30,8 @@ public class CourseService {
   }
 
   @Transactional
-  public Course getCourseById(Integer courseId) {
-    Course course = courseRepository.findCourseById(courseId);
+  public Course getCourseById(Integer id) {
+    Course course = courseRepository.findCourseById(id);
     return course;
   }
 

@@ -16,8 +16,8 @@ public class ManagerService {
 	@Autowired
 	ManagerRepository managerRepository;
 
-//	@Transactional
-//	public Manager createManager(String firstName, String lastName, String email) {
+	@Transactional
+	public Manager createManager() {
 //		if (firstName == null) {
 //			throw new IllegalArgumentException("A first name needs to be specified!");
 //		}
@@ -27,13 +27,11 @@ public class ManagerService {
 //		if (email == null) {
 //			throw new IllegalArgumentException("An email needs to be specified!");
 //		}
-//		Manager manager = new Manager();
-//		manager.setFirstName(firstName);
-//		manager.setLastName(lastName);
-//		manager.setEmail(email);
-//		managerRepository.save(manager);
-//		return manager;
-//	}
+		Manager manager = new Manager();
+
+		managerRepository.save(manager);
+		return manager;
+	}
 
 	@Transactional
 	public Manager getManager(Integer managerId) {
