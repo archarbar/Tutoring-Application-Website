@@ -448,6 +448,87 @@ public class TestTutoringService {
 		}
 		assertEquals(rating.getId(), allRatings.get(0).getId());
 	}
-	
+
+  /**
+   * TUTORING SESSION TESTS
+   */
+
+  @Test
+  public void testCreateTutoringSession() {
+    assertEquals(0, tutoringSessionService.getAllTutoringSessions().size());
+
+    Date sessionDate = Date.valueOf("2019-10-14");
+    try {
+      tutoringSessionService.createTutoringSession(sessionDate);
+    }
+    catch (IllegalArgumentException e) {
+      fail();
+    }
+
+    List<TutoringSession> allTutoringSessions = tutoringSessionService.getAllTutoringSessions();
+
+    assertEquals(1, allTutoringSessions.size());
+    assertEquals(sessionDate, allTutoringSessions.get(0).getSessionDate());
+  }
+
+  @Test
+  public void testGetTutoringSession() {
+    assertEquals(0, tutoringSessionService.getAllTutoringSessions().size());
+
+    Date sessionDate = Date.valueOf("2019-10-14");
+    TutoringSession tutoringSession = tutoringSessionService.createTutoringSession(sessionDate);
+    List<TutoringSession> allTutoringSessions = null;
+    try {
+      allTutoringSessions = tutoringSessionService.getAllTutoringSessions();
+    }
+    catch (IllegalArgumentException e) {
+      fail();
+    }
+
+    assertEquals(tutoringSession.getId(), allTutoringSessions.get(0).getId());
+  }
+
+  /**
+   * TIME SLOT TESTS
+   */
+
+  @Test
+  public void testCreateTimeSlot() {
+    assertEquals(0, timeSlotService.getAllTimeSlots().size());
+
+    Time startTime = Time.valueOf("10:35:11");
+    Time endTime = Time.valueOf("12:35:11");
+    try {
+      timeSlotService.createTimeSlot(startTime, endTime, DayOfTheWeek.MONDAY);
+    }
+    catch (IllegalArgumentException e) {
+      fail();
+    }
+
+    List<TimeSlot> allTimeSlots = timeSlotService.getAllTimeSlots();
+
+    assertEquals(1, allTimeSlots.size());
+    assertEquals(startTime, allTimeSlots.get(0).getStartTime());
+    assertEquals(endTime, allTimeSlots.get(0).getEndTime());
+    assertEquals(DayOfTheWeek.MONDAY, allTimeSlots.get(0).getDayOfTheWeek());
+  }
+
+  @Test
+  public void testGetTimeSlot() {
+    assertEquals(0, timeSlotService.getAllTimeSlots().size());
+
+    Time startTime = Time.valueOf("10:35:11");
+    Time endTime = Time.valueOf("12:35:11");
+    TimeSlot timeSlot = timeSlotService.createTimeSlot(startTime, endTime, DayOfTheWeek.MONDAY);
+    List<TimeSlot> allTimeSlots = null;
+    try {
+      allTimeSlots = timeSlotService.getAllTimeSlots();
+    }
+    catch (IllegalArgumentException e) {
+      fail();
+    }
+
+    assertEquals(timeSlot.getId(), allTimeSlots.get(0).getId());
+  }
 
 }
