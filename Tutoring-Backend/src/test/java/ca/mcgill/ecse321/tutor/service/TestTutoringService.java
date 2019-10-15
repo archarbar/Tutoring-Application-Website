@@ -236,16 +236,6 @@ public class TestTutoringService {
 
 	}
 
-	@Test
-	public void testGetStudent() { //test getter method
-		String firstName = "Michael";
-		String lastName = "Li";
-		
-		Student student = studentService.getStudentByName(firstName, lastName);
-		
-		assertEquals(firstName, student.getFirstName());
-		assertEquals(lastName, student.getLastName());
-	}
 	
 	/*
 	 * BOOKING TESTS
