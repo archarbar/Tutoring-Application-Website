@@ -292,6 +292,21 @@ public class TestTutoringService {
 		assertEquals(Level.UNIVERSITY, allCourses.get(0).getCourseLevel());
 	}
 	
+	@Test
+	public void testGetCourse() { // test getter method
+		assertEquals(0, courseService.getAllCourses().size());
+		String name = "English";
+		Level level = Level.UNIVERSITY;
+		Course course = courseService.createCourse(name, level);
+		List<Course> allCourses = null;
+		try {
+			allCourses = courseService.getAllCourses();
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertEquals(course.getId(), allCourses.get(0).getId());
+	}
+	
 	/*
 	 *  ROOM TESTS
 	 */
@@ -310,6 +325,21 @@ public class TestTutoringService {
 		assertEquals(1, allRooms.size());
 		assertEquals((Integer) 12, allRooms.get(0).getRoomNumber());
 		assertEquals((Integer) 30, allRooms.get(0).getRoomCapacity());
+	}
+	
+	@Test
+	public void testGetRoom() { // test getter method
+		assertEquals(0, roomService.getAllRooms().size());
+		Integer number = 23;
+		Integer capacity = 20;
+		Room room = roomService.createRoom(number, capacity);
+		List<Room> allRooms = null;
+		try {
+			allRooms = roomService.getAllRooms();
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertEquals(room.getId(), allRooms.get(0).getId());
 	}
 	
 	/*
@@ -339,6 +369,24 @@ public class TestTutoringService {
 		assertEquals(tutor, allNotifications.get(0).getTutor());
 	}
 	
+	@Test
+	public void testGetNotification() { // test getter method
+		assertEquals(0, notificationService.getAllNotifications().size());
+		String tutorEmail = "arthurmorgan@redemption.com";
+		String studentEmail = "johnmarston@redemption.com";
+		Course course = courseService.createCourse("test", Level.CEGEP);
+		TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
+		Booking booking = bookingService.createBooking(tutorEmail, studentEmail, Date.valueOf("2019-10-10"), timeSlot, course);
+		Notification notification = notificationService.createNotification(booking, tutorEmail);
+		List<Notification> allNotifications = null;
+		try {
+			allNotifications = notificationService.getAllNotifications();
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertEquals(notification.getId(), allNotifications.get(0).getId());
+	}
+	
 	/*
 	 *  RATING TESTS
 	 */
@@ -357,6 +405,21 @@ public class TestTutoringService {
 		assertEquals(1, allRatings.size());
 		assertEquals((Integer) 12, allRatings.get(0).getStars());
 		assertEquals((Integer) 30, allRatings.get(0).getComment());
+	}
+	
+	@Test
+	public void testGetRating() { // test getter method
+		assertEquals(0, ratingService.getAllRatings().size());
+		Integer stars = 4;
+		String comment = "Best tutor!";
+		Rating rating = ratingService.createRating(stars, comment);
+		List<Rating> allRatings = null;
+		try {
+			allRatings = ratingService.getAllRatings();
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertEquals(rating.getId(), allRatings.get(0).getId());
 	}
 	
 
