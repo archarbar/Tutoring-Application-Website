@@ -9,7 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.tutor.dao.TutoringSessionRepository;
+import ca.mcgill.ecse321.tutor.model.Booking;
+import ca.mcgill.ecse321.tutor.model.Room;
+import ca.mcgill.ecse321.tutor.model.Tutor;
 import ca.mcgill.ecse321.tutor.model.TutoringSession;
+import ca.mcgill.ecse321.tutor.model.TimeSlot;
 
 @Service
 public class TutoringSessionService {
@@ -18,12 +22,17 @@ public class TutoringSessionService {
 	TutoringSessionRepository tutoringSessionRepository;
 
 	@Transactional
-	public TutoringSession createTutoringSession(Date date) {
-		if (date == null) {
+	public TutoringSession createTutoringSession(Date sessionDate, Tutor tutor, Room room,
+	    Booking booking, TimeSlot timeSlot) {
+		if (sessionDate == null) {
 			throw new IllegalArgumentException("A date needs to be specified!");
 		}
 		TutoringSession tutoringSession = new TutoringSession();
-		tutoringSession.setSessionDate(date);
+		tutoringSession.setSessionDate(sessionDate);
+		tutoringSession.setTutor(tutor);
+		tutoringSession.setRoom(room);
+		tutoringSession.setTimeSlot(timeSlot);
+		tutoringSession.setBooking(booking);
 		tutoringSessionRepository.save(tutoringSession);
 		return tutoringSession;
 	}

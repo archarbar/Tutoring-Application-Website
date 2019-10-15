@@ -49,14 +49,14 @@ public class TimeSlot{
     this.tutoringSession = tutoringSessions;
   }
 
-  private Booking booking;
+  private Set<Booking> booking;
 
-  @OneToOne(mappedBy="timeSlot", optional=false)
-  public Booking getBooking() {
+  @OneToMany(mappedBy="timeSlot")
+  public Set<Booking> getBooking() {
     return this.booking;
   }
 
-  public void setBooking(Booking booking) {
+  public void setBooking(Set<Booking> booking) {
     this.booking = booking;
   }
 

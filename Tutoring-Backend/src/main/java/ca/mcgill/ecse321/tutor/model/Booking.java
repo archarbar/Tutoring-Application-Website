@@ -14,7 +14,6 @@ public class Booking{
   private Integer id;
 
   @Id
-  @GeneratedValue()
   public Integer getId() {
     return this.id;
   }
@@ -64,7 +63,7 @@ public class Booking{
 
   private TimeSlot timeSlot;
 
-  @OneToOne(optional=false)
+  @ManyToOne(optional=false)
   public TimeSlot getTimeSlot() {
     return this.timeSlot;
   }
