@@ -10,6 +10,8 @@ public interface StudentRepository extends CrudRepository<Student, Integer> {
   
   Student findStudentByEmail(String email);
   
+  Student findStudentByName(String firstName, String lastName);
+  
 }
 
 

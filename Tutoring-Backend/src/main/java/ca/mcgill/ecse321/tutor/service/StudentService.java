@@ -34,6 +34,12 @@ public class StudentService {
 		studentRepository.save(student);
 		return student;
 	}
+	
+	@Transactional
+	public Student getStudentByName(String firstName, String lastName) {
+		Student student = studentRepository.findStudentByName(firstName, lastName);
+		return student;
+	}
 
 	@Transactional
 	public Student getStudentById(Integer studentId) {

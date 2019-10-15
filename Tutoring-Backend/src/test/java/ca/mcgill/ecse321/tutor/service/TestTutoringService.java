@@ -207,7 +207,7 @@ public class TestTutoringService {
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
-		assertEquals(tutor.getTutorId(), allTutors.get(0).getTutorId());
+		assertEquals(tutor.getUserId(), allTutors.get(0).getUserId());
 	}
 	
 	
@@ -220,7 +220,7 @@ public class TestTutoringService {
 		assertEquals(0, bookingService.getAllBookings().size());
 		String tutorEmail = "arthurmorgan@redemption.com";
 		String studentEmail = "johnmarston@redemption.com";
-		Course course = courseService.createCourse("test", CourseLevel.CEGEP);
+		Course course = courseService.createCourse("test", Level.CEGEP);
 		TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
 		try {
 			bookingService.createBooking(tutorEmail, studentEmail, Date.valueOf("2019-10-10"), timeSlot, course);
@@ -240,7 +240,7 @@ public class TestTutoringService {
 		String error = null;
 		String tutorEmail = "arthurmorgan@redemption.com";
 		String studentEmail = "johnmarston@redemption.com";
-		Course course = courseService.createCourse("test", CourseLevel.CEGEP);
+		Course course = courseService.createCourse("test", Level.CEGEP);
 		TimeSlot timeSlot = null;
 		Booking booking = bookingService.createBooking(tutorEmail, studentEmail, Date.valueOf("2019-10-10"), timeSlot, course);
 		List<Booking> allBookings = null;
@@ -253,7 +253,7 @@ public class TestTutoringService {
 		assertEquals("A time slot needs to be specified!", error);
 		// check no change in memory
 		assertEquals(0, allBookings.size());
-		assertEquals(booking.getBookingId(), allBookings.get(0).getBookingId());
+		assertEquals(booking.getId(), allBookings.get(0).getId());
 	}
 	
 	@Test
@@ -261,7 +261,7 @@ public class TestTutoringService {
 		assertEquals(0, bookingService.getAllBookings().size());
 		String tutorEmail = "arthurmorgan@redemption.com";
 		String studentEmail = "johnmarston@redemption.com";
-		Course course = courseService.createCourse("test", CourseLevel.CEGEP);
+		Course course = courseService.createCourse("test", Level.CEGEP);
 		TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
 		Booking booking = bookingService.createBooking(tutorEmail, studentEmail, Date.valueOf("2019-10-10"), timeSlot, course);
 		List<Booking> allBookings = null;
@@ -270,8 +270,10 @@ public class TestTutoringService {
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
-		assertEquals(booking.getBookingId(), allBookings.get(0).getBookingId());
+		assertEquals(booking.getId(), allBookings.get(0).getId());
 	}
+	
+	
 	
 
 }
