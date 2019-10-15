@@ -19,7 +19,8 @@ import ca.mcgill.ecse321.tutor.dao.*;
 import ca.mcgill.ecse321.tutor.model.*;
 import ca.mcgill.ecse321.tutor.service.*;
 
-
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class TestTutoringService {
 
 	@Autowired
