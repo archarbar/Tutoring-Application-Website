@@ -41,9 +41,7 @@ public class TimeSlotServiceTests {
     catch (IllegalArgumentException e) {
       fail();
     }
-
     List<TimeSlot> allTimeSlots = timeSlotService.getAllTimeSlots();
-
     assertEquals(1, allTimeSlots.size());
     assertEquals(startTime, allTimeSlots.get(0).getStartTime());
     assertEquals(endTime, allTimeSlots.get(0).getEndTime());
