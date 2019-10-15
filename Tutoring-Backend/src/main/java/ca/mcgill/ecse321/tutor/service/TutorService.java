@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.tutor.dao.TutorRepository;
+import ca.mcgill.ecse321.tutor.model.Manager;
 import ca.mcgill.ecse321.tutor.model.Tutor;
 
 @Service
@@ -17,25 +18,29 @@ public class TutorService {
 	TutorRepository tutorRepository;
 
 	@Transactional
-	public Tutor createTutor(String firstName, String lastName, String email, String password) {
+	public Tutor createTutor(String firstName, String lastName, String email, String password, Manager manager) {
 		if (firstName == null || lastName == null || email == null || password == null || firstName.trim().length() == 0
 			|| lastName.trim().length() == 0 || email.trim().length() == 0 || password.trim().length() == 0) {
 			throw new IllegalArgumentException("Tutor name, email and password need to be specified!");
 		}
+		Integer hourlyRate = 10;
+		boolean isApproved = false;
+		
 		Tutor tutor = new Tutor();
 		tutor.setFirstName(firstName);
 		tutor.setLastName(lastName);
 		tutor.setEmail(email);
 		tutor.setPassword(password);
-		tutor.setHourlyRate(10);
-		tutor.setIsApproved(false);
+		tutor.setHourlyRate(hourlyRate);
+		tutor.setIsApproved(isApproved);
+		tutor.setManager(manager);
 		tutorRepository.save(tutor);
 		return tutor;
 	}
 
 	@Transactional
-	public Tutor getTutorById(Integer userId) {
-		Tutor tutor = tutorRepository.findTutorById(userId);
+	public Tutor getTutor(Integer id) {
+		Tutor tutor = tutorRepository.findTutorById(id);
 		return tutor;
 	}
 	

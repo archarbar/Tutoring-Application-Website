@@ -4,7 +4,10 @@ import static org.junit.Assert.*;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.After;
 
@@ -12,6 +15,7 @@ import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Course;
 import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
 import ca.mcgill.ecse321.tutor.model.Level;
+import ca.mcgill.ecse321.tutor.model.Student;
 import ca.mcgill.ecse321.tutor.model.TimeSlot;
 
 import org.junit.Test;
@@ -35,6 +39,9 @@ public class BookingServiceTests {
 
 	@Autowired
 	private TimeSlotService timeSlotService;
+	
+	@Autowired
+	private StudentService studentService;
 
 	@Autowired
 	private BookingRepository bookingRepository;
@@ -51,11 +58,16 @@ public class BookingServiceTests {
 	public void testCreateBooking() { // test constructor method
 		assertEquals(0, bookingService.getAllBookings().size());
 		String tutorEmail = "arthurmorgan@redemption.com";
-		String studentEmail = "johnmarston@redemption.com";
 		Course course = courseService.createCourse("test", Level.CEGEP);
+		String firstName = "Michael";
+		String lastName = "Li";
+		String email = "mlej@live.com";
+		Student student = studentService.createStudent(firstName, lastName, email);
+		Set<Student> studentSet = new HashSet<Student>();
+		studentSet.add(student);
 		TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
 		try {
-			bookingService.createBooking(tutorEmail, studentEmail, Date.valueOf("2019-10-10"), timeSlot, course);
+			bookingService.createBooking(tutorEmail, studentSet, Date.valueOf("2019-10-10"), timeSlot, course);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}

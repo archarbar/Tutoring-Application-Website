@@ -40,7 +40,7 @@ public class Notification{
 
   private Booking booking;
 
-  @OneToOne(mappedBy="notification", optional=false)
+  @OneToOne(optional=false)
   public Booking getBooking() {
     return this.booking;
   }

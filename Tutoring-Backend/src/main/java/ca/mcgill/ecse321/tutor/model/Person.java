@@ -11,14 +11,16 @@ import javax.persistence.DiscriminatorType;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
-public class User{
+public class Person {
   private Integer id;
 
   public void setId(Integer value) {
     this.id = value;
   }
+  
   @Id
-  @GeneratedValue()public Integer getId() {
+  @GeneratedValue()
+  public Integer getId() {
     return this.id;
   }
   private String email;

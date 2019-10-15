@@ -15,6 +15,7 @@ public class Course{
   public void setId(Integer value) {
     this.id = value;
   }
+  
   @Id
   @GeneratedValue()
   public Integer getId() {

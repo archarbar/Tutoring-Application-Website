@@ -1,11 +1,16 @@
 package ca.mcgill.ecse321.tutor.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import java.sql.Date;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import java.util.Set;
 import javax.persistence.ManyToMany;
 
@@ -14,6 +19,7 @@ public class Booking{
   private Integer id;
 
   @Id
+  @GeneratedValue()
   public Integer getId() {
     return this.id;
   }
@@ -41,7 +47,7 @@ public class Booking{
 
   private Notification notification;
 
-  @OneToOne(optional=false)
+  @OneToOne(mappedBy = "booking", cascade = { CascadeType.ALL }, optional = false)
   public Notification getNotification() {
     return this.notification;
   }
@@ -52,7 +58,7 @@ public class Booking{
 
   private TutoringSession tutoringSession;
 
-  @OneToOne(optional=false)
+  @OneToOne
   public TutoringSession getTutoringSession() {
     return this.tutoringSession;
   }

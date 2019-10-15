@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.tutor.service;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ca.mcgill.ecse321.tutor.dao.BookingRepository; 
 import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Course;
+import ca.mcgill.ecse321.tutor.model.Student;
 import ca.mcgill.ecse321.tutor.model.TimeSlot;
 
 @Service
@@ -20,12 +22,13 @@ public class BookingService {
   BookingRepository bookingRepository;
 
   @Transactional
-  public Booking createBooking(String tutorEmail, String studentEmail, Date specificDate, TimeSlot timeSlot, Course course) {
+  public Booking createBooking(String tutorEmail, Set<Student> student, Date specificDate, 
+		  						TimeSlot timeSlot, Course course) {
     if (tutorEmail == null) {
       throw new IllegalArgumentException("A tutor email needs to be specified!");
     }
-    if (studentEmail == null) {
-      throw new IllegalArgumentException("A student email needs to be specified!");
+    if (student == null) {
+      throw new IllegalArgumentException("A student needs to be specified!");
     }
     if (specificDate == null) {
       throw new IllegalArgumentException("A date needs to be specified!");
@@ -39,6 +42,9 @@ public class BookingService {
     Booking booking = new Booking();
     booking.setTutorEmail(tutorEmail);
     booking.setSpecificDate(specificDate);
+    booking.setTimeSlot(timeSlot);
+    booking.setStudent(student);
+    booking.setCourse(course);
     bookingRepository.save(booking);
     return booking;
   }

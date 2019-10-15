@@ -40,6 +40,9 @@ public class RoomServiceTests {
 	
 	@Autowired
 	private ManagerService managerService;
+	
+	@Autowired
+	private BookingService bookingService;
 
 	@After
 	public void clearDatabase() {
@@ -54,7 +57,6 @@ public class RoomServiceTests {
 		Integer number = 12;
 		Integer capacity = 30;
 		Manager manager = managerService.createManager();
-		Booking booking = bookingService.createBooking(tutorEmail, studentEmail, Date.valueOf("2019-10-10"), timeSlot, course);
 		try {
 			roomService.createRoom(number, capacity , manager);
 		} catch (IllegalArgumentException e) {

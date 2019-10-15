@@ -1,7 +1,7 @@
 package ca.mcgill.ecse321.tutor.model;
 
 import javax.persistence.Entity;
-import ca.mcgill.ecse321.tutor.model.User;
+import ca.mcgill.ecse321.tutor.model.Person;
 import javax.persistence.ManyToOne;
 import java.util.Set;
 import javax.persistence.ManyToMany;
@@ -10,7 +10,7 @@ import javax.persistence.DiscriminatorValue;
 
 @Entity
 @DiscriminatorValue("T")
-public class Tutor extends User{
+public class Tutor extends Person{
   private Boolean isApproved;
 
   public void setIsApproved(Boolean value) {
