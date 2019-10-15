@@ -13,14 +13,13 @@ The objective of this project is to design a software solution for a new tutorin
 ## Deliverable 1: Due October 13, 2019
 |  Team members   |	     Responsibility     | Hours|
 |-----------------|-------------------------|------|
-|    Michael Li   | Build System and Continuous Integration  | 5 |
-|    Tony Ou      | Testing of Persistence  | 5 |
-| Patrick Tweddell| Project Management and Project Report  | 7 |
-|  William Zhang  | Testing of Persistence  | 5 |
-|  Victor Zhong   |  Persistence Layer  | 5 |
+|    Michael Li   | Build System and Continuous Integration  | 20 |
+|    Tony Ou      | Testing of Persistence  | 20 |
+| Patrick Tweddell| Project Management and Project Report  | 20 |
+|  William Zhang  | Testing of Persistence  | 20 |
+|  Victor Zhong   |  Persistence Layer  | 20 |
 
    * [Report](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Report-(Sprint-1))
    * [Requirements](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Requirements)
    * [Use Case Diagram](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Use-Case-Diagram)
    * [Class Diagram](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Class-Diagram)
-   * [Persistence Layer](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Persistence-Layer-Design)
