@@ -211,6 +211,43 @@ public class TestTutoringService {
 	}
 	
 	/*
+	 * STUDENT TESTS
+	 */
+
+	@Test
+	public void testCreateStudent() { //test constructor method
+		assertEquals(0, studentService.getAllStudents().size());
+		
+		String firstName = "Michael";
+		String lastName = "Li";
+		String email = "mlej@live.com";
+		try {
+		studentService.createStudent(firstName, lastName, email);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		
+		List<Student> allStudents = studentService.getAllStudents();
+		
+		assertEquals(1, allStudents.size());
+		assertEquals(firstName, allStudents.get(0).getFirstName());
+		assertEquals(lastName, allStudents.get(0).getLastName());
+		assertEquals(email, allStudents.get(0).getEmail());	
+
+	}
+
+	@Test
+	public void testGetStudent() { //test getter method
+		String firstName = "Michael";
+		String lastName = "Li";
+		
+		Student student = studentService.getStudentByName(firstName, lastName);
+		
+		assertEquals(firstName, student.getFirstName());
+		assertEquals(lastName, student.getLastName());
+	}
+	
+	/*
 	 * BOOKING TESTS
 	 */
 	
