@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 
 import ca.mcgill.ecse321.tutor.dao.ManagerRepository;
 import ca.mcgill.ecse321.tutor.model.Manager;
 
+@Service
 public class ManagerService {
 
 	@Autowired
