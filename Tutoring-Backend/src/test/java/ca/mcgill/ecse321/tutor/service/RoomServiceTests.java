@@ -24,6 +24,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import ca.mcgill.ecse321.tutor.dao.BookingRepository;
 import ca.mcgill.ecse321.tutor.dao.CourseRepository;
+import ca.mcgill.ecse321.tutor.dao.ManagerRepository;
 import ca.mcgill.ecse321.tutor.dao.RoomRepository;
 
 
@@ -43,11 +44,14 @@ public class RoomServiceTests {
 	
 	@Autowired
 	private BookingService bookingService;
+	@Autowired
+	private ManagerRepository managerRepository;
 
 	@After
 	public void clearDatabase() {
 
 		roomRepository.deleteAll();
+		managerRepository.deleteAll();
 
 	}
 	

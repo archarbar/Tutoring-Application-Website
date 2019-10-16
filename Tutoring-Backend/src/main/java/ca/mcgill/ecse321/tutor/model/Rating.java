@@ -4,6 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import ca.mcgill.ecse321.tutor.model.Tutor;
 
 @Entity
@@ -48,6 +52,7 @@ public class Rating{
   private Student student;
 
   @ManyToOne(optional=false)
+  @OnDelete(action = OnDeleteAction.CASCADE)
   public Student getStudent() {
     return this.student;
   }
@@ -59,6 +64,7 @@ public class Rating{
   private Tutor tutor;
 
   @ManyToOne(optional=false)
+  @OnDelete(action = OnDeleteAction.CASCADE)
   public Tutor getTutor() {
     return this.tutor;
   }

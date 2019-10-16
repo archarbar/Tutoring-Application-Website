@@ -25,6 +25,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import ca.mcgill.ecse321.tutor.dao.BookingRepository;
+import ca.mcgill.ecse321.tutor.dao.CourseRepository;
+import ca.mcgill.ecse321.tutor.dao.StudentRepository;
+import ca.mcgill.ecse321.tutor.dao.TimeSlotRepository;
 
 
 @RunWith(SpringRunner.class)
@@ -45,13 +48,21 @@ public class BookingServiceTests {
 
 	@Autowired
 	private BookingRepository bookingRepository;
+	@Autowired
+	private StudentRepository studentRepository;
+	@Autowired
+	private TimeSlotRepository timeSlotRepository;
+	@Autowired
+	private CourseRepository courseRepository;
 
 
 	@After
 	public void clearDatabase() {
 
 	    bookingRepository.deleteAll();
-
+	    studentRepository.deleteAll();
+	    timeSlotRepository.deleteAll();
+	    courseRepository.deleteAll();
 	}
 
 	@Test
@@ -73,9 +84,9 @@ public class BookingServiceTests {
 		}
 		List<Booking> allBookings = bookingService.getAllBookings();
 		assertEquals(1, allBookings.size());
-//		assertEquals("arthurmorgan@redemption.com", allBookings.get(0).getTutorEmail());
-//		assertEquals(timeSlot, allBookings.get(0).getTimeSlot());
-//		assertEquals(course, allBookings.get(0).getCourse());
+		assertEquals("arthurmorgan@redemption.com", allBookings.get(0).getTutorEmail());
+		assertEquals(timeSlot.getId(), allBookings.get(0).getTimeSlot().getId());
+		assertEquals(course.getId(), allBookings.get(0).getCourse().getId());
 	}
 
 
