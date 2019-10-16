@@ -14,7 +14,7 @@ The objective of this project is to design a software solution for a new tutorin
 |  Team members   |	     Responsibility     | Hours|
 |-----------------|-------------------------|------|
 |    Michael Li   | Build System and Continuous Integration  | 20 |
-|    Tony Ou      | Testing of Persistence  | 30 |
+|    Tony Ou      | Testing of Persistence  | 35 |
 | Patrick Tweddell| Project Management and Project Report  | 20 |
 |  William Zhang  | Testing of Persistence  | 35 |
 |  Victor Zhong   |  Persistence Layer  | 20 |
