@@ -23,3 +23,12 @@ The objective of this project is to design a software solution for a new tutorin
    * [Requirements](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Requirements)
    * [Use Case Diagram](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Use-Case-Diagram)
    * [Class Diagram](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Class-Diagram)
+
+## Deliverable 2: Due October 27, 2019
+|  Team members   |	     Responsibility     | Hours|
+|-----------------|-------------------------|------|
+|    Michael Li   |    |  |
+|    Tony Ou      |  |  |
+| Patrick Tweddell| RESTful services   | 10 |
+|  William Zhang  | | |
+|  Victor Zhong   |  |  |
