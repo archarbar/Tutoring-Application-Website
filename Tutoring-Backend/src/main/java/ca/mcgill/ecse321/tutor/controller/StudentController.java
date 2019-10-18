@@ -16,19 +16,19 @@ public class StudentController {
     @Autowired
     private StudentService service;
 
-    @GetMapping("/student/{student}")
-    public StudentDto getStudentById(@PathVariable Student student) {
-        return convertToDto(service.getStudentById(student.getId()));
+    @GetMapping("/student/{studentId}")
+    public StudentDto getStudentById(@PathVariable("studentId") int studentId) {
+        return convertToDto(service.getStudentById(studentId));
     }
 
-    @GetMapping("/student/{student}")
-    public StudentDto getStudentByEmail(@PathVariable Student student) {
-        return convertToDto(service.getStudentByEmail(student.getEmail()));
+    @GetMapping("/studentByMail/{email}")
+    public StudentDto getStudentByEmail(@PathVariable("email") String email) {
+        return convertToDto(service.getStudentByEmail(email));
     }
 
-    @GetMapping("/student/{student}")
-    public StudentDto getStudentByName(@PathVariable Student student) {
-        return convertToDto(service.getStudentByName(student.getFirstName(), student.getLastName()));
+    @GetMapping("/studentByName/{first}/{last}")
+    public StudentDto getStudentByName(@PathVariable ("first")String first, @PathVariable("last") String last) {
+        return convertToDto(service.getStudentByName(first, last));
     }
 
 
