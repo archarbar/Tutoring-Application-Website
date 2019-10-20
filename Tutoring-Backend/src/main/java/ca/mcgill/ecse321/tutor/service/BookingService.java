@@ -65,6 +65,15 @@ public class BookingService {
   }
 
   @Transactional
+  public List<Booking> getBookingByTutorEmail(String tutorEmail) {
+    List<Booking> bookingsByTutorEmail = new ArrayList<>();
+    for (Booking booking : bookingRepository.findBookingByTutorEmail(tutorEmail)) {
+      bookingsByTutorEmail.add(booking);
+    }
+    return bookingsByTutorEmail;
+  }
+
+  @Transactional
   public List<Booking> getAllBookings(){
     return toList(bookingRepository.findAll());
   }
