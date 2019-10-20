@@ -29,6 +29,6 @@ The objective of this project is to design a software solution for a new tutorin
 |-----------------|-------------------------|------|
 |    Michael Li   |    |  |
 |    Tony Ou      |  |  |
-| Patrick Tweddell| RESTful services   | 10 |
+| Patrick Tweddell| RESTful services   | 15 |
 |  William Zhang  | | |
 |  Victor Zhong   |  |  |
