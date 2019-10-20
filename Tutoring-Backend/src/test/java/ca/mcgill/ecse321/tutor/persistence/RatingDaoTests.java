@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.tutor.service;
+package ca.mcgill.ecse321.tutor.persistence;
 
 import static org.junit.Assert.*;
 import java.sql.Date;
@@ -22,7 +22,7 @@ import ca.mcgill.ecse321.tutor.dao.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class RatingServiceTests {
+public class RatingDaoTests {
 
 	@Autowired
 	private TutoringSessionService tutoringSessionService;
@@ -74,7 +74,7 @@ public class RatingServiceTests {
 	}
 
 	@Test
-	public void testCreateTutoringSession() {
+	public void testCreateRating() {
 		assertEquals(0, ratingService.getAllRatings().size());
 
 		Integer stars = 5;
@@ -109,20 +109,20 @@ public class RatingServiceTests {
 
 
 		try {
-//			ratingService.createRating(stars, comment, student, tutor, tutoringSession);
+			ratingService.createRating(stars, comment, student, tutor, tutoringSession);
 		}
 		catch (IllegalArgumentException e) {
 			fail();
 		}
 
-		//	List<Rating> allRatings = ratingService.getAllRatings();
+			List<Rating> allRatings = ratingService.getAllRatings();
 
-		//	assertEquals(1, allRatings.size());
-		//	assertEquals(stars, allRatings.get(0).getStars());
-		//	assertEquals(comment, allRatings.get(0).getComment());
-		//	assertEquals(student, allRatings.get(0).getStudent());
-		//	assertEquals(tutor, allRatings.get(0).getTutor());
-		//	assertEquals(tutoringSession.getId(), allRatings.get(0).getTutoringSession().getId());
+			assertEquals(1, allRatings.size());
+			assertEquals(stars, allRatings.get(0).getStars());
+			assertEquals(comment, allRatings.get(0).getComment());
+			assertEquals(student, allRatings.get(0).getStudent());
+			assertEquals(tutor, allRatings.get(0).getTutor());
+			assertEquals(tutoringSession.getId(), allRatings.get(0).getTutoringSession().getId());
 	}
 
 

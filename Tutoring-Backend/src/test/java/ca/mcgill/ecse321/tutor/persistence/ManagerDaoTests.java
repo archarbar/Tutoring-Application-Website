@@ -1,9 +1,10 @@
-package ca.mcgill.ecse321.tutor.service;
+package ca.mcgill.ecse321.tutor.persistence;
 
 import static org.junit.Assert.*;
 
 import java.util.List;
 
+import ca.mcgill.ecse321.tutor.service.ManagerService;
 import org.junit.After;
 
 import ca.mcgill.ecse321.tutor.model.Manager;
@@ -17,7 +18,7 @@ import ca.mcgill.ecse321.tutor.dao.ManagerRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ManagerServiceTests {
+public class ManagerDaoTests {
 
   @Autowired
   private ManagerRepository managerRepository;

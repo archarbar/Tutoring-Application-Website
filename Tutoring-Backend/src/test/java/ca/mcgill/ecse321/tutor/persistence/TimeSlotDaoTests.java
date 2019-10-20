@@ -1,9 +1,11 @@
-package ca.mcgill.ecse321.tutor.service;
+package ca.mcgill.ecse321.tutor.persistence;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import java.sql.Time;
 import java.util.List;
+
+import ca.mcgill.ecse321.tutor.service.TimeSlotService;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +18,7 @@ import ca.mcgill.ecse321.tutor.model.TimeSlot;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TimeSlotServiceTests {
+public class TimeSlotDaoTests {
 
   @Autowired
   private TimeSlotRepository timeslotRepository;

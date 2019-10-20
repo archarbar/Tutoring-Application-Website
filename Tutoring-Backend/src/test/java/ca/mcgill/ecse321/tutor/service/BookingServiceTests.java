@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.tutor.service;
 
 import ca.mcgill.ecse321.tutor.dao.BookingRepository;
 import ca.mcgill.ecse321.tutor.model.Booking;
+import ca.mcgill.ecse321.tutor.service.BookingService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

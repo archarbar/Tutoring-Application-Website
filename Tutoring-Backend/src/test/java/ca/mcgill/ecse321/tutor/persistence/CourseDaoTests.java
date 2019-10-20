@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.tutor.service;
+package ca.mcgill.ecse321.tutor.persistence;
 
 import static org.junit.Assert.*;
 
@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 
+import ca.mcgill.ecse321.tutor.service.CourseService;
 import org.junit.After;
 
 import ca.mcgill.ecse321.tutor.model.Booking;
@@ -26,7 +27,7 @@ import ca.mcgill.ecse321.tutor.dao.CourseRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CourseServiceTests {
+public class CourseDaoTests {
 
 
 

@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.tutor.service;
+package ca.mcgill.ecse321.tutor.persistence;
 
 import static org.junit.Assert.*;
 import java.sql.Date;
@@ -22,7 +22,7 @@ import ca.mcgill.ecse321.tutor.dao.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TutoringSessionServiceTests {
+public class TutoringSessionDaoTests {
 
   @Autowired
   private TutoringSessionService tutoringSessionService;
