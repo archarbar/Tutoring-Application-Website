@@ -4,6 +4,8 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.mcgill.ecse321.tutor.model.Booking;
+import ca.mcgill.ecse321.tutor.model.TutoringSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,8 +37,20 @@ public class TimeSlotService {
 	}
 
 	@Transactional
-	public TimeSlot getTimeSlot(Integer timeSlotId) {
+	public TimeSlot getTimeSlotById(Integer timeSlotId) {
 		TimeSlot timeSlot = timeSlotRepository.findTimeSlotById(timeSlotId);
+		return timeSlot;
+	}
+
+	@Transactional
+	public TimeSlot getTimeSlotByBooking(Booking booking) {
+		TimeSlot timeSlot = timeSlotRepository.findByBooking(booking);
+		return timeSlot;
+	}
+
+	@Transactional
+	public TimeSlot getTimeSlotByTutoringSession(TutoringSession tutoringSession) {
+		TimeSlot timeSlot = timeSlotRepository.findByTutoringSession(tutoringSession);
 		return timeSlot;
 	}
 

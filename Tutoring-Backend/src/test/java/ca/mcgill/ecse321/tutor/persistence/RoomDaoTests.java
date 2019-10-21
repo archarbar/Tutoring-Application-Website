@@ -44,9 +44,7 @@ public class RoomDaoTests {
 	
 	@Autowired
 	private ManagerService managerService;
-	
-	@Autowired
-	private BookingService bookingService;
+
 	@Autowired
 	private ManagerRepository managerRepository;
 

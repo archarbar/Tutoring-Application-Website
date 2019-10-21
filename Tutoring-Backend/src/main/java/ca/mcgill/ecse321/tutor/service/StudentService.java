@@ -36,8 +36,14 @@ public class StudentService {
 	}
 	
 	@Transactional
-	public Student getStudentByName(String firstName, String lastName) {
+	public Student getStudentByFirstName(String firstName) {
 		Student student = studentRepository.findStudentByFirstName(firstName);
+		return student;
+	}
+
+	@Transactional
+	public Student getStudentByLastName(String lastName) {
+		Student student = studentRepository.findStudentByLastName(lastName);
 		return student;
 	}
 

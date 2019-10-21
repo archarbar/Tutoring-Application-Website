@@ -61,10 +61,6 @@ public class NotificationDaoTests {
   @Autowired
   private NotificationService notificationService;
   @Autowired
-  private RatingService ratingService;
-  @Autowired
-  private TutoringSessionService tutoringSessionService;
-  @Autowired
   private TimeSlotService timeSlotService;
 
 
@@ -72,16 +68,16 @@ public class NotificationDaoTests {
   public void clearDatabase() {
     //we first clear bookings and tutoring sessions to avoid
     //exceptions due to inconsistencies
+    notificationRepository.deleteAll();
+    ratingRepository.deleteAll();
     bookingRepository.deleteAll();
-    tutoringSessionRepository.deleteAll();
     tutorRepository.deleteAll();
     studentRepository.deleteAll();
     managerRepository.deleteAll();
     courseRepository.deleteAll();
     roomRepository.deleteAll();
-    notificationRepository.deleteAll();
-    ratingRepository.deleteAll();
     timeslotRepository.deleteAll();
+
   }
   
   /*
