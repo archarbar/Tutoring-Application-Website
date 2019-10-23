@@ -33,8 +33,12 @@ public class NotificationService {
 
 	@Transactional
 	public Notification getNotification(Integer notificationId) {
-		Notification notification = notificationRepository.findNotificationById(notificationId);
-		return notification;
+		return notificationRepository.findNotificationById(notificationId);
+	}
+
+	@Transactional
+	public List<Notification> getNotificationsByTutor(Tutor tutor){
+		return toList(notificationRepository.findNotificationByTutor(tutor));
 	}
 
 	@Transactional

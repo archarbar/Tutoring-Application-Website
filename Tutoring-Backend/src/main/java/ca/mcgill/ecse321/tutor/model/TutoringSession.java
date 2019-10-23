@@ -1,14 +1,7 @@
 package ca.mcgill.ecse321.tutor.model;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.sql.Date;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import java.util.Set;
-import javax.persistence.OneToMany;
-import ca.mcgill.ecse321.tutor.model.Tutor;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 public class TutoringSession{
@@ -30,15 +23,15 @@ public class TutoringSession{
   public Integer getId() {
     return this.id;
   }
-  private Set<Rating> rating;
+  private Rating rating;
 
-  @OneToMany(mappedBy="tutoringSession")
-  public Set<Rating> getRating() {
+  @OneToOne
+  public Rating getRating() {
     return this.rating;
   }
 
-  public void setRating(Set<Rating> ratings) {
-    this.rating = ratings;
+  public void setRating(Rating rating) {
+    this.rating = rating;
   }
 
   private Tutor tutor;

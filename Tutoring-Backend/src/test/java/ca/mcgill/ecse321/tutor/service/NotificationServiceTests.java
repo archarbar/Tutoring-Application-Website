@@ -1,140 +1,59 @@
 package ca.mcgill.ecse321.tutor.service;
 
-import static org.junit.Assert.*;
-
-import java.sql.Date;
-import java.sql.Time;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import org.junit.After;
+import ca.mcgill.ecse321.tutor.dao.NotificationRepository;
+import ca.mcgill.ecse321.tutor.model.Notification;
+import ca.mcgill.ecse321.tutor.model.Level;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.junit.After;
-import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import ca.mcgill.ecse321.tutor.dao.*;
-import ca.mcgill.ecse321.tutor.model.*;
-import ca.mcgill.ecse321.tutor.service.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.when;
+
+
+@RunWith(MockitoJUnitRunner.class)
 public class NotificationServiceTests {
-  
-  @Autowired
-  private TutorRepository tutorRepository;
-  @Autowired
-  private StudentRepository studentRepository;
-  @Autowired
-  private ManagerRepository managerRepository;
-  @Autowired
-  private BookingRepository bookingRepository;
-  @Autowired
-  private CourseRepository courseRepository;
-  @Autowired
-  private RoomRepository roomRepository;
-  @Autowired
-  private NotificationRepository notificationRepository;
-  @Autowired
-  private RatingRepository ratingRepository;
-  @Autowired
-  private TutoringSessionRepository tutoringSessionRepository;
-  @Autowired
-  private TimeSlotRepository timeslotRepository;
 
-  @Autowired
-  private TutorService tutorService;
-  @Autowired
-  private StudentService studentService;
-  @Autowired
-  private ManagerService managerService;
-  @Autowired
-  private BookingService bookingService;
-  @Autowired
-  private CourseService courseService;
-  @Autowired
-  private RoomService roomService;
-  @Autowired
-  private NotificationService notificationService;
-  @Autowired
-  private RatingService ratingService;
-  @Autowired
-  private TutoringSessionService tutoringSessionService;
-  @Autowired
-  private TimeSlotService timeSlotService;
+    @Mock
+    private NotificationRepository notificationRepository;
 
+    @InjectMocks
+    private NotificationService notificationService;
 
-  @After
-  public void clearDatabase() {
-    //we first clear bookings and tutoring sessions to avoid
-    //exceptions due to inconsistencies
-    bookingRepository.deleteAll();
-    tutoringSessionRepository.deleteAll();
-    tutorRepository.deleteAll();
-    studentRepository.deleteAll();
-    managerRepository.deleteAll();
-    courseRepository.deleteAll();
-    roomRepository.deleteAll();
-    notificationRepository.deleteAll();
-    ratingRepository.deleteAll();
-    timeslotRepository.deleteAll();
-  }
-  
-  /*
-   *  NOTIFICATION TESTS
-   */
+    private Notification notification = new Notification();
 
-  @Test
-  public void testCreateNotification() { // test constructor method
-    assertEquals(0, notificationService.getAllNotifications().size());
-	String tutorEmail = "marcusfenix@gears.com";
-	Course course = courseService.createCourse("test", Level.CEGEP);
-	String firstName = "Michael";
-	String lastName = "Li";
-	String email = "mlej@live.com";
-	Student student = studentService.createStudent(firstName, lastName, email);
-	Set<Student> studentSet = new HashSet<Student>();
-	studentSet.add(student);
-	TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
-	Booking booking = bookingService.createBooking(tutorEmail, studentSet, Date.valueOf("2019-10-10"), timeSlot, course);
-	String tutorFirstName = "Marcus";
-	String tutorLastName = "Fenix";
-	String password = "locust";
-	Manager manager = managerService.createManager();
-	Tutor tutor = tutorService.createTutor(tutorFirstName, tutorLastName, tutorEmail, password, manager);
-    
-    try {
-      notificationService.createNotification(booking, tutor);
-    } catch (IllegalArgumentException e) {
-      fail();
+    private static final Integer SUCCESS_KEY = 1;
+
+    @Before
+    public void setMockOutput(){
+        when(notificationRepository.findNotificationById(anyInt())).thenAnswer( (InvocationOnMock invocation) ->{
+            if (invocation.getArgument(0).equals(SUCCESS_KEY)){
+                notification.setId(SUCCESS_KEY);
+                return notification;
+            } else {
+                return null;
+            }
+        });
+        when(notificationRepository.findAll()).thenAnswer( (InvocationOnMock invocation) ->{
+            List<Notification> notifications = new ArrayList<>();
+            notification.setId(SUCCESS_KEY);
+            notifications.add(notification);
+            return notifications;
+        });
     }
-    
-    List<Notification> allNotifications = notificationService.getAllNotifications();
-    assertEquals(1, allNotifications.size());
-    assertEquals(booking.getId(), allNotifications.get(0).getBooking().getId());
-    assertEquals(tutor.getId(), allNotifications.get(0).getTutor().getId());
-  }
 
-//  @Test
-//  public void testGetNotification() { // test getter method
-//    assertEquals(0, notificationService.getAllNotifications().size());
-//    String tutorEmail = "arthurmorgan@redemption.com";
-//    String studentEmail = "johnmarston@redemption.com";
-//    Course course = courseService.createCourse("test", Level.CEGEP);
-//    TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
-//    Booking booking = bookingService.createBooking(tutorEmail, studentEmail, Date.valueOf("2019-10-10"), timeSlot, course);
-//    Notification notification = notificationService.createNotification(booking, tutorEmail);
-//    List<Notification> allNotifications = null;
-//    try {
-//      allNotifications = notificationService.getAllNotifications();
-//    } catch (IllegalArgumentException e) {
-//      fail();
-//    }
-//    assertEquals(notification.getId(), allNotifications.get(0).getId());
-//  }
+    @Test
+    public void testGetNotification(){
+        assertEquals(SUCCESS_KEY, notificationService.getNotification(SUCCESS_KEY).getId());
+        assertEquals(SUCCESS_KEY, notificationService.getAllNotifications().get(0).getId());
+    }
 
 }

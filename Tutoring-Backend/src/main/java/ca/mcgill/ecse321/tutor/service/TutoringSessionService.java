@@ -44,6 +44,12 @@ public class TutoringSessionService {
 	}
 
 	@Transactional
+	public List<TutoringSession> getTutoringSessionByTutor(Tutor tutor) {
+		List<TutoringSession> tutoringSession = tutoringSessionRepository.findTutoringSessionByTutor(tutor);
+		return tutoringSession;
+	}
+
+	@Transactional
 	public List<TutoringSession> getAllTutoringSessions(){
 		return toList(tutoringSessionRepository.findAll());
 	}

@@ -1,77 +1,58 @@
 package ca.mcgill.ecse321.tutor.service;
 
-import static org.junit.Assert.*;
-
-import java.sql.Date;
-import java.sql.Time;
-import java.util.List;
-
-import org.junit.After;
-
-import ca.mcgill.ecse321.tutor.model.Booking;
-import ca.mcgill.ecse321.tutor.model.Course;
-import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
-import ca.mcgill.ecse321.tutor.model.Level;
-import ca.mcgill.ecse321.tutor.model.Manager;
+import ca.mcgill.ecse321.tutor.dao.RoomRepository;
 import ca.mcgill.ecse321.tutor.model.Room;
-import ca.mcgill.ecse321.tutor.model.TimeSlot;
-
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import ca.mcgill.ecse321.tutor.dao.BookingRepository;
-import ca.mcgill.ecse321.tutor.dao.CourseRepository;
-import ca.mcgill.ecse321.tutor.dao.ManagerRepository;
-import ca.mcgill.ecse321.tutor.dao.RoomRepository;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.when;
 
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@RunWith(MockitoJUnitRunner.class)
 public class RoomServiceTests {
 
-	@Autowired
-	private RoomRepository roomRepository;
+    @Mock
+    private RoomRepository roomRepository;
 
+    @InjectMocks
+    private RoomService roomService;
 
-	@Autowired
-	private RoomService roomService;
-	
-	@Autowired
-	private ManagerService managerService;
-	
-	@Autowired
-	private BookingService bookingService;
-	@Autowired
-	private ManagerRepository managerRepository;
+    private Room room = new Room();
 
-	@After
-	public void clearDatabase() {
+    private static final Integer SUCCESS_KEY = 1;
 
-		roomRepository.deleteAll();
-		managerRepository.deleteAll();
+    @Before
+    public void setMockOutput(){
+        when(roomRepository.findRoomById(anyInt())).thenAnswer( (InvocationOnMock invocation) ->{
+            if (invocation.getArgument(0).equals(SUCCESS_KEY)){
+                room.setId(SUCCESS_KEY);
+                return room;
+            } else {
+                return null;
+            }
+        });
+        when(roomRepository.findAll()).thenAnswer( (InvocationOnMock invocation) ->{
+            List<Room> rooms = new ArrayList<>();
+            room.setId(SUCCESS_KEY);
+            rooms.add(room);
+            return rooms;
+        });
+    }
 
-	}
-	
-	@Test
-	public void testCreateRoom() { // test constructor method
-		assertEquals(0, roomService.getAllRooms().size());
-		Integer number = 12;
-		Integer capacity = 30;
-		Manager manager = managerService.createManager();
-		try {
-			roomService.createRoom(number, capacity , manager);
-		} catch (IllegalArgumentException e) {
-			fail();
-		}
-		List<Room> allRooms = roomService.getAllRooms();
-		assertEquals(1, allRooms.size());
-		assertEquals((Integer) 12, allRooms.get(0).getRoomNumber());
-		assertEquals((Integer) 30, allRooms.get(0).getRoomCapacity());
-	}
-
-
+    @Test
+    public void testGetRoom(){
+        assertEquals(SUCCESS_KEY, roomService.getRoom(SUCCESS_KEY).getId());
+        assertEquals(SUCCESS_KEY, roomService.getAllRooms().get(0).getId());
+    }
 
 }

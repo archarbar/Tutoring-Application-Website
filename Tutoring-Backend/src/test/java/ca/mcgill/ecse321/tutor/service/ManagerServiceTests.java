@@ -1,44 +1,58 @@
 package ca.mcgill.ecse321.tutor.service;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
-
-import org.junit.After;
-
+import ca.mcgill.ecse321.tutor.dao.ManagerRepository;
 import ca.mcgill.ecse321.tutor.model.Manager;
-
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-import ca.mcgill.ecse321.tutor.dao.ManagerRepository;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.when;
+
+
+@RunWith(MockitoJUnitRunner.class)
 public class ManagerServiceTests {
 
-  @Autowired
-  private ManagerRepository managerRepository;
+    @Mock
+    private ManagerRepository managerRepository;
 
-  @Autowired
-  private ManagerService managerService;
+    @InjectMocks
+    private ManagerService managerService;
 
-  @After
-  public void clearDatabase() {
-    managerRepository.deleteAll();
-  }
+    private Manager manager = new Manager();
 
-  @Test
-  public void testCreateManager() {
-    assertEquals(0, managerService.getAllManagers().size());
-    try {
-      managerService.createManager();
-    } catch (IllegalArgumentException e) {
-      fail();
+    private static final Integer SUCCESS_KEY = 1;
+
+    @Before
+    public void setMockOutput() {
+        when(managerRepository.findManagerById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
+            if (invocation.getArgument(0).equals(SUCCESS_KEY)) {
+                manager.setId(SUCCESS_KEY);
+                return manager;
+            } else {
+                return null;
+            }
+        });
+        when(managerRepository.findAll()).thenAnswer((InvocationOnMock invocation) -> {
+            List<Manager> managers = new ArrayList<>();
+            manager.setId(SUCCESS_KEY);
+            managers.add(manager);
+            return managers;
+        });
     }
-    List<Manager> allManagers = managerService.getAllManagers();
-    assertEquals(1, allManagers.size());
-  }
+
+    @Test
+    public void testGetManager() {
+        assertEquals(SUCCESS_KEY, managerService.getManager(SUCCESS_KEY).getId());
+        assertEquals(SUCCESS_KEY, managerService.getAllManagers().get(0).getId());
+    }
+
 }

@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.tutor.service;
+package ca.mcgill.ecse321.tutor.persistence;
 
 import static org.junit.Assert.*;
 
@@ -20,7 +20,7 @@ import ca.mcgill.ecse321.tutor.service.StudentService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class StudentTests {
+public class StudentDaoTests {
 
 	@Autowired
 	private StudentService studentService;

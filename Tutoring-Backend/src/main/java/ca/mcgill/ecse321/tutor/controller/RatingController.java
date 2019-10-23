@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.tutor.controller;
 import ca.mcgill.ecse321.tutor.dto.RatingDto;
 import ca.mcgill.ecse321.tutor.model.Rating;
 import ca.mcgill.ecse321.tutor.model.Student;
+import ca.mcgill.ecse321.tutor.model.TutoringSession;
 import ca.mcgill.ecse321.tutor.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +18,12 @@ public class RatingController {
     private RatingService service;
 
     @PostMapping("/rating/newRating")
-    public RatingDto createRating (@RequestBody RatingDto rating) throws IllegalArgumentException {
-        Rating newRating = service.createRating(rating.getStars(), rating.getComment(), rating.getStudent(),
-                rating.getTutor(), rating.getTutoringSession());
+    public RatingDto createRating (@RequestParam Integer stars,
+                                   @RequestParam String comment,
+                                   @RequestParam Student student,
+                                   @RequestParam TutoringSession tutoringSession) throws IllegalArgumentException {
+        Rating newRating = service.createRating(stars, comment, student,
+                tutoringSession.getTutor(), tutoringSession);
         return convertToDto(newRating);
     }
 

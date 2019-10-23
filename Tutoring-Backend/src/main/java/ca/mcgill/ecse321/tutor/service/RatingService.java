@@ -23,8 +23,8 @@ public class RatingService {
     if (stars == null) {
       throw new IllegalArgumentException("A star rating needs to be specified!");
     }
-    if (comment == null) {
-      throw new IllegalArgumentException("A comment needs to be specified!");
+    if (student == null) {
+      throw new IllegalArgumentException("A student needs to be specified!");
     }
     Rating rating = new Rating();
     rating.setStars(stars);

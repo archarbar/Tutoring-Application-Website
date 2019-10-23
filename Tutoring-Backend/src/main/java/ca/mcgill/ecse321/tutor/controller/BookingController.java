@@ -52,13 +52,12 @@ public class BookingController {
     }
 
     @GetMapping("/booking/allBookings")
-    public List<BookingDto> getAllTutorBookings(@PathVariable Tutor tutor) {
-        List<BookingDto> bookings = new ArrayList<>();
-        for (Booking booking : service.getAllBookings()) {
-            if (booking.getTutorEmail().contentEquals(tutor.getEmail()))
-                bookings.add(convertToDto(booking));
+    public List<BookingDto> getAllTutorBookings(@PathVariable String tutorEmail) {
+        List<BookingDto> bookingsByTutorEmail = new ArrayList<>();
+        for (Booking booking : service.getBookingByTutorEmail(tutorEmail)) {
+            bookingsByTutorEmail.add(convertToDto(booking));
         }
-        return bookings;
+        return bookingsByTutorEmail;
     }
 
     private BookingDto convertToDto(Booking booking) {

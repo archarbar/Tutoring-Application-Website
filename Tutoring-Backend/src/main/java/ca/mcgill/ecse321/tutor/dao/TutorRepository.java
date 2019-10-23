@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import ca.mcgill.ecse321.tutor.model.Tutor;
 
 @RepositoryRestResource(collectionResourceRel = "tutors", path = "tutors")
-@Repository
 public interface TutorRepository extends CrudRepository<Tutor, Integer> {
 	
   Tutor findTutorById(int id);

@@ -1,14 +1,8 @@
 package ca.mcgill.ecse321.tutor.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.ManyToOne;
-
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
-import ca.mcgill.ecse321.tutor.model.Tutor;
+import javax.persistence.*;
 
 @Entity
 public class Rating{
@@ -40,7 +34,7 @@ public class Rating{
   }
   private TutoringSession tutoringSession;
 
-  @ManyToOne(optional=false)
+  @OneToOne(optional=false)
   public TutoringSession getTutoringSession() {
     return this.tutoringSession;
   }
