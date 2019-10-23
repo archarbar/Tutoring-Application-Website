@@ -1,0 +1,75 @@
+package ca.mcgill.ecse321.tutor.dto;
+
+import ca.mcgill.ecse321.tutor.model.Manager;
+
+public class TutorDto {
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+    private Manager manager;
+    private int hourlyRate;
+    private boolean isApproved;
+
+    public TutorDto(String firstName, String lastName, String email, Manager manager, boolean isApproved) {
+        this(firstName, lastName, email, null, manager, 10, isApproved);
+    }
+
+    public TutorDto(String firstName, String lastName, String email, String password, Manager manager, int hourlyRate, boolean isApproved) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.manager = manager;
+        this.hourlyRate = hourlyRate;
+        this.isApproved = isApproved;
+    }
+
+    public Manager getManager() {
+        return manager;
+    }
+
+    public boolean getisApproved() {
+        return isApproved;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getHourlyRate() {
+        return hourlyRate;
+    }
+
+    public void setHourlyRate(int hourlyRate) {
+        this.hourlyRate = hourlyRate;
+    }
+}

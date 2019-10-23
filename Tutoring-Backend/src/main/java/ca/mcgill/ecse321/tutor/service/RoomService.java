@@ -34,7 +34,7 @@ public class RoomService {
 	}
 
 	@Transactional
-	public Room getManager(Integer roomId) {
+	public Room getRoom(Integer roomId) {
 		Room room = roomRepository.findRoomById(roomId);
 		return room;
 	}

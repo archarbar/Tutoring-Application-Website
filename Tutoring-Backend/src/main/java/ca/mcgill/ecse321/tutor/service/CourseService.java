@@ -42,8 +42,8 @@ public class CourseService {
   }
 
   @Transactional
-  public List<Course> getCourseByCourseLevel(Level courseLevel) {
-    List<Course> coursesByLevel = new ArrayList<>();
+  public ArrayList<Course> getCourseByCourseLevel(Level courseLevel) {
+    ArrayList<Course> coursesByLevel = new ArrayList<>();
     for (Course course : courseRepository.findCourseByCourseLevel(courseLevel)) {
       coursesByLevel.add(course);
     }
