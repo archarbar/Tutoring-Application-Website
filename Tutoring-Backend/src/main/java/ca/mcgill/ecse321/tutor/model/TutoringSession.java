@@ -25,7 +25,7 @@ public class TutoringSession{
   }
   private Rating rating;
 
-  @OneToOne(mappedBy="tutoringSession")
+  @OneToOne
   public Rating getRating() {
     return this.rating;
   }

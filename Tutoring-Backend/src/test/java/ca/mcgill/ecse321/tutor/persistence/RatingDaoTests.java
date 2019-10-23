@@ -79,17 +79,11 @@ public class RatingDaoTests {
 
 		Integer stars = 5;
 		String comment = "Great!!!";
-
 		Date sessionDate = Date.valueOf("2019-10-14");
-
 		Manager manager = managerService.createManager();
-
 		Room room = roomService.createRoom(12, 30, manager);
-
 		TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
-
 		String password = "locust";
-
 		String tutorEmail = "arthurmorgan@redemption.com";
 		Course course = courseService.createCourse("test", Level.CEGEP);
 		String firstName = "Michael";
@@ -100,7 +94,7 @@ public class RatingDaoTests {
 		studentSet.add(student);
 
 		Booking booking = bookingService.createBooking(tutorEmail, studentSet, sessionDate, timeSlot, course);
-		Tutor tutor = tutorService.createTutor(firstName, lastName, email, password, manager);
+		Tutor tutor = tutorService.createTutor(firstName, lastName, tutorEmail, password, manager);
 		TutoringSession tutoringSession = tutoringSessionService.createTutoringSession(sessionDate, tutor, room, booking, timeSlot);
 
 		try {
@@ -115,9 +109,9 @@ public class RatingDaoTests {
 			assertEquals(1, allRatings.size());
 			assertEquals(stars, allRatings.get(0).getStars());
 			assertEquals(comment, allRatings.get(0).getComment());
-			assertEquals(student, allRatings.get(0).getStudent());
-			assertEquals(tutor, allRatings.get(0).getTutor());
-//			assertEquals(tutoringSession, allRatings.get(0).getTutoringSession());
+			assertEquals(student.getId(), allRatings.get(0).getStudent().getId());
+			assertEquals(tutor.getId(), allRatings.get(0).getTutor().getId());
+			assertEquals(tutoringSession.getId(), allRatings.get(0).getTutoringSession().getId());
 	}
 
 
