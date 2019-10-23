@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.tutor.dao;
 
 import java.util.List;
 
+import ca.mcgill.ecse321.tutor.model.Tutor;
 import org.springframework.data.repository.CrudRepository;
 
 import ca.mcgill.ecse321.tutor.model.Booking;
@@ -15,6 +16,8 @@ public interface TutoringSessionRepository extends CrudRepository<TutoringSessio
   TutoringSession findTutoringSessionById(Integer tutoringSessionId);
 
   List<TutoringSession> findByTimeSlot(TimeSlot timeSlot);
+
+  List<TutoringSession> findTutoringSessionByTutor (Tutor tutor);
   
   TutoringSession findTutoringSessionByBooking(Booking booking);
 }

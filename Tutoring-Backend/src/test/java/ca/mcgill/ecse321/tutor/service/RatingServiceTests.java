@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.tutor.service;
 
 import ca.mcgill.ecse321.tutor.dao.RatingRepository;
 import ca.mcgill.ecse321.tutor.model.Rating;
+import ca.mcgill.ecse321.tutor.model.Student;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 
@@ -47,6 +49,30 @@ public class RatingServiceTests {
             ratings.add(rating);
             return ratings;
         });
+    }
+
+    @Test
+    public void testCreateRatingNullStars() {
+        String error = null;
+        try {
+            rating = ratingService.createRating(null, null,
+                    mock(Student.class), null, null);
+        } catch (IllegalArgumentException e) {
+            error = e.getMessage();
+        }
+        assertEquals("A star rating needs to be specified!", error);
+    }
+
+    @Test
+    public void testCreateRatingNullStudent() {
+        String error = null;
+        try {
+            rating = ratingService.createRating(5, null,
+                    null, null, null);
+        } catch (IllegalArgumentException e) {
+            error = e.getMessage();
+        }
+        assertEquals("A student needs to be specified!", error);
     }
 
     @Test

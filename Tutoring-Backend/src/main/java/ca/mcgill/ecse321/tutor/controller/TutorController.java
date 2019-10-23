@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.tutor.controller;
 
 import ca.mcgill.ecse321.tutor.dto.TutorDto;
+import ca.mcgill.ecse321.tutor.model.Manager;
 import ca.mcgill.ecse321.tutor.model.Tutor;
 import ca.mcgill.ecse321.tutor.service.TutorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,12 @@ public class TutorController {
     private TutorService service;
 
     @PostMapping("/tutor/newTutor")
-    public TutorDto createTutor(@RequestBody TutorDto tutor) throws IllegalArgumentException {
-        Tutor newTutor = service.createTutor(tutor.getFirstName(), tutor.getLastName(), tutor.getEmail(), tutor.getPassword(),
-                tutor.getManager());
+    public TutorDto createTutor(@RequestParam("tutorFirstName") String tutorFirstName,
+                                @RequestParam("tutorLastName") String tutorLastName,
+                                @RequestParam("tutorEmail") String tutorEmail,
+                                @RequestParam("tutorPassword") String tutorPassword,
+                                @RequestParam Manager manager)  throws IllegalArgumentException {
+        Tutor newTutor = service.createTutor(tutorFirstName, tutorLastName, tutorEmail, tutorPassword, manager);
         return convertToDto(newTutor);
     }
 
