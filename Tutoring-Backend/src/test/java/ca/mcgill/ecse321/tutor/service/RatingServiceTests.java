@@ -1,84 +1,130 @@
 package ca.mcgill.ecse321.tutor.service;
 
-import ca.mcgill.ecse321.tutor.dao.RatingRepository;
-import ca.mcgill.ecse321.tutor.model.Rating;
-import ca.mcgill.ecse321.tutor.model.Student;
-import org.junit.Before;
+import static org.junit.Assert.*;
+import java.sql.Date;
+import java.sql.Time;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.List;
+import ca.mcgill.ecse321.tutor.model.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import ca.mcgill.ecse321.tutor.service.*;
 
+import ca.mcgill.ecse321.tutor.dao.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class RatingServiceTests {
 
-    @Mock
-    private RatingRepository ratingRepository;
+	@Autowired
+	private TutoringSessionService tutoringSessionService;
 
-    @InjectMocks
-    private RatingService ratingService;
+	@Autowired
+	private BookingService bookingService;
+	@Autowired
+	private TutorService tutorService;
+	@Autowired
+	private RoomService roomService;
+	@Autowired
+	private TimeSlotService timeSlotService;
+	@Autowired
+	private ManagerService managerService;
+	@Autowired
+	private CourseService courseService;
+	@Autowired
+	private StudentService studentService;
+	@Autowired
+	private RatingService ratingService;
 
-    private Rating rating = new Rating();
+	@Autowired
+	private TutoringSessionRepository tutoringSessionRepository;
+	@Autowired
+	private BookingRepository bookingRepository;
+	@Autowired
+	private TutorRepository tutorRepository;
+	@Autowired
+	private RoomRepository roomRepository;
+	@Autowired
+	private TimeSlotRepository timeSlotRepository;
+	@Autowired
+	private ManagerRepository managerRepository;
+	@Autowired
+	private StudentRepository studentRepository;
+	@Autowired
+	private RatingRepository ratingRepository;
 
-    private static final Integer SUCCESS_KEY = 1;
+	@After
+	public void clearDatabase() {
+		bookingRepository.deleteAll();
+		ratingRepository.deleteAll();
+		tutoringSessionRepository.deleteAll();
+		tutorRepository.deleteAll();
+		roomRepository.deleteAll();
+		timeSlotRepository.deleteAll();
+		managerRepository.deleteAll();
+		studentRepository.deleteAll();
+	}
 
-    @Before
-    public void setMockOutput(){
-        when(ratingRepository.findRatingById(anyInt())).thenAnswer( (InvocationOnMock invocation) ->{
-            if (invocation.getArgument(0).equals(SUCCESS_KEY)){
-                rating.setId(SUCCESS_KEY);
-                return rating;
-            } else {
-                return null;
-            }
-        });
-        when(ratingRepository.findAll()).thenAnswer( (InvocationOnMock invocation) ->{
-            List<Rating> ratings = new ArrayList<>();
-            rating.setId(SUCCESS_KEY);
-            ratings.add(rating);
-            return ratings;
-        });
-    }
+	@Test
+	public void testCreateTutoringSession() {
+		assertEquals(0, ratingService.getAllRatings().size());
 
-    @Test
-    public void testCreateRatingNullStars() {
-        String error = null;
-        try {
-            rating = ratingService.createRating(null, null,
-                    mock(Student.class), null, null);
-        } catch (IllegalArgumentException e) {
-            error = e.getMessage();
-        }
-        assertEquals("A star rating needs to be specified!", error);
-    }
+		Integer stars = 5;
+		String comment = "Great!!!";
 
-    @Test
-    public void testCreateRatingNullStudent() {
-        String error = null;
-        try {
-            rating = ratingService.createRating(5, null,
-                    null, null, null);
-        } catch (IllegalArgumentException e) {
-            error = e.getMessage();
-        }
-        assertEquals("A student needs to be specified!", error);
-    }
+		Date sessionDate = Date.valueOf("2019-10-14");
 
-    @Test
-    public void testGetRating(){
-        assertEquals(SUCCESS_KEY, ratingService.getRating(SUCCESS_KEY).getId());
-        assertEquals(SUCCESS_KEY, ratingService.getAllRatings().get(0).getId());
-    }
+		Manager manager = managerService.createManager();
+
+		Room room = roomService.createRoom(12, 30, manager);
+
+		TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
+
+
+		String password = "locust";
+
+
+
+		String tutorEmail = "arthurmorgan@redemption.com";
+		Course course = courseService.createCourse("test", Level.CEGEP);
+		String firstName = "Michael";
+		String lastName = "Li";
+		String email = "mlej@live.com";
+		Student student = studentService.createStudent(firstName, lastName, email);
+		Set<Student> studentSet = new HashSet<Student>();
+		studentSet.add(student);
+
+		Booking booking = bookingService.createBooking(tutorEmail, studentSet, Date.valueOf("2019-10-10"), timeSlot, course);
+		Tutor tutor = tutorService.createTutor(firstName, lastName, email, password, manager);
+		TutoringSession tutoringSession = tutoringSessionService.createTutoringSession(sessionDate, tutor, room, booking, timeSlot);
+
+
+
+		try {
+			//			ratingService.createRating(stars, comment, student, tutor, tutoringSession);
+		}
+		catch (IllegalArgumentException e) {
+			fail();
+		}
+
+		//	List<Rating> allRatings = ratingService.getAllRatings();
+
+		//	assertEquals(1, allRatings.size());
+		//	assertEquals(stars, allRatings.get(0).getStars());
+		//	assertEquals(comment, allRatings.get(0).getComment());
+		//	assertEquals(student, allRatings.get(0).getStudent());
+		//	assertEquals(tutor, allRatings.get(0).getTutor());
+		//	assertEquals(tutoringSession.getId(), allRatings.get(0).getTutoringSession().getId());
+	}
+
+
 
 }

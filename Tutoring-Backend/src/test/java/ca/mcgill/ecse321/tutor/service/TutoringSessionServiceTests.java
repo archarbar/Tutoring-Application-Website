@@ -1,97 +1,126 @@
 package ca.mcgill.ecse321.tutor.service;
 
-import ca.mcgill.ecse321.tutor.dao.TutoringSessionRepository;
-import ca.mcgill.ecse321.tutor.model.Manager;
-import ca.mcgill.ecse321.tutor.model.Tutor;
-import ca.mcgill.ecse321.tutor.model.TutoringSession;
-import org.junit.Before;
+import static org.junit.Assert.*;
+import java.sql.Date;
+import java.sql.Time;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.List;
+import ca.mcgill.ecse321.tutor.model.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import ca.mcgill.ecse321.tutor.service.*;
 
+import ca.mcgill.ecse321.tutor.dao.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class TutoringSessionServiceTests {
 
-    @Mock
-    private TutoringSessionRepository tutoringSessionRepository;
+	@Autowired
+	private TutoringSessionService tutoringSessionService;
 
-    @InjectMocks
-    private TutoringSessionService tutoringSessionService;
+	@Autowired
+	private BookingService bookingService;
+	@Autowired
+	private TutorService tutorService;
+	@Autowired
+	private RoomService roomService;
+	@Autowired
+	private TimeSlotService timeSlotService;
+	@Autowired
+	private ManagerService managerService;
+	@Autowired
+	private CourseService courseService;
+	@Autowired
+	private StudentService studentService;
 
-    private TutoringSession tutoringSession = new TutoringSession();
+	@Autowired
+	private TutoringSessionRepository tutoringSessionRepository;
+	@Autowired
+	private BookingRepository bookingRepository;
+	@Autowired
+	private TutorRepository tutorRepository;
+	@Autowired
+	private RoomRepository roomRepository;
+	@Autowired
+	private TimeSlotRepository timeSlotRepository;
+	@Autowired
+	private ManagerRepository managerRepository;
 
-    private static final Integer SUCCESS_KEY = 1;
-    private Tutor tutor;
+	@After
+	public void clearDatabase() {
+		bookingRepository.deleteAll();
+		tutoringSessionRepository.deleteAll();
+		tutorRepository.deleteAll();
+		roomRepository.deleteAll();
+		timeSlotRepository.deleteAll();
+		managerRepository.deleteAll();
+	}
 
-    @Before
-    public  void setMock(){
-        tutor = mock(Tutor.class);
-        tutor.setEmail("test@email.com");
-        tutor.setFirstName("Test");
-        tutor.setLastName("Tutor");
-        tutor.setManager(mock(Manager.class));
+	@Test
+	public void testCreateTutoringSession() {
+		assertEquals(0, tutoringSessionService.getAllTutoringSessions().size());
 
-    }
+		Date sessionDate = Date.valueOf("2019-10-14");
 
-    @Before
-    public void setMockOutput(){
-        when(tutoringSessionRepository.findTutoringSessionById(anyInt())).thenAnswer( (InvocationOnMock invocation) ->{
-            if (invocation.getArgument(0).equals(SUCCESS_KEY)){
-                tutoringSession.setId(SUCCESS_KEY);
-                return tutoringSession;
-            } else {
-                return null;
-            }
-        });
-        when(tutoringSessionRepository.findTutoringSessionByTutor(any(Tutor.class))).thenAnswer( (InvocationOnMock invocation) ->{
-            if (invocation.getArgument(0).equals(tutor)){
-                List<TutoringSession> tutoringSessions = new ArrayList<>();
-                tutoringSession.setTutor(tutor);
-                tutoringSessions.add(tutoringSession);
-                return tutoringSessions;
-            } else {
-                return null;
-            }
-        });
-        when(tutoringSessionRepository.findAll()).thenAnswer( (InvocationOnMock invocation) ->{
-            List<TutoringSession> tutoringSessions = new ArrayList<>();
-            tutoringSession.setId(SUCCESS_KEY);
-            tutoringSessions.add(tutoringSession);
-            return tutoringSessions;
-        });
-    }
+		Manager manager = managerService.createManager();
 
-    @Test
-    public void testCreateTutoringSessionNull() {
-        String error = null;
+		Room room = roomService.createRoom(12, 30, manager);
 
-        try {
-            tutoringSession = tutoringSessionService.createTutoringSession(null, null,
-                    null, null, null);
-        } catch (IllegalArgumentException e) {
-            error = e.getMessage();
-        }
-        assertEquals("A date needs to be specified!", error);
-    }
+		TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
 
-    @Test
-    public void testGetTutoringSession(){
-        assertEquals(SUCCESS_KEY, tutoringSessionService.getTutoringSessionById(SUCCESS_KEY).getId());
-        assertEquals(tutor, tutoringSessionService.getTutoringSessionByTutor(tutor).get(0).getTutor());
-        assertEquals(SUCCESS_KEY, tutoringSessionService.getAllTutoringSessions().get(0).getId());
-    }
+
+		String password = "locust";
+
+
+
+		String tutorEmail = "arthurmorgan@redemption.com";
+		Course course = courseService.createCourse("test", Level.CEGEP);
+		String firstName = "Michael";
+		String lastName = "Li";
+		String email = "mlej@live.com";
+		Student student = studentService.createStudent(firstName, lastName, email);
+		Set<Student> studentSet = new HashSet<Student>();
+		studentSet.add(student);
+
+		Booking booking = bookingService.createBooking(tutorEmail, studentSet, Date.valueOf("2019-10-10"), timeSlot, course);
+		Tutor tutor = tutorService.createTutor(firstName, lastName, email, password, manager);
+		try {
+			tutoringSessionService.createTutoringSession(sessionDate, tutor, room, booking, timeSlot);
+		}
+		catch (IllegalArgumentException e) {
+			fail();
+		}
+
+		List<TutoringSession> allTutoringSessions = tutoringSessionService.getAllTutoringSessions();
+
+		assertEquals(1, allTutoringSessions.size());
+		assertEquals(sessionDate, allTutoringSessions.get(0).getSessionDate());
+	}
+
+	//  @Test
+	//  public void testGetTutoringSession() {
+	//    assertEquals(0, tutoringSessionService.getAllTutoringSessions().size());
+	//
+	//    Date sessionDate = Date.valueOf("2019-10-14");
+	//    TutoringSession tutoringSession = tutoringSessionService.createTutoringSession(sessionDate);
+	//    List<TutoringSession> allTutoringSessions = null;
+	//    try {
+	//      allTutoringSessions = tutoringSessionService.getAllTutoringSessions();
+	//    }
+	//    catch (IllegalArgumentException e) {
+	//      fail();
+	//    }
+	//
+	//    assertEquals(tutoringSession.getId(), allTutoringSessions.get(0).getId());
+	//  }
 
 }

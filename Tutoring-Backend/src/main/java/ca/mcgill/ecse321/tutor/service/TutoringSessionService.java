@@ -23,9 +23,26 @@ public class TutoringSessionService {
 
 	@Transactional
 	public TutoringSession createTutoringSession(Date sessionDate, Tutor tutor, Room room,
-	    Booking booking, TimeSlot timeSlot) {
+			Booking booking, TimeSlot timeSlot) {
+		String error = "";
 		if (sessionDate == null) {
-			throw new IllegalArgumentException("A date needs to be specified!");
+			error = error + "A date needs to be specified! ";
+		}
+		if (tutor == null) {
+			error = error + "A tutor needs to be specified! ";
+		}
+		if (room == null) {
+			error = error + "A room needs to be specified! ";
+		}
+		if (booking == null) {
+			error = error + "A booking needs to be specified! ";
+		}
+		if (timeSlot == null) {
+			error = error + "A timeSlot needs to be specified!";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
 		}
 		TutoringSession tutoringSession = new TutoringSession();
 		tutoringSession.setSessionDate(sessionDate);
@@ -39,12 +56,18 @@ public class TutoringSessionService {
 
 	@Transactional
 	public TutoringSession getTutoringSessionById(Integer tutoringSessionId) {
+		if (tutoringSessionId == null) {
+			throw new IllegalArgumentException("A tutoring session ID needs to be specified!");
+		}
 		TutoringSession tutoringSession = tutoringSessionRepository.findTutoringSessionById(tutoringSessionId);
 		return tutoringSession;
 	}
 
 	@Transactional
 	public List<TutoringSession> getTutoringSessionByTutor(Tutor tutor) {
+		if (tutor == null) {
+			throw new IllegalArgumentException("A tutor needs to be specified!");
+		}
 		List<TutoringSession> tutoringSession = tutoringSessionRepository.findTutoringSessionByTutor(tutor);
 		return tutoringSession;
 	}

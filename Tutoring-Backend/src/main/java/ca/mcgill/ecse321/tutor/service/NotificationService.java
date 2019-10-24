@@ -20,10 +20,17 @@ public class NotificationService {
 
 	@Transactional
 	public Notification createNotification(Booking booking, Tutor tutor) {
+		String error = "";
 		if (booking == null) {
-			throw new IllegalArgumentException("A booking needs to be specified!");
+			error = error + "A booking needs to be specified! ";
 		}
-
+		if (tutor == null) {
+			error = error + "A tutor needs to be specified!";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
 		Notification notification = new Notification();
 		notification.setBooking(booking);
 		notification.setTutor(tutor);
@@ -33,11 +40,17 @@ public class NotificationService {
 
 	@Transactional
 	public Notification getNotification(Integer notificationId) {
+		if (notificationId == null) {
+			throw new IllegalArgumentException("A notification ID needs to be specified!");
+		}
 		return notificationRepository.findNotificationById(notificationId);
 	}
 
 	@Transactional
 	public List<Notification> getNotificationsByTutor(Tutor tutor){
+		if (tutor == null) {
+			throw new IllegalArgumentException("A tutor needs to be specified!");
+		}
 		return toList(notificationRepository.findNotificationByTutor(tutor));
 	}
 
