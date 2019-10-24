@@ -14,12 +14,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.junit.After;
-import org.junit.Test;
 
 import ca.mcgill.ecse321.tutor.dao.*;
 import ca.mcgill.ecse321.tutor.model.*;
-import ca.mcgill.ecse321.tutor.service.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -57,13 +54,7 @@ public class NotificationServiceTests {
 	@Autowired
 	private CourseService courseService;
 	@Autowired
-	private RoomService roomService;
-	@Autowired
 	private NotificationService notificationService;
-	@Autowired
-	private RatingService ratingService;
-	@Autowired
-	private TutoringSessionService tutoringSessionService;
 	@Autowired
 	private TimeSlotService timeSlotService;
 
@@ -91,6 +82,7 @@ public class NotificationServiceTests {
 	@Test
 	public void testCreateNotification() { // test constructor method
 		assertEquals(0, notificationService.getAllNotifications().size());
+
 		String tutorEmail = "marcusfenix@gears.com";
 		Course course = courseService.createCourse("test", Level.CEGEP);
 		String firstName = "Michael";
@@ -114,27 +106,31 @@ public class NotificationServiceTests {
 		}
 
 		List<Notification> allNotifications = notificationService.getAllNotifications();
+
 		assertEquals(1, allNotifications.size());
 		assertEquals(booking.getId(), allNotifications.get(0).getBooking().getId());
 		assertEquals(tutor.getId(), allNotifications.get(0).getTutor().getId());
 	}
 
-	//  @Test
-	//  public void testGetNotification() { // test getter method
-	//    assertEquals(0, notificationService.getAllNotifications().size());
-	//    String tutorEmail = "arthurmorgan@redemption.com";
-	//    String studentEmail = "johnmarston@redemption.com";
-	//    Course course = courseService.createCourse("test", Level.CEGEP);
-	//    TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
-	//    Booking booking = bookingService.createBooking(tutorEmail, studentEmail, Date.valueOf("2019-10-10"), timeSlot, course);
-	//    Notification notification = notificationService.createNotification(booking, tutorEmail);
-	//    List<Notification> allNotifications = null;
-	//    try {
-	//      allNotifications = notificationService.getAllNotifications();
-	//    } catch (IllegalArgumentException e) {
-	//      fail();
-	//    }
-	//    assertEquals(notification.getId(), allNotifications.get(0).getId());
-	//  }
+	@Test
+	public void testCreateNotificationNull() {
+		assertEquals(0, notificationService.getAllNotifications().size());
+
+		Booking booking = null;
+		Tutor tutor = null;
+		String error = null;
+
+		try {
+			notificationService.createNotification(booking, tutor);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A booking needs to be specified! A tutor needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, courseService.getAllCourses().size());
+	}
 
 }
