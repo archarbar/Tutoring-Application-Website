@@ -1,89 +1,73 @@
 package ca.mcgill.ecse321.tutor.service;
 
-import ca.mcgill.ecse321.tutor.dao.StudentRepository;
-import ca.mcgill.ecse321.tutor.model.Student;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.junit.MockitoJUnitRunner;
+import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
+import org.junit.After;
+
+import ca.mcgill.ecse321.tutor.model.Student;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import ca.mcgill.ecse321.tutor.dao.StudentRepository;
+import ca.mcgill.ecse321.tutor.service.StudentService;
 
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class StudentServiceTests {
 
-    @Mock
-    private StudentRepository studentRepository;
+	@Autowired
+	private StudentService studentService;
 
-    @InjectMocks
-    private StudentService studentService;
+	@Autowired
+	private StudentRepository studentRepository;
 
-    private Student student = new Student();
+	@After
+	public void clearDatabase() {
 
-    private static final Integer SUCCESS_KEY = 1;
-    private static final String EMAIL_KEY = "email@test.com";
-    private static final String FIRST_NAME = "FTest";
-    private static final String LAST_NAME = "LTest";
+		studentRepository.deleteAll();
 
-    @Before
-    public void setMockOutput(){
-        when(studentRepository.findStudentById(anyInt())).thenAnswer( (InvocationOnMock invocation) ->{
-            if (invocation.getArgument(0).equals(SUCCESS_KEY)){
-                student.setId(SUCCESS_KEY);
-                return student;
-            } else {
-                return null;
-            }
-        });
-        when(studentRepository.findStudentByEmail(anyString())).thenAnswer( (InvocationOnMock invocation) ->{
-            if (invocation.getArgument(0).equals(EMAIL_KEY)){
-                student.setEmail(EMAIL_KEY);
-                return student;
-            } else {
-                return null;
-            }
-        });
-        when(studentRepository.findStudentByFirstName(anyString())).thenAnswer( (InvocationOnMock invocation) ->{
-            if (invocation.getArgument(0).equals(FIRST_NAME)){
-                student.setFirstName(FIRST_NAME);
-                return student;
-            } else {
-                return null;
-            }
-        });
-        when(studentRepository.findStudentByLastName(anyString())).thenAnswer( (InvocationOnMock invocation) ->{
-            if (invocation.getArgument(0).equals(LAST_NAME)){
-                student.setLastName(LAST_NAME);
-                return student;
-            } else {
-                return null;
-            }
-        });
-        when(studentRepository.findAll()).thenAnswer( (InvocationOnMock invocation) ->{
-            List<Student> students = new ArrayList<>();
-            student.setId(SUCCESS_KEY);
-            students.add(student);
-            return students;
-        });
-    }
+	}
 
-    @Test
-    public void testGetStudent(){
-        assertEquals(SUCCESS_KEY, studentService.getStudentById(SUCCESS_KEY).getId());
-        assertEquals(EMAIL_KEY, studentService.getStudentByEmail(EMAIL_KEY).getEmail());
-        assertEquals(FIRST_NAME, studentService.getStudentByFirstName(FIRST_NAME).getFirstName());
-        assertEquals(LAST_NAME, studentService.getStudentByLastName(LAST_NAME).getLastName());
-        assertEquals(SUCCESS_KEY, studentService.getAllStudents().get(0).getId());
-    }
+	@Test
+	public void testCreateStudent() {
+		assertEquals(0, studentService.getAllStudents().size());
+
+		String firstName = "Michael";
+		String lastName = "Li";
+		String email = "mlej@live.com";
+		try {
+			studentService.createStudent(firstName, lastName, email);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+
+		List<Student> allStudents = studentService.getAllStudents();
+
+		assertEquals(1, allStudents.size());
+		assertEquals(firstName, allStudents.get(0).getFirstName());
+		assertEquals(lastName, allStudents.get(0).getLastName());
+		assertEquals(email, allStudents.get(0).getEmail());	
+
+	}
+
+
+
+	//	@Test
+	//	public void testGetStudent() {
+	//		String firstName = "Michael";
+	//		String lastName = "Li";
+	//		
+	//		Student student = studentService.getStudentByName(firstName, lastName);
+	//		
+	//		assertEquals(firstName, student.getFirstName());
+	//		assertEquals(lastName, student.getLastName());
+	//	}
 
 }
