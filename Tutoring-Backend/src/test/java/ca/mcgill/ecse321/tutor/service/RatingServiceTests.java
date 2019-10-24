@@ -16,8 +16,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import ca.mcgill.ecse321.tutor.model.*;
 
-import ca.mcgill.ecse321.tutor.service.*;
-
 import ca.mcgill.ecse321.tutor.dao.*;
 
 @RunWith(SpringRunner.class)
@@ -79,20 +77,11 @@ public class RatingServiceTests {
 
 		Integer stars = 5;
 		String comment = "Great!!!";
-
 		Date sessionDate = Date.valueOf("2019-10-14");
-
 		Manager manager = managerService.createManager();
-
 		Room room = roomService.createRoom(12, 30, manager);
-
 		TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
-
-
 		String password = "locust";
-
-
-
 		String tutorEmail = "arthurmorgan@redemption.com";
 		Course course = courseService.createCourse("test", Level.CEGEP);
 		String firstName = "Michael";
@@ -101,28 +90,25 @@ public class RatingServiceTests {
 		Student student = studentService.createStudent(firstName, lastName, email);
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(student);
-
 		Booking booking = bookingService.createBooking(tutorEmail, studentSet, Date.valueOf("2019-10-10"), timeSlot, course);
 		Tutor tutor = tutorService.createTutor(firstName, lastName, email, password, manager);
 		TutoringSession tutoringSession = tutoringSessionService.createTutoringSession(sessionDate, tutor, room, booking, timeSlot);
 
-
-
 		try {
-			//			ratingService.createRating(stars, comment, student, tutor, tutoringSession);
+			ratingService.createRating(stars, comment, student, tutor, tutoringSession);
 		}
 		catch (IllegalArgumentException e) {
 			fail();
 		}
 
-		//	List<Rating> allRatings = ratingService.getAllRatings();
+		List<Rating> allRatings = ratingService.getAllRatings();
 
-		//	assertEquals(1, allRatings.size());
-		//	assertEquals(stars, allRatings.get(0).getStars());
-		//	assertEquals(comment, allRatings.get(0).getComment());
-		//	assertEquals(student, allRatings.get(0).getStudent());
-		//	assertEquals(tutor, allRatings.get(0).getTutor());
-		//	assertEquals(tutoringSession.getId(), allRatings.get(0).getTutoringSession().getId());
+		assertEquals(1, allRatings.size());
+		assertEquals(stars, allRatings.get(0).getStars());
+		assertEquals(comment, allRatings.get(0).getComment());
+		assertEquals(student, allRatings.get(0).getStudent());
+		assertEquals(tutor, allRatings.get(0).getTutor());
+		assertEquals(tutoringSession.getId(), allRatings.get(0).getTutoringSession().getId());
 	}
 
 

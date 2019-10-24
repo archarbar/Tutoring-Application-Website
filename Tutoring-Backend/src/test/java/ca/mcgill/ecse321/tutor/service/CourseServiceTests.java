@@ -78,7 +78,7 @@ public class CourseServiceTests {
 	public void testCreateCourseEmpty() {
 		assertEquals(0, courseService.getAllCourses().size());
 
-		String name = "A course name needs to be specified!";
+		String name = "";
 		Level level = Level.UNIVERSITY;
 		String error = null;
 
@@ -89,7 +89,7 @@ public class CourseServiceTests {
 		}
 
 		// check error
-		assertEquals("", error);
+		assertEquals("A course name needs to be specified!", error);
 
 		// check no change in memory
 		assertEquals(0, courseService.getAllCourses().size());
