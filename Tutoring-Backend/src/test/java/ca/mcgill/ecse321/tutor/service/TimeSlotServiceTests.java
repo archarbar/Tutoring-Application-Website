@@ -70,7 +70,7 @@ public class TimeSlotServiceTests {
 		assertEquals("A start time needs to be specified! A end time needs to be specified! A day of the week needs to be specified!", error);
 
 		// check no change in memory
-		assertEquals(0, timeSlotService.getAllTimeSlots());
+		assertEquals(0, timeSlotService.getAllTimeSlots().size());
 	}
 
 	@Test
@@ -92,7 +92,7 @@ public class TimeSlotServiceTests {
 		assertEquals("The end time cannot be before the start time", error);
 
 		// check no change in memory
-		assertEquals(0, timeSlotService.getAllTimeSlots());
+		assertEquals(0, timeSlotService.getAllTimeSlots().size());
 	}
 
 }

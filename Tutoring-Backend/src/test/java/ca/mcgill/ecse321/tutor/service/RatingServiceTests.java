@@ -133,7 +133,7 @@ public class RatingServiceTests {
 		assertEquals("A star rating needs to be specified! A comment needs to be specified! A student needs to be specified! A tutor needs to be specified! A tutoring session needs to be specified!", error);
 
 		// check no change in memory
-		assertEquals(0, studentService.getAllStudents().size());
+		assertEquals(0, ratingService.getAllRatings().size());
 	}
 
 	@Test
@@ -171,7 +171,7 @@ public class RatingServiceTests {
 		assertEquals("A comment needs to be specified!", error);
 
 		// check no change in memory
-		assertEquals(0, studentService.getAllStudents().size());
+		assertEquals(0, ratingService.getAllRatings().size());
 	}
 
 	@Test
@@ -209,7 +209,7 @@ public class RatingServiceTests {
 		assertEquals("A comment needs to be specified!", error);
 
 		// check no change in memory
-		assertEquals(0, studentService.getAllStudents().size());
+		assertEquals(0, ratingService.getAllRatings().size());
 	}
 
 }

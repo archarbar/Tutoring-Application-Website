@@ -70,8 +70,8 @@ public class TutorServiceTests {
 		String lastName = null;
 		String email = null;
 		String password = null;
-		String error = null;
 		Manager manager = null;
+		String error = null;
 		try {
 			tutorService.createTutor(firstName, lastName, email, password, manager);
 		} catch (IllegalArgumentException e) {
@@ -82,7 +82,7 @@ public class TutorServiceTests {
 		assertEquals("A first name needs to be specified! A last name needs to be specified! An email needs to be specified! A password needs to be specified! A manager needs to be specified!", error);
 
 		// check no change in memory
-		assertEquals(0, tutorService.getAllTutors());
+		assertEquals(0, tutorService.getAllTutors().size());
 	}
 
 	@Test
@@ -104,7 +104,7 @@ public class TutorServiceTests {
 		assertEquals("A first name needs to be specified! A last name needs to be specified! An email needs to be specified! A password needs to be specified!", error);
 
 		// check no change in memory
-		assertEquals(0, tutorService.getAllTutors());
+		assertEquals(0, tutorService.getAllTutors().size());
 	}
 
 	@Test
@@ -126,7 +126,7 @@ public class TutorServiceTests {
 		assertEquals("A first name needs to be specified! A last name needs to be specified! An email needs to be specified! A password needs to be specified!", error);
 
 		// check no change in memory
-		assertEquals(0, tutorService.getAllTutors());
+		assertEquals(0, tutorService.getAllTutors().size());
 	}
 
 	//	@Test
