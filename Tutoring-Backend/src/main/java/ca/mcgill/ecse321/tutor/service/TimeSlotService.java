@@ -33,7 +33,7 @@ public class TimeSlotService {
 			error = error + "The end time cannot be before the start time";
 		}
 		if (dayOfTheWeek == null) {
-			error = error + "A day of the week needs to be specified! ";
+			error = error + "A day of the week needs to be specified!";
 		}
 		error = error.trim();
 		if (error.length() > 0) {

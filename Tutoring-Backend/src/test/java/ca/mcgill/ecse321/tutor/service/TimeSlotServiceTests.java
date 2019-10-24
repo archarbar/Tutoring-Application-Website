@@ -35,35 +35,64 @@ public class TimeSlotServiceTests {
 
 		Time startTime = Time.valueOf("10:35:11");
 		Time endTime = Time.valueOf("12:35:11");
+
 		try {
 			timeSlotService.createTimeSlot(startTime, endTime, DayOfTheWeek.MONDAY);
 		}
 		catch (IllegalArgumentException e) {
 			fail();
 		}
+
 		List<TimeSlot> allTimeSlots = timeSlotService.getAllTimeSlots();
+
 		assertEquals(1, allTimeSlots.size());
 		assertEquals(startTime, allTimeSlots.get(0).getStartTime());
 		assertEquals(endTime, allTimeSlots.get(0).getEndTime());
 		assertEquals(DayOfTheWeek.MONDAY, allTimeSlots.get(0).getDayOfTheWeek());
 	}
 
-	//  @Test
-	//  public void testGetTimeSlot() {
-	//    assertEquals(0, timeSlotService.getAllTimeSlots().size());
-	//
-	//    Time startTime = Time.valueOf("10:35:11");
-	//    Time endTime = Time.valueOf("12:35:11");
-	//    TimeSlot timeSlot = timeSlotService.createTimeSlot(startTime, endTime, DayOfTheWeek.MONDAY);
-	//    List<TimeSlot> allTimeSlots = null;
-	//    try {
-	//      allTimeSlots = timeSlotService.getAllTimeSlots();
-	//    }
-	//    catch (IllegalArgumentException e) {
-	//      fail();
-	//    }
-	//
-	//    assertEquals(timeSlot.getId(), allTimeSlots.get(0).getId());
-	//  }
+	@Test
+	public void testCreateTimeSlotNull() {
+		assertEquals(0, timeSlotService.getAllTimeSlots().size());
+
+		Time startTime = null;
+		Time endTime = null;
+		String error = null;
+
+		try {
+			timeSlotService.createTimeSlot(startTime, endTime, null);
+		}
+		catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A start time needs to be specified! A end time needs to be specified! A day of the week needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, timeSlotService.getAllTimeSlots());
+	}
+
+	@Test
+	public void testCreateTimeSlotEndBeforeStart() {
+		assertEquals(0, timeSlotService.getAllTimeSlots().size());
+
+		Time startTime = Time.valueOf("12:35:11");;
+		Time endTime = Time.valueOf("10:35:11");;
+		String error = null;
+
+		try {
+			timeSlotService.createTimeSlot(startTime, endTime, DayOfTheWeek.MONDAY);
+		}
+		catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("The end time cannot be before the start time", error);
+
+		// check no change in memory
+		assertEquals(0, timeSlotService.getAllTimeSlots());
+	}
 
 }

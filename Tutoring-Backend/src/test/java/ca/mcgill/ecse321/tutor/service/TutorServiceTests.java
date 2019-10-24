@@ -2,18 +2,11 @@ package ca.mcgill.ecse321.tutor.service;
 
 import static org.junit.Assert.*;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.util.List;
 
 import org.junit.After;
 
-import ca.mcgill.ecse321.tutor.model.Booking;
-import ca.mcgill.ecse321.tutor.model.Course;
-import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
-import ca.mcgill.ecse321.tutor.model.Level;
 import ca.mcgill.ecse321.tutor.model.Manager;
-import ca.mcgill.ecse321.tutor.model.TimeSlot;
 import ca.mcgill.ecse321.tutor.model.Tutor;
 
 import org.junit.Test;
@@ -31,38 +24,25 @@ import ca.mcgill.ecse321.tutor.dao.TutorRepository;
 @SpringBootTest
 public class TutorServiceTests {
 
-
 	@Autowired
 	private TutorRepository tutorRepository;
-
 	@Autowired
 	private BookingRepository bookingRepository;
-
 	@Autowired
 	private ManagerRepository managerRepository;
 
-
-
 	@Autowired
 	private ManagerService managerService;
-
 	@Autowired
 	private TutorService tutorService;
 
-
-
 	@After
 	public void clearDatabase() {
-
 		bookingRepository.deleteAll();
 		tutorRepository.deleteAll();
 		managerRepository.deleteAll();
-
 	}
 
-	/*
-	 * TUTOR TESTS
-	 */
 	@Test
 	public void testCreateTutor() { //test constructor methods
 		assertEquals(0, tutorService.getAllTutors().size());
@@ -83,72 +63,72 @@ public class TutorServiceTests {
 		assertEquals(email, allTutors.get(0).getEmail());
 	}
 
-	//	@Test
-	//	public void testCreateTutorNull() {
-	//		assertEquals(0, tutorService.getAllTutors().size());
-	//		String firstName = null;
-	//		String lastName = null;
-	//		String email = "marcusfenix@gears.com";
-	//		String password = "locust";
-	//		String error = null;
-	//		try {
-	//			tutorService.createTutor(firstName, lastName, email, password);
-	//		} catch (IllegalArgumentException e) {
-	//			error = e.getMessage();
-	//		}
-	//
-	//		// check error
-	//		assertEquals("Tutor name, email and password need to be specified!", error);
-	//
-	//		// check no change in memory
-	//		List<Tutor> allTutors = tutorService.getAllTutors();
-	//		assertEquals(0, allTutors.size());
-	//	}
-	//
-	//	@Test
-	//	public void testCreateTutorEmpty() {
-	//		assertEquals(0, tutorService.getAllTutors().size());
-	//		String firstName = "";
-	//		String lastName = "";
-	//		String email = "marcusfenix@gears.com";
-	//		String password = "locust";
-	//		String error = null;
-	//		try {
-	//			tutorService.createTutor(firstName, lastName, email, password);
-	//		} catch (IllegalArgumentException e) {
-	//			error = e.getMessage();
-	//		}
-	//
-	//		// check error
-	//		assertEquals("Tutor name, email and password need to be specified!", error);
-	//
-	//		// check no change in memory
-	//		List<Tutor> allTutors = tutorService.getAllTutors();
-	//		assertEquals(0, allTutors.size());
-	//	}
-	//
-	//	@Test
-	//	public void testCreateTutorWhiteSpace() {
-	//		assertEquals(0, tutorService.getAllTutors().size());
-	//		String firstName = "   ";
-	//		String lastName = "";
-	//		String email = "marcusfenix@gears.com";
-	//		String password = "locust";
-	//		String error = null;
-	//		try {
-	//			tutorService.createTutor(firstName, lastName, email, password);
-	//		} catch (IllegalArgumentException e) {
-	//			error = e.getMessage();
-	//		}
-	//
-	//		// check error
-	//		assertEquals("Tutor name, email and password need to be specified!", error);
-	//
-	//		// check no change in memory
-	//		List<Tutor> allTutors = tutorService.getAllTutors();
-	//		assertEquals(0, allTutors.size());
-	//	}
-	//
+	@Test
+	public void testCreateTutorNull() {
+		assertEquals(0, tutorService.getAllTutors().size());
+		String firstName = null;
+		String lastName = null;
+		String email = null;
+		String password = null;
+		String error = null;
+		Manager manager = null;
+		try {
+			tutorService.createTutor(firstName, lastName, email, password, manager);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A first name needs to be specified! A last name needs to be specified! An email needs to be specified! A password needs to be specified! A manager needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, tutorService.getAllTutors());
+	}
+
+	@Test
+	public void testCreateTutorEmpty() {
+		assertEquals(0, tutorService.getAllTutors().size());
+		String firstName = "";
+		String lastName = "";
+		String email = "";
+		String password = "";
+		Manager manager = managerService.createManager();
+		String error = null;
+		try {
+			tutorService.createTutor(firstName, lastName, email, password, manager);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A first name needs to be specified! A last name needs to be specified! An email needs to be specified! A password needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, tutorService.getAllTutors());
+	}
+
+	@Test
+	public void testCreateTutorWhiteSpace() {
+		assertEquals(0, tutorService.getAllTutors().size());
+		String firstName = "   ";
+		String lastName = " ";
+		String email = "  ";
+		String password = "   ";
+		Manager manager = managerService.createManager();
+		String error = null;
+		try {
+			tutorService.createTutor(firstName, lastName, email, password, manager);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A first name needs to be specified! A last name needs to be specified! An email needs to be specified! A password needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, tutorService.getAllTutors());
+	}
+
 	//	@Test
 	//	public void testChangeTutorName() { // test setter methods
 	//		assertEquals(0, tutorService.getAllTutors().size());

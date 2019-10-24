@@ -24,6 +24,9 @@ public class RatingService {
 		if (stars == null) {
 			error = error + "A star rating needs to be specified! ";
 		}
+		if (comment == null || comment.trim().length() == 0) {
+			error = error + "A comment needs to be specified! ";
+		}
 		if (student == null) {
 			error = error + "A student needs to be specified! ";
 		}

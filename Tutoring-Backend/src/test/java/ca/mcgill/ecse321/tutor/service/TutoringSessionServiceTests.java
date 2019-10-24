@@ -16,8 +16,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import ca.mcgill.ecse321.tutor.model.*;
 
-import ca.mcgill.ecse321.tutor.service.*;
-
 import ca.mcgill.ecse321.tutor.dao.*;
 
 @RunWith(SpringRunner.class)
@@ -26,7 +24,6 @@ public class TutoringSessionServiceTests {
 
 	@Autowired
 	private TutoringSessionService tutoringSessionService;
-
 	@Autowired
 	private BookingService bookingService;
 	@Autowired
@@ -70,18 +67,10 @@ public class TutoringSessionServiceTests {
 		assertEquals(0, tutoringSessionService.getAllTutoringSessions().size());
 
 		Date sessionDate = Date.valueOf("2019-10-14");
-
 		Manager manager = managerService.createManager();
-
 		Room room = roomService.createRoom(12, 30, manager);
-
 		TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
-
-
 		String password = "locust";
-
-
-
 		String tutorEmail = "arthurmorgan@redemption.com";
 		Course course = courseService.createCourse("test", Level.CEGEP);
 		String firstName = "Michael";
@@ -90,9 +79,9 @@ public class TutoringSessionServiceTests {
 		Student student = studentService.createStudent(firstName, lastName, email);
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(student);
-
 		Booking booking = bookingService.createBooking(tutorEmail, studentSet, Date.valueOf("2019-10-10"), timeSlot, course);
 		Tutor tutor = tutorService.createTutor(firstName, lastName, email, password, manager);
+
 		try {
 			tutoringSessionService.createTutoringSession(sessionDate, tutor, room, booking, timeSlot);
 		}
@@ -106,21 +95,29 @@ public class TutoringSessionServiceTests {
 		assertEquals(sessionDate, allTutoringSessions.get(0).getSessionDate());
 	}
 
-	//  @Test
-	//  public void testGetTutoringSession() {
-	//    assertEquals(0, tutoringSessionService.getAllTutoringSessions().size());
-	//
-	//    Date sessionDate = Date.valueOf("2019-10-14");
-	//    TutoringSession tutoringSession = tutoringSessionService.createTutoringSession(sessionDate);
-	//    List<TutoringSession> allTutoringSessions = null;
-	//    try {
-	//      allTutoringSessions = tutoringSessionService.getAllTutoringSessions();
-	//    }
-	//    catch (IllegalArgumentException e) {
-	//      fail();
-	//    }
-	//
-	//    assertEquals(tutoringSession.getId(), allTutoringSessions.get(0).getId());
-	//  }
+	@Test
+	public void testCreateTutoringSessionNull() {
+		assertEquals(0, tutoringSessionService.getAllTutoringSessions().size());
+
+		Date sessionDate = null;
+		Tutor tutor = null;
+		Room room = null;
+		Booking booking = null;
+		TimeSlot timeSlot = null;
+		String error = null;
+
+		try {
+			tutoringSessionService.createTutoringSession(sessionDate, tutor, room, booking, timeSlot);
+		}
+		catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A date needs to be specified! A tutor needs to be specified! A room needs to be specified! A booking needs to be specified! A timeSlot needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, studentService.getAllStudents().size());
+	}
 
 }

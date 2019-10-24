@@ -61,9 +61,9 @@ public class RatingServiceTests {
 
 	@After
 	public void clearDatabase() {
-		bookingRepository.deleteAll();
 		ratingRepository.deleteAll();
 		tutoringSessionRepository.deleteAll();
+		bookingRepository.deleteAll();
 		tutorRepository.deleteAll();
 		roomRepository.deleteAll();
 		timeSlotRepository.deleteAll();
@@ -90,8 +90,8 @@ public class RatingServiceTests {
 		Student student = studentService.createStudent(firstName, lastName, email);
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(student);
-		Booking booking = bookingService.createBooking(tutorEmail, studentSet, Date.valueOf("2019-10-10"), timeSlot, course);
-		Tutor tutor = tutorService.createTutor(firstName, lastName, email, password, manager);
+		Booking booking = bookingService.createBooking(tutorEmail, studentSet, sessionDate, timeSlot, course);
+		Tutor tutor = tutorService.createTutor(firstName, lastName, tutorEmail, password, manager);
 		TutoringSession tutoringSession = tutoringSessionService.createTutoringSession(sessionDate, tutor, room, booking, timeSlot);
 
 		try {
@@ -106,11 +106,110 @@ public class RatingServiceTests {
 		assertEquals(1, allRatings.size());
 		assertEquals(stars, allRatings.get(0).getStars());
 		assertEquals(comment, allRatings.get(0).getComment());
-		assertEquals(student, allRatings.get(0).getStudent());
-		assertEquals(tutor, allRatings.get(0).getTutor());
+		assertEquals(student.getId(), allRatings.get(0).getStudent().getId());
+		assertEquals(tutor.getId(), allRatings.get(0).getTutor().getId());
 		assertEquals(tutoringSession.getId(), allRatings.get(0).getTutoringSession().getId());
 	}
 
+	@Test
+	public void testCreateRatingNull() {
+		assertEquals(0, ratingService.getAllRatings().size());
 
+		Integer stars = null;
+		String comment = null;
+		Student student = null;
+		Tutor tutor = null;
+		TutoringSession tutoringSession = null;
+		String error = null;
+
+		try {
+			ratingService.createRating(stars, comment, student, tutor, tutoringSession);
+		}
+		catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A star rating needs to be specified! A comment needs to be specified! A student needs to be specified! A tutor needs to be specified! A tutoring session needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, studentService.getAllStudents().size());
+	}
+
+	@Test
+	public void testCreateRatingEmpty() {
+		assertEquals(0, ratingService.getAllRatings().size());
+
+		Integer stars = 5;
+		String comment = "";
+		Date sessionDate = Date.valueOf("2019-10-14");
+		Manager manager = managerService.createManager();
+		Room room = roomService.createRoom(12, 30, manager);
+		TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
+		String password = "locust";
+		String tutorEmail = "arthurmorgan@redemption.com";
+		Course course = courseService.createCourse("test", Level.CEGEP);
+		String firstName = "Michael";
+		String lastName = "Li";
+		String email = "mlej@live.com";
+		Student student = studentService.createStudent(firstName, lastName, email);
+		Set<Student> studentSet = new HashSet<Student>();
+		studentSet.add(student);
+		Booking booking = bookingService.createBooking(tutorEmail, studentSet, sessionDate, timeSlot, course);
+		Tutor tutor = tutorService.createTutor(firstName, lastName, tutorEmail, password, manager);
+		TutoringSession tutoringSession = tutoringSessionService.createTutoringSession(sessionDate, tutor, room, booking, timeSlot);
+		String error = null;
+
+		try {
+			ratingService.createRating(stars, comment, student, tutor, tutoringSession);
+		}
+		catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A comment needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, studentService.getAllStudents().size());
+	}
+
+	@Test
+	public void testCreateRatingSpaces() {
+		assertEquals(0, ratingService.getAllRatings().size());
+
+		Integer stars = 5;
+		String comment = "    ";
+		Date sessionDate = Date.valueOf("2019-10-14");
+		Manager manager = managerService.createManager();
+		Room room = roomService.createRoom(12, 30, manager);
+		TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
+		String password = "locust";
+		String tutorEmail = "arthurmorgan@redemption.com";
+		Course course = courseService.createCourse("test", Level.CEGEP);
+		String firstName = "Michael";
+		String lastName = "Li";
+		String email = "mlej@live.com";
+		Student student = studentService.createStudent(firstName, lastName, email);
+		Set<Student> studentSet = new HashSet<Student>();
+		studentSet.add(student);
+		Booking booking = bookingService.createBooking(tutorEmail, studentSet, sessionDate, timeSlot, course);
+		Tutor tutor = tutorService.createTutor(firstName, lastName, tutorEmail, password, manager);
+		TutoringSession tutoringSession = tutoringSessionService.createTutoringSession(sessionDate, tutor, room, booking, timeSlot);
+		String error = null;
+
+		try {
+			ratingService.createRating(stars, comment, student, tutor, tutoringSession);
+		}
+		catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A comment needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, studentService.getAllStudents().size());
+	}
 
 }
