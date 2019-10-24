@@ -19,11 +19,19 @@ public class RoomService {
 
 	@Transactional
 	public Room createRoom(Integer roomNumber, Integer roomCapacity, Manager manager) {
+		String error = "";
 		if (roomNumber == null) {
-			throw new IllegalArgumentException("A room number needs to be specified!");
+			error = error + "A room number needs to be specified! ";
 		}
 		if (roomCapacity == null) {
-			throw new IllegalArgumentException("A room capacity needs to be specified!");
+			error = error + "A room capacity needs to be specified! ";
+		}
+		if (manager == null) {
+			error = error + "A manager needs to be specified!";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
 		}
 		Room room = new Room();
 		room.setRoomNumber(roomNumber);
@@ -35,6 +43,9 @@ public class RoomService {
 
 	@Transactional
 	public Room getRoom(Integer roomId) {
+		if (roomId == null) {
+			throw new IllegalArgumentException("A room ID needs to be specified!");
+		}
 		Room room = roomRepository.findRoomById(roomId);
 		return room;
 	}

@@ -22,11 +22,22 @@ public class TimeSlotService {
 
 	@Transactional
 	public TimeSlot createTimeSlot(Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek) {
-		if (startTime == null || endTime == null) {
-			throw new IllegalArgumentException("A time range needs to be specified!");
+		String error = "";
+		if (startTime == null) {
+			error = error + "A start time needs to be specified! ";
+		}
+		if (endTime == null) {
+			error = error + "A end time needs to be specified! ";
+		}
+		if (endTime != null && startTime != null && endTime.before(startTime)) {
+			error = error + "The end time cannot be before the start time";
 		}
 		if (dayOfTheWeek == null) {
-			throw new IllegalArgumentException("A day of the week needs to be specified!");
+			error = error + "A day of the week needs to be specified! ";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
 		}
 		TimeSlot timeSlot = new TimeSlot();
 		timeSlot.setStartTime(startTime);
@@ -38,18 +49,27 @@ public class TimeSlotService {
 
 	@Transactional
 	public TimeSlot getTimeSlotById(Integer timeSlotId) {
+		if (timeSlotId == null) {
+			throw new IllegalArgumentException("A timeSlot ID needs to be specified!");
+		}
 		TimeSlot timeSlot = timeSlotRepository.findTimeSlotById(timeSlotId);
 		return timeSlot;
 	}
 
 	@Transactional
 	public TimeSlot getTimeSlotByBooking(Booking booking) {
+		if (booking == null) {
+			throw new IllegalArgumentException("A booking needs to be specified!");
+		}
 		TimeSlot timeSlot = timeSlotRepository.findByBooking(booking);
 		return timeSlot;
 	}
 
 	@Transactional
 	public TimeSlot getTimeSlotByTutoringSession(TutoringSession tutoringSession) {
+		if (tutoringSession == null) {
+			throw new IllegalArgumentException("A tutoring session needs to be specified!");
+		}
 		TimeSlot timeSlot = timeSlotRepository.findByTutoringSession(tutoringSession);
 		return timeSlot;
 	}

@@ -19,13 +19,28 @@ public class TutorService {
 
 	@Transactional
 	public Tutor createTutor(String firstName, String lastName, String email, String password, Manager manager) {
-		if (firstName == null || lastName == null || email == null || password == null || firstName.trim().length() == 0
-			|| lastName.trim().length() == 0 || email.trim().length() == 0 || password.trim().length() == 0) {
-			throw new IllegalArgumentException("Tutor name, email and password need to be specified!");
+		String error = "";
+		if (firstName == null || firstName.trim().length() == 0) {
+			error = error + "A first name needs to be specified! ";
+		}
+		if (lastName == null || lastName.trim().length() == 0) {
+			error = error + "A last name needs to be specified! ";
+		}
+		if (email == null || email.trim().length() == 0) {
+			error = error + "An email needs to be specified! ";
+		}
+		if (password == null || password.trim().length() == 0) {
+			error = error + "A password needs to be specified! ";
+		}
+		if (manager == null) {
+			error = error + "A manager needs to be specified!";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
 		}
 		Integer hourlyRate = 10;
 		boolean isApproved = false;
-		
 		Tutor tutor = new Tutor();
 		tutor.setFirstName(firstName);
 		tutor.setLastName(lastName);
@@ -40,15 +55,21 @@ public class TutorService {
 
 	@Transactional
 	public Tutor getTutor(Integer id) {
+		if (id == null) {
+			throw new IllegalArgumentException("A tutor ID needs to be specified!");
+		}
 		Tutor tutor = tutorRepository.findTutorById(id);
 		return tutor;
 	}
-	
+
 	@Transactional
-    public Tutor getTutorByEmail(String tutorEmail) {
-        Tutor tutor = tutorRepository.findTutorByEmail(tutorEmail);
-        return tutor;
-    }
+	public Tutor getTutorByEmail(String tutorEmail) {
+		if (tutorEmail == null || tutorEmail.trim().length() == 0) {
+			throw new IllegalArgumentException("A tutor email needs to be specified!");
+		}
+		Tutor tutor = tutorRepository.findTutorByEmail(tutorEmail);
+		return tutor;
+	}
 
 	@Transactional
 	public List<Tutor> getAllTutors(){
