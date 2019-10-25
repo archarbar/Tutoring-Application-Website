@@ -26,6 +26,9 @@ public class RoomService {
 		if (roomCapacity == null) {
 			error = error + "A room capacity needs to be specified! ";
 		}
+		else if (roomCapacity <= 0) {
+			error = error + "The room capacity has to be bigger than 0! ";
+		}
 		if (manager == null) {
 			error = error + "A manager needs to be specified!";
 		}

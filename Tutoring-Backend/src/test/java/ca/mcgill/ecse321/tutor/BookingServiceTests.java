@@ -77,7 +77,7 @@ public class BookingServiceTests {
 	}
 
 	@Test
-	public void testGetBooking() { // test constructor method
+	public void testGetBooking() { // test getter method
 		assertEquals(BOOKING_KEY, bookingService.getBookingById(BOOKING_KEY).getId());
 		assertEquals(TUTOR_EMAIL, bookingService.getBookingByTutorEmail(TUTOR_EMAIL).get(0).getTutorEmail());
 		assertEquals(BOOKING_DATE, bookingService.getBookingBySpecificDate(BOOKING_DATE).get(0).getSpecificDate());

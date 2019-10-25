@@ -128,6 +128,29 @@ public class TutorServiceTests {
 		// check no change in memory
 		assertEquals(0, tutorService.getAllTutors().size());
 	}
+	
+	@Test
+	public void testCreateTutorNullManager() {
+		assertEquals(0, tutorService.getAllTutors().size());
+
+		String firstName = "Marcus";
+		String lastName = "Fenix";
+		String email = "marcusfenix@gears.com";
+		String password = "locust";
+		Manager manager = null;
+		String error = null;
+		try {
+			tutorService.createTutor(firstName, lastName, email, password, manager);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A manager needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, tutorService.getAllTutors().size());
+	}
 
 	//	@Test
 	//	public void testChangeTutorName() { // test setter methods

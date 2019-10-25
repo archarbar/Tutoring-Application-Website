@@ -82,4 +82,47 @@ public class RoomServiceTests {
 		assertEquals(0, roomService.getAllRooms().size());
 	}
 
+	@Test
+	public void testCreateRoomNegativeCapacity() {
+		assertEquals(0, roomService.getAllRooms().size());
+
+		Integer number = 12;
+		Integer capacity = -30;
+		Manager manager = managerService.createManager();
+		String error = null;
+
+		try {
+			roomService.createRoom(number, capacity , manager);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("The room capacity has to be bigger than 0!", error);
+
+		// check no change in memory
+		assertEquals(0, roomService.getAllRooms().size());
+	}
+	
+	@Test
+	public void testCreateRoomNullManager() {
+		assertEquals(0, roomService.getAllRooms().size());
+
+		Integer number = 9;
+		Integer capacity = 25;
+		Manager manager = null;
+		String error = null;
+
+		try {
+			roomService.createRoom(number, capacity , manager);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A manager needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, roomService.getAllRooms().size());
+	}
 }

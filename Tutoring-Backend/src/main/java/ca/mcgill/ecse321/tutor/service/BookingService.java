@@ -22,13 +22,13 @@ public class BookingService {
 	BookingRepository bookingRepository;
 
 	@Transactional
-	public Booking createBooking(String tutorEmail, Set<Student> student, Date specificDate, 
+	public Booking createBooking(String tutorEmail, Set<Student> studentSet, Date specificDate, 
 			TimeSlot timeSlot, Course course) {
 		String error = "";
 		if (tutorEmail == null || tutorEmail.trim().length() == 0) {
 			error = error + "A tutor email needs to be specified! ";
 		}
-		if (student == null) {
+		if (studentSet == null) {
 			error = error + "A student needs to be specified! ";
 		}
 		if (specificDate == null) {
@@ -48,7 +48,7 @@ public class BookingService {
 		booking.setTutorEmail(tutorEmail);
 		booking.setSpecificDate(specificDate);
 		booking.setTimeSlot(timeSlot);
-		booking.setStudent(student);
+		booking.setStudent(studentSet);
 		booking.setCourse(course);
 		bookingRepository.save(booking);
 		return booking;

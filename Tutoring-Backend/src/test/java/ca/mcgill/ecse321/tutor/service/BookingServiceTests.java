@@ -112,6 +112,57 @@ public class BookingServiceTests {
 		// check no change in memory
 		assertEquals(0, bookingService.getAllBookings().size());
 	}
+	
+	@Test
+	public void testCreateBookingNullTutor() {
+		assertEquals(0, bookingService.getAllBookings().size());
+
+		String tutorEmail = null;
+		Course course = courseService.createCourse("test", Level.CEGEP);
+		String firstName = "Michael";
+		String lastName = "Li";
+		String email = "mlej@live.com";
+		Student student = studentService.createStudent(firstName, lastName, email);
+		Set<Student> studentSet = new HashSet<Student>();
+		studentSet.add(student);
+		TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
+		String error = null;
+
+		try {
+			bookingService.createBooking(tutorEmail, studentSet, Date.valueOf("2019-10-10"), timeSlot, course);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A tutor email needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, bookingService.getAllBookings().size());
+	}
+	
+	@Test
+	public void testCreateBookingNullStudent() {
+		assertEquals(0, bookingService.getAllBookings().size());
+
+		String tutorEmail = "arthurmorgan@redemption.com";
+		Course course = courseService.createCourse("test", Level.CEGEP);
+		Set<Student> studentSet = null;
+		TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
+		String error = null;
+
+		try {
+			bookingService.createBooking(tutorEmail, studentSet, Date.valueOf("2019-10-10"), timeSlot, course);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A student needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, bookingService.getAllBookings().size());
+	}
 
 	@Test
 	public void testCreateBookingEmpty() {
