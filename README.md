@@ -1,4 +1,4 @@
-## Project Overview
+﻿## Project Overview
 The objective of this project is to design a software solution for a new tutoring company. This company will cater to the needs of students at the high school, CÉGEP, and university levels. Any student looking for a tutor in any subject taught at those levels can approach the company and ask its help to find an appropriate tutor. This project will be completed in teams of five students, we will gather requirements, design a multi-tier software solution to satisfy those requirements, implement the system, validate that the system is satisfying the requirements, and develop a release pipeline to automate the software delivery process. Our team has been assigned the Tutor viewpoint, which will allow potential tutors to apply to the company and verified tutors to offer their services to students.
 
 ## Team Members
@@ -34,5 +34,6 @@ The objective of this project is to design a software solution for a new tutorin
 |  Victor Zhong   |  |  |
 
    * [Report](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Report-(Sprint-2))
+   * [QA Plan](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/software-qa-plan)
    * [QA Report](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/QA-Report)
    * [RESTful Services](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/RESTful-Services)
