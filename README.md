@@ -32,3 +32,7 @@ The objective of this project is to design a software solution for a new tutorin
 | Patrick Tweddell| RESTful services, Mockito Unit Testing  | 25 |
 |  William Zhang  | | |
 |  Victor Zhong   |  |  |
+
+   * [Report](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Report-(Sprint-2))
+   * [QA Report](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/QA-Report)
+   * [RESTful Services](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/RESTful-Services)
