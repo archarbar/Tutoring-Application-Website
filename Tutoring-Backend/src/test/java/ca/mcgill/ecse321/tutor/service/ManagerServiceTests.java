@@ -27,7 +27,7 @@ public class ManagerServiceTests {
 
 	@After
 	public void clearDatabase() {
-//		managerRepository.deleteAll();
+		managerRepository.deleteAll();
 	}
 
 	@Test
