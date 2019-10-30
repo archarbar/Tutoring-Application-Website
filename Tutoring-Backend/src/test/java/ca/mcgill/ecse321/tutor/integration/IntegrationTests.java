@@ -20,15 +20,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class IntegrationTests {
 
 	
-//	private final String BASE_URL = "https://ecse321-tutor-backend.herokuapp.com";
-	private final String BASE_URL = "https://localhost:8080";
+	private final String BASE_URL = "https://ecse321-tutor-backend.herokuapp.com";
+//	private final String BASE_URL = "https://localhost:8080";
 	
     private JSONObject response;
     
     private JSONObject requestURL(String typeOfRequest, String url, String path, String parameters) {
         try {    
         	URL urll = new URL(url + path + ((parameters==null)?"":("?" + parameters)));
-            System.out.println("Sending: "+url.toString());
+            System.out.println("Sending: "+urll.toString());
             HttpURLConnection connection = (HttpURLConnection) urll.openConnection();
             connection.setRequestMethod(typeOfRequest);
             connection.setRequestProperty("Accept", "application/json");
@@ -49,15 +49,18 @@ public class IntegrationTests {
         }
         return null;
     }
+
     
     @Test
     public void TestCreatingTutor() {
+        String managerId = "1030";
         try {
             response = requestURL("POST", BASE_URL, "/Tutor/newTutor", "firstName=bob&lastName=bog&"
             														+ "email=bob@email.com&password=password1"
-            														+ "&manager=1"
+            														+ "&manager=" + managerId
             														);
             System.out.println("Received: "+response.toString());
+            System.out.println(response.getString("firstName"));
             assertEquals("bob", response.getString("firstName"));
         } catch (Exception e) {
             e.printStackTrace();
