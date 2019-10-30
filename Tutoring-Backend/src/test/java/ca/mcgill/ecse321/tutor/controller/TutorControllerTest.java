@@ -61,7 +61,6 @@ public class TutorControllerTest {
 	public void testCreateTutor() throws Exception {
 		Manager manager = managerService.createManager();
 		int managerId = manager.getId();
-		System.out.println(managerId);
 		this.mockMvc.perform(post("/tutor")
 				.param("tutorFirstName", "first1")
 				.param("tutorLastName", "last2")
