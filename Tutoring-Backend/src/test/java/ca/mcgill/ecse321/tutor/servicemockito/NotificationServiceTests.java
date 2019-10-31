@@ -44,11 +44,8 @@ public class NotificationServiceTests {
     private NotificationService notificationService;
 
 	private Student student;
-	private TimeSlot timeSlot;
-	private Course course;
 	private Booking booking;
 	private Tutor tutor;
-	private Manager manager;
 	private Set<Student> studentSet = new HashSet<Student>();
 	
     private Notification notification = new Notification();
@@ -96,7 +93,7 @@ public class NotificationServiceTests {
 //		assertEquals(0, notificationService.getAllNotifications().size());
 
 		try {
-			notificationService.createNotification(booking, tutor);
+			notification = notificationService.createNotification(booking, tutor);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}

@@ -142,4 +142,79 @@ public class TutoringSessionServiceTests {
 		assertEquals("A date needs to be specified! A tutor needs to be specified! A room needs to be specified! A booking needs to be specified! A timeSlot needs to be specified!", error);
 	}
 
+	@Test
+	public void testCreateTutoringSessionNullDate() {
+		String error = null;
+
+		try {
+			tutoringSessionService.createTutoringSession(null, tutor, room, booking, timeSlot);
+		}
+		catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A date needs to be specified!", error);
+	}
+
+	@Test
+	public void testCreateTutoringSessionNullTutor() {
+		String error = null;
+
+		try {
+			tutoringSessionService.createTutoringSession(SESSION_DATE, null, room, booking, timeSlot);
+		}
+		catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A tutor needs to be specified!", error);
+	}
+
+	@Test
+	public void testCreateTutoringSessionNullRoom() {
+		String error = null;
+
+		try {
+			tutoringSessionService.createTutoringSession(SESSION_DATE, tutor, null, booking, timeSlot);
+		}
+		catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A room needs to be specified!", error);
+	}
+
+	@Test
+	public void testCreateTutoringSessionNullBooking() {
+		String error = null;
+
+		try {
+			tutoringSessionService.createTutoringSession(SESSION_DATE, tutor, room, null, timeSlot);
+		}
+		catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A booking needs to be specified!", error);
+	}
+
+	@Test
+	public void testCreateTutoringSessionNullTimeSlot() {
+		String error = null;
+
+		try {
+			tutoringSessionService.createTutoringSession(SESSION_DATE, tutor, room, booking, null);
+		}
+		catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A timeSlot needs to be specified!", error);
+	}
+
 }

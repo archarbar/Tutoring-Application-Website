@@ -27,7 +27,7 @@ import ca.mcgill.ecse321.tutor.service.TutorService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TutorServiceTests {
-
+	
 	@Mock
 	private TutorRepository tutorRepository;
 
@@ -112,7 +112,76 @@ public class TutorServiceTests {
 
 		// check error
 		assertEquals("A first name needs to be specified! A last name needs to be specified! An email needs to be specified! A password needs to be specified! A manager needs to be specified!", error);
+	}
 
+	@Test
+	public void testCreateTutorNullFirstName() {
+		String error = null;
+
+		try {
+			tutor = tutorService.createTutor(null, LAST_NAME, EMAIL_KEY, PASSWORD, manager);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A first name needs to be specified!", error);
+	}
+
+	@Test
+	public void testCreateTutorNullLastName() {
+		String error = null;
+
+		try {
+			tutor = tutorService.createTutor(FIRST_NAME, null, EMAIL_KEY, PASSWORD, manager);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A last name needs to be specified!", error);
+	}
+
+	@Test
+	public void testCreateTutorNullEmail() {
+		String error = null;
+
+		try {
+			tutor = tutorService.createTutor(FIRST_NAME, LAST_NAME, null, PASSWORD, manager);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("An email needs to be specified!", error);
+	}
+
+	@Test
+	public void testCreateTutorNullPassword() {
+		String error = null;
+
+		try {
+			tutor = tutorService.createTutor(FIRST_NAME, LAST_NAME, EMAIL_KEY, null, manager);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A password needs to be specified!", error);
+	}
+
+	@Test
+	public void testCreateTutorNullManager() {
+		String error = null;
+
+		try {
+			tutor = tutorService.createTutor(FIRST_NAME, LAST_NAME, EMAIL_KEY, PASSWORD, null);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A manager needs to be specified!", error);
 	}
 
 }

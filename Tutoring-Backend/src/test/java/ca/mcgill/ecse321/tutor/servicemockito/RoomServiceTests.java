@@ -40,8 +40,8 @@ public class RoomServiceTests {
 	private Room room = new Room();
 
 	private static final Integer SUCCESS_KEY = 1;
-	private static final Integer TIMESLOT_NUMBER = 12;
-	private static final Integer TIMESLOT_CAPACITY = 30;
+	private static final Integer ROOM_NUMBER = 12;
+	private static final Integer ROOM_CAPACITY = 30;
 
 	@Before
 	public void setMockOutput(){
@@ -76,14 +76,14 @@ public class RoomServiceTests {
 	public void testCreateRoom() { // test constructor method
 
 		try {
-			room = roomService.createRoom(TIMESLOT_NUMBER, TIMESLOT_CAPACITY , manager);
+			room = roomService.createRoom(ROOM_NUMBER, ROOM_CAPACITY , manager);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
 
 		assertEquals(manager.getId(), room.getManager().getId());
-		assertEquals(TIMESLOT_NUMBER, room.getRoomNumber());
-		assertEquals(TIMESLOT_CAPACITY, room.getRoomCapacity());
+		assertEquals(ROOM_NUMBER, room.getRoomNumber());
+		assertEquals(ROOM_CAPACITY, room.getRoomCapacity());
 	}
 
 	@Test
@@ -98,6 +98,48 @@ public class RoomServiceTests {
 
 		// check error
 		assertEquals("A room number needs to be specified! A room capacity needs to be specified! A manager needs to be specified!", error);
+	}
+	
+	@Test
+	public void testCreateRoomNullNumber() { // test constructor method
+		String error = null;
+
+		try {
+			room = roomService.createRoom(null, ROOM_CAPACITY , manager);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A room number needs to be specified!", error);
+	}
+	
+	@Test
+	public void testCreateRoomNullCapacity() { // test constructor method
+		String error = null;
+
+		try {
+			room = roomService.createRoom(ROOM_NUMBER, null , manager);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A room capacity needs to be specified!", error);
+	}
+	
+	@Test
+	public void testCreateRoomNullManager() { // test constructor method
+		String error = null;
+
+		try {
+			room = roomService.createRoom(ROOM_NUMBER, ROOM_CAPACITY , null);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A manager needs to be specified!", error);
 	}
 
 }

@@ -37,7 +37,7 @@ public class TimeSlotServiceTests {
 	private static final Time START_TIME = Time.valueOf("10:35:11");
 	private static final Time END_TIME = Time.valueOf("12:35:11");
 	private static final DayOfTheWeek DAYOFTHEWEEK = DayOfTheWeek.MONDAY;
-
+	
 	@Before
 	public void setMockOutput(){
 		when(timeSlotRepository.findTimeSlotById(anyInt())).thenAnswer( (InvocationOnMock invocation) ->{
@@ -90,6 +90,51 @@ public class TimeSlotServiceTests {
 
 		// check error
 		assertEquals("A start time needs to be specified! A end time needs to be specified! A day of the week needs to be specified!", error);
+	}
+
+	@Test
+	public void testCreateTimeSlotNullStartTime() {
+		String error = null;
+
+		try {
+			timeSlot = timeSlotService.createTimeSlot(null, END_TIME, DAYOFTHEWEEK);
+		}
+		catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A start time needs to be specified!", error);
+	}
+
+	@Test
+	public void testCreateTimeSlotNullEndTime() {
+		String error = null;
+
+		try {
+			timeSlot = timeSlotService.createTimeSlot(START_TIME, null, DAYOFTHEWEEK);
+		}
+		catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A end time needs to be specified!", error);
+	}
+
+	@Test
+	public void testCreateTimeSlotNullDay() {
+		String error = null;
+
+		try {
+			timeSlot = timeSlotService.createTimeSlot(START_TIME, END_TIME, null);
+		}
+		catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A day of the week needs to be specified!", error);
 	}
 
 }
