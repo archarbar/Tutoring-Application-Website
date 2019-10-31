@@ -42,6 +42,8 @@ public class RoomServiceTests {
 	private static final Integer SUCCESS_KEY = 1;
 	private static final Integer ROOM_NUMBER = 12;
 	private static final Integer ROOM_CAPACITY = 30;
+	private static final Integer NEGATIVE_CAPACITY = -30;
+	private static final Integer NEGATIVE_NUMBER = -12;
 
 	@Before
 	public void setMockOutput(){
@@ -98,6 +100,36 @@ public class RoomServiceTests {
 
 		// check error
 		assertEquals("A room number needs to be specified! A room capacity needs to be specified! A manager needs to be specified!", error);
+	}
+	
+	@Test
+	public void testCreateRoomNegativeCapacity() {
+//		assertEquals(0, roomService.getAllRooms().size());
+		String error = null;
+
+		try {
+			roomService.createRoom(ROOM_NUMBER, NEGATIVE_CAPACITY, manager);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("The room capacity has to be bigger than 0!", error);
+	}
+	
+	@Test
+	public void testCreateRoomNegativeNumber() {
+//		assertEquals(0, roomService.getAllRooms().size());
+		String error = null;
+
+		try {
+			roomService.createRoom(NEGATIVE_NUMBER, ROOM_CAPACITY, manager);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("The room number has to be bigger than 0!", error);
 	}
 	
 	@Test

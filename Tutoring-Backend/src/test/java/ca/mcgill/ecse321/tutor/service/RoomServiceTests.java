@@ -106,6 +106,28 @@ public class RoomServiceTests {
 	}
 	
 	@Test
+	public void testCreateRoomNegativeNumber() {
+		assertEquals(0, roomService.getAllRooms().size());
+
+		Integer number = -12;
+		Integer capacity = 30;
+		Manager manager = managerService.createManager();
+		String error = null;
+
+		try {
+			roomService.createRoom(number, capacity , manager);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("The room number has to be bigger than 0!", error);
+
+		// check no change in memory
+		assertEquals(0, roomService.getAllRooms().size());
+	}
+	
+	@Test
 	public void testCreateRoomNullManager() {
 		assertEquals(0, roomService.getAllRooms().size());
 
