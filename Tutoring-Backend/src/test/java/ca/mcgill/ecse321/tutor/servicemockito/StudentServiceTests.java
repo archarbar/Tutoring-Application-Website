@@ -90,21 +90,16 @@ public class StudentServiceTests {
 
 	@Test
 	public void testCreateStudent() {
-		assertEquals(0, studentService.getAllStudents().size());
-
-		String firstName = "Michael";
-		String lastName = "Li";
-		String email = "mlej@live.com";
 
 		try {
-			student = studentService.createStudent(firstName, lastName, email);
+			student = studentService.createStudent(FIRST_NAME, LAST_NAME, EMAIL_KEY);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
 
-		assertEquals(firstName, student.getFirstName());
-		assertEquals(lastName, student.getLastName());
-		assertEquals(email, student.getEmail());	
+		assertEquals(FIRST_NAME, student.getFirstName());
+		assertEquals(LAST_NAME, student.getLastName());
+		assertEquals(EMAIL_KEY, student.getEmail());	
 	}
 
 	@Test

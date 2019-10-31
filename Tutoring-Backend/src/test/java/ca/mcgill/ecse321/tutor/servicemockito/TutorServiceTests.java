@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -35,10 +36,15 @@ public class TutorServiceTests {
 	@InjectMocks
 	private ManagerService managerService;
 
+	private Manager manager;
+
 	private Tutor tutor = new Tutor();
 
 	private static final Integer SUCCESS_KEY = 1;
 	private static final String EMAIL_KEY = "email@test.com";
+	private static final String FIRST_NAME = "Victor";
+	private static final String LAST_NAME = "Zhong";
+	private static final String PASSWORD = "BigBrain123";
 
 	@Before
 	public void setMockOutput(){
@@ -66,6 +72,11 @@ public class TutorServiceTests {
 		});
 	}
 
+	@Before
+	public  void setMock(){
+		manager = mock(Manager.class);
+	}
+
 	@Test
 	public void testGetTutor(){
 		assertEquals(SUCCESS_KEY, tutorService.getTutor(SUCCESS_KEY).getId());
@@ -75,37 +86,26 @@ public class TutorServiceTests {
 
 	@Test
 	public void testCreateTutor() {
-		assertEquals(0, tutorService.getAllTutors().size());
-
-		String firstName = "Marcus";
-		String lastName = "Fenix";
-		String email = "marcusfenix@gears.com";
-		String password = "locust";
-		Manager manager = managerService.createManager();
 
 		try {
-			tutor = tutorService.createTutor(firstName, lastName, email, password, manager);
+			tutor = tutorService.createTutor(FIRST_NAME, LAST_NAME, EMAIL_KEY, PASSWORD, manager);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
 
-		assertEquals(firstName, tutor.getFirstName());
-		assertEquals(email, tutor.getEmail());
+		assertEquals(FIRST_NAME, tutor.getFirstName());
+		assertEquals(LAST_NAME, tutor.getLastName());
+		assertEquals(PASSWORD, tutor.getPassword());
+		assertEquals(EMAIL_KEY, tutor.getEmail());
+		assertEquals(manager.getId(), tutor.getManager().getId());
 	}
 
 	@Test
 	public void testCreateTutorNull() {
-		assertEquals(0, tutorService.getAllTutors().size());
-
-		String firstName = null;
-		String lastName = null;
-		String email = null;
-		String password = null;
-		Manager manager = null;
 		String error = null;
 
 		try {
-			tutor = tutorService.createTutor(firstName, lastName, email, password, manager);
+			tutor = tutorService.createTutor(null, null, null, null, null);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
