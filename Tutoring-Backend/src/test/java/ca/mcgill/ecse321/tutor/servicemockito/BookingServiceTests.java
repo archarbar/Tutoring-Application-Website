@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.tutor;
+package ca.mcgill.ecse321.tutor.servicemockito;
 
 import ca.mcgill.ecse321.tutor.dao.BookingRepository;
 import ca.mcgill.ecse321.tutor.service.BookingService;
@@ -21,8 +21,6 @@ import static org.mockito.Mockito.when;
 
 
 @RunWith(MockitoJUnitRunner.class)
-//@SpringBootTest
-//@PropertySource("classpath:applications.properties")
 public class BookingServiceTests {
 
 	@Mock
@@ -42,7 +40,6 @@ public class BookingServiceTests {
 		when(bookingDao.findBookingById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
 			if (invocation.getArgument(0).equals(BOOKING_KEY)) {
 				booking.setId(BOOKING_KEY);
-				booking.setTutorEmail(TUTOR_EMAIL);
 				return booking;
 			} else {
 				return null;
@@ -83,5 +80,4 @@ public class BookingServiceTests {
 		assertEquals(BOOKING_DATE, bookingService.getBookingBySpecificDate(BOOKING_DATE).get(0).getSpecificDate());
 		assertEquals(BOOKING_KEY, bookingService.getAllBookings().get(0).getId());
 	}
-
 }

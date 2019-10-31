@@ -1,6 +1,8 @@
 package ca.mcgill.ecse321.tutor.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.sql.Date;
 import java.sql.Time;
 import java.util.HashSet;
@@ -8,15 +10,32 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import ca.mcgill.ecse321.tutor.model.*;
-
-import ca.mcgill.ecse321.tutor.dao.*;
+import ca.mcgill.ecse321.tutor.dao.BookingRepository;
+import ca.mcgill.ecse321.tutor.dao.ManagerRepository;
+import ca.mcgill.ecse321.tutor.dao.NotificationRepository;
+import ca.mcgill.ecse321.tutor.dao.RatingRepository;
+import ca.mcgill.ecse321.tutor.dao.RoomRepository;
+import ca.mcgill.ecse321.tutor.dao.StudentRepository;
+import ca.mcgill.ecse321.tutor.dao.TimeSlotRepository;
+import ca.mcgill.ecse321.tutor.dao.TutorRepository;
+import ca.mcgill.ecse321.tutor.dao.TutoringSessionRepository;
+import ca.mcgill.ecse321.tutor.model.Booking;
+import ca.mcgill.ecse321.tutor.model.Course;
+import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
+import ca.mcgill.ecse321.tutor.model.Level;
+import ca.mcgill.ecse321.tutor.model.Manager;
+import ca.mcgill.ecse321.tutor.model.Room;
+import ca.mcgill.ecse321.tutor.model.Student;
+import ca.mcgill.ecse321.tutor.model.TimeSlot;
+import ca.mcgill.ecse321.tutor.model.Tutor;
+import ca.mcgill.ecse321.tutor.model.TutoringSession;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -51,15 +70,26 @@ public class TutoringSessionServiceTests {
 	private TimeSlotRepository timeSlotRepository;
 	@Autowired
 	private ManagerRepository managerRepository;
+	@Autowired
+	private StudentRepository studentRepository;
+	@Autowired
+	private RatingRepository ratingRepository;
+	@Autowired
+	private NotificationRepository notificationRepository;
 
+	@Before
 	@After
 	public void clearDatabase() {
-		bookingRepository.deleteAll();
+		
+		ratingRepository.deleteAll();
+		notificationRepository.deleteAll();
 		tutoringSessionRepository.deleteAll();
+		bookingRepository.deleteAll();
 		tutorRepository.deleteAll();
 		roomRepository.deleteAll();
 		timeSlotRepository.deleteAll();
 		managerRepository.deleteAll();
+		studentRepository.deleteAll();
 	}
 
 	@Test
@@ -117,7 +147,7 @@ public class TutoringSessionServiceTests {
 		assertEquals("A date needs to be specified! A tutor needs to be specified! A room needs to be specified! A booking needs to be specified! A timeSlot needs to be specified!", error);
 
 		// check no change in memory
-		assertEquals(0, studentService.getAllStudents().size());
+		assertEquals(0, tutoringSessionService.getAllTutoringSessions().size());
 	}
 
 

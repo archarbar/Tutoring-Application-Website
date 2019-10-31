@@ -1,13 +1,12 @@
 package ca.mcgill.ecse321.tutor.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
 import org.junit.After;
-
-import ca.mcgill.ecse321.tutor.model.Student;
-
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import ca.mcgill.ecse321.tutor.dao.StudentRepository;
-import ca.mcgill.ecse321.tutor.service.StudentService;
+import ca.mcgill.ecse321.tutor.model.Student;
 
 
 @RunWith(SpringRunner.class)
@@ -28,6 +27,7 @@ public class StudentServiceTests {
 	@Autowired
 	private StudentRepository studentRepository;
 
+	@Before
 	@After
 	public void clearDatabase() {
 		studentRepository.deleteAll();

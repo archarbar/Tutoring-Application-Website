@@ -21,9 +21,12 @@ import ca.mcgill.ecse321.tutor.dao.BookingRepository;
 import ca.mcgill.ecse321.tutor.dao.CourseRepository;
 import ca.mcgill.ecse321.tutor.dao.ManagerRepository;
 import ca.mcgill.ecse321.tutor.dao.NotificationRepository;
+import ca.mcgill.ecse321.tutor.dao.RatingRepository;
+import ca.mcgill.ecse321.tutor.dao.RoomRepository;
 import ca.mcgill.ecse321.tutor.dao.StudentRepository;
 import ca.mcgill.ecse321.tutor.dao.TimeSlotRepository;
 import ca.mcgill.ecse321.tutor.dao.TutorRepository;
+import ca.mcgill.ecse321.tutor.dao.TutoringSessionRepository;
 import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Course;
 import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
@@ -68,17 +71,6 @@ public class NotificationServiceTests {
 	@Autowired
 	private TimeSlotService timeSlotService;
 	
-//	@Before
-//	public void beforeClearDatabase() {
-//		bookingRepository.deleteAll();
-//		tutorRepository.deleteAll();
-//		studentRepository.deleteAll();
-//		managerRepository.deleteAll();
-//		courseRepository.deleteAll();
-//		notificationRepository.deleteAll();
-//		timeslotRepository.deleteAll();
-//	}
-
 
 	@After
 	@Before

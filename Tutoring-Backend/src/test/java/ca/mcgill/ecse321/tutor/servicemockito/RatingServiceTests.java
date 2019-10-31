@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.tutor;
+package ca.mcgill.ecse321.tutor.servicemockito;
 
 import ca.mcgill.ecse321.tutor.dao.RatingRepository;
 import ca.mcgill.ecse321.tutor.service.RatingService;
@@ -42,7 +42,7 @@ public class RatingServiceTests {
 				return null;
 			}
 		});
-		when(ratingRepository.findAll()).thenAnswer( (InvocationOnMock invocation) ->{
+		when(ratingRepository.findAll()).thenAnswer((InvocationOnMock invocation) ->{
 			List<Rating> ratings = new ArrayList<>();
 			rating.setId(SUCCESS_KEY);
 			ratings.add(rating);

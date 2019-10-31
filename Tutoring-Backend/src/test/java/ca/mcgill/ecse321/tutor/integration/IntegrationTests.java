@@ -19,7 +19,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 public class IntegrationTests {
 
-
+	// Use case 1: The system shall allow a potential tutor to submit their job application by submitting his first name, last name, highest level of education, phone number, email and resume.
+	// Use case 2: The system shall allow a verified tutor to create an account with the approved courses from the application by setting his password, availabilities, and hourly rate.
+	// Use case 3: The system shall allow a tutor with an account to modify his availabilities. 
+	// Use case 4: The system shall allow a tutor with an account to modify his course offerings (adding courses requires manager approval). 
+	// Use case 5: The system shall notify a tutor when he receives a booking.
+	
+	
 	private final String BASE_URL = "https://ecse321-tutor-backend.herokuapp.com";
 	//	private final String BASE_URL = "https://localhost:8080";
 
