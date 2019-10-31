@@ -100,16 +100,17 @@ public class TutoringSessionControllerTest {
 	private MockMvc mockMvc;
 
 	public void clearDatabase() {
-		// this should be enough because of the composition
+		tutoringSessionRepository.deleteAll();
+		notificationRepository.deleteAll();
+		roomRepository.deleteAll();
+		bookingRepository.deleteAll();
 		tutorRepository.deleteAll();
 		managerRepository.deleteAll();
 		studentRepository.deleteAll();
 		courseRepository.deleteAll();
-		roomRepository.deleteAll();
 		timeSlotRepository.deleteAll();
-		bookingRepository.deleteAll();
-		notificationRepository.deleteAll();
-		tutoringSessionRepository.deleteAll();
+
+
 	}
 
 	@Before
@@ -156,6 +157,7 @@ public class TutoringSessionControllerTest {
 		this.mockMvc.perform(post("/tutor")
 				.param("notification", notificationId)
 				.param("room", roomId)
+				.param("tutor", Integer.toString(tutor.getId()))
 				)
 		.andExpect(status().isOk());
 	}
