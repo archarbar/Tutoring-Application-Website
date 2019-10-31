@@ -1,9 +1,6 @@
 package ca.mcgill.ecse321.tutor.model;
 
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.sql.Date;
 
 @Entity
@@ -39,7 +36,6 @@ public class TutoringSession{
 
   private Tutor tutor;
 
-  @JsonIgnore
   @ManyToOne(optional=false)
   public Tutor getTutor() {
     return this.tutor;
@@ -50,8 +46,7 @@ public class TutoringSession{
   }
 
   private Room room;
-  
-  @JsonIgnore
+
   @ManyToOne(optional=false)
   public Room getRoom() {
     return this.room;
@@ -62,8 +57,7 @@ public class TutoringSession{
   }
 
   private TimeSlot timeSlot;
-  
-  @JsonIgnore
+
   @ManyToOne(optional=false)
   public TimeSlot getTimeSlot() {
     return this.timeSlot;
@@ -74,8 +68,7 @@ public class TutoringSession{
   }
 
   private Booking booking;
-  
-  @JsonIgnore
+
   @OneToOne(mappedBy="tutoringSession", optional=false)
   public Booking getBooking() {
     return this.booking;

@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.tutor.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -10,32 +9,14 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import ca.mcgill.ecse321.tutor.dao.BookingRepository;
-import ca.mcgill.ecse321.tutor.dao.CourseRepository;
-import ca.mcgill.ecse321.tutor.dao.ManagerRepository;
-import ca.mcgill.ecse321.tutor.dao.NotificationRepository;
-import ca.mcgill.ecse321.tutor.dao.RatingRepository;
-import ca.mcgill.ecse321.tutor.dao.RoomRepository;
-import ca.mcgill.ecse321.tutor.dao.StudentRepository;
-import ca.mcgill.ecse321.tutor.dao.TimeSlotRepository;
-import ca.mcgill.ecse321.tutor.dao.TutorRepository;
-import ca.mcgill.ecse321.tutor.dao.TutoringSessionRepository;
-import ca.mcgill.ecse321.tutor.model.Booking;
-import ca.mcgill.ecse321.tutor.model.Course;
-import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
-import ca.mcgill.ecse321.tutor.model.Level;
-import ca.mcgill.ecse321.tutor.model.Manager;
-import ca.mcgill.ecse321.tutor.model.Notification;
-import ca.mcgill.ecse321.tutor.model.Student;
-import ca.mcgill.ecse321.tutor.model.TimeSlot;
-import ca.mcgill.ecse321.tutor.model.Tutor;
+import ca.mcgill.ecse321.tutor.dao.*;
+import ca.mcgill.ecse321.tutor.model.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -52,7 +33,13 @@ public class NotificationServiceTests {
 	@Autowired
 	private CourseRepository courseRepository;
 	@Autowired
+	private RoomRepository roomRepository;
+	@Autowired
 	private NotificationRepository notificationRepository;
+	@Autowired
+	private RatingRepository ratingRepository;
+	@Autowired
+	private TutoringSessionRepository tutoringSessionRepository;
 	@Autowired
 	private TimeSlotRepository timeslotRepository;
 
@@ -71,17 +58,20 @@ public class NotificationServiceTests {
 	@Autowired
 	private TimeSlotService timeSlotService;
 
-	@Before
+
 	@After
 	public void clearDatabase() {
 		//we first clear bookings and tutoring sessions to avoid
 		//exceptions due to inconsistencies
 		bookingRepository.deleteAll();
+		tutoringSessionRepository.deleteAll();
 		tutorRepository.deleteAll();
 		studentRepository.deleteAll();
 		managerRepository.deleteAll();
 		courseRepository.deleteAll();
+		roomRepository.deleteAll();
 		notificationRepository.deleteAll();
+		ratingRepository.deleteAll();
 		timeslotRepository.deleteAll();
 	}
 
