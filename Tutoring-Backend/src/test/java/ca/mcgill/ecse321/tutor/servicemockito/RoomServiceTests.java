@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.tutor.servicemockito;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -34,9 +35,13 @@ public class RoomServiceTests {
 	@InjectMocks
 	private ManagerService managerService;
 
+	private Manager manager;
+
 	private Room room = new Room();
 
 	private static final Integer SUCCESS_KEY = 1;
+	private static final Integer TIMESLOT_NUMBER = 12;
+	private static final Integer TIMESLOT_CAPACITY = 30;
 
 	@Before
 	public void setMockOutput(){
@@ -56,6 +61,11 @@ public class RoomServiceTests {
 		});
 	}
 
+	@Before
+	public void setUpMocks() {
+		manager = mock(Manager.class);
+	}
+
 	@Test
 	public void testGetRoom(){
 		assertEquals(SUCCESS_KEY, roomService.getRoom(SUCCESS_KEY).getId());
@@ -64,31 +74,24 @@ public class RoomServiceTests {
 
 	@Test
 	public void testCreateRoom() { // test constructor method
-		assertEquals(0, roomService.getAllRooms().size());
-
-		Integer number = 12;
-		Integer capacity = 30;
-		Manager manager = managerService.createManager();
 
 		try {
-			room = roomService.createRoom(number, capacity , manager);
+			room = roomService.createRoom(TIMESLOT_NUMBER, TIMESLOT_CAPACITY , manager);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
 
-		assertEquals((Integer) 12, room.getRoomNumber());
-		assertEquals((Integer) 30, room.getRoomCapacity());
+		assertEquals(manager.getId(), room.getManager().getId());
+		assertEquals(TIMESLOT_NUMBER, room.getRoomNumber());
+		assertEquals(TIMESLOT_CAPACITY, room.getRoomCapacity());
 	}
 
 	@Test
 	public void testCreateRoomNull() { // test constructor method
-		Integer number = null;
-		Integer capacity = null;
-		Manager manager = null;
 		String error = null;
 
 		try {
-			room = roomService.createRoom(number, capacity , manager);
+			room = roomService.createRoom(null, null , null);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}

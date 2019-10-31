@@ -8,11 +8,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,12 +21,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import ca.mcgill.ecse321.tutor.dao.TutoringSessionRepository;
 import ca.mcgill.ecse321.tutor.model.Booking;
-import ca.mcgill.ecse321.tutor.model.Course;
-import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
-import ca.mcgill.ecse321.tutor.model.Level;
-import ca.mcgill.ecse321.tutor.model.Manager;
 import ca.mcgill.ecse321.tutor.model.Room;
-import ca.mcgill.ecse321.tutor.model.Student;
 import ca.mcgill.ecse321.tutor.model.TimeSlot;
 import ca.mcgill.ecse321.tutor.model.Tutor;
 import ca.mcgill.ecse321.tutor.model.TutoringSession;
@@ -65,20 +57,16 @@ public class TutoringSessionServiceTests {
 	private CourseService courseService;
 	@InjectMocks
 	private StudentService studentService;
+	
+	private Tutor tutor;
+	private Room room;
+	private Booking booking;
+	private TimeSlot timeSlot;
 
 	private TutoringSession tutoringSession = new TutoringSession();
 
 	private static final Integer SUCCESS_KEY = 1;
-	private Tutor tutor;
-
-	@Before
-	public  void setMock(){
-		tutor = mock(Tutor.class);
-		tutor.setEmail("test@email.com");
-		tutor.setFirstName("Test");
-		tutor.setLastName("Tutor");
-		tutor.setManager(mock(Manager.class));
-	}
+	private static final Date SESSION_DATE = Date.valueOf("2019-10-14");
 
 	@Before
 	public void setMockOutput(){
@@ -107,6 +95,14 @@ public class TutoringSessionServiceTests {
 			return tutoringSessions;
 		});
 	}
+	
+	@Before
+	public  void setMock(){
+		tutor = mock(Tutor.class);
+		room = mock(Room.class);
+		booking = mock(Booking.class);
+		timeSlot = mock(TimeSlot.class);
+	}
 
 	@Test
 	public void testGetTutoringSession(){
@@ -117,44 +113,26 @@ public class TutoringSessionServiceTests {
 
 	@Test
 	public void testCreateTutoringSession() {
-		assertEquals(0, tutoringSessionService.getAllTutoringSessions().size());
-
-		Date sessionDate = Date.valueOf("2019-10-14");
-		Manager manager = managerService.createManager();
-		Room room = roomService.createRoom(12, 30, manager);
-		TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
-		String password = "locust";
-		String tutorEmail = "arthurmorgan@redemption.com";
-		Course course = courseService.createCourse("test", Level.CEGEP);
-		String firstName = "Michael";
-		String lastName = "Li";
-		String email = "mlej@live.com";
-		Student student = studentService.createStudent(firstName, lastName, email);
-		Set<Student> studentSet = new HashSet<Student>();
-		studentSet.add(student);
-		Booking booking = bookingService.createBooking(tutorEmail, studentSet, Date.valueOf("2019-10-10"), timeSlot, course);
-		Tutor tutor = tutorService.createTutor(firstName, lastName, email, password, manager);
 
 		try {
-			tutoringSession = tutoringSessionService.createTutoringSession(sessionDate, tutor, room, booking, timeSlot);
+			tutoringSession = tutoringSessionService.createTutoringSession(SESSION_DATE, tutor, room, booking, timeSlot);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
 
-		assertEquals(sessionDate, tutoringSession.getSessionDate());
+		assertEquals(SESSION_DATE, tutoringSession.getSessionDate());
+		assertEquals(tutor.getId(), tutoringSession.getTutor().getId());
+		assertEquals(room.getId(), tutoringSession.getRoom().getId());
+		assertEquals(booking.getId(), tutoringSession.getBooking().getId());
+		assertEquals(timeSlot.getId(), tutoringSession.getTimeSlot().getId());
 	}
 
 	@Test
 	public void testCreateTutoringSessionNull() {
-		Date sessionDate = null;
-		Tutor tutor = null;
-		Room room = null;
-		Booking booking = null;
-		TimeSlot timeSlot = null;
 		String error = null;
 
 		try {
-			tutoringSessionService.createTutoringSession(sessionDate, tutor, room, booking, timeSlot);
+			tutoringSessionService.createTutoringSession(null, null, null, null, null);
 		}
 		catch (IllegalArgumentException e) {
 			error = e.getMessage();

@@ -34,6 +34,9 @@ public class TimeSlotServiceTests {
 	private TimeSlot timeSlot = new TimeSlot();
 
 	private static final Integer SUCCESS_KEY = 1;
+	private static final Time START_TIME = Time.valueOf("10:35:11");
+	private static final Time END_TIME = Time.valueOf("12:35:11");
+	private static final DayOfTheWeek DAYOFTHEWEEK = DayOfTheWeek.MONDAY;
 
 	@Before
 	public void setMockOutput(){
@@ -61,31 +64,25 @@ public class TimeSlotServiceTests {
 
 	@Test
 	public void testCreateTimeSlot() {
-		assertEquals(0, timeSlotService.getAllTimeSlots().size());
-
-		Time startTime = Time.valueOf("10:35:11");
-		Time endTime = Time.valueOf("12:35:11");
 
 		try {
-			timeSlot = timeSlotService.createTimeSlot(startTime, endTime, DayOfTheWeek.MONDAY);
+			timeSlot = timeSlotService.createTimeSlot(START_TIME, END_TIME, DAYOFTHEWEEK);
 		}
 		catch (IllegalArgumentException e) {
 			fail();
 		}
 
-		assertEquals(startTime, timeSlot.getStartTime());
-		assertEquals(endTime, timeSlot.getEndTime());
-		assertEquals(DayOfTheWeek.MONDAY, timeSlot.getDayOfTheWeek());
+		assertEquals(START_TIME, timeSlot.getStartTime());
+		assertEquals(END_TIME, timeSlot.getEndTime());
+		assertEquals(DAYOFTHEWEEK, timeSlot.getDayOfTheWeek());
 	}
 
 	@Test
 	public void testCreateTimeSlotNull() {
-		Time startTime = null;
-		Time endTime = null;
 		String error = null;
 
 		try {
-			timeSlot = timeSlotService.createTimeSlot(startTime, endTime, DayOfTheWeek.MONDAY);
+			timeSlot = timeSlotService.createTimeSlot(null, null, null);
 		}
 		catch (IllegalArgumentException e) {
 			error = e.getMessage();
