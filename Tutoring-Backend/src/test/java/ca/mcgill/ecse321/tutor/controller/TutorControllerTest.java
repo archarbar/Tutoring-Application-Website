@@ -1,7 +1,7 @@
 package ca.mcgill.ecse321.tutor.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.After;
 import org.junit.Before;
@@ -70,4 +70,18 @@ public class TutorControllerTest {
 		.andExpect(status().isOk());
 	}
 
+	@Test
+	public void testGetTutor() throws Exception {
+		this.mockMvc.perform(get("/tutor"));
+//		   .andExpect(status().isOk())
+//		   .andExpect(jsonPath("$.tutoFirstName").value("first1"))
+//		   .andExpect(jsonPath("$.tutor.tutorLastName").value("last2"))
+//		   .andExpect(jsonPath("$.tutor.tutorEmail").value("first.last@mail.mcgill.ca"))
+//		   .andExpect(jsonPath("$.tutor.tutorPassword").value("123456"));
+	}
+				
+//				 * mockMvc.perform(get("/form"))
+//				 *     .andExpect(status().isOk())
+//				 *     .andExpect(content().mimeType("text/html"))
+//				 *     .andExpect(forwardedUrl("/WEB-INF/layouts/main.jsp"));
 }
