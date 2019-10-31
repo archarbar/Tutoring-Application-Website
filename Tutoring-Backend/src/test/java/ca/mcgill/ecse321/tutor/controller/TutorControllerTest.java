@@ -59,13 +59,13 @@ public class TutorControllerTest {
 	@Test
 	public void testCreateTutor() throws Exception {
 		Manager manager = managerService.createManager();
-		int managerId = manager.getId();
+//		int managerId = manager.getId();
 		this.mockMvc.perform(post("/tutor")
 				.param("tutorFirstName", "first1")
 				.param("tutorLastName", "last2")
 				.param("tutorEmail", "first.last@mail.mcgill.ca")
 				.param("tutorPassword", "123456")
-				.param("manager", Integer.toString(managerId))
+//				.param("manager", Integer.toString(managerId))
 				)
 		.andExpect(status().isOk());
 	}

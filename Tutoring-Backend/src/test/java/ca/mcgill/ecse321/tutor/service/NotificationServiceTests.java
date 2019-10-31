@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,9 +67,21 @@ public class NotificationServiceTests {
 	private NotificationService notificationService;
 	@Autowired
 	private TimeSlotService timeSlotService;
+	
+//	@Before
+//	public void beforeClearDatabase() {
+//		bookingRepository.deleteAll();
+//		tutorRepository.deleteAll();
+//		studentRepository.deleteAll();
+//		managerRepository.deleteAll();
+//		courseRepository.deleteAll();
+//		notificationRepository.deleteAll();
+//		timeslotRepository.deleteAll();
+//	}
 
 
 	@After
+	@Before
 	public void clearDatabase() {
 		//we first clear bookings and tutoring sessions to avoid
 		//exceptions due to inconsistencies
@@ -102,8 +115,8 @@ public class NotificationServiceTests {
 		String tutorFirstName = "Marcus";
 		String tutorLastName = "Fenix";
 		String password = "locust";
-		Manager manager = managerService.createManager();
-		Tutor tutor = tutorService.createTutor(tutorFirstName, tutorLastName, tutorEmail, password, manager);
+//		Manager manager = managerService.createManager();
+		Tutor tutor = tutorService.createTutor(tutorFirstName, tutorLastName, tutorEmail, password);
 
 		try {
 			notificationService.createNotification(booking, tutor);

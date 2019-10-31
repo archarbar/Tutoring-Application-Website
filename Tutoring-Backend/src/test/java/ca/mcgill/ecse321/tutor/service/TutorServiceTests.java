@@ -52,7 +52,7 @@ public class TutorServiceTests {
 		String password = "locust";
 		Manager manager = managerService.createManager();
 		try {
-			tutorService.createTutor(firstName, lastName, email, password, manager);
+			tutorService.createTutor(firstName, lastName, email, password);
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
 			fail();
@@ -73,13 +73,13 @@ public class TutorServiceTests {
 		Manager manager = null;
 		String error = null;
 		try {
-			tutorService.createTutor(firstName, lastName, email, password, manager);
+			tutorService.createTutor(firstName, lastName, email, password);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-
+		System.out.println(error);
 		// check error
-		assertEquals("A first name needs to be specified! A last name needs to be specified! An email needs to be specified! A password needs to be specified! A manager needs to be specified!", error);
+		assertEquals("A first name needs to be specified! A last name needs to be specified! An email needs to be specified! A password needs to be specified!", error);
 
 		// check no change in memory
 		assertEquals(0, tutorService.getAllTutors().size());
@@ -95,7 +95,7 @@ public class TutorServiceTests {
 		Manager manager = managerService.createManager();
 		String error = null;
 		try {
-			tutorService.createTutor(firstName, lastName, email, password, manager);
+			tutorService.createTutor(firstName, lastName, email, password);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -114,10 +114,10 @@ public class TutorServiceTests {
 		String lastName = " ";
 		String email = "  ";
 		String password = "   ";
-		Manager manager = managerService.createManager();
+//		Manager manager = managerService.createManager();
 		String error = null;
 		try {
-			tutorService.createTutor(firstName, lastName, email, password, manager);
+			tutorService.createTutor(firstName, lastName, email, password);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -129,28 +129,27 @@ public class TutorServiceTests {
 		assertEquals(0, tutorService.getAllTutors().size());
 	}
 	
-	@Test
-	public void testCreateTutorNullManager() {
-		assertEquals(0, tutorService.getAllTutors().size());
-
-		String firstName = "Marcus";
-		String lastName = "Fenix";
-		String email = "marcusfenix@gears.com";
-		String password = "locust";
-		Manager manager = null;
-		String error = null;
-		try {
-			tutorService.createTutor(firstName, lastName, email, password, manager);
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-
-		// check error
-		assertEquals("A manager needs to be specified!", error);
-
-		// check no change in memory
-		assertEquals(0, tutorService.getAllTutors().size());
-	}
+//	@Test
+//	public void testCreateTutorNullManager() {
+//		assertEquals(0, tutorService.getAllTutors().size());
+//
+//		String firstName = "Marcus";
+//		String lastName = "Fenix";
+//		String email = "marcusfenix@gears.com";
+//		String password = "locust";
+//		String error = null;
+//		try {
+//			tutorService.createTutor(firstName, lastName, email, password);
+//		} catch (IllegalArgumentException e) {
+//			error = e.getMessage();
+//		}
+//
+//		// check error
+//		assertEquals("A manager needs to be specified!", error);
+//
+//		// check no change in memory
+//		assertEquals(0, tutorService.getAllTutors().size());
+//	}
 
 	//	@Test
 	//	public void testChangeTutorName() { // test setter methods

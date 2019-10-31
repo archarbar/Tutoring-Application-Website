@@ -58,10 +58,13 @@ public class RatingServiceTests {
 	private StudentRepository studentRepository;
 	@Autowired
 	private RatingRepository ratingRepository;
+	@Autowired
+	private NotificationRepository notificationRepository;
 
 	@After
 	public void clearDatabase() {
 		ratingRepository.deleteAll();
+		notificationRepository.deleteAll();
 		tutoringSessionRepository.deleteAll();
 		bookingRepository.deleteAll();
 		tutorRepository.deleteAll();
@@ -91,7 +94,7 @@ public class RatingServiceTests {
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(student);
 		Booking booking = bookingService.createBooking(tutorEmail, studentSet, sessionDate, timeSlot, course);
-		Tutor tutor = tutorService.createTutor(firstName, lastName, tutorEmail, password, manager);
+		Tutor tutor = tutorService.createTutor(firstName, lastName, tutorEmail, password);
 		TutoringSession tutoringSession = tutoringSessionService.createTutoringSession(sessionDate, tutor, room, booking, timeSlot);
 
 		try {
@@ -156,7 +159,7 @@ public class RatingServiceTests {
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(student);
 		Booking booking = bookingService.createBooking(tutorEmail, studentSet, sessionDate, timeSlot, course);
-		Tutor tutor = tutorService.createTutor(firstName, lastName, tutorEmail, password, manager);
+		Tutor tutor = tutorService.createTutor(firstName, lastName, tutorEmail, password);
 		TutoringSession tutoringSession = tutoringSessionService.createTutoringSession(sessionDate, tutor, room, booking, timeSlot);
 		String error = null;
 
@@ -194,7 +197,7 @@ public class RatingServiceTests {
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(student);
 		Booking booking = bookingService.createBooking(tutorEmail, studentSet, sessionDate, timeSlot, course);
-		Tutor tutor = tutorService.createTutor(firstName, lastName, tutorEmail, password, manager);
+		Tutor tutor = tutorService.createTutor(firstName, lastName, tutorEmail, password);
 		TutoringSession tutoringSession = tutoringSessionService.createTutoringSession(sessionDate, tutor, room, booking, timeSlot);
 		String error = null;
 

@@ -130,7 +130,7 @@ public class TutoringSessionControllerTest {
 		String lastName = "Fenix";
 		String tutorEmail = "marcusfenix@gears.com";
 		String password = "locust";
-		Tutor tutor = tutorService.createTutor(firstName, lastName, tutorEmail, password, manager);
+		Tutor tutor = tutorService.createTutor(firstName, lastName, tutorEmail, password);
 
 		Course course = courseService.createCourse("test", Level.CEGEP);
 		String studentFirstName = "Michael";
@@ -147,7 +147,6 @@ public class TutoringSessionControllerTest {
 		Room room = roomService.createRoom(number, capacity , manager);
 		
 		String roomId = Integer.toString(room.getId());
-		
  		this.mockMvc.perform(post("/tutoringSession/new")
 				.param("bookingId", bookingId)
 				.param("booking2", bookingId)

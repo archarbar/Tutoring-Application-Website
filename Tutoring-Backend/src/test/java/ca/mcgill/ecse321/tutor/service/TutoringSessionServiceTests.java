@@ -80,7 +80,7 @@ public class TutoringSessionServiceTests {
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(student);
 		Booking booking = bookingService.createBooking(tutorEmail, studentSet, Date.valueOf("2019-10-10"), timeSlot, course);
-		Tutor tutor = tutorService.createTutor(firstName, lastName, email, password, manager);
+		Tutor tutor = tutorService.createTutor(firstName, lastName, email, password);
 
 		try {
 			tutoringSessionService.createTutoringSession(sessionDate, tutor, room, booking, timeSlot);

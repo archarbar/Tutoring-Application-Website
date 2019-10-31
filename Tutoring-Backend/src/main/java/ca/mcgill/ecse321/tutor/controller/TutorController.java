@@ -17,9 +17,9 @@ public class TutorController {
     public TutorDto createTutor(@RequestParam("tutorFirstName") String tutorFirstName,
                                 @RequestParam("tutorLastName") String tutorLastName,
                                 @RequestParam("tutorEmail") String tutorEmail,
-                                @RequestParam("tutorPassword") String tutorPassword,
-                                @RequestParam Manager manager)  throws IllegalArgumentException {
-        Tutor newTutor = service.createTutor(tutorFirstName, tutorLastName, tutorEmail, tutorPassword, manager);
+                                @RequestParam("tutorPassword") String tutorPassword)
+                                throws IllegalArgumentException {
+        Tutor newTutor = service.createTutor(tutorFirstName, tutorLastName, tutorEmail, tutorPassword);
         return convertToDto(newTutor);
     }
 
