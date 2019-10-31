@@ -21,25 +21,9 @@ public class BookingController {
     @Autowired
     private BookingService service;
 
-    /*  /**
-     * Method to create booking through RESTful service call
-     *
-     * @param book
-     * @return
-     */
-
-    /* ***Tutor shouldn't be able to create a booking***
-      @PostMapping("/booking")
-        public BookingDto createBooking (@RequestBody BookingDto book) throws IllegalArgumentException {
-              Booking booking = service.createBooking(book.getTutorEmail(), (Set<Student>) book.getStudent(),
-              book.getSpecificDate(), book.getTimeSlot(), book.getCourse());
-              return convertToDto(booking);
-        }*/
-
-
     @GetMapping(value = "/booking/{bookingId}")
-    public BookingDto getBookingById(@PathVariable int bookingId) {
-        return convertToDto(service.getBookingById(bookingId));
+    public BookingDto getBookingById(@PathVariable String bookingId) {
+        return convertToDto(service.getBookingById(Integer.parseInt(bookingId)));
     }
 
     @GetMapping("/bookings/{date}")

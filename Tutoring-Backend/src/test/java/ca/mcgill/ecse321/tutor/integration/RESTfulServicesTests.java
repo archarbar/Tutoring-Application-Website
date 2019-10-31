@@ -41,9 +41,12 @@ import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
 import ca.mcgill.ecse321.tutor.model.Level;
 import ca.mcgill.ecse321.tutor.model.Manager;
 import ca.mcgill.ecse321.tutor.model.Notification;
+import ca.mcgill.ecse321.tutor.model.Rating;
+import ca.mcgill.ecse321.tutor.model.Room;
 import ca.mcgill.ecse321.tutor.model.Student;
 import ca.mcgill.ecse321.tutor.model.TimeSlot;
 import ca.mcgill.ecse321.tutor.model.Tutor;
+import ca.mcgill.ecse321.tutor.model.TutoringSession;
 import ca.mcgill.ecse321.tutor.service.BookingService;
 import ca.mcgill.ecse321.tutor.service.CourseService;
 import ca.mcgill.ecse321.tutor.service.ManagerService;
@@ -131,11 +134,16 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 	TimeSlot timeSlot;
 	Manager manager;
 	Tutor tutor;
+	TutoringSession tutoringSession;
 	Booking booking;
 	Notification notification;
+	Course course;
+	Rating rating;
+	Room room; 
+	Student student;
 	
 	@BeforeClass
-	public void clearDatabase() {
+	public void setup() {
 		ratingRepository.deleteAll();
 		tutoringSessionRepository.deleteAll();
 		notificationRepository.deleteAll();
@@ -151,7 +159,7 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 		// Create manager
 		manager = managerService.createManager();
 		
-		// Create Tutor in database 
+		// Create tutor in database 
 		String firstName = "John";
 		String lastName = "Lennon";
 		String tutorEmail = "duQuebec@poushon.com";
@@ -161,95 +169,51 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 		// Create timeSlot 
 		timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
 		
-		// Create a Booking
-		Course course = courseService.createCourse("Test", Level.CEGEP);
+		// Create course 
+		course = courseService.createCourse("Test", Level.CEGEP);
 		String studentFirstName = "Michael";
 		String studentLastName = "Li";
 		String studentEmail = "mlej@live.com";
-		Student student = studentService.createStudent(studentFirstName, studentLastName, studentEmail);
+		
+		// Create student
+		student = studentService.createStudent(studentFirstName, studentLastName, studentEmail);
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(student);
+		
+		// Create booking in database
 		booking = bookingService.createBooking(tutorEmail, studentSet, Date.valueOf("2019-10-10"), timeSlot, course);
 	}
 	
 
-	@AfterClass
-	public void tearDown() {
-		ratingRepository.deleteAll();
-		tutoringSessionRepository.deleteAll();
-		notificationRepository.deleteAll();
-		roomRepository.deleteAll();
-		bookingRepository.deleteAll();
-		tutorRepository.deleteAll();
-		managerRepository.deleteAll();
-		studentRepository.deleteAll();
-		courseRepository.deleteAll();
-		timeSlotRepository.deleteAll();
-	}
-	
-	
-//	@BeforeMethod
-//	@AfterMethod
-//	public void clearDatabase() {
-//		notificationRepository.deleteAll();
+//	@AfterClass
+//	public void tearDown() {
 //		ratingRepository.deleteAll();
 //		tutoringSessionRepository.deleteAll();
+//		notificationRepository.deleteAll();
+//		roomRepository.deleteAll();
+//		bookingRepository.deleteAll();
 //		tutorRepository.deleteAll();
+//		managerRepository.deleteAll();
+//		studentRepository.deleteAll();
+//		courseRepository.deleteAll();
+//		timeSlotRepository.deleteAll();
 //	}
-
 
 	/**
 	 * Preparing to test all RESTful services for services that modify data. 
 	 */
 	
 	/* <----------- Utility methods to create HTTP Requests to the database using RestTemplate ---------------> */
-		
-//	@Test (priority=1, groups="Test preparation")
-//	public void testCreateManager() {
-//		// Due to domain model design, a manager has be created in the database in order to perform tests on the Tutor and room classes.
-//		Manager manager = new Manager();
-//		HttpEntity<Manager> entity = new HttpEntity<Manager>(manager, headers); // HttpEntity<T> is a helper object which encapsulates header and body of an HTTP request or response.
-//		ResponseEntity<String> response = restTemplate.postForEntity(constructURLWithLocalPort("/manager/new"), entity, String.class);
-//		// Make sure response code is 200
-//		assertEquals(response.getStatusCodeValue(),200);
-//		
-//		// Make sure only one manager is present in the database
-//		assertEquals(managerService.getAllManagers().size(), 1);
-//		
-//		// Verify response is not null 
-//		assertNotNull(response);
-//	}
 	
-	
-//	@Test(priority=1, groups="Test preparation")
-//	public void testCreateRoom() {
-//		// Due to domain model design, a Room has to be created in the database in order to perform tests on the TutoringSession.
-//		
-//		
-//	}
-//	
-//	@Test(priority=1, groups="Test preparation")
-//	public void testCreateTimeSlot() {
-//		// Due to domain model design, a Room has to be created in the database in order to perform tests on the TutoringSession.
-//		
-//	}
-//	
-//	@Test(priority=2, groups="Rating")
-//	public void testRatingPOST() {
-//
-//	}
-//
-	@Test(priority=3, groups="Notification")
+	@Test(priority=1, groups="Notification")
 	public void testCreateNotification() {
 		// Due to domain model design, a booking and a tutor has be created in the database in order to perform tests on notification.
-
-		notification = new Notification();
-		notification.setBooking(booking);
-		notification.setTutor(tutor);
+		LinkedMultiValueMap<String, Integer> params = new LinkedMultiValueMap<>();
+		params.add("tutorId", tutor.getId());
+		params.add("bookingId", booking.getId());
+		HttpEntity<LinkedMultiValueMap<String, Integer>> entity = new HttpEntity<LinkedMultiValueMap<String, Integer>>(params, headers); // HttpEntity<T> is a helper object which encapsulates header and body of an HTTP request or response.
+		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/notification/new"), HttpMethod.POST, entity, String.class);
 		
-		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
-		HttpEntity<Notification> entity = new HttpEntity<Notification>(notification, headers); // HttpEntity<T> is a helper object which encapsulates header and body of an HTTP request or response.
-		ResponseEntity<String> response = restTemplate.postForEntity(constructURLWithLocalPort("/notification/new"), entity, String.class);
 		// Make sure response code is 200
 		assertEquals(response.getStatusCodeValue(),200);
 		
@@ -258,20 +222,63 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 		
 		// Verify response is not null 
 		assertNotNull(response);
+
+	}
+	
+	@Test(priority=2, groups="Notification", dependsOnMethods="testCreateNotification")
+	public void testGetNotificationByID() {
+		int notificationId = notificationService.getAllNotifications().get(0).getId();
+		LinkedMultiValueMap<String, Integer> params = new LinkedMultiValueMap<>();
+		params.add("notificationId", notificationId);
+		HttpEntity<LinkedMultiValueMap<String, Integer>> entity = new HttpEntity<LinkedMultiValueMap<String, Integer>>(params, headers);
+		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/notifications/" + notificationId), HttpMethod.GET, entity, String.class);
+		String result = response.getBody().toString();
+		
+		// Verify response is not null 
+		assertNotNull(response);
+		
+		// Assure successful connection 
+		assertEquals(response.getStatusCode(), HttpStatus.OK);
+		
+		// Verify URI 
+		assertTrue(result.contains("/notifications/" + notificationId));
 	}
 	
 	@Test(priority=3, groups="Notification", dependsOnMethods="testCreateNotification")
-	public void testGetNotificationByID() {
-		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/notification/" + notification.getId()), HttpMethod.GET, null, String.class);
+	public void testGetNotificationByTutor() {
+		int notificationId = notificationService.getAllNotifications().get(0).getId();
+		LinkedMultiValueMap<String, Integer> params = new LinkedMultiValueMap<>();
+		params.add("tutorId", tutor.getId());
+		HttpEntity<LinkedMultiValueMap<String, Integer>> entity = new HttpEntity<LinkedMultiValueMap<String, Integer>>(params, headers);
+		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/notifications/tutor" + notificationId), HttpMethod.GET, entity, String.class);
 		String result = response.getBody().toString();
 		
+		// Verify response is not null 
+		assertNotNull(response);
+		
 		// Assure successful connection 
-		assertEquals(response.getStatusCode(),HttpStatus.OK);
+		assertEquals(response.getStatusCode(), HttpStatus.OK);
 		
 		// Verify URI 
-		assertTrue(result.contains("/notification/" + notification.getId()));
+		assertTrue(result.contains("/notifications/tutor/" + notificationId));
+		
+		// Assert size of notifications
+		
 	}
-//
+	
+//	@Test(priority=4, groups="TimeSlot")
+//	public void testCreateTimeSlot() {
+//		timeSlot = new TimeSlot();
+//		
+//	}
+//	
+//	@Test(priority=5, groups="Rating")
+//	public void testCreateRating() {
+//		rating = new Rating();
+//	
+//	}
+
+	
 //	@Test(priority=4, groups="TutoringSession")
 //	public void createTutoringSession() {
 //

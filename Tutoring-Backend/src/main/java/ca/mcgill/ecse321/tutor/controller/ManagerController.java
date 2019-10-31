@@ -33,13 +33,7 @@ public class ManagerController {
     		mDtos.add(convertToDto(manager));
     	}
     	return mDtos;
-    }    
-	
-    @PostMapping(value= {"/manager/new", "/manager/new/"})
-    public ManagerDto createManager() {
-    	return convertToDto(service.createManager());
-    }
-    
+    }       
 
     private ManagerDto convertToDto(Manager manager) {
         if (manager == null) throw new IllegalArgumentException("This manager does not exist!");
