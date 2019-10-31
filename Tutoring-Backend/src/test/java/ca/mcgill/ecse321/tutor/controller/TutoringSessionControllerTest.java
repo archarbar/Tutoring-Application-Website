@@ -151,10 +151,10 @@ public class TutoringSessionControllerTest {
 		
 		String roomId = Integer.toString(room.getId());
 		
-		this.mockMvc.perform(post("/tutoringSession/new")
-
+ 		this.mockMvc.perform(post("/tutoringSession/new")
+				.param("bookingId", bookingId)
+				.param("booking2", bookingId)
 				.param("room", roomId)
-				.param("booking", bookingId)
 				.param("tutor", Integer.toString(tutor.getId()))
 				)
 		.andExpect(status().isOk());

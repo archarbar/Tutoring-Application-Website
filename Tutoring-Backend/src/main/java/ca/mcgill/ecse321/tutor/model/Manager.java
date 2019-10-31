@@ -34,7 +34,8 @@ public class Manager{
   }
 
   private Set<Room> room;
-
+  
+  @JsonIgnore
   @OneToMany(mappedBy="manager")
   public Set<Room> getRoom() {
     return this.room;

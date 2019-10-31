@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.tutor.controller;
 
+import ca.mcgill.ecse321.tutor.dao.BookingRepository;
 import ca.mcgill.ecse321.tutor.dto.TutoringSessionDto;
 import ca.mcgill.ecse321.tutor.model.*;
 import ca.mcgill.ecse321.tutor.service.TutoringSessionService;
@@ -15,11 +16,18 @@ public class TutoringSessionController {
 
     @Autowired
     private TutoringSessionService service;
+    
+    @Autowired
+    private BookingRepository bookingRepository;
 
     @PostMapping("/tutoringSession/new")
-//    Need to figure out how we get a room and assign it
-    public TutoringSessionDto createTutoringSession (@RequestParam("booking") Booking booking, @RequestParam("room") Room room, @RequestParam("tutor") Tutor tutor){
-        TutoringSession tutoringSession = service.createTutoringSession(booking.getSpecificDate(),
+    public TutoringSessionDto createTutoringSession(
+    												@RequestParam("bookingId") String bookingId,
+    												@RequestParam("booking2") Booking booking2,
+    												@RequestParam("room") Room room, 
+    												@RequestParam("tutor") Tutor tutor){
+        Booking booking = bookingRepository.findBookingById(Integer.parseInt(bookingId));
+    	TutoringSession tutoringSession = service.createTutoringSession(booking.getSpecificDate(),
                 tutor, room, booking, booking.getTimeSlot());
         return convertToDto(tutoringSession);
     }
