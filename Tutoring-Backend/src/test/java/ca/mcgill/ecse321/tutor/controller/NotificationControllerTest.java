@@ -90,6 +90,7 @@ public class NotificationControllerTest {
 	private MockMvc mockMvc;
 
 	public void clearDatabase() {
+		notificationRepository.deleteAll();
 		bookingRepository.deleteAll();
 		tutoringSessionRepository.deleteAll();
 		tutorRepository.deleteAll();
@@ -97,7 +98,6 @@ public class NotificationControllerTest {
 		managerRepository.deleteAll();
 		courseRepository.deleteAll();
 		roomRepository.deleteAll();
-		notificationRepository.deleteAll();
 		ratingRepository.deleteAll();
 		timeslotRepository.deleteAll();
 	}

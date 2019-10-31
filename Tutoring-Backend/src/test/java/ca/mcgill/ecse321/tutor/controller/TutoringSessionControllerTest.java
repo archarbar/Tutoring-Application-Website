@@ -36,7 +36,6 @@ import ca.mcgill.ecse321.tutor.model.Course;
 import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
 import ca.mcgill.ecse321.tutor.model.Level;
 import ca.mcgill.ecse321.tutor.model.Manager;
-import ca.mcgill.ecse321.tutor.model.Notification;
 import ca.mcgill.ecse321.tutor.model.Room;
 import ca.mcgill.ecse321.tutor.model.Student;
 import ca.mcgill.ecse321.tutor.model.TimeSlot;
@@ -109,8 +108,6 @@ public class TutoringSessionControllerTest {
 		studentRepository.deleteAll();
 		courseRepository.deleteAll();
 		timeSlotRepository.deleteAll();
-
-
 	}
 
 	@Before
