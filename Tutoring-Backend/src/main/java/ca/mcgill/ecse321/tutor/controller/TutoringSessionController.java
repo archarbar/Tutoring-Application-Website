@@ -21,7 +21,6 @@ public class TutoringSessionController {
 	private BookingRepository bookingRepository;
 
 	@PostMapping("/tutoringSession/new")
-
 	public TutoringSessionDto createTutoringSession(
 			@RequestParam("bookingId") String bookingId,
 			@RequestParam("booking2") Booking booking2,
