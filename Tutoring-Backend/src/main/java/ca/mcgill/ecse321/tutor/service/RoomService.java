@@ -23,9 +23,6 @@ public class RoomService {
 		if (roomNumber == null) {
 			error = error + "A room number needs to be specified! ";
 		}
-		else if (roomNumber <= 0) {
-			error = error + "The room number has to be bigger than 0! ";
-		}
 		if (roomCapacity == null) {
 			error = error + "A room capacity needs to be specified! ";
 		}

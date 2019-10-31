@@ -13,7 +13,7 @@ public class TutorController {
     @Autowired
     private TutorService service;
 
-    @PostMapping("/tutor")
+    @PostMapping("/tutor/newTutor")
     public TutorDto createTutor(@RequestParam("tutorFirstName") String tutorFirstName,
                                 @RequestParam("tutorLastName") String tutorLastName,
                                 @RequestParam("tutorEmail") String tutorEmail,
