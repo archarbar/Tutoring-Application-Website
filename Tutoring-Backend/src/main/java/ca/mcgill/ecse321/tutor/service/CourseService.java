@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ca.mcgill.ecse321.tutor.dao.CourseRepository;
 import ca.mcgill.ecse321.tutor.model.Course;
 import ca.mcgill.ecse321.tutor.model.Level;
+import ca.mcgill.ecse321.tutor.model.TimeSlot;
 
 @Service
 public class CourseService {
@@ -75,6 +76,24 @@ public class CourseService {
 			resultList.add(t);
 		}
 		return resultList;
+	}
+	
+	@Transactional
+	public Course deleteCourse(Course course) {
+		if (course == null) {
+			throw new IllegalArgumentException("A course needs to be specified!");
+		}
+		courseRepository.delete(course);
+		return course;
+	}
+	
+	@Transactional
+	public Integer deleteCourseById(Integer Id) {
+		if (Id == null) {
+			throw new IllegalArgumentException("A course Id needs to be specified!");
+		}
+		courseRepository.deleteById(Id);
+		return Id;
 	}
 
 }

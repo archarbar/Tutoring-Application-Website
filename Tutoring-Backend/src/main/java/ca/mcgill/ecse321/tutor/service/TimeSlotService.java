@@ -78,6 +78,24 @@ public class TimeSlotService {
 	public List<TimeSlot> getAllTimeSlots(){
 		return toList(timeSlotRepository.findAll());
 	}
+	
+	@Transactional
+	public TimeSlot deleteTimeSlot(TimeSlot timeSlot) {
+		if (timeSlot == null) {
+			throw new IllegalArgumentException("A time slot needs to be specified!");
+		}
+		timeSlotRepository.delete(timeSlot);
+		return timeSlot;
+	}
+	
+	@Transactional
+	public Integer deleteTimeSlotById(Integer Id) {
+		if (Id == null) {
+			throw new IllegalArgumentException("A time slot Id needs to be specified!");
+		}
+		timeSlotRepository.deleteById(Id);
+		return Id;
+	}
 
 	private <T> List<T> toList(Iterable<T> iterable){
 		List<T> resultList = new ArrayList<T>();
