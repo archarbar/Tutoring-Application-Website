@@ -15,34 +15,23 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import ca.mcgill.ecse321.tutor.dao.ManagerRepository;
-import ca.mcgill.ecse321.tutor.dao.TutorRepository;
-import ca.mcgill.ecse321.tutor.model.Manager;
-import ca.mcgill.ecse321.tutor.service.ManagerService;
+import ca.mcgill.ecse321.tutor.dao.CourseRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @WebAppConfiguration
-public class TutorControllerTest {
-
+public class CourseControllerTest {
+	
 	@Autowired
 	private WebApplicationContext wac;
 
 	@Autowired
-	private TutorRepository tutorRepository;
-
-	@Autowired
-	private ManagerRepository managerRepository;
-
-	@Autowired
-	private ManagerService managerService;
+	private CourseRepository courseRepository;
 
 	private MockMvc mockMvc;
 
 	public void clearDatabase() {
-		// this should be enough because of the composition
-		tutorRepository.deleteAll();
-		managerRepository.deleteAll();
+		courseRepository.deleteAll();
 	}
 
 	@Before
@@ -55,17 +44,12 @@ public class TutorControllerTest {
 	public void clear() throws Exception{
 		clearDatabase();
 	}
-
+	
 	@Test
-	public void testCreateTutor() throws Exception {
-		Manager manager = managerService.createManager();
-		int managerId = manager.getId();
-		this.mockMvc.perform(post("/tutor")
-				.param("tutorFirstName", "first1")
-				.param("tutorLastName", "last2")
-				.param("tutorEmail", "first.last@mail.mcgill.ca")
-				.param("tutorPassword", "123456")
-				.param("manager", Integer.toString(managerId))
+	public void testCreateCourse() throws Exception {
+		this.mockMvc.perform(post("/course")
+				.param("name", "ECSE321")
+				.param("level", "UNIVERSITY")
 				)
 		.andExpect(status().isOk());
 	}
