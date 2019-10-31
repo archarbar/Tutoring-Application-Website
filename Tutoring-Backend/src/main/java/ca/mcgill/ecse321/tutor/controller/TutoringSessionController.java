@@ -29,7 +29,7 @@ public class TutoringSessionController {
         return convertToDto(service.getTutoringSessionById(tutoringSessionId));
     }
 
-    @GetMapping("/tutoringSession/{tutor}")
+    @GetMapping("/tutoringSession/tutor/{tutor}")
     public List<TutoringSessionDto> getTutoringSessionByTutor(@PathVariable Tutor tutor) {
         List<TutoringSessionDto> tutoringSessionDtos = new ArrayList<>();
         for (TutoringSession tutoringSession : service.getTutoringSessionByTutor(tutor)) {

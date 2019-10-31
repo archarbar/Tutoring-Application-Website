@@ -149,13 +149,10 @@ public class TutoringSessionControllerTest {
 		Integer capacity = 30;
 		Room room = roomService.createRoom(number, capacity , manager);
 		
-		Notification notification = booking.getNotification();
-		String notificationId = Integer.toString(notification.getId());
-		
 		String roomId = Integer.toString(room.getId());
 		
 		this.mockMvc.perform(post("/tutor")
-				.param("notification", notificationId)
+				.param("booking", Integer.toString(booking.getId()))
 				.param("room", roomId)
 				.param("tutor", Integer.toString(tutor.getId()))
 				)

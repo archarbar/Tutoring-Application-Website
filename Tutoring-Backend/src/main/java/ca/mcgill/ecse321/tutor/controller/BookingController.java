@@ -37,12 +37,12 @@ public class BookingController {
         }*/
 
 
-    @GetMapping(value = "/booking{bookingId}")
+    @GetMapping(value = "/booking/{bookingId}")
     public BookingDto getBookingById(@PathVariable int bookingId) {
         return convertToDto(service.getBookingById(bookingId));
     }
 
-    @GetMapping("/bookings{date}")
+    @GetMapping("/bookings/{date}")
     public List<BookingDto> getBookingByDate(@PathVariable Date date) {
         List<BookingDto> bookingsByDate = new ArrayList<>();
         for (Booking booking : service.getBookingBySpecificDate(date)) {

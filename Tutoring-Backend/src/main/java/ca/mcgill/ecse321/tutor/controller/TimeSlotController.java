@@ -20,12 +20,12 @@ public class TimeSlotController {
         return convertToDto(service.getTimeSlotById(timeSlotId));
     }
 
-    @GetMapping("/timeSlotByBooking")
+    @GetMapping("/timeSlot/booking/{booking}")
     public TimeSlotDto getTimeSlotByBooking(@RequestParam Booking booking) {
         return convertToDto(service.getTimeSlotByBooking(booking));
     }
 
-    @GetMapping("/timeSlotByTutoringSession")
+    @GetMapping("/timeSlot/tutoringsession/{tutoringSession}")
     public TimeSlotDto getTimeSlotByTutoringSession(@RequestParam TutoringSession tutoringSession) {
         return convertToDto(service.getTimeSlotByTutoringSession(tutoringSession));
     }
