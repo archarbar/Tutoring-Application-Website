@@ -18,7 +18,7 @@ public class TutoringSessionController {
 
     @PostMapping("/tutoringSession/new")
 //    Need to figure out how we get a room and assign it
-    public TutoringSessionDto createTutoringSession (@RequestParam Booking booking, @RequestParam Room room, @RequestParam Tutor tutor){
+    public TutoringSessionDto createTutoringSession (@RequestParam("booking") Booking booking, @RequestParam("room") Room room, @RequestParam("tutor") Tutor tutor){
         TutoringSession tutoringSession = service.createTutoringSession(booking.getSpecificDate(),
                 tutor, room, booking, booking.getTimeSlot());
         return convertToDto(tutoringSession);
