@@ -1,14 +1,12 @@
 package ca.mcgill.ecse321.tutor.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
 import org.junit.After;
-
-import ca.mcgill.ecse321.tutor.model.Manager;
-import ca.mcgill.ecse321.tutor.model.Room;
-
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import ca.mcgill.ecse321.tutor.dao.ManagerRepository;
 import ca.mcgill.ecse321.tutor.dao.RoomRepository;
+import ca.mcgill.ecse321.tutor.model.Manager;
+import ca.mcgill.ecse321.tutor.model.Room;
 
 
 @RunWith(SpringRunner.class)
@@ -33,6 +33,7 @@ public class RoomServiceTests {
 	@Autowired
 	private ManagerService managerService;
 
+	@Before
 	@After
 	public void clearDatabase() {
 		roomRepository.deleteAll();
@@ -99,6 +100,28 @@ public class RoomServiceTests {
 
 		// check error
 		assertEquals("The room capacity has to be bigger than 0!", error);
+
+		// check no change in memory
+		assertEquals(0, roomService.getAllRooms().size());
+	}
+	
+	@Test
+	public void testCreateRoomNegativeNumber() {
+		assertEquals(0, roomService.getAllRooms().size());
+
+		Integer number = -12;
+		Integer capacity = 30;
+		Manager manager = managerService.createManager();
+		String error = null;
+
+		try {
+			roomService.createRoom(number, capacity , manager);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("The room number has to be bigger than 0!", error);
 
 		// check no change in memory
 		assertEquals(0, roomService.getAllRooms().size());

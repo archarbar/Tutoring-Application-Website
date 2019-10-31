@@ -1,19 +1,20 @@
 package ca.mcgill.ecse321.tutor.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
 import org.junit.After;
-
-import ca.mcgill.ecse321.tutor.model.Manager;
-
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import ca.mcgill.ecse321.tutor.dao.ManagerRepository;
+import ca.mcgill.ecse321.tutor.model.Manager;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -25,6 +26,7 @@ public class ManagerServiceTests {
 	@Autowired
 	private ManagerService managerService;
 
+	@Before
 	@After
 	public void clearDatabase() {
 		managerRepository.deleteAll();
