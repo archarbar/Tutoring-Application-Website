@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.tutor;
+package ca.mcgill.ecse321.tutor.servicemockito;
 
 import ca.mcgill.ecse321.tutor.dao.StudentRepository;
 import ca.mcgill.ecse321.tutor.service.StudentService;

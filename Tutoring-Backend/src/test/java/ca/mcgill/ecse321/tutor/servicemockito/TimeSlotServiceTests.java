@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.tutor;
+package ca.mcgill.ecse321.tutor.servicemockito;
 
 import ca.mcgill.ecse321.tutor.dao.TimeSlotRepository;
 import ca.mcgill.ecse321.tutor.service.TimeSlotService;

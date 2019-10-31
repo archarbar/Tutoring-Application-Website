@@ -17,7 +17,7 @@ public class TutoringSessionController {
     private TutoringSessionService service;
 
     @PostMapping("/tutoringSession/new")
-//    Need to figure out how we get a room and assign it
+    // Need to figure out how we get a room and assign it
     public TutoringSessionDto createTutoringSession (@RequestParam Notification notification, @RequestParam Room room){
         TutoringSession tutoringSession = service.createTutoringSession(notification.getBooking().getSpecificDate(),
                 notification.getTutor(), room, notification.getBooking(), notification.getBooking().getTimeSlot());
