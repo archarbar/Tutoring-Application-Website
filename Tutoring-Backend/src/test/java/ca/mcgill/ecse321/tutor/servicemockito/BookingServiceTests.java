@@ -15,7 +15,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -45,15 +44,6 @@ public class BookingServiceTests {
 	private TimeSlotService timeSlotService;
 	@InjectMocks
 	private StudentService studentService;
-	
-	@Autowired
-	private BookingRepository bookingRepository;
-	@Autowired
-	private StudentRepository studentRepository;
-	@Autowired
-	private TimeSlotRepository timeSlotRepository;
-	@Autowired
-	private CourseRepository courseRepository;
 
 	private Student student;
 	private TimeSlot timeSlot;
@@ -180,6 +170,54 @@ public class BookingServiceTests {
 
 		// check error
 		assertEquals("A student needs to be specified!", error);
+	}
+	
+	@Test
+	public void testCreateBookingNullDate() {
+//		assertEquals(0, bookingService.getAllBookings().size());
+
+		String error = null;
+
+		try {
+			bookingService.createBooking(TUTOR_EMAIL, studentSet, null, timeSlot, course);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A date needs to be specified!", error);
+	}
+	
+	@Test
+	public void testCreateBookingNullTimeSlot() {
+//		assertEquals(0, bookingService.getAllBookings().size());
+
+		String error = null;
+
+		try {
+			bookingService.createBooking(TUTOR_EMAIL, studentSet, BOOKING_DATE, null, course);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A time slot needs to be specified!", error);
+	}
+	
+	@Test
+	public void testCreateBookingNullCourse() {
+//		assertEquals(0, bookingService.getAllBookings().size());
+
+		String error = null;
+
+		try {
+			bookingService.createBooking(TUTOR_EMAIL, studentSet, BOOKING_DATE, timeSlot, null);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A course needs to be specified!", error);
 	}
 
 	@Test
