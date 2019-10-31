@@ -1,66 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+<testng-results skipped="1" failed="1" ignored="0" total="2" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="21511" started-at="2019-10-31T06:24:18 EDT" finished-at="2019-10-31T06:24:39 EDT">
+  <suite name="Default suite" duration-ms="21487" started-at="2019-10-31T13:29:55 EDT" finished-at="2019-10-31T13:30:16 EDT">
     <groups>
-      <group name="Test preparation">
-        <method signature="RESTfulServicesTests.testCreateManager()[pri:1, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6]" name="testCreateManager" class="ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests"/>
-      </group> <!-- Test preparation -->
+      <group name="Notification">
+        <method signature="RESTfulServicesTests.testCreateNotification()[pri:3, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6]" name="testCreateNotification" class="ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests"/>
+        <method signature="RESTfulServicesTests.testGetNotificationByID()[pri:3, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6]" name="testGetNotificationByID" class="ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests"/>
+      </group> <!-- Notification -->
     </groups>
-    <test name="Default test" duration-ms="21511" started-at="2019-10-31T06:24:18 EDT" finished-at="2019-10-31T06:24:39 EDT">
+    <test name="Default test" duration-ms="21487" started-at="2019-10-31T13:29:55 EDT" finished-at="2019-10-31T13:30:16 EDT">
       <class name="ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests">
-        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="29" started-at="2019-10-31T06:24:18 EDT" finished-at="2019-10-31T06:24:18 EDT">
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="16" started-at="2019-10-31T13:29:55 EDT" finished-at="2019-10-31T13:29:55 EDT">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestClass -->
-        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="19129" started-at="2019-10-31T06:24:18 EDT" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2019-10-31T06:24:37 EDT">
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="15616" started-at="2019-10-31T13:29:55 EDT" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2019-10-31T13:30:10 EDT">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextPrepareTestInstance -->
-        <test-method status="PASS" signature="clearManagerDatabase()[pri:0, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6]" name="clearManagerDatabase" is-config="true" duration-ms="514" started-at="2019-10-31T06:24:37 EDT" finished-at="2019-10-31T06:24:37 EDT">
+        <test-method status="PASS" signature="clearDatabase()[pri:0, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6]" name="clearDatabase" is-config="true" duration-ms="4176" started-at="2019-10-31T13:30:10 EDT" finished-at="2019-10-31T13:30:14 EDT">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- clearManagerDatabase -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="4" started-at="2019-10-31T06:24:37 EDT" finished-at="2019-10-31T06:24:37 EDT">
+        </test-method> <!-- clearDatabase -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="3" started-at="2019-10-31T13:30:14 EDT" finished-at="2019-10-31T13:30:14 EDT">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testCreateManager()]]>
+                <![CDATA[public void ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testCreateNotification()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="clearDatabase()[pri:0, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6]" name="clearDatabase" is-config="true" duration-ms="707" started-at="2019-10-31T06:24:37 EDT" finished-at="2019-10-31T06:24:38 EDT">
+        <test-method status="FAIL" signature="testCreateNotification()[pri:3, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6]" name="testCreateNotification" duration-ms="331" started-at="2019-10-31T13:30:14 EDT" finished-at="2019-10-31T13:30:15 EDT">
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[expected [200] but found [400]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: expected [200] but found [400]
+at org.testng.Assert.fail(Assert.java:97)
+at org.testng.Assert.assertEqualsImpl(Assert.java:136)
+at org.testng.Assert.assertEquals(Assert.java:118)
+at org.testng.Assert.assertEquals(Assert.java:839)
+at org.testng.Assert.assertEquals(Assert.java:849)
+at ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testCreateNotification(RESTfulServicesTests.java:251)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+at java.lang.reflect.Method.invoke(Unknown Source)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
+at org.testng.internal.MethodInvocationHelper$1.runTestMethod(MethodInvocationHelper.java:239)
+at org.springframework.test.context.testng.AbstractTestNGSpringContextTests.run(AbstractTestNGSpringContextTests.java:180)
+at org.testng.internal.MethodInvocationHelper.invokeHookable(MethodInvocationHelper.java:251)
+at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:580)
+at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:172)
+at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:804)
+at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:145)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.util.ArrayList.forEach(Unknown Source)
+at org.testng.TestRunner.privateRun(TestRunner.java:770)
+at org.testng.TestRunner.run(TestRunner.java:591)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:402)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:396)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:355)
+at org.testng.SuiteRunner.run(SuiteRunner.java:304)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1180)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1102)
+at org.testng.TestNG.runSuites(TestNG.java:1032)
+at org.testng.TestNG.run(TestNG.java:1000)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- clearDatabase -->
-        <test-method status="PASS" signature="testCreateManager()[pri:1, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6]" name="testCreateManager" duration-ms="789" started-at="2019-10-31T06:24:38 EDT" finished-at="2019-10-31T06:24:39 EDT">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testCreateManager -->
-        <test-method status="PASS" signature="clearDatabase()[pri:0, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6]" name="clearDatabase" is-config="true" duration-ms="192" started-at="2019-10-31T06:24:39 EDT" finished-at="2019-10-31T06:24:39 EDT">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- clearDatabase -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-10-31T06:24:39 EDT" finished-at="2019-10-31T06:24:39 EDT">
+        </test-method> <!-- testCreateNotification -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2019-10-31T13:30:15 EDT" finished-at="2019-10-31T13:30:15 EDT">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testCreateManager()]]>
+                <![CDATA[public void ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testCreateNotification()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6]" name="tearDown" is-config="true" duration-ms="84" started-at="2019-10-31T06:24:39 EDT" finished-at="2019-10-31T06:24:39 EDT">
+        <test-method status="SKIP" signature="testGetNotificationByID()[pri:3, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6]" name="testGetNotificationByID" duration-ms="0" started-at="2019-10-31T13:30:15 EDT" depends-on-methods="ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testCreateNotification" finished-at="2019-10-31T13:30:15 EDT">
+          <exception class="java.lang.Throwable">
+            <message>
+              <![CDATA[Method RESTfulServicesTests.testGetNotificationByID()[pri:3, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6] depends on not successfully finished methods]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.Throwable: Method RESTfulServicesTests.testGetNotificationByID()[pri:3, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6] depends on not successfully finished methods
+at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:99)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.util.ArrayList.forEach(Unknown Source)
+at org.testng.TestRunner.privateRun(TestRunner.java:770)
+at org.testng.TestRunner.run(TestRunner.java:591)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:402)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:396)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:355)
+at org.testng.SuiteRunner.run(SuiteRunner.java:304)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1180)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1102)
+at org.testng.TestNG.runSuites(TestNG.java:1032)
+at org.testng.TestNG.run(TestNG.java:1000)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.Throwable -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetNotificationByID -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6]" name="tearDown" is-config="true" duration-ms="1304" started-at="2019-10-31T13:30:15 EDT" finished-at="2019-10-31T13:30:16 EDT">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2019-10-31T06:24:39 EDT" finished-at="2019-10-31T06:24:39 EDT">
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2019-10-31T13:30:16 EDT" finished-at="2019-10-31T13:30:16 EDT">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestClass -->
