@@ -70,9 +70,10 @@ public class NotificationServiceTests {
 	private NotificationService notificationService;
 	@Autowired
 	private TimeSlotService timeSlotService;
+	
 
-	@Before
 	@After
+	@Before
 	public void clearDatabase() {
 		//we first clear bookings and tutoring sessions to avoid
 		//exceptions due to inconsistencies
@@ -106,8 +107,8 @@ public class NotificationServiceTests {
 		String tutorFirstName = "Marcus";
 		String tutorLastName = "Fenix";
 		String password = "locust";
-		Manager manager = managerService.createManager();
-		Tutor tutor = tutorService.createTutor(tutorFirstName, tutorLastName, tutorEmail, password, manager);
+//		Manager manager = managerService.createManager();
+		Tutor tutor = tutorService.createTutor(tutorFirstName, tutorLastName, tutorEmail, password);
 
 		try {
 			notificationService.createNotification(booking, tutor);

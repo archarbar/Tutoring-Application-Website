@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import ca.mcgill.ecse321.tutor.dao.BookingRepository;
 import ca.mcgill.ecse321.tutor.dao.ManagerRepository;
+import ca.mcgill.ecse321.tutor.dao.NotificationRepository;
 import ca.mcgill.ecse321.tutor.dao.RatingRepository;
 import ca.mcgill.ecse321.tutor.dao.RoomRepository;
 import ca.mcgill.ecse321.tutor.dao.StudentRepository;
@@ -77,11 +78,14 @@ public class RatingServiceTests {
 	private StudentRepository studentRepository;
 	@Autowired
 	private RatingRepository ratingRepository;
+	@Autowired
+	private NotificationRepository notificationRepository;
 
 	@Before
 	@After
 	public void clearDatabase() {
 		ratingRepository.deleteAll();
+		notificationRepository.deleteAll();
 		tutoringSessionRepository.deleteAll();
 		bookingRepository.deleteAll();
 		tutorRepository.deleteAll();
@@ -111,7 +115,7 @@ public class RatingServiceTests {
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(student);
 		Booking booking = bookingService.createBooking(tutorEmail, studentSet, sessionDate, timeSlot, course);
-		Tutor tutor = tutorService.createTutor(firstName, lastName, tutorEmail, password, manager);
+		Tutor tutor = tutorService.createTutor(firstName, lastName, tutorEmail, password);
 		TutoringSession tutoringSession = tutoringSessionService.createTutoringSession(sessionDate, tutor, room, booking, timeSlot);
 
 		try {
@@ -176,7 +180,7 @@ public class RatingServiceTests {
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(student);
 		Booking booking = bookingService.createBooking(tutorEmail, studentSet, sessionDate, timeSlot, course);
-		Tutor tutor = tutorService.createTutor(firstName, lastName, tutorEmail, password, manager);
+		Tutor tutor = tutorService.createTutor(firstName, lastName, tutorEmail, password);
 		TutoringSession tutoringSession = tutoringSessionService.createTutoringSession(sessionDate, tutor, room, booking, timeSlot);
 		String error = null;
 
@@ -214,7 +218,7 @@ public class RatingServiceTests {
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(student);
 		Booking booking = bookingService.createBooking(tutorEmail, studentSet, sessionDate, timeSlot, course);
-		Tutor tutor = tutorService.createTutor(firstName, lastName, tutorEmail, password, manager);
+		Tutor tutor = tutorService.createTutor(firstName, lastName, tutorEmail, password);
 		TutoringSession tutoringSession = tutoringSessionService.createTutoringSession(sessionDate, tutor, room, booking, timeSlot);
 		String error = null;
 
