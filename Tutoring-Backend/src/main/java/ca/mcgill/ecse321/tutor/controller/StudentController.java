@@ -21,17 +21,17 @@ public class StudentController {
         return convertToDto(service.getStudentById(studentId));
     }
 
-    @GetMapping("/studentByMail/{email}")
+    @GetMapping("/student/email/{email}")
     public StudentDto getStudentByEmail(@PathVariable("email") String email) {
         return convertToDto(service.getStudentByEmail(email));
     }
 
-    @GetMapping("/studentByName/{first}")
+    @GetMapping("/student/firstname/{first}")
     public StudentDto getStudentByFirstName(@PathVariable ("first")String first){
         return convertToDto(service.getStudentByFirstName(first));
     }
 
-    @GetMapping("/studentByName/{last}")
+    @GetMapping("/student/lastname/{last}")
     public StudentDto getStudentByLastName(@PathVariable ("last")String last){
         return convertToDto(service.getStudentByLastName(last));
     }

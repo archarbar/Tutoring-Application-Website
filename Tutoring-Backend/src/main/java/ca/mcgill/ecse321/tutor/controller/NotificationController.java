@@ -23,7 +23,7 @@ public class NotificationController {
         return convertToDto(service.getNotification(notificationId));
     }
 
-    @GetMapping("/notifications")
+    @GetMapping("/notifications/tutor/{tutor}")
     public List<NotificationDto> getNotificationByTutor(@RequestParam Tutor tutor) {
         List<NotificationDto> notificationDtos = new ArrayList<>();
         for (Notification notification : service.getNotificationsByTutor(tutor)) {

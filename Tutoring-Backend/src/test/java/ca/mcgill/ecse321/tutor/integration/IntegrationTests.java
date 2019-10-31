@@ -27,56 +27,55 @@ public class IntegrationTests {
 	
 	
 	private final String BASE_URL = "https://ecse321-tutor-backend.herokuapp.com";
-//	private final String BASE_URL = "https://localhost:8080";
-	
-    private JSONObject response;
-    
-    private JSONObject requestURL(String typeOfRequest, String url, String path, String parameters) {
-        try {    
-        	URL urll = new URL(url + path + ((parameters==null)?"":("?" + parameters)));
-            System.out.println("Sending: "+urll.toString());
-            HttpURLConnection connection = (HttpURLConnection) urll.openConnection();
-            connection.setRequestMethod(typeOfRequest);
-            connection.setRequestProperty("Accept", "application/json");
-            if (connection.getResponseCode() != 200) {
-                throw new RuntimeException(url.toString() + " failed : HTTP error code : "
-                        + connection.getResponseCode());
-            }
-            JSONObject r = new JSONObject(new BufferedReader(new InputStreamReader(
-                    (connection.getInputStream()))).readLine());
-            assertEquals(200, connection.getResponseCode());
-            connection.disconnect();
-            return r;
-        } catch (JSONException | IOException e) {
-            e.printStackTrace();
-        } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-        return null;
-    }
+	//	private final String BASE_URL = "https://localhost:8080";
 
-    
-    @Test
-    public void TestCreatingTutor() {
-        String managerId = "1030";
-        try {
-            response = requestURL("POST", BASE_URL, "/Tutor/newTutor", "firstName=bob&lastName=bog&"
-            														+ "email=bob@email.com&password=password1"
-            														+ "&manager=" + managerId
-            														);
-            System.out.println("Received: "+response.toString());
-            System.out.println(response.getString("firstName"));
-            assertEquals("bob", response.getString("firstName"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-	 private JSONObject requestURL(String requestType, String baseUrl, String path) {
-	        return requestURL(requestType,baseUrl,path,null);
-	    }
-    
-    
+	private JSONObject response;
+
+	private JSONObject requestURL(String typeOfRequest, String url, String path, String parameters) {
+		try {    
+			URL urll = new URL(url + path + ((parameters==null)?"":("?" + parameters)));
+			System.out.println("Sending: "+urll.toString());
+			HttpURLConnection connection = (HttpURLConnection) urll.openConnection();
+			connection.setRequestMethod(typeOfRequest);
+			connection.setRequestProperty("Accept", "application/json");
+			if (connection.getResponseCode() != 200) {
+				throw new RuntimeException(url.toString() + " failed : HTTP error code : "
+						+ connection.getResponseCode());
+			}
+			JSONObject r = new JSONObject(new BufferedReader(new InputStreamReader(
+					(connection.getInputStream()))).readLine());
+			assertEquals(200, connection.getResponseCode());
+			connection.disconnect();
+			return r;
+		} catch (JSONException | IOException e) {
+			e.printStackTrace();
+		} catch (RuntimeException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Test
+	public void TestCreatingTutor() {
+		String managerId = "1030";
+		try {
+			response = requestURL("POST", BASE_URL, "/Tutor/newTutor", "firstName=bob&lastName=bog&"
+					+ "email=bob@email.com&password=password1"
+					+ "&manager=" + managerId
+					);
+			System.out.println("Received: "+response.toString());
+			System.out.println(response.getString("firstName"));
+			assertEquals("bob", response.getString("firstName"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private JSONObject requestURL(String requestType, String baseUrl, String path) {
+		return requestURL(requestType,baseUrl,path,null);
+	}
+
+
 
 }
