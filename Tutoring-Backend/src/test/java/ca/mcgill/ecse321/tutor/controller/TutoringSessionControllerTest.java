@@ -144,16 +144,17 @@ public class TutoringSessionControllerTest {
 		studentSet.add(student);
 		TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
 		Booking booking = bookingService.createBooking(tutorEmail, studentSet, Date.valueOf("2019-10-10"), timeSlot, course);
-		
+		String bookingId = Integer.toString(booking.getId());
 		Integer number = 12;
 		Integer capacity = 30;
 		Room room = roomService.createRoom(number, capacity , manager);
 		
 		String roomId = Integer.toString(room.getId());
 		
-		this.mockMvc.perform(post("/tutor")
-				.param("booking", Integer.toString(booking.getId()))
+		this.mockMvc.perform(post("/tutoringSession/new")
+
 				.param("room", roomId)
+				.param("booking", bookingId)
 				.param("tutor", Integer.toString(tutor.getId()))
 				)
 		.andExpect(status().isOk());
