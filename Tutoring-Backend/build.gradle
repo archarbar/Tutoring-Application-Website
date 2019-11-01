@@ -50,6 +50,11 @@ jar {
   }
 }
 
+test {
+    exclude 'src/test/java/ca/mcgill/ecse321/tutor/integration/RESTfulServicesTests.class'
+}
+
+
 task integrationTests(type: Test) { 
 	// we define a task with name 'integrationTests'
    useTestNG() {
