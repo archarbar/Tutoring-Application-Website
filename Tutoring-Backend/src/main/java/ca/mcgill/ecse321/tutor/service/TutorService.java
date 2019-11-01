@@ -13,12 +13,12 @@ import ca.mcgill.ecse321.tutor.model.Tutor;
 
 @Service
 public class TutorService {
-
+	
 	@Autowired
 	TutorRepository tutorRepository;
 
 	@Transactional
-	public Tutor createTutor(String firstName, String lastName, String email, String password, Manager manager) {
+	public Tutor createTutor(String firstName, String lastName, String email, String password) {
 		String error = "";
 		if (firstName == null || firstName.trim().length() == 0) {
 			error = error + "A first name needs to be specified! ";
@@ -31,9 +31,6 @@ public class TutorService {
 		}
 		if (password == null || password.trim().length() == 0) {
 			error = error + "A password needs to be specified! ";
-		}
-		if (manager == null) {
-			error = error + "A manager needs to be specified!";
 		}
 		error = error.trim();
 		if (error.length() > 0) {
@@ -48,7 +45,6 @@ public class TutorService {
 		tutor.setPassword(password);
 		tutor.setHourlyRate(hourlyRate);
 		tutor.setIsApproved(isApproved);
-		tutor.setManager(manager);
 		tutorRepository.save(tutor);
 		return tutor;
 	}

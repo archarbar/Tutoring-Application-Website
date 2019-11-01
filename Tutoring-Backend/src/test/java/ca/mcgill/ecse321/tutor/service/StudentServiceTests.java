@@ -1,13 +1,12 @@
 package ca.mcgill.ecse321.tutor.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
 import org.junit.After;
-
-import ca.mcgill.ecse321.tutor.model.Student;
-
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import ca.mcgill.ecse321.tutor.dao.StudentRepository;
-import ca.mcgill.ecse321.tutor.service.StudentService;
+import ca.mcgill.ecse321.tutor.model.Student;
 
 
 @RunWith(SpringRunner.class)
@@ -28,6 +27,7 @@ public class StudentServiceTests {
 	@Autowired
 	private StudentRepository studentRepository;
 
+	@Before
 	@After
 	public void clearDatabase() {
 		studentRepository.deleteAll();
@@ -53,6 +53,72 @@ public class StudentServiceTests {
 		assertEquals(firstName, allStudents.get(0).getFirstName());
 		assertEquals(lastName, allStudents.get(0).getLastName());
 		assertEquals(email, allStudents.get(0).getEmail());	
+	}
+
+	@Test
+	public void testCreateStudentNullFirstName() {
+		assertEquals(0, studentService.getAllStudents().size());
+
+		String firstName = null;
+		String lastName = "Li";
+		String email = "mlej@live.com";
+		String error = null;
+
+		try {
+			studentService.createStudent(firstName, lastName, email);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A first name needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, studentService.getAllStudents().size());
+	}
+
+	@Test
+	public void testCreateStudentNullLastName() {
+		assertEquals(0, studentService.getAllStudents().size());
+
+		String firstName = "Michael";
+		String lastName = null;
+		String email = "mlej@live.com";
+		String error = null;
+
+		try {
+			studentService.createStudent(firstName, lastName, email);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A last name needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, studentService.getAllStudents().size());
+	}
+
+	@Test
+	public void testCreateStudentNullEmail() {
+		assertEquals(0, studentService.getAllStudents().size());
+
+		String firstName = "Michael";
+		String lastName = "Li";
+		String email = null;
+		String error = null;
+
+		try {
+			studentService.createStudent(firstName, lastName, email);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("An email needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, studentService.getAllStudents().size());
 	}
 
 	@Test

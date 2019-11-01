@@ -7,6 +7,9 @@ import javax.persistence.ManyToOne;
 import java.util.Set;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 public class Room{
   private Integer id;
@@ -38,6 +41,7 @@ public class Room{
   private Manager manager;
 
   @ManyToOne(optional=false)
+  @OnDelete(action = OnDeleteAction.CASCADE)
   public Manager getManager() {
     return this.manager;
   }
