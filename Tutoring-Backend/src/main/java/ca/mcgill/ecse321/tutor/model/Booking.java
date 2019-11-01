@@ -11,6 +11,8 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Set;
 import javax.persistence.ManyToMany;
 
@@ -69,6 +71,7 @@ public class Booking{
 
   private TimeSlot timeSlot;
 
+  @JsonIgnore
   @ManyToOne(optional=false)
   public TimeSlot getTimeSlot() {
     return this.timeSlot;
@@ -80,6 +83,7 @@ public class Booking{
 
   private Set<Student> student;
 
+  @JsonIgnore
   @ManyToMany
   public Set<Student> getStudent() {
     return this.student;

@@ -16,7 +16,9 @@ import ca.mcgill.ecse321.tutor.dto.NotificationDto;
 import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Notification;
 import ca.mcgill.ecse321.tutor.model.Tutor;
+import ca.mcgill.ecse321.tutor.service.BookingService;
 import ca.mcgill.ecse321.tutor.service.NotificationService;
+import ca.mcgill.ecse321.tutor.service.TutorService;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -24,6 +26,12 @@ public class NotificationController {
 
     @Autowired
     private NotificationService service;
+    
+    @Autowired
+    private TutorService tutorService;
+    
+    @Autowired
+    private BookingService bookingService;
 
     @GetMapping("/notification/{notificationId}")
     public NotificationDto getNotificationById(@PathVariable int notificationId) {
@@ -40,7 +48,9 @@ public class NotificationController {
     }
     
     @PostMapping(value= {"/notification/new", "/notification/new/"})
-    public NotificationDto createNotification(@RequestParam("tutor") Tutor tutor, @RequestParam("booking") Booking booking) {
+    public NotificationDto createNotification(@RequestParam("tutor") String tutorId, @RequestParam("booking") String bookingId) {
+    	Tutor tutor = tutorService.getTutor(Integer.parseInt(tutorId));
+    	Booking booking = bookingService.getBookingById(Integer.parseInt(bookingId));
     	return convertToDto(service.createNotification(booking, tutor));
     }
 

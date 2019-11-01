@@ -8,6 +8,8 @@ import java.util.Set;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Course{
   private Integer id;
@@ -50,6 +52,7 @@ public class Course{
 
   private Set<Booking> booking;
 
+  @JsonIgnore
   @OneToMany(mappedBy="course")
   public Set<Booking> getBooking() {
     return this.booking;
