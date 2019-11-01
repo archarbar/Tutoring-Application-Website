@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.tutor.integration;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.testng.Assert.assertEquals;
 
 import java.sql.Date;
@@ -21,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.util.LinkedMultiValueMap;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -197,19 +197,19 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 	}
 	
 
-//	@AfterClass
-//	public void tearDown() {
-//		ratingRepository.deleteAll();
-//		tutoringSessionRepository.deleteAll();
-//		notificationRepository.deleteAll();
-//		roomRepository.deleteAll();
-//		bookingRepository.deleteAll();
-//		tutorRepository.deleteAll();
-//		managerRepository.deleteAll();
-//		studentRepository.deleteAll();
-//		courseRepository.deleteAll();
-//		timeSlotRepository.deleteAll();
-//	}
+	@AfterClass
+	public void tearDown() {
+		ratingRepository.deleteAll();
+		tutoringSessionRepository.deleteAll();
+		notificationRepository.deleteAll();
+		roomRepository.deleteAll();
+		bookingRepository.deleteAll();
+		tutorRepository.deleteAll();
+		managerRepository.deleteAll();
+		studentRepository.deleteAll();
+		courseRepository.deleteAll();
+		timeSlotRepository.deleteAll();
+	}
 
 	/**
 	 * Preparing to test all RESTful services for services that modify data. 
