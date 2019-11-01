@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ca.mcgill.ecse321.tutor.dao.CourseRepository;
 import ca.mcgill.ecse321.tutor.model.Course;
 import ca.mcgill.ecse321.tutor.model.Level;
-import ca.mcgill.ecse321.tutor.model.TimeSlot;
 
 @Service
 public class CourseService {

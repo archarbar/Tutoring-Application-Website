@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-<<<<<<< HEAD
 import ca.mcgill.ecse321.tutor.dao.BookingRepository;
 import ca.mcgill.ecse321.tutor.dao.ManagerRepository;
 import ca.mcgill.ecse321.tutor.dao.NotificationRepository;
@@ -34,11 +33,6 @@ import ca.mcgill.ecse321.tutor.model.Student;
 import ca.mcgill.ecse321.tutor.model.TimeSlot;
 import ca.mcgill.ecse321.tutor.model.Tutor;
 import ca.mcgill.ecse321.tutor.model.TutoringSession;
-=======
-import ca.mcgill.ecse321.tutor.model.*;
-
-import ca.mcgill.ecse321.tutor.dao.*;
->>>>>>> a52117de28544dd2dd087fe9d20ee3b6fadd77c8
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

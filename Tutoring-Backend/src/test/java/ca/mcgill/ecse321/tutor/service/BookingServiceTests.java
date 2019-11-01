@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.tutor.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -9,14 +10,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.After;
-
-import ca.mcgill.ecse321.tutor.model.Booking;
-import ca.mcgill.ecse321.tutor.model.Course;
-import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
-import ca.mcgill.ecse321.tutor.model.Level;
-import ca.mcgill.ecse321.tutor.model.Student;
-import ca.mcgill.ecse321.tutor.model.TimeSlot;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +21,6 @@ import ca.mcgill.ecse321.tutor.dao.CourseRepository;
 import ca.mcgill.ecse321.tutor.dao.RatingRepository;
 import ca.mcgill.ecse321.tutor.dao.StudentRepository;
 import ca.mcgill.ecse321.tutor.dao.TimeSlotRepository;
-<<<<<<< HEAD
 import ca.mcgill.ecse321.tutor.dao.TutoringSessionRepository;
 import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Course;
@@ -36,8 +28,6 @@ import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
 import ca.mcgill.ecse321.tutor.model.Level;
 import ca.mcgill.ecse321.tutor.model.Student;
 import ca.mcgill.ecse321.tutor.model.TimeSlot;
-=======
->>>>>>> a52117de28544dd2dd087fe9d20ee3b6fadd77c8
 
 
 @RunWith(SpringRunner.class)

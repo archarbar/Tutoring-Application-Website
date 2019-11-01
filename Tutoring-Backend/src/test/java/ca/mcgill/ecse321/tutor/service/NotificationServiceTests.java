@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.tutor.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -9,20 +10,23 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-<<<<<<< HEAD
 import ca.mcgill.ecse321.tutor.dao.BookingRepository;
 import ca.mcgill.ecse321.tutor.dao.CourseRepository;
 import ca.mcgill.ecse321.tutor.dao.ManagerRepository;
 import ca.mcgill.ecse321.tutor.dao.NotificationRepository;
+import ca.mcgill.ecse321.tutor.dao.RatingRepository;
+import ca.mcgill.ecse321.tutor.dao.RoomRepository;
 import ca.mcgill.ecse321.tutor.dao.StudentRepository;
 import ca.mcgill.ecse321.tutor.dao.TimeSlotRepository;
 import ca.mcgill.ecse321.tutor.dao.TutorRepository;
+import ca.mcgill.ecse321.tutor.dao.TutoringSessionRepository;
 import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Course;
 import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
@@ -31,10 +35,6 @@ import ca.mcgill.ecse321.tutor.model.Notification;
 import ca.mcgill.ecse321.tutor.model.Student;
 import ca.mcgill.ecse321.tutor.model.TimeSlot;
 import ca.mcgill.ecse321.tutor.model.Tutor;
-=======
-import ca.mcgill.ecse321.tutor.dao.*;
-import ca.mcgill.ecse321.tutor.model.*;
->>>>>>> a52117de28544dd2dd087fe9d20ee3b6fadd77c8
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -73,12 +73,7 @@ public class NotificationServiceTests {
 	private NotificationService notificationService;
 	@Autowired
 	private TimeSlotService timeSlotService;
-	
 
-<<<<<<< HEAD
-=======
-
->>>>>>> a52117de28544dd2dd087fe9d20ee3b6fadd77c8
 	@After
 	@Before
 	public void clearDatabase() {
@@ -117,7 +112,7 @@ public class NotificationServiceTests {
 		String tutorFirstName = "Marcus";
 		String tutorLastName = "Fenix";
 		String password = "locust";
-//		Manager manager = managerService.createManager();
+		//		Manager manager = managerService.createManager();
 		Tutor tutor = tutorService.createTutor(tutorFirstName, tutorLastName, tutorEmail, password);
 
 		try {
