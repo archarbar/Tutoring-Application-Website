@@ -431,7 +431,7 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 //	}
 	
 	@Test(priority=11, groups="Queries")
-	public void testGetCourse() {
+	public void testGetCourseById() {
 		int courseId = course.getId();
 		// Due to domain model design, a booking and a tutor has be created in the database in order to perform tests on notification.
 		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();

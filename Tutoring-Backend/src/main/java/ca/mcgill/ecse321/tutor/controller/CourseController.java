@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -19,12 +20,21 @@ public class CourseController {
     @Autowired
     private CourseService service;
 
+    @GetMapping(value= {"/courses", "/courses/"})
+    public List<CourseDto> getAllCourses() {
+    	List<CourseDto> cDtos = new ArrayList<CourseDto>();
+    	for (Course course: service.getAllCourses()) {
+    		cDtos.add(convertToDto(course));
+    	}
+        return cDtos;
+    }
+    
     @GetMapping("/course/{courseId}")
-    public CourseDto getCourseById(@PathVariable int courseId) {
-        return convertToDto(service.getCourseById(courseId));
+    public CourseDto getCourseById(@PathVariable String courseId) {
+        return convertToDto(service.getCourseById(Integer.parseInt(courseId)));
     }
 
-    @GetMapping("/course/{level}")
+    @GetMapping("/course/level/{level}")
     public ArrayList<CourseDto> getCoursesByLevel (@PathVariable Level level) {
         ArrayList<CourseDto> returnCourse = new ArrayList<>();
         ArrayList<Course> courses = service.getCourseByCourseLevel(level);
@@ -34,7 +44,7 @@ public class CourseController {
         return returnCourse;
     }
 
-    @GetMapping("/course/{courseName}")
+    @GetMapping("/course/name/{courseName}")
     public CourseDto getCourseByName (@PathVariable String courseName) {
         return convertToDto(service.getCourseByCourseName(courseName));
     }
