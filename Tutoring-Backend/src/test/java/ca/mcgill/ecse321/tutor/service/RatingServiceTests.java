@@ -271,7 +271,7 @@ public class RatingServiceTests {
 	}
 
 	@Test
-	public void testCreateNullTutor() {
+	public void testCreateRatingNullTutor() {
 		assertEquals(0, ratingService.getAllRatings().size());
 
 		Integer stars = 5;
