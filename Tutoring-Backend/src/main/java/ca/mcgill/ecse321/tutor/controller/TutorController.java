@@ -13,7 +13,7 @@ public class TutorController {
     @Autowired
     private TutorService service;
 
-    @PostMapping("/tutor")
+    @PostMapping("/tutor/new")
     public TutorDto createTutor(@RequestParam("tutorFirstName") String tutorFirstName,
                                 @RequestParam("tutorLastName") String tutorLastName,
                                 @RequestParam("tutorEmail") String tutorEmail,
@@ -24,8 +24,8 @@ public class TutorController {
     }
 
     @GetMapping("/tutor/{tutorId}")
-    public TutorDto getTutorById(@PathVariable int tutorId) {
-        return convertToDto(service.getTutor(tutorId));
+    public TutorDto getTutorById(@PathVariable String tutorId) {
+        return convertToDto(service.getTutor(Integer.parseInt(tutorId)));
     }
 
     @GetMapping("/login")

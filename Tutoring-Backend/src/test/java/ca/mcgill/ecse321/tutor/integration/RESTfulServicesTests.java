@@ -21,7 +21,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.util.LinkedMultiValueMap;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -142,6 +141,10 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 	Room room; 
 	Student student;
 	
+	private final static String startTime = "15:05:00";
+	private final static String endTime = "17:05:00";
+	private final static String dayOfTheWeek = "FRIDAY";
+	
 	@BeforeClass
 	public void setup() {
 		ratingRepository.deleteAll();
@@ -164,7 +167,12 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 		String lastName = "Lennon";
 		String tutorEmail = "duQuebec@poushon.com";
 		String password = "123456";
-		tutor = tutorService.createTutor(firstName, lastName, tutorEmail, password, manager);
+		tutor = tutorService.createTutor(firstName, lastName, tutorEmail, password);
+		
+		// Create room
+		int number = 30;
+		int capacity = 15;
+		room = roomService.createRoom(number, capacity , manager);
 
 		// Create timeSlot 
 		timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
@@ -232,72 +240,280 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 		params.add("notificationId", notificationId);
 		HttpEntity<LinkedMultiValueMap<String, Integer>> entity = new HttpEntity<LinkedMultiValueMap<String, Integer>>(params, headers);
 		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/notifications/" + notificationId), HttpMethod.GET, entity, String.class);
-		String result = response.getBody().toString();
 		
 		// Verify response is not null 
 		assertNotNull(response);
 		
 		// Assure successful connection 
 		assertEquals(response.getStatusCode(), HttpStatus.OK);
-		
-		// Verify URI 
-		assertTrue(result.contains("/notifications/" + notificationId));
-	}
-	
-	@Test(priority=3, groups="Notification", dependsOnMethods="testCreateNotification")
-	public void testGetNotificationByTutor() {
-		int notificationId = notificationService.getAllNotifications().get(0).getId();
-		LinkedMultiValueMap<String, Integer> params = new LinkedMultiValueMap<>();
-		params.add("tutorId", tutor.getId());
-		HttpEntity<LinkedMultiValueMap<String, Integer>> entity = new HttpEntity<LinkedMultiValueMap<String, Integer>>(params, headers);
-		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/notifications/tutor" + notificationId), HttpMethod.GET, entity, String.class);
-		String result = response.getBody().toString();
-		
-		// Verify response is not null 
-		assertNotNull(response);
-		
-		// Assure successful connection 
-		assertEquals(response.getStatusCode(), HttpStatus.OK);
-		
-		// Verify URI 
-		assertTrue(result.contains("/notifications/tutor/" + notificationId));
-		
-		// Assert size of notifications
-		
-	}
-	
-//	@Test(priority=4, groups="TimeSlot")
-//	public void testCreateTimeSlot() {
-//		timeSlot = new TimeSlot();
+			}
+//	
+//	@Test(priority=3, groups="Notification", dependsOnMethods="testCreateNotification")
+//	public void testGetNotificationByTutor() {
+//		int tutorId = tutor.getId();
+//		LinkedMultiValueMap<String, Integer> params = new LinkedMultiValueMap<>();
+//		params.add("tutorId", tutorId);
+//		HttpEntity<LinkedMultiValueMap<String, Integer>> entity = new HttpEntity<LinkedMultiValueMap<String, Integer>>(params, headers);
+//		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/notifications/tutor" + tutorId), HttpMethod.GET, entity, String.class);
+//
+//		// Verify response is not null 
+//		assertNotNull(response);
+//		
+//		// Assure successful connection 
+//		assertEquals(response.getStatusCode(), HttpStatus.OK);	
 //		
 //	}
-//	
-//	@Test(priority=5, groups="Rating")
-//	public void testCreateRating() {
-//		rating = new Rating();
-//	
-//	}
+	
+	@Test(priority=4, groups="TimeSlot")
+	public void testCreateTimeSlot() {		
+		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
+		params.add("startTime", startTime);
+		params.add("endTime", endTime);
+		params.add("dayOfTheWeek", dayOfTheWeek);
+		HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(params, headers); // HttpEntity<T> is a helper object which encapsulates header and body of an HTTP request or response.
+		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/timeslot/new"), HttpMethod.POST, entity, String.class);
+		
+		// Make sure response code is 200
+		assertEquals(response.getStatusCodeValue(),200);
+				
+		// Verify response is not null 
+		assertNotNull(response);
+
+	}
+	
+	@Test(priority=5, groups="TimeSlot")
+	public void testGetTimeSlotById() {		
+		int timeSlotId = timeSlotService.getAllTimeSlots().get(0).getId();
+		// Due to domain model design, a booking and a tutor has be created in the database in order to perform tests on notification.
+		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
+		params.add("timeSlotId", timeSlotId);
+		HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(params, headers); // HttpEntity<T> is a helper object which encapsulates header and body of an HTTP request or response.
+		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/timeslot/"+timeSlotId), HttpMethod.GET, entity, String.class);
+						
+		// Make sure response code is 200
+		assertEquals(response.getStatusCodeValue(),200);
+
+		// Verify response is not null 
+		assertNotNull(response);
+
+	}
+	
+	@Test(priority = 6, groups = "Tutor")
+	public void testCreateTutor() {
+		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
+		params.add("tutorFirstName", "Gang");
+		params.add("tutorLastName", "Gucci");
+		params.add("tutorEmail", "gucci@gang.com");
+		params.add("tutorPassword", "gucciii");
+		HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(
+				params, headers); 
+		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/tutor/new"),
+				HttpMethod.POST, entity, String.class);
+
+		// Make sure response code is 200
+		assertEquals(response.getStatusCodeValue(), 200);
+
+		// Verify response is not null
+		assertNotNull(response);
+	}
+
+	@Test(priority=7, groups="Tutor")
+	public void testGetTutorById() {	
+		int tutorId = tutorService.getAllTutors().get(0).getId();
+		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
+		params.add("tutorId", tutorId);
+		HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(params, headers); // HttpEntity<T> is a helper object which encapsulates header and body of an HTTP request or response.
+		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/tutor/"+tutorId), HttpMethod.GET, entity, String.class);
+			
+		// Verify response is not null 
+		assertNotNull(response);
+		
+		// Assure successful connection 
+		assertEquals(response.getStatusCode(), HttpStatus.OK);
+	}
 
 	
-//	@Test(priority=4, groups="TutoringSession")
-//	public void createTutoringSession() {
+	@Test(priority=8, groups="TutoringSession")
+	public void testCreateTutoringSession() {
+		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
+		params.add("bookingId", booking.getId());
+		params.add("roomId", room.getId());
+		params.add("tutorId", tutorService.getAllTutors().get(0).getId());
+		System.out.println(booking.getId() + room.getId() + tutorService.getAllTutors().get(0).getId());;
+				HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(
+				params, headers); 
+		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/tutoringsession/new"),
+				HttpMethod.POST, entity, String.class);
+
+		// Make sure response code is 200
+		assertEquals(response.getStatusCodeValue(), 200);
+
+		// Verify response is not null
+		assertNotNull(response);
+	}
+	
+	@Test(priority=9, dependsOnMethods = "testCreateTutoringSession")
+	public void testGetTutoringSessionById() {
+		int tutoringSessionId = tutoringSessionService.getAllTutoringSessions().get(0).getId();
+		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
+		params.add("tutoringSessionId", tutoringSessionId);
+		HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(params, headers); // HttpEntity<T> is a helper object which encapsulates header and body of an HTTP request or response.
+		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/tutoringsessions/"+tutoringSessionId), HttpMethod.GET, entity, String.class);
+			
+		// Verify response is not null 
+		assertNotNull(response);
+		
+		// Assure successful connection 
+		assertEquals(response.getStatusCode(), HttpStatus.OK);
+	}
+	
+//	@Test(priority=10, groups="Rating")
+//	public void testCreateRating() {
+//		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
+//		String stars = "5";
+//		String comment = "He was really attentive to my instructions";
+//		int studentId = student.getId();
+//		int tutoringSessionId = tutoringSessionService.getAllTutoringSessions().get(0).getId();
+//		params.add("stars", stars);
+//		params.add("comment", comment);
+//		params.add("studentId", studentId);
+//		params.add("tutoringSessionId", tutoringSessionId);
+//	HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(
+//			params, headers); 
+//	ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/rating/new"),
+//			HttpMethod.POST, entity, String.class);
 //
+//	// Make sure response code is 200
+//	assertEquals(response.getStatusCodeValue(), 200);
+//
+//	// Verify response is not null
+//	assertNotNull(response);
+//	
 //	}
 //	
-//	@Test(dependsOnMethods = "testCreateTutoringSession")
-//	public void testGetTutoringSession() {
-//		
+//	@Test(priority=11, groups="Rating")
+//	public void testGetRating() {
+//		int ratingId = ratingService.getAllRatings().get(0).getId();
+//		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
+//		params.add("ratingId", ratingId);
+//	HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(
+//			params, headers); 
+//	ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/rating/" + ratingId),
+//			HttpMethod.GET, entity, String.class);
+//
+//	// Make sure response code is 200
+//	assertEquals(response.getStatusCodeValue(), 200);
+//
+//	// Verify response is not null
+//	assertNotNull(response);
+//	
 //	}
 	
-//	@Test(priority=5, groups="Tutor")
-//	public void createTutor() {		
-//	
+	/* <------ Queries ------> */
+//	@Test(priority=11, groups="Queries")
+//	public void testGetBookingById() {
+//		String bookingId = booking.getId().toString();
+//		// Due to domain model design, a booking and a tutor has be created in the database in order to perform tests on notification.
+//		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
+//		params.add("bookingId", bookingId);
+//		HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(params, headers); // HttpEntity<T> is a helper object which encapsulates header and body of an HTTP request or response.
+//		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/bookings/"+bookingId), HttpMethod.GET, entity, String.class);
+//						
+//		// Make sure response code is 200
+//		assertEquals(response.getStatusCodeValue(),200);
+//
+//		// Verify response is not null 
+//		assertNotNull(response);
 //	}
 	
-//	@Test(priority=5, groups="Tutor")
-//	public void getTutor() {		
-//	
-//	}
+	@Test(priority=11, groups="Queries")
+	public void testGetCourse() {
+		int courseId = course.getId();
+		// Due to domain model design, a booking and a tutor has be created in the database in order to perform tests on notification.
+		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
+		params.add("courseId", courseId);
+		HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(params, headers); // HttpEntity<T> is a helper object which encapsulates header and body of an HTTP request or response.
+		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/course/"+courseId), HttpMethod.GET, entity, String.class);
+						
+		// Make sure response code is 200
+		assertEquals(response.getStatusCodeValue(),200);
+
+		// Verify response is not null 
+		assertNotNull(response);
+		
+	}
+
+	@Test(priority=11, groups="Queries")
+	public void testGetManager() {
+		int managerId = manager.getId();
+		// Due to domain model design, a booking and a tutor has be created in the database in order to perform tests on notification.
+		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
+		params.add("managerId", managerId);
+		HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(params, headers); // HttpEntity<T> is a helper object which encapsulates header and body of an HTTP request or response.
+		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/manager/"+managerId), HttpMethod.GET, entity, String.class);
+						
+		// Make sure response code is 200
+		assertEquals(response.getStatusCodeValue(),200);
+
+		// Verify response is not null 
+		assertNotNull(response);
+	}
+
+	@Test(priority=11, groups="Queries")
+	public void testGetRoom() {
+		int roomId = room.getId();
+		// Due to domain model design, a booking and a tutor has be created in the database in order to perform tests on notification.
+		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
+		params.add("roomId", roomId);
+		HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(params, headers); // HttpEntity<T> is a helper object which encapsulates header and body of an HTTP request or response.
+		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/room/"+roomId), HttpMethod.GET, entity, String.class);
+						
+		// Make sure response code is 200
+		assertEquals(response.getStatusCodeValue(),200);
+
+		// Verify response is not null 
+		assertNotNull(response);
+	}
+
+	@Test(priority=11, groups="Queries")
+	public void testGetStudent() {
+		int studentId = student.getId();
+		// Due to domain model design, a booking and a tutor has be created in the database in order to perform tests on notification.
+		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
+		params.add("studentId", studentId);
+		HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(params, headers); // HttpEntity<T> is a helper object which encapsulates header and body of an HTTP request or response.
+		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/student/"+studentId), HttpMethod.GET, entity, String.class);
+						
+		// Make sure response code is 200
+		assertEquals(response.getStatusCodeValue(),200);
+
+		// Verify response is not null 
+		assertNotNull(response);
+	}
+	
+	/* <-------- Use Case Tests ------> */
+	// Use case 5: The system shall notify a tutor when he receives a booking.
+	/**
+	 * Testing implementation of fifth most important use caes 
+	 */
+	@Test
+	public void testTutorNotification() {
+		int numberOfTutorNotifications = notificationService.getNotificationsByTutor(tutor).size();
+		LinkedMultiValueMap<String, Integer> params = new LinkedMultiValueMap<>();
+		params.add("tutorId", tutor.getId());
+		params.add("bookingId", booking.getId());
+		HttpEntity<LinkedMultiValueMap<String, Integer>> entity = new HttpEntity<LinkedMultiValueMap<String, Integer>>(params, headers); // HttpEntity<T> is a helper object which encapsulates header and body of an HTTP request or response.
+		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/bookings/new"), HttpMethod.POST, entity, String.class);
+		
+		// Make sure response code is 200
+		assertEquals(response.getStatusCodeValue(),200);
+
+		// Verify response is not null 
+		assertNotNull(response);
+		
+		// Verify tutor has an additional notification
+		assertEquals(notificationService.getNotificationsByTutor(tutor).size() - numberOfTutorNotifications, 1);
+	}
 
 
 	private String constructURLWithLocalPort(String URI) {

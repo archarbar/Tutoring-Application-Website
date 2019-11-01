@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Default test</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>2/1/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>11/1/1</td>
 </tr><tr>
-<td>Started on:</td><td>Thu Oct 31 19:08:04 EDT 2019</td>
+<td>Started on:</td><td>Thu Oct 31 23:18:03 EDT 2019</td>
 </tr>
-<tr><td>Total time:</td><td>21 seconds (21150 ms)</td>
+<tr><td>Total time:</td><td>24 seconds (24395 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -75,13 +75,14 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testGetNotificationByTutor()'><b>testGetNotificationByTutor</b><br>Test class: ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests</td>
-<td><div><pre>java.lang.AssertionError: expected [200 OK] but found [500 INTERNAL_SERVER_ERROR]
+<td title='ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testCreateNotification()'><b>testCreateNotification</b><br>Test class: ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests</td>
+<td><div><pre>java.lang.AssertionError: expected [200] but found [500]
 	at org.testng.Assert.fail(Assert.java:97)
 	at org.testng.Assert.assertEqualsImpl(Assert.java:136)
 	at org.testng.Assert.assertEquals(Assert.java:118)
-	at org.testng.Assert.assertEquals(Assert.java:563)
-	at ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testGetNotificationByTutor(RESTfulServicesTests.java:260)
+	at org.testng.Assert.assertEquals(Assert.java:839)
+	at org.testng.Assert.assertEquals(Assert.java:849)
+	at ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testCreateNotification(RESTfulServicesTests.java:226)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
@@ -113,13 +114,14 @@ function toggleAllBoxes() {
 	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-</pre></div><a href='#' onClick='toggleBox("stack-trace1338151742", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace1338151742'><pre>java.lang.AssertionError: expected [200 OK] but found [500 INTERNAL_SERVER_ERROR]
+</pre></div><a href='#' onClick='toggleBox("stack-trace2011547493", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace2011547493'><pre>java.lang.AssertionError: expected [200] but found [500]
 	at org.testng.Assert.fail(Assert.java:97)
 	at org.testng.Assert.assertEqualsImpl(Assert.java:136)
 	at org.testng.Assert.assertEquals(Assert.java:118)
-	at org.testng.Assert.assertEquals(Assert.java:563)
-	at ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testGetNotificationByTutor(RESTfulServicesTests.java:260)
+	at org.testng.Assert.assertEquals(Assert.java:839)
+	at org.testng.Assert.assertEquals(Assert.java:849)
+	at ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testCreateNotification(RESTfulServicesTests.java:226)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
@@ -153,7 +155,7 @@ function toggleAllBoxes() {
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 </pre></div></td>
 <td>0</td>
-<td>ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6</td></tr>
+<td>ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@5d7148e2</td></tr>
 </table><p>
 <table width='100%' border='1' class='invocation-passed'>
 <tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
@@ -163,15 +165,114 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testCreateNotification()'><b>testCreateNotification</b><br>Test class: ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests</td>
-<td></td>
-<td>1</td>
-<td>ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6</td></tr>
-<tr>
-<td title='ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testGetNotificationByID()'><b>testGetNotificationByID</b><br>Test class: ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests</td>
+<td title='ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testCreateTimeSlot()'><b>testCreateTimeSlot</b><br>Test class: ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests</td>
 <td></td>
 <td>0</td>
-<td>ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@543588e6</td></tr>
+<td>ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@5d7148e2</td></tr>
+<tr>
+<td title='ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testCreateTutor()'><b>testCreateTutor</b><br>Test class: ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests</td>
+<td></td>
+<td>0</td>
+<td>ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@5d7148e2</td></tr>
+<tr>
+<td title='ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testCreateTutoringSession()'><b>testCreateTutoringSession</b><br>Test class: ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests</td>
+<td></td>
+<td>0</td>
+<td>ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@5d7148e2</td></tr>
+<tr>
+<td title='ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testGetCourse()'><b>testGetCourse</b><br>Test class: ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests</td>
+<td></td>
+<td>0</td>
+<td>ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@5d7148e2</td></tr>
+<tr>
+<td title='ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testGetManager()'><b>testGetManager</b><br>Test class: ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests</td>
+<td></td>
+<td>0</td>
+<td>ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@5d7148e2</td></tr>
+<tr>
+<td title='ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testGetRoom()'><b>testGetRoom</b><br>Test class: ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests</td>
+<td></td>
+<td>0</td>
+<td>ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@5d7148e2</td></tr>
+<tr>
+<td title='ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testGetStudent()'><b>testGetStudent</b><br>Test class: ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests</td>
+<td></td>
+<td>0</td>
+<td>ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@5d7148e2</td></tr>
+<tr>
+<td title='ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testGetTimeSlotById()'><b>testGetTimeSlotById</b><br>Test class: ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests</td>
+<td></td>
+<td>0</td>
+<td>ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@5d7148e2</td></tr>
+<tr>
+<td title='ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testGetTutorById()'><b>testGetTutorById</b><br>Test class: ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests</td>
+<td></td>
+<td>0</td>
+<td>ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@5d7148e2</td></tr>
+<tr>
+<td title='ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testGetTutoringSessionById()'><b>testGetTutoringSessionById</b><br>Test class: ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests</td>
+<td></td>
+<td>1</td>
+<td>ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@5d7148e2</td></tr>
+<tr>
+<td title='ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testTutorNotification()'><b>testTutorNotification</b><br>Test class: ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests</td>
+<td></td>
+<td>1</td>
+<td>ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@5d7148e2</td></tr>
+</table><p>
+<table width='100%' border='1' class='invocation-skipped'>
+<tr><td colspan='4' align='center'><b>SKIPPED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests.testGetNotificationByID()'><b>testGetNotificationByID</b><br>Test class: ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests</td>
+<td><div><pre>java.lang.Throwable: Method RESTfulServicesTests.testGetNotificationByID()[pri:2, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@5d7148e2] depends on not successfully finished methods
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:99)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.util.ArrayList.forEach(Unknown Source)
+	at org.testng.TestRunner.privateRun(TestRunner.java:770)
+	at org.testng.TestRunner.run(TestRunner.java:591)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:402)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:396)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:355)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:304)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1180)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1102)
+	at org.testng.TestNG.runSuites(TestNG.java:1032)
+	at org.testng.TestNG.run(TestNG.java:1000)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+</pre></div><a href='#' onClick='toggleBox("stack-trace410908040", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace410908040'><pre>java.lang.Throwable: Method RESTfulServicesTests.testGetNotificationByID()[pri:2, instance:ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@5d7148e2] depends on not successfully finished methods
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:99)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.util.ArrayList.forEach(Unknown Source)
+	at org.testng.TestRunner.privateRun(TestRunner.java:770)
+	at org.testng.TestRunner.run(TestRunner.java:591)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:402)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:396)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:355)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:304)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1180)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1102)
+	at org.testng.TestNG.runSuites(TestNG.java:1032)
+	at org.testng.TestNG.run(TestNG.java:1000)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+</pre></div></td>
+<td>0</td>
+<td>ca.mcgill.ecse321.tutor.integration.RESTfulServicesTests@5d7148e2</td></tr>
 </table><p>
 </body>
 </html>

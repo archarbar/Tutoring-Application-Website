@@ -51,7 +51,8 @@ jar {
   }
 }
 
-task integrationTests(type: Test) { // we define a task with name 'integrationTests'
+task integrationTests(type: Test) { 
+	// we define a task with name 'integrationTests'
    useTestNG() {
        useDefaultListeners = true
        suites 'src/test/java/testng.xml'

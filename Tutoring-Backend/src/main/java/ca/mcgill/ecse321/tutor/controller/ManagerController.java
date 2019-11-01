@@ -21,9 +21,9 @@ public class ManagerController {
     @Autowired
     private ManagerService service;
 
-    @GetMapping(value={"/manager/{managerId}", "/manager"})
-    public ManagerDto getManager(@PathVariable int managerId) {
-        return convertToDto(service.getManager(managerId));
+    @GetMapping(value={"/manager/{managerId}"})
+    public ManagerDto getManager(@PathVariable String managerId) {
+        return convertToDto(service.getManager(Integer.parseInt(managerId)));
     }
     
     @GetMapping(value= {"/managers", "/managers/"})

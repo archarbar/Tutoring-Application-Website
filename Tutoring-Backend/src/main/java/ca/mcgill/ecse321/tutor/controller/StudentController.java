@@ -17,8 +17,8 @@ public class StudentController {
     private StudentService service;
 
     @GetMapping("/student/{studentId}")
-    public StudentDto getStudentById(@PathVariable("studentId") int studentId) {
-        return convertToDto(service.getStudentById(studentId));
+    public StudentDto getStudentById(@PathVariable("studentId") String studentId) {
+        return convertToDto(service.getStudentById(Integer.parseInt(studentId)));
     }
 
     @GetMapping("/student/email/{email}")

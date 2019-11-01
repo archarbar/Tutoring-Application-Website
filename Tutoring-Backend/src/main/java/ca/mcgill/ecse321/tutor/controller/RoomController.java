@@ -16,8 +16,8 @@ public class RoomController {
     private RoomService service;
 
     @GetMapping("/room/{roomId}")
-    public RoomDto getRoom(@PathVariable int roomId) {
-        return convertToDto(service.getRoom(roomId));
+    public RoomDto getRoom(@PathVariable String roomId) {
+        return convertToDto(service.getRoom(Integer.parseInt(roomId)));
     }
 
     private RoomDto convertToDto(Room room) {
