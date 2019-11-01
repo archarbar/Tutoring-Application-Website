@@ -88,7 +88,7 @@ public class TutorServiceTests {
 	public void testCreateTutor() {
 
 		try {
-			tutor = tutorService.createTutor(FIRST_NAME, LAST_NAME, EMAIL_KEY, PASSWORD, manager);
+			tutor = tutorService.createTutor(FIRST_NAME, LAST_NAME, EMAIL_KEY, PASSWORD);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
@@ -97,7 +97,7 @@ public class TutorServiceTests {
 		assertEquals(LAST_NAME, tutor.getLastName());
 		assertEquals(PASSWORD, tutor.getPassword());
 		assertEquals(EMAIL_KEY, tutor.getEmail());
-		assertEquals(manager.getId(), tutor.getManager().getId());
+//		assertEquals(manager.getId(), tutor.getManager().getId());
 	}
 
 	@Test
@@ -105,13 +105,13 @@ public class TutorServiceTests {
 		String error = null;
 
 		try {
-			tutor = tutorService.createTutor(null, null, null, null, null);
+			tutor = tutorService.createTutor(null, null, null, null);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 
 		// check error
-		assertEquals("A first name needs to be specified! A last name needs to be specified! An email needs to be specified! A password needs to be specified! A manager needs to be specified!", error);
+		assertEquals("A first name needs to be specified! A last name needs to be specified! An email needs to be specified! A password needs to be specified!", error);
 	}
 
 	@Test
@@ -119,13 +119,13 @@ public class TutorServiceTests {
 		String error = null;
 
 		try {
-			tutor = tutorService.createTutor("", "", "", "", manager);
+			tutor = tutorService.createTutor("", "", "", "",);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 
 		// check error
-		assertEquals("A first name needs to be specified! A last name needs to be specified! An email needs to be specified! A password needs to be specified! A manager needs to be specified!", error);
+		assertEquals("A first name needs to be specified! A last name needs to be specified! An email needs to be specified! A password needs to be specified!", error);
 	}
 
 	@Test
@@ -133,7 +133,7 @@ public class TutorServiceTests {
 		String error = null;
 
 		try {
-			tutor = tutorService.createTutor(" ", " ", " ", " ", manager);
+			tutor = tutorService.createTutor(" ", " ", " ", " ");
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -147,7 +147,7 @@ public class TutorServiceTests {
 		String error = null;
 
 		try {
-			tutor = tutorService.createTutor(null, LAST_NAME, EMAIL_KEY, PASSWORD, manager);
+			tutor = tutorService.createTutor(null, LAST_NAME, EMAIL_KEY, PASSWORD);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -161,7 +161,7 @@ public class TutorServiceTests {
 		String error = null;
 
 		try {
-			tutor = tutorService.createTutor(FIRST_NAME, null, EMAIL_KEY, PASSWORD, manager);
+			tutor = tutorService.createTutor(FIRST_NAME, null, EMAIL_KEY, PASSWORD);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -175,7 +175,7 @@ public class TutorServiceTests {
 		String error = null;
 
 		try {
-			tutor = tutorService.createTutor(FIRST_NAME, LAST_NAME, null, PASSWORD, manager);
+			tutor = tutorService.createTutor(FIRST_NAME, LAST_NAME, null, PASSWORD);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -189,7 +189,7 @@ public class TutorServiceTests {
 		String error = null;
 
 		try {
-			tutor = tutorService.createTutor(FIRST_NAME, LAST_NAME, EMAIL_KEY, null, manager);
+			tutor = tutorService.createTutor(FIRST_NAME, LAST_NAME, EMAIL_KEY, null);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -198,18 +198,5 @@ public class TutorServiceTests {
 		assertEquals("A password needs to be specified!", error);
 	}
 
-	@Test
-	public void testCreateTutorNullManager() {
-		String error = null;
-
-		try {
-			tutor = tutorService.createTutor(FIRST_NAME, LAST_NAME, EMAIL_KEY, PASSWORD, null);
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-
-		// check error
-		assertEquals("A manager needs to be specified!", error);
-	}
 
 }

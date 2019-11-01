@@ -19,7 +19,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import ca.mcgill.ecse321.tutor.dao.BookingRepository;
 import ca.mcgill.ecse321.tutor.dao.ManagerRepository;
+import ca.mcgill.ecse321.tutor.dao.NotificationRepository;
+import ca.mcgill.ecse321.tutor.dao.RatingRepository;
 import ca.mcgill.ecse321.tutor.dao.RoomRepository;
+import ca.mcgill.ecse321.tutor.dao.StudentRepository;
 import ca.mcgill.ecse321.tutor.dao.TimeSlotRepository;
 import ca.mcgill.ecse321.tutor.dao.TutorRepository;
 import ca.mcgill.ecse321.tutor.dao.TutoringSessionRepository;
@@ -67,16 +70,26 @@ public class TutoringSessionServiceTests {
 	private TimeSlotRepository timeSlotRepository;
 	@Autowired
 	private ManagerRepository managerRepository;
+	@Autowired
+	private StudentRepository studentRepository;
+	@Autowired
+	private RatingRepository ratingRepository;
+	@Autowired
+	private NotificationRepository notificationRepository;
 
 	@Before
 	@After
 	public void clearDatabase() {
-		bookingRepository.deleteAll();
+		
+		ratingRepository.deleteAll();
+		notificationRepository.deleteAll();
 		tutoringSessionRepository.deleteAll();
+		bookingRepository.deleteAll();
 		tutorRepository.deleteAll();
 		roomRepository.deleteAll();
 		timeSlotRepository.deleteAll();
 		managerRepository.deleteAll();
+		studentRepository.deleteAll();
 	}
 
 	@Test
@@ -97,7 +110,7 @@ public class TutoringSessionServiceTests {
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(student);
 		Booking booking = bookingService.createBooking(tutorEmail, studentSet, Date.valueOf("2019-10-10"), timeSlot, course);
-		Tutor tutor = tutorService.createTutor(firstName, lastName, email, password, manager);
+		Tutor tutor = tutorService.createTutor(firstName, lastName, email, password);
 
 		try {
 			tutoringSessionService.createTutoringSession(sessionDate, tutor, room, booking, timeSlot);
@@ -155,7 +168,7 @@ public class TutoringSessionServiceTests {
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(student);
 		Booking booking = bookingService.createBooking(tutorEmail, studentSet, Date.valueOf("2019-10-10"), timeSlot, course);
-		Tutor tutor = tutorService.createTutor(firstName, lastName, email, password, manager);
+		Tutor tutor = tutorService.createTutor(firstName, lastName, email, password);
 		String error = null;
 
 		try {
@@ -224,7 +237,7 @@ public class TutoringSessionServiceTests {
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(student);
 		Booking booking = bookingService.createBooking(tutorEmail, studentSet, Date.valueOf("2019-10-10"), timeSlot, course);
-		Tutor tutor = tutorService.createTutor(firstName, lastName, email, password, manager);
+		Tutor tutor = tutorService.createTutor(firstName, lastName, email, password);
 		String error = null;
 
 		try {
@@ -257,7 +270,7 @@ public class TutoringSessionServiceTests {
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(student);
 		Booking booking = null;
-		Tutor tutor = tutorService.createTutor(firstName, lastName, email, password, manager);
+		Tutor tutor = tutorService.createTutor(firstName, lastName, email, password);
 		String error = null;
 
 		try {
@@ -292,7 +305,7 @@ public class TutoringSessionServiceTests {
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(student);
 		Booking booking = bookingService.createBooking(tutorEmail, studentSet, Date.valueOf("2019-10-10"), timeSlot, course);
-		Tutor tutor = tutorService.createTutor(firstName, lastName, email, password, manager);
+		Tutor tutor = tutorService.createTutor(firstName, lastName, email, password);
 		String error = null;
 
 		try {

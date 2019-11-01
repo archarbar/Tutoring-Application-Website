@@ -29,7 +29,7 @@ public class Tutor extends Person{
   }
   private Manager manager;
 
-  @ManyToOne(optional=false)
+  @ManyToOne
   public Manager getManager() {
     return this.manager;
   }

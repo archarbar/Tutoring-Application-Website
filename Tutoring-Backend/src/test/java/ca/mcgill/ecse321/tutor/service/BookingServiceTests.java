@@ -19,8 +19,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import ca.mcgill.ecse321.tutor.dao.BookingRepository;
 import ca.mcgill.ecse321.tutor.dao.CourseRepository;
+import ca.mcgill.ecse321.tutor.dao.RatingRepository;
 import ca.mcgill.ecse321.tutor.dao.StudentRepository;
 import ca.mcgill.ecse321.tutor.dao.TimeSlotRepository;
+import ca.mcgill.ecse321.tutor.dao.TutoringSessionRepository;
 import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Course;
 import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
@@ -51,10 +53,17 @@ public class BookingServiceTests {
 	private TimeSlotRepository timeSlotRepository;
 	@Autowired
 	private CourseRepository courseRepository;
+	@Autowired
+	private RatingRepository ratingRepository;
+	@Autowired
+	private TutoringSessionRepository tutoringSessionRepository;
+
 
 	@Before
 	@After
 	public void clearDatabase() {
+		ratingRepository.deleteAll();
+		tutoringSessionRepository.deleteAll();
 		bookingRepository.deleteAll();
 		studentRepository.deleteAll();
 		timeSlotRepository.deleteAll();

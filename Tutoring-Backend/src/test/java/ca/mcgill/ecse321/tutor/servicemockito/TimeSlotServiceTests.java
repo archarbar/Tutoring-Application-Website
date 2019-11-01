@@ -142,7 +142,7 @@ public class TimeSlotServiceTests {
 		String error = null;
 
 		try {
-			timeSlot = timeSlotService.createTimeSlot(END_TIME, START_TIME, null);
+			timeSlot = timeSlotService.createTimeSlot(END_TIME, START_TIME, DAYOFTHEWEEK);
 		}
 		catch (IllegalArgumentException e) {
 			error = e.getMessage();

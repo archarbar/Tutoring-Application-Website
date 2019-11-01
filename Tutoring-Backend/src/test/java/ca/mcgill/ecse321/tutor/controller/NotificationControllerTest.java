@@ -114,7 +114,7 @@ public class NotificationControllerTest {
 	}
 
 	@Test
-	public void testCreateCourse() throws Exception {
+	public void testCreateNotification() throws Exception {
 		
 		String tutorEmail = "marcusfenix@gears.com";
 		Course course = courseService.createCourse("test", Level.CEGEP);
@@ -131,8 +131,8 @@ public class NotificationControllerTest {
 		String tutorFirstName = "Marcus";
 		String tutorLastName = "Fenix";
 		String password = "locust";
-		Manager manager = managerService.createManager();
-		Tutor tutor = tutorService.createTutor(tutorFirstName, tutorLastName, tutorEmail, password, manager);
+//		Manager manager = managerService.createManager();
+		Tutor tutor = tutorService.createTutor(tutorFirstName, tutorLastName, tutorEmail, password);
 		int tutorId = tutor.getId();
 		
 		this.mockMvc.perform(post("/notification")
