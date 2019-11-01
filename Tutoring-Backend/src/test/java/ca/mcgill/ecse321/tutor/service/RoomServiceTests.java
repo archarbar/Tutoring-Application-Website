@@ -1,12 +1,14 @@
 package ca.mcgill.ecse321.tutor.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
 import org.junit.After;
-import org.junit.Before;
+
+import ca.mcgill.ecse321.tutor.model.Manager;
+import ca.mcgill.ecse321.tutor.model.Room;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import ca.mcgill.ecse321.tutor.dao.ManagerRepository;
 import ca.mcgill.ecse321.tutor.dao.RoomRepository;
-import ca.mcgill.ecse321.tutor.model.Manager;
-import ca.mcgill.ecse321.tutor.model.Room;
 
 
 @RunWith(SpringRunner.class)
@@ -33,7 +33,6 @@ public class RoomServiceTests {
 	@Autowired
 	private ManagerService managerService;
 
-	@Before
 	@After
 	public void clearDatabase() {
 		roomRepository.deleteAll();
@@ -106,6 +105,7 @@ public class RoomServiceTests {
 	}
 
 	@Test
+<<<<<<< HEAD
 	public void testCreateRoomNegativeNumber() {
 		assertEquals(0, roomService.getAllRooms().size());
 
@@ -172,6 +172,8 @@ public class RoomServiceTests {
 	}
 
 	@Test
+=======
+>>>>>>> a52117de28544dd2dd087fe9d20ee3b6fadd77c8
 	public void testCreateRoomNullManager() {
 		assertEquals(0, roomService.getAllRooms().size());
 

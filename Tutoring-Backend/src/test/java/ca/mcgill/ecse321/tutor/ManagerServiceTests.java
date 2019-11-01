@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.tutor.servicemockito;
+package ca.mcgill.ecse321.tutor;
 
 import ca.mcgill.ecse321.tutor.dao.ManagerRepository;
 import ca.mcgill.ecse321.tutor.service.ManagerService;
@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
@@ -50,7 +49,7 @@ public class ManagerServiceTests {
             return managers;
         });
     }
-    
+
     @Test
     public void testGetManager() {
         assertEquals(SUCCESS_KEY, managerService.getManager(SUCCESS_KEY).getId());
