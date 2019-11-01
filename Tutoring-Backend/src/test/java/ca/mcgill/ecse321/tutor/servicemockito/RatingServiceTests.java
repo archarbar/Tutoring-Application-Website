@@ -1,18 +1,14 @@
 package ca.mcgill.ecse321.tutor.servicemockito;
 
-import ca.mcgill.ecse321.tutor.dao.RatingRepository;
-import ca.mcgill.ecse321.tutor.service.RatingService;
-import ca.mcgill.ecse321.tutor.model.Booking;
-import ca.mcgill.ecse321.tutor.model.Course;
-import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
-import ca.mcgill.ecse321.tutor.model.Level;
-import ca.mcgill.ecse321.tutor.model.Manager;
-import ca.mcgill.ecse321.tutor.model.Rating;
-import ca.mcgill.ecse321.tutor.model.Room;
-import ca.mcgill.ecse321.tutor.model.Student;
-import ca.mcgill.ecse321.tutor.model.TimeSlot;
-import ca.mcgill.ecse321.tutor.model.Tutor;
-import ca.mcgill.ecse321.tutor.model.TutoringSession;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,18 +18,12 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import ca.mcgill.ecse321.tutor.dao.RatingRepository;
+import ca.mcgill.ecse321.tutor.model.Rating;
+import ca.mcgill.ecse321.tutor.model.Student;
+import ca.mcgill.ecse321.tutor.model.Tutor;
+import ca.mcgill.ecse321.tutor.model.TutoringSession;
+import ca.mcgill.ecse321.tutor.service.RatingService;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -48,13 +38,12 @@ public class RatingServiceTests {
 	private Student student;
 	private Tutor tutor;
 	private TutoringSession tutoringSession;
-	
+
 	private Rating rating = new Rating();
 
 	private static final Integer SUCCESS_KEY = 1;
 	private static final Integer RATING_STARS = 5;
 	private static final String RATING_COMMENT = "Worst ever";
-	private static final Date SESSTION_DATE = Date.valueOf("2019-10-14");
 	private static final String TUTOR_EMAIL = "arthurmorgan@redemption.com";
 	private static final String STUDENT_FIRSTNAME = "Michael";
 	private static final String STUDENT_LASTNAME = "Li";
@@ -77,7 +66,7 @@ public class RatingServiceTests {
 			return ratings;
 		});
 	}
-	
+
 	@Before
 	public void setUpMocks() {
 		student = mock(Student.class);
@@ -91,7 +80,7 @@ public class RatingServiceTests {
 
 	@Test
 	public void testCreateRating() {
-//		assertEquals(0, ratingService.getAllRatings().size());
+		//		assertEquals(0, ratingService.getAllRatings().size());
 
 		try {
 			rating = ratingService.createRating(RATING_STARS, RATING_COMMENT, student, tutor, tutoringSession);
@@ -111,7 +100,7 @@ public class RatingServiceTests {
 
 	@Test
 	public void testCreateRatingNull() {
-//		assertEquals(0, ratingService.getAllRatings().size());
+		//		assertEquals(0, ratingService.getAllRatings().size());
 
 		String error = null;
 
@@ -125,10 +114,10 @@ public class RatingServiceTests {
 		// check error
 		assertEquals("A star rating needs to be specified! A comment needs to be specified! A student needs to be specified! A tutor needs to be specified! A tutoring session needs to be specified!", error);
 	}
-	
+
 	@Test
 	public void testCreateRatingNullStars() {
-//		assertEquals(0, ratingService.getAllRatings().size());
+		//		assertEquals(0, ratingService.getAllRatings().size());
 
 		String error = null;
 
@@ -142,10 +131,10 @@ public class RatingServiceTests {
 		// check error
 		assertEquals("A star rating needs to be specified!", error);
 	}
-	
+
 	@Test
 	public void testCreateRatingNullComment() {
-//		assertEquals(0, ratingService.getAllRatings().size());
+		//		assertEquals(0, ratingService.getAllRatings().size());
 
 		String error = null;
 
@@ -159,10 +148,10 @@ public class RatingServiceTests {
 		// check error
 		assertEquals("A comment needs to be specified!", error);
 	}
-	
+
 	@Test
 	public void testCreateRatingNullStudent() {
-//		assertEquals(0, ratingService.getAllRatings().size());
+		//		assertEquals(0, ratingService.getAllRatings().size());
 
 		String error = null;
 
@@ -176,10 +165,10 @@ public class RatingServiceTests {
 		// check error
 		assertEquals("A student needs to be specified!", error);
 	}
-	
+
 	@Test
 	public void testCreateRatingNullTutor() {
-//		assertEquals(0, ratingService.getAllRatings().size());
+		//		assertEquals(0, ratingService.getAllRatings().size());
 
 		String error = null;
 
@@ -193,10 +182,10 @@ public class RatingServiceTests {
 		// check error
 		assertEquals("A tutor needs to be specified!", error);
 	}
-	
+
 	@Test
 	public void testCreateRatingNullTutoringSession() {
-//		assertEquals(0, ratingService.getAllRatings().size());
+		//		assertEquals(0, ratingService.getAllRatings().size());
 
 		String error = null;
 
@@ -212,8 +201,8 @@ public class RatingServiceTests {
 	}
 
 	@Test
-	public void testCreateRatingEmptyComment() {
-//		assertEquals(0, ratingService.getAllRatings().size());
+	public void testCreateRatingEmpty() {
+		//		assertEquals(0, ratingService.getAllRatings().size());
 
 		String error = null;
 
@@ -229,8 +218,8 @@ public class RatingServiceTests {
 	}
 
 	@Test
-	public void testCreateRatingSpacesComment() {
-//		assertEquals(0, ratingService.getAllRatings().size());
+	public void testCreateRatingSpaces() {
+		//		assertEquals(0, ratingService.getAllRatings().size());
 
 		String error = null;
 
@@ -244,7 +233,7 @@ public class RatingServiceTests {
 		// check error
 		assertEquals("A comment needs to be specified!", error);
 	}
-	
+
 	@Test
 	public void testGetRating(){
 		assertEquals(SUCCESS_KEY, ratingService.getRating(SUCCESS_KEY).getId());

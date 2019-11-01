@@ -56,6 +56,72 @@ public class StudentServiceTests {
 	}
 
 	@Test
+	public void testCreateStudentNullFirstName() {
+		assertEquals(0, studentService.getAllStudents().size());
+
+		String firstName = null;
+		String lastName = "Li";
+		String email = "mlej@live.com";
+		String error = null;
+
+		try {
+			studentService.createStudent(firstName, lastName, email);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A first name needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, studentService.getAllStudents().size());
+	}
+
+	@Test
+	public void testCreateStudentNullLastName() {
+		assertEquals(0, studentService.getAllStudents().size());
+
+		String firstName = "Michael";
+		String lastName = null;
+		String email = "mlej@live.com";
+		String error = null;
+
+		try {
+			studentService.createStudent(firstName, lastName, email);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A last name needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, studentService.getAllStudents().size());
+	}
+
+	@Test
+	public void testCreateStudentNullEmail() {
+		assertEquals(0, studentService.getAllStudents().size());
+
+		String firstName = "Michael";
+		String lastName = "Li";
+		String email = null;
+		String error = null;
+
+		try {
+			studentService.createStudent(firstName, lastName, email);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("An email needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, studentService.getAllStudents().size());
+	}
+
+	@Test
 	public void testCreateStudentNull() {
 		assertEquals(0, studentService.getAllStudents().size());
 

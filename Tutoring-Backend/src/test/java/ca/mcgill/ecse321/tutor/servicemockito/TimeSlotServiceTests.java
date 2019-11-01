@@ -37,7 +37,7 @@ public class TimeSlotServiceTests {
 	private static final Time START_TIME = Time.valueOf("10:35:11");
 	private static final Time END_TIME = Time.valueOf("12:35:11");
 	private static final DayOfTheWeek DAYOFTHEWEEK = DayOfTheWeek.MONDAY;
-	
+
 	@Before
 	public void setMockOutput(){
 		when(timeSlotRepository.findTimeSlotById(anyInt())).thenAnswer( (InvocationOnMock invocation) ->{
@@ -135,6 +135,21 @@ public class TimeSlotServiceTests {
 
 		// check error
 		assertEquals("A day of the week needs to be specified!", error);
+	}
+
+	@Test
+	public void testCreateTimeSlotEndBeforeStart() {
+		String error = null;
+
+		try {
+			timeSlot = timeSlotService.createTimeSlot(END_TIME, START_TIME, null);
+		}
+		catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("The end time cannot be before the start time", error);
 	}
 
 }

@@ -104,7 +104,7 @@ public class RoomServiceTests {
 		// check no change in memory
 		assertEquals(0, roomService.getAllRooms().size());
 	}
-	
+
 	@Test
 	public void testCreateRoomNegativeNumber() {
 		assertEquals(0, roomService.getAllRooms().size());
@@ -126,7 +126,51 @@ public class RoomServiceTests {
 		// check no change in memory
 		assertEquals(0, roomService.getAllRooms().size());
 	}
-	
+
+	@Test
+	public void testCreateRoomNullNumber() {
+		assertEquals(0, roomService.getAllRooms().size());
+
+		Integer number = null;
+		Integer capacity = 25;
+		Manager manager = managerService.createManager();
+		String error = null;
+
+		try {
+			roomService.createRoom(number, capacity , manager);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A room number needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, roomService.getAllRooms().size());
+	}
+
+	@Test
+	public void testCreateRoomNullCapacity() {
+		assertEquals(0, roomService.getAllRooms().size());
+
+		Integer number = 9;
+		Integer capacity = null;
+		Manager manager = managerService.createManager();
+		String error = null;
+
+		try {
+			roomService.createRoom(number, capacity , manager);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A room capacity needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, roomService.getAllRooms().size());
+	}
+
 	@Test
 	public void testCreateRoomNullManager() {
 		assertEquals(0, roomService.getAllRooms().size());

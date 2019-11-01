@@ -1,16 +1,15 @@
 package ca.mcgill.ecse321.tutor.servicemockito;
 
-import ca.mcgill.ecse321.tutor.dao.NotificationRepository;
-import ca.mcgill.ecse321.tutor.service.NotificationService;
-import ca.mcgill.ecse321.tutor.model.Booking;
-import ca.mcgill.ecse321.tutor.model.Course;
-import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
-import ca.mcgill.ecse321.tutor.model.Level;
-import ca.mcgill.ecse321.tutor.model.Manager;
-import ca.mcgill.ecse321.tutor.model.Notification;
-import ca.mcgill.ecse321.tutor.model.Student;
-import ca.mcgill.ecse321.tutor.model.TimeSlot;
-import ca.mcgill.ecse321.tutor.model.Tutor;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,18 +19,12 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import ca.mcgill.ecse321.tutor.dao.NotificationRepository;
+import ca.mcgill.ecse321.tutor.model.Booking;
+import ca.mcgill.ecse321.tutor.model.Notification;
+import ca.mcgill.ecse321.tutor.model.Student;
+import ca.mcgill.ecse321.tutor.model.Tutor;
+import ca.mcgill.ecse321.tutor.service.NotificationService;
 
 
 @RunWith(MockitoJUnitRunner.class)

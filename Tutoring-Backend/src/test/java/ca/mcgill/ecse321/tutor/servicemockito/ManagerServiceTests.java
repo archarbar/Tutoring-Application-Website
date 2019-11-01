@@ -56,5 +56,14 @@ public class ManagerServiceTests {
         assertEquals(SUCCESS_KEY, managerService.getManager(SUCCESS_KEY).getId());
         assertEquals(SUCCESS_KEY, managerService.getAllManagers().get(0).getId());
     }
+    
+    @Test
+    public void testCreateManager() {
+		try {
+			manager = managerService.createManager();
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+    }
 
 }

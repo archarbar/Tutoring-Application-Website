@@ -27,7 +27,7 @@ import ca.mcgill.ecse321.tutor.service.TutorService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TutorServiceTests {
-	
+
 	@Mock
 	private TutorRepository tutorRepository;
 
@@ -106,6 +106,34 @@ public class TutorServiceTests {
 
 		try {
 			tutor = tutorService.createTutor(null, null, null, null, null);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A first name needs to be specified! A last name needs to be specified! An email needs to be specified! A password needs to be specified! A manager needs to be specified!", error);
+	}
+
+	@Test
+	public void testCreateTutorEmpty() {
+		String error = null;
+
+		try {
+			tutor = tutorService.createTutor("", "", "", "", manager);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A first name needs to be specified! A last name needs to be specified! An email needs to be specified! A password needs to be specified! A manager needs to be specified!", error);
+	}
+
+	@Test
+	public void testCreateTutorWhiteSpace() {
+		String error = null;
+
+		try {
+			tutor = tutorService.createTutor(" ", " ", " ", " ", manager);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
