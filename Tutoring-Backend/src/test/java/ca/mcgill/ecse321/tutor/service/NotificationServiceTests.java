@@ -21,17 +21,13 @@ import ca.mcgill.ecse321.tutor.dao.BookingRepository;
 import ca.mcgill.ecse321.tutor.dao.CourseRepository;
 import ca.mcgill.ecse321.tutor.dao.ManagerRepository;
 import ca.mcgill.ecse321.tutor.dao.NotificationRepository;
-import ca.mcgill.ecse321.tutor.dao.RatingRepository;
-import ca.mcgill.ecse321.tutor.dao.RoomRepository;
 import ca.mcgill.ecse321.tutor.dao.StudentRepository;
 import ca.mcgill.ecse321.tutor.dao.TimeSlotRepository;
 import ca.mcgill.ecse321.tutor.dao.TutorRepository;
-import ca.mcgill.ecse321.tutor.dao.TutoringSessionRepository;
 import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Course;
 import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
 import ca.mcgill.ecse321.tutor.model.Level;
-import ca.mcgill.ecse321.tutor.model.Manager;
 import ca.mcgill.ecse321.tutor.model.Notification;
 import ca.mcgill.ecse321.tutor.model.Student;
 import ca.mcgill.ecse321.tutor.model.TimeSlot;
@@ -60,8 +56,6 @@ public class NotificationServiceTests {
 	private TutorService tutorService;
 	@Autowired
 	private StudentService studentService;
-	@Autowired
-	private ManagerService managerService;
 	@Autowired
 	private BookingService bookingService;
 	@Autowired
@@ -141,7 +135,62 @@ public class NotificationServiceTests {
 		assertEquals("A booking needs to be specified! A tutor needs to be specified!", error);
 
 		// check no change in memory
-		assertEquals(0, courseService.getAllCourses().size());
+		assertEquals(0, notificationService.getAllNotifications().size());
+	}
+
+	@Test
+	public void testCreateNotificationNullBooking() {
+		assertEquals(0, notificationService.getAllNotifications().size());
+
+		Booking booking = null;
+		String tutorFirstName = "Marcus";
+		String tutorLastName = "Fenix";
+		String tutorEmail = "marcusfenix@gears.com";
+		String password = "locust";
+		Tutor tutor = tutorService.createTutor(tutorFirstName, tutorLastName, tutorEmail, password);
+		String error = null;
+
+		try {
+			notificationService.createNotification(booking, tutor);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A booking needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, notificationService.getAllNotifications().size());
+	}
+
+	@Test
+	public void testCreateNotificationNullTutor() {
+		assertEquals(0, notificationService.getAllNotifications().size());
+
+		String tutorEmail = "marcusfenix@gears.com";
+		Course course = courseService.createCourse("test", Level.CEGEP);
+		String firstName = "Michael";
+		String lastName = "Li";
+		String email = "mlej@live.com";
+		Student student = studentService.createStudent(firstName, lastName, email);
+		Set<Student> studentSet = new HashSet<Student>();
+		studentSet.add(student);
+		TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
+		Booking booking = bookingService.createBooking(tutorEmail, studentSet, Date.valueOf("2019-10-10"), timeSlot, course);
+		Tutor tutor = null;
+		String error = null;
+
+		try {
+			notificationService.createNotification(booking, tutor);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A tutor needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, notificationService.getAllNotifications().size());
 	}
 
 }

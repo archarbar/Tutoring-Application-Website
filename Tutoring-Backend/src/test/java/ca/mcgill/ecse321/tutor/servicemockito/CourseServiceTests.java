@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
@@ -31,16 +32,16 @@ public class CourseServiceTests {
 
     private Course course = new Course();
 
-    private static final Level LEVEL_KEY = Level.UNIVERSITY;
-    private static final String COURSENAME_KEY = "CourseTestName";
+    private static final Level COURSE_LEVEL = Level.UNIVERSITY;
     private static final Integer COURSE_KEY = 1;
-
+    private static final String COURSE_NAME = "English";
+    
     @Before
     public void setMockOutput(){
         when(courseRepository.findCourseByCourseLevel(any())).thenAnswer( (InvocationOnMock invocation) ->{
-            if (invocation.getArgument(0).equals(LEVEL_KEY)){
+            if (invocation.getArgument(0).equals(COURSE_LEVEL)){
                 List<Course> courses = new ArrayList<>();
-                course.setCourseLevel(LEVEL_KEY);
+                course.setCourseLevel(COURSE_LEVEL);
                 courses.add(course);
                 return courses;
             } else {
@@ -48,8 +49,8 @@ public class CourseServiceTests {
             }
         });
         when(courseRepository.findCourseByCourseName(anyString())).thenAnswer( (InvocationOnMock invocation) ->{
-            if (invocation.getArgument(0).equals(COURSENAME_KEY)){
-                course.setCourseName(COURSENAME_KEY);
+            if (invocation.getArgument(0).equals(COURSE_NAME)){
+                course.setCourseName(COURSE_NAME);
                 return course;
             } else {
                 return null;
@@ -70,11 +71,101 @@ public class CourseServiceTests {
             return courses;
         });
     }
+    
+	@Test
+	public void testCreateCourse() { // test constructor method
+//		assertEquals(0, courseService.getAllCourses().size());
+
+		try {
+			course = courseService.createCourse(COURSE_NAME, COURSE_LEVEL);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+
+		assertEquals("English", course.getCourseName());
+		assertEquals(Level.UNIVERSITY, course.getCourseLevel());
+	}
+
+	@Test
+	public void testCreateCourseNull() {
+//		assertEquals(0, courseService.getAllCourses().size());
+		String error = null;
+		
+		try {
+			courseService.createCourse(null, null);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A course name needs to be specified! An education level needs to be specified!", error);
+	}
+	
+	@Test
+	public void testCreateCourseNullName() {
+//		assertEquals(0, courseService.getAllCourses().size());
+		String error = null;
+		
+		try {
+			courseService.createCourse(null, COURSE_LEVEL);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A course name needs to be specified!", error);
+	}
+	
+	@Test
+	public void testCreateCourseNullLevel() {
+//		assertEquals(0, courseService.getAllCourses().size());
+		String error = null;
+		
+		try {
+			courseService.createCourse(COURSE_NAME, null);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("An education level needs to be specified!", error);
+	}
+
+	@Test
+	public void testCreateCourseEmpty() {
+//		assertEquals(0, courseService.getAllCourses().size());
+		String error = null;
+
+		try {
+			courseService.createCourse("", COURSE_LEVEL);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A course name needs to be specified!", error);
+	}
+
+	@Test
+	public void testCreateCourseSpaces() {
+//		assertEquals(0, courseService.getAllCourses().size());
+
+		String error = null;
+
+		try {
+			courseService.createCourse("   ", COURSE_LEVEL);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A course name needs to be specified!", error);
+	}
 
     @Test
     public void testGetCourse(){
-        assertEquals(LEVEL_KEY, courseService.getCourseByCourseLevel(LEVEL_KEY).get(0).getCourseLevel());
-        assertEquals(COURSENAME_KEY, courseService.getCourseByCourseName(COURSENAME_KEY).getCourseName());
+        assertEquals(COURSE_LEVEL, courseService.getCourseByCourseLevel(COURSE_LEVEL).get(0).getCourseLevel());
+        assertEquals(COURSE_NAME, courseService.getCourseByCourseName(COURSE_NAME).getCourseName());
         assertEquals(COURSE_KEY, courseService.getCourseById(COURSE_KEY).getId());
         assertEquals(COURSE_KEY, courseService.getAllCourses().get(0).getId());
     }

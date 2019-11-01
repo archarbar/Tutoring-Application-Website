@@ -14,41 +14,41 @@ import java.util.List;
 @RestController
 public class TutoringSessionController {
 
-    @Autowired
-    private TutoringSessionService service;
-    
-    @Autowired
-    private BookingRepository bookingRepository;
+	@Autowired
+	private TutoringSessionService service;
 
-    @PostMapping("/tutoringSession/new")
-    public TutoringSessionDto createTutoringSession(
-    												@RequestParam("bookingId") String bookingId,
-    												@RequestParam("booking2") Booking booking2,
-    												@RequestParam("room") Room room, 
-    												@RequestParam("tutor") Tutor tutor){
-        Booking booking = bookingRepository.findBookingById(Integer.parseInt(bookingId));
-    	TutoringSession tutoringSession = service.createTutoringSession(booking.getSpecificDate(),
-                tutor, room, booking, booking.getTimeSlot());
-        return convertToDto(tutoringSession);
-    }
+	@Autowired
+	private BookingRepository bookingRepository;
 
-    @GetMapping("/tutoringSession/{tutoringSessionId}")
-    public TutoringSessionDto getTutoringSessionById(@PathVariable int tutoringSessionId) {
-        return convertToDto(service.getTutoringSessionById(tutoringSessionId));
-    }
+	@PostMapping("/tutoringSession/new")
+	public TutoringSessionDto createTutoringSession(
+			@RequestParam("bookingId") String bookingId,
+			@RequestParam("booking2") Booking booking2,
+			@RequestParam("room") Room room, 
+			@RequestParam("tutor") Tutor tutor){
+		Booking booking = bookingRepository.findBookingById(Integer.parseInt(bookingId));
+		TutoringSession tutoringSession = service.createTutoringSession(booking.getSpecificDate(),
+				tutor, room, booking, booking.getTimeSlot());
+		return convertToDto(tutoringSession);
+	}
 
-    @GetMapping("/tutoringSession/tutor/{tutor}")
-    public List<TutoringSessionDto> getTutoringSessionByTutor(@PathVariable Tutor tutor) {
-        List<TutoringSessionDto> tutoringSessionDtos = new ArrayList<>();
-        for (TutoringSession tutoringSession : service.getTutoringSessionByTutor(tutor)) {
-            tutoringSessionDtos.add(convertToDto(tutoringSession));
-        }
-        return tutoringSessionDtos;
-    }
+	@GetMapping("/tutoringSession/{tutoringSessionId}")
+	public TutoringSessionDto getTutoringSessionById(@PathVariable int tutoringSessionId) {
+		return convertToDto(service.getTutoringSessionById(tutoringSessionId));
+	}
 
-    private TutoringSessionDto convertToDto(TutoringSession tutoringSession) {
-        if (tutoringSession == null) throw new IllegalArgumentException("This tutoringSession does not exist!");
-        return new TutoringSessionDto(tutoringSession.getSessionDate(), tutoringSession.getTutor(), tutoringSession.getRoom(),
-                tutoringSession.getTimeSlot(), tutoringSession.getBooking(), tutoringSession.getId());
-    }
+	@GetMapping("/tutoringSession/tutor/{tutor}")
+	public List<TutoringSessionDto> getTutoringSessionByTutor(@PathVariable Tutor tutor) {
+		List<TutoringSessionDto> tutoringSessionDtos = new ArrayList<>();
+		for (TutoringSession tutoringSession : service.getTutoringSessionByTutor(tutor)) {
+			tutoringSessionDtos.add(convertToDto(tutoringSession));
+		}
+		return tutoringSessionDtos;
+	}
+
+	private TutoringSessionDto convertToDto(TutoringSession tutoringSession) {
+		if (tutoringSession == null) throw new IllegalArgumentException("This tutoringSession does not exist!");
+		return new TutoringSessionDto(tutoringSession.getSessionDate(), tutoringSession.getTutor(), tutoringSession.getRoom(),
+				tutoringSession.getTimeSlot(), tutoringSession.getBooking(), tutoringSession.getId());
+	}
 }

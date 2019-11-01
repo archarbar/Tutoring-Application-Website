@@ -1,8 +1,16 @@
 package ca.mcgill.ecse321.tutor.servicemockito;
 
-import ca.mcgill.ecse321.tutor.dao.NotificationRepository;
-import ca.mcgill.ecse321.tutor.service.NotificationService;
-import ca.mcgill.ecse321.tutor.model.Notification;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,12 +19,12 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
+import ca.mcgill.ecse321.tutor.dao.NotificationRepository;
+import ca.mcgill.ecse321.tutor.model.Booking;
+import ca.mcgill.ecse321.tutor.model.Notification;
+import ca.mcgill.ecse321.tutor.model.Student;
+import ca.mcgill.ecse321.tutor.model.Tutor;
+import ca.mcgill.ecse321.tutor.service.NotificationService;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -28,9 +36,19 @@ public class NotificationServiceTests {
     @InjectMocks
     private NotificationService notificationService;
 
+	private Student student;
+	private Booking booking;
+	private Tutor tutor;
+	private Set<Student> studentSet = new HashSet<Student>();
+	
     private Notification notification = new Notification();
 
     private static final Integer SUCCESS_KEY = 1;
+    private static final String TUTOR_EMAIL = "marcusfenix@gears.com";
+    private static final String TUTOR_FIRSTNAME = "Marcus";
+    private static final String TUTOR_LASTNAME = "Fenix";
+    private static final String TUTOR_PASSWORD = "locust";
+
 
     @Before
     public void setMockOutput(){
@@ -49,7 +67,85 @@ public class NotificationServiceTests {
             return notifications;
         });
     }
+    
+	@Before
+	public void setUpMocks() {
+		student = mock(Student.class);
+		studentSet.add(student);
+		booking = mock(Booking.class);
+		booking.setStudent(studentSet);
+		tutor = mock(Tutor.class);
+		tutor.setFirstName(TUTOR_FIRSTNAME);
+		tutor.setLastName(TUTOR_LASTNAME);
+		tutor.setPassword(TUTOR_PASSWORD);
+		tutor.setEmail(TUTOR_EMAIL);
+	}
 
+	@Test
+	public void testCreateNotification() { // test constructor method
+//		assertEquals(0, notificationService.getAllNotifications().size());
+
+		try {
+			notification = notificationService.createNotification(booking, tutor);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+
+		assertEquals(booking.getId(), notification.getBooking().getId());
+		assertEquals(tutor.getId(), notification.getTutor().getId());
+		assertEquals(tutor.getFirstName(), notification.getTutor().getFirstName());
+		assertEquals(tutor.getPassword(), notification.getTutor().getPassword());
+		assertEquals(booking.getStudent(), notification.getBooking().getStudent());
+	}
+
+	@Test
+	public void testCreateNotificationNull() {
+//		assertEquals(0, notificationService.getAllNotifications().size());
+
+		String error = null;
+
+		try {
+			notificationService.createNotification(null, null);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A booking needs to be specified! A tutor needs to be specified!", error);
+	}
+	
+	@Test
+	public void testCreateNotificationNullBooking() {
+//		assertEquals(0, notificationService.getAllNotifications().size());
+
+		String error = null;
+
+		try {
+			notificationService.createNotification(null, tutor);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A booking needs to be specified!", error);
+	}
+	
+	@Test
+	public void testCreateNotificationNullTutor() {
+//		assertEquals(0, notificationService.getAllNotifications().size());
+
+		String error = null;
+
+		try {
+			notificationService.createNotification(booking, null);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A tutor needs to be specified!", error);
+	}
+    
     @Test
     public void testGetNotification(){
         assertEquals(SUCCESS_KEY, notificationService.getNotification(SUCCESS_KEY).getId());
