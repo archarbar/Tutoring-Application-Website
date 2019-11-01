@@ -23,9 +23,6 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import ca.mcgill.ecse321.tutor.dao.BookingRepository;
-import ca.mcgill.ecse321.tutor.dao.CourseRepository;
-import ca.mcgill.ecse321.tutor.dao.StudentRepository;
-import ca.mcgill.ecse321.tutor.dao.TimeSlotRepository;
 import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Course;
 import ca.mcgill.ecse321.tutor.model.Student;

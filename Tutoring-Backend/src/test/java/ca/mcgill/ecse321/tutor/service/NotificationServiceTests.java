@@ -28,7 +28,6 @@ import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Course;
 import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
 import ca.mcgill.ecse321.tutor.model.Level;
-import ca.mcgill.ecse321.tutor.model.Manager;
 import ca.mcgill.ecse321.tutor.model.Notification;
 import ca.mcgill.ecse321.tutor.model.Student;
 import ca.mcgill.ecse321.tutor.model.TimeSlot;
@@ -57,8 +56,6 @@ public class NotificationServiceTests {
 	private TutorService tutorService;
 	@Autowired
 	private StudentService studentService;
-	@Autowired
-	private ManagerService managerService;
 	@Autowired
 	private BookingService bookingService;
 	@Autowired
@@ -150,7 +147,6 @@ public class NotificationServiceTests {
 		String tutorLastName = "Fenix";
 		String tutorEmail = "marcusfenix@gears.com";
 		String password = "locust";
-		Manager manager = managerService.createManager();
 		Tutor tutor = tutorService.createTutor(tutorFirstName, tutorLastName, tutorEmail, password);
 		String error = null;
 

@@ -16,7 +16,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import ca.mcgill.ecse321.tutor.dao.BookingRepository;
 import ca.mcgill.ecse321.tutor.dao.ManagerRepository;
 import ca.mcgill.ecse321.tutor.dao.TutorRepository;
-import ca.mcgill.ecse321.tutor.model.Manager;
 import ca.mcgill.ecse321.tutor.model.Tutor;
 
 
@@ -31,8 +30,6 @@ public class TutorServiceTests {
 	@Autowired
 	private ManagerRepository managerRepository;
 
-	@Autowired
-	private ManagerService managerService;
 	@Autowired
 	private TutorService tutorService;
 
@@ -51,7 +48,6 @@ public class TutorServiceTests {
 		String lastName = "Fenix";
 		String email = "marcusfenix@gears.com";
 		String password = "locust";
-		Manager manager = managerService.createManager();
 		try {
 			tutorService.createTutor(firstName, lastName, email, password);
 		} catch (IllegalArgumentException e) {
@@ -71,7 +67,6 @@ public class TutorServiceTests {
 		String lastName = "Fenix";
 		String email = "marcusfenix@gears.com";
 		String password = "locust";
-		Manager manager = managerService.createManager();
 		try {
 			tutorService.createTutor(firstName, lastName, email, password);
 		} catch (IllegalArgumentException e) {
@@ -136,7 +131,6 @@ public class TutorServiceTests {
 		String lastName = "Fenix";
 		String email = "marcusfenix@gears.com";
 		String password = "locust";
-		Manager manager = managerService.createManager();
 		String error = null;
 
 		try {
@@ -160,7 +154,6 @@ public class TutorServiceTests {
 		String lastName = null;
 		String email = "marcusfenix@gears.com";
 		String password = "locust";
-		Manager manager = managerService.createManager();
 		String error = null;
 
 		try {
@@ -184,7 +177,6 @@ public class TutorServiceTests {
 		String lastName = "Fenix";
 		String email = null;
 		String password = "locust";
-		Manager manager = managerService.createManager();
 		String error = null;
 
 		try {
@@ -208,7 +200,6 @@ public class TutorServiceTests {
 		String lastName = "Fenix";
 		String email = "marcusfenix@gears.com";
 		String password = null;
-		Manager manager = managerService.createManager();
 		String error = null;
 
 		try {
@@ -257,7 +248,6 @@ public class TutorServiceTests {
 			String email = "marcusfenix@gears.com";
 			String password = "locust";
 			String newEmail = "jdfenix@gears.com";
-			Manager manager = managerService.createManager();
 			Tutor t = tutorService.createTutor(firstName, lastName, email, password);
 			try {
 				t.setEmail(newEmail);
@@ -277,7 +267,6 @@ public class TutorServiceTests {
 			String email = "marcusfenix@gears.com";
 			String password = "locust";
 			String newFirstName = "Sixnine";
-			Manager manager = managerService.createManager();
 			Tutor t = tutorService.createTutor(firstName, lastName, email, password);
 			try {
 				t.setFirstName(newFirstName);
@@ -298,7 +287,6 @@ public class TutorServiceTests {
 			String lastName = "Fenix";
 			String email = "marcusfenix@gears.com";
 			String password = "locust";
-			Manager manager = managerService.createManager();
 			Tutor tutor = tutorService.createTutor(firstName, lastName, email, password);
 			List<Tutor> allTutors = null;
 			try {

@@ -224,7 +224,6 @@ public class TutoringSessionServiceTests {
 		assertEquals(0, tutoringSessionService.getAllTutoringSessions().size());
 
 		Date sessionDate = Date.valueOf("2019-10-14");
-		Manager manager = managerService.createManager();
 		Room room = null;
 		TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
 		String password = "locust";

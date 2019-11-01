@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -19,7 +18,6 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import ca.mcgill.ecse321.tutor.dao.TutorRepository;
-import ca.mcgill.ecse321.tutor.model.Manager;
 import ca.mcgill.ecse321.tutor.model.Tutor;
 import ca.mcgill.ecse321.tutor.service.ManagerService;
 import ca.mcgill.ecse321.tutor.service.TutorService;
@@ -35,8 +33,6 @@ public class TutorServiceTests {
 	private TutorService tutorService;
 	@InjectMocks
 	private ManagerService managerService;
-
-	private Manager manager;
 
 	private Tutor tutor = new Tutor();
 
@@ -70,11 +66,6 @@ public class TutorServiceTests {
 			tutors.add(tutor);
 			return tutors;
 		});
-	}
-
-	@Before
-	public  void setMock(){
-		manager = mock(Manager.class);
 	}
 
 	@Test
@@ -119,7 +110,7 @@ public class TutorServiceTests {
 		String error = null;
 
 		try {
-			tutor = tutorService.createTutor("", "", "", "",);
+			tutor = tutorService.createTutor("", "", "", "");
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}

@@ -318,7 +318,6 @@ public class RatingServiceTests {
 
 		Integer stars = 5;
 		String comment = "Great!!!";
-		Manager manager = managerService.createManager();
 		String password = "locust";
 		String tutorEmail = "arthurmorgan@redemption.com";
 		String firstName = "Michael";
