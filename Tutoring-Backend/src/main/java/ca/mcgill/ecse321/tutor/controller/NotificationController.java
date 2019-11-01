@@ -38,8 +38,8 @@ public class NotificationController {
         return convertToDto(service.getNotification(Integer.parseInt(notificationId)));
     }
 
-    @GetMapping(value= {"/notifications/tutor", "/notifications/tutor/"})
-    public List<NotificationDto> getNotificationByTutor(@RequestParam("tutorId") String tutorId) {
+    @GetMapping(value= {"/notifications/tutor/{tutorId}"})
+    public List<NotificationDto> getNotificationByTutor(@PathVariable("tutorId") String tutorId) {
     	List<NotificationDto> notificationDtos = new ArrayList<>();  	
     	for (Notification notification: service.getAllNotifications()) {
     		if (notification.getTutor().getId().equals(Integer.parseInt(tutorId))) {

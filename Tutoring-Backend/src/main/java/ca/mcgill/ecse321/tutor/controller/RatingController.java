@@ -29,26 +29,36 @@ public class RatingController {
     @Autowired
     private StudentService studentService;
 
-    @PostMapping("/rating/new")
+    @PostMapping(value= {"/rating/new", "/rating/new/"})
     public RatingDto createRating (@RequestParam("stars") String stars,
                                    @RequestParam("comment") String comment,
-                                   @RequestParam("student") String studentId,
+                                   @RequestParam("studentId") String studentId,
                                    @RequestParam("tutoringSessionId") String tutoringSessionId) throws IllegalArgumentException {
     	Student student = studentService.getStudentById(Integer.parseInt(studentId));
     	TutoringSession tutoringSession = tutoringSessionService.getTutoringSessionById(Integer.parseInt(tutoringSessionId));
         Rating newRating = service.createRating(Integer.parseInt(stars), comment, student,
                 tutoringSession.getTutor(), tutoringSession);
-        return convertToDto(newRating);
+    	return convertToDto(newRating);
     }
 
     @GetMapping("/rating/{ratingId}")
     public RatingDto getRatingById(@PathVariable String ratingId) {
         return convertToDto(service.getRating(Integer.parseInt(ratingId)));
     }
+    
+    @GetMapping(value= {"/ratings", "/ratings/"})
+    public List<RatingDto> getRatings() {
+    	List<RatingDto> ratings = new ArrayList<RatingDto>();
+        for (Rating rating: service.getAllRatings()) {
+        	ratings.add(convertToDto(rating));
+        }
+        return ratings;
+    }
 
-    @GetMapping("/rating/student{student}Ratings")
-    public List<RatingDto> getAllRatingsForStudent(@PathVariable Student student) {
+    @GetMapping("/rating/student/{studentId}")
+    public List<RatingDto> getAllRatingsForStudent(@PathVariable("studentId") String studentId) {
         List<RatingDto> ratings = new ArrayList<>();
+        Student student = studentService.getStudentById(Integer.parseInt(studentId));
         for (Rating rating : service.getAllRatings()) {
             if (rating.getStudent().getId() == student.getId())
                 ratings.add(convertToDto(rating));

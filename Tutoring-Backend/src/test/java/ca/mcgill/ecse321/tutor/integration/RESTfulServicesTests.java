@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.tutor.integration;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.testng.Assert.assertEquals;
 
 import java.sql.Date;
@@ -21,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.util.LinkedMultiValueMap;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -197,19 +197,19 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 	}
 	
 
-//	@AfterClass
-//	public void tearDown() {
-//		ratingRepository.deleteAll();
-//		tutoringSessionRepository.deleteAll();
-//		notificationRepository.deleteAll();
-//		roomRepository.deleteAll();
-//		bookingRepository.deleteAll();
-//		tutorRepository.deleteAll();
-//		managerRepository.deleteAll();
-//		studentRepository.deleteAll();
-//		courseRepository.deleteAll();
-//		timeSlotRepository.deleteAll();
-//	}
+	@AfterClass
+	public void tearDown() {
+		ratingRepository.deleteAll();
+		tutoringSessionRepository.deleteAll();
+		notificationRepository.deleteAll();
+		roomRepository.deleteAll();
+		bookingRepository.deleteAll();
+		tutorRepository.deleteAll();
+		managerRepository.deleteAll();
+		studentRepository.deleteAll();
+		courseRepository.deleteAll();
+		timeSlotRepository.deleteAll();
+	}
 
 	/**
 	 * Preparing to test all RESTful services for services that modify data. 
@@ -252,21 +252,21 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 		assertEquals(response.getStatusCode(), HttpStatus.OK);
 			}
 	
-//	@Test(priority=3, groups="Notification", dependsOnMethods="testCreateNotification")
-//	public void testGetNotificationByTutor() {
-//		int tutorId = tutor.getId();
-//		LinkedMultiValueMap<String, Integer> params = new LinkedMultiValueMap<>();
-//		params.add("tutorId", tutorId);
-//		HttpEntity<LinkedMultiValueMap<String, Integer>> entity = new HttpEntity<LinkedMultiValueMap<String, Integer>>(params, headers);
-//		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/notifications/tutor/" + tutorId), HttpMethod.GET, entity, String.class);
-//
-//		// Verify response is not null 
-//		assertNotNull(response);
-//		
-//		// Assure successful connection 
-//		assertEquals(response.getStatusCode(), HttpStatus.OK);	
-//		
-//	}
+	@Test(priority=3, groups="Notification", dependsOnMethods="testCreateNotification")
+	public void testGetNotificationByTutor() {
+		String tutorId = tutor.getId().toString();
+		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
+		params.add("tutorId", tutorId);
+		HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(params, headers);
+		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/notifications/tutor/" + tutorId), HttpMethod.GET, entity, String.class);
+
+		// Verify response is not null 
+		assertNotNull(response);
+		
+		// Assure successful connection 
+		assertEquals(response.getStatusCode(), HttpStatus.OK);	
+		
+	}
 	
 	@Test(priority=4, groups="TimeSlot")
 	public void testCreateTimeSlot() {		
@@ -343,8 +343,7 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 		params.add("bookingId", booking.getId());
 		params.add("roomId", room.getId());
 		params.add("tutorId", tutorService.getAllTutors().get(0).getId());
-		System.out.println(booking.getId() + room.getId() + tutorService.getAllTutors().get(0).getId());;
-				HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(
+		HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(
 				params, headers); 
 		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/tutoringsession/new"),
 				HttpMethod.POST, entity, String.class);
@@ -358,7 +357,9 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 	
 	@Test(priority=9, dependsOnMethods = "testCreateTutoringSession")
 	public void testGetTutoringSessionById() {
-		int tutoringSessionId = tutoringSessionService.getAllTutoringSessions().get(0).getId();
+		tutoringSession = tutoringSessionService.getAllTutoringSessions().get(0);
+		int tutoringSessionId = tutoringSession.getId();
+		
 		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
 		params.add("tutoringSessionId", tutoringSessionId);
 		HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(params, headers); // HttpEntity<T> is a helper object which encapsulates header and body of an HTTP request or response.
@@ -371,57 +372,57 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 		assertEquals(response.getStatusCode(), HttpStatus.OK);
 	}
 	
-//	@Test(priority=10, groups="Rating")
-//	public void testCreateRating() {
-//		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
-//		String stars = "5";
-//		String comment = "He was really attentive to my instructions";
-//		int studentId = student.getId();
-//		int tutoringSessionId = tutoringSessionService.getAllTutoringSessions().get(0).getId();
-//		params.add("stars", stars);
-//		params.add("comment", comment);
-//		params.add("studentId", studentId);
-//		params.add("tutoringSessionId", tutoringSessionId);
-//	HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(
-//			params, headers); 
-//	ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/rating/new"),
-//			HttpMethod.POST, entity, String.class);
-//
-//	// Make sure response code is 200
-//	assertEquals(response.getStatusCodeValue(), 200);
-//
-//	// Verify response is not null
-//	assertNotNull(response);
-//	
-//	}
-//	
-//	@Test(priority=11, groups="Rating", dependsOnMethods="testCreateRating")
-//	public void testGetRating() {
-//		int ratingId = ratingService.getAllRatings().get(0).getId();
-//		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
-//		params.add("ratingId", ratingId);
-//	HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(
-//			params, headers); 
-//	ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/rating/" + ratingId),
-//			HttpMethod.GET, entity, String.class);
-//
-//	// Make sure response code is 200
-//	assertEquals(response.getStatusCodeValue(), 200);
-//
-//	// Verify response is not null
-//	assertNotNull(response);
-//	
-//	}
+	@Test(priority=10, groups="Rating")
+	public void testCreateRating() {
+		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
+		String stars = "5";
+		String comment = "He";
+		String studentId = student.getId().toString();
+		String tutoringSessionId = tutoringSession.getId().toString();
+		params.add("stars", stars);
+		params.add("comment", comment);
+		params.add("studentId", studentId);
+		params.add("tutoringSessionId", tutoringSessionId);
+	HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(
+			params, headers); 
+	ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/rating/new"), HttpMethod.POST, entity, String.class);
+
+	// Make sure response code is 200
+	assertEquals(response.getStatusCodeValue(), 200);
+
+	// Verify response is not null
+	assertNotNull(response);
+	
+	}
+	
+	@Test(priority=11, groups="Rating", dependsOnMethods="testCreateRating")
+	public void testGetRating() {
+		int ratingId = ratingService.getAllRatings().get(0).getId();
+		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
+		params.add("ratingId", ratingId);
+	HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(
+			params, headers); 
+	ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/rating/" + ratingId),
+			HttpMethod.GET, entity, String.class);
+
+	// Make sure response code is 200
+	assertEquals(response.getStatusCodeValue(), 200);
+
+	// Verify response is not null
+	assertNotNull(response);
+	
+	}
 	
 	/* <------ Queries ------> */
+	// Fix Database problem with PersistenceSet to Student
 //	@Test(priority=11, groups="Queries")
-//	public void testGetBookingById() {
-//		String bookingId = booking2.getId().toString();
+//	public void testGetBookingByDate() {
+//		String bookingDate = booking2.getSpecificDate().toString();
 //		// Due to domain model design, a booking and a tutor has be created in the database in order to perform tests on notification.
 //		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
-//		params.add("bookingId", bookingId);
+//		params.add("date", bookingDate);
 //		HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(params, headers); // HttpEntity<T> is a helper object which encapsulates header and body of an HTTP request or response.
-//		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/bookings/"+bookingId), HttpMethod.GET, entity, String.class);
+//		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/bookings/date/"+bookingDate), HttpMethod.GET, entity, String.class);
 //						
 //		// Make sure response code is 200
 //		assertEquals(response.getStatusCodeValue(),200);
@@ -523,11 +524,7 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 		assertEquals(notificationService.getNotificationsByTutor(tutor).size() - numberOfTutorNotifications, 1);
 	}
 
-
 	private String constructURLWithLocalPort(String URI) {
 		return "http://localhost:" + port + URI;
-	}
-
-	
-	
+	}	
 }
