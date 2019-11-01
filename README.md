@@ -28,7 +28,7 @@ The objective of this project is to design a software solution for a new tutorin
 |  Team members   |	     Responsibility     | Hours|
 |-----------------|-------------------------|------|
 |    Michael Li   | RESTful testing, Integration testing  | 25 |
-|    Tony Ou      | Unit testing | 25 |
+|    Tony Ou      | Unit testing, Mockito Unit Testing | 25 |
 | Patrick Tweddell| RESTful services, Mockito Unit Testing  | 25 |
 |  William Zhang  | Controller RESTful testing, Integration testing | 30 |
 |  Victor Zhong   | Unit testing, Mockito Unit Testing, QA Plan and Report | 30 |
