@@ -34,12 +34,22 @@ public class BookingController {
     @GetMapping(value = "/bookings/{bookingId}")
     public BookingDto getBookingById(@PathVariable("bookingId") String bookingId) {
         return convertToDto(service.getBookingById(Integer.parseInt(bookingId)));
+    }    
+
+    @GetMapping(value = {"/bookings", "/bookings/"})
+    public List<BookingDto> getAllBookings() {
+    	List<BookingDto> bDtos = new ArrayList<BookingDto>();
+    	for(Booking booking: service.getAllBookings()) {
+    		bDtos.add(convertToDto(booking));
+    	}
+    	return bDtos;
     }
 
-    @GetMapping("/bookings/bydate/{date}")
-    public List<BookingDto> getBookingByDate(@PathVariable("date") Date date) {
+    @GetMapping("/bookings/date/{date}")
+    public List<BookingDto> getBookingByDate(@PathVariable("date") String date) {
+    	Date specificDate = Date.valueOf(date);
         List<BookingDto> bookingsByDate = new ArrayList<>();
-        for (Booking booking : service.getBookingBySpecificDate(date)) {
+        for (Booking booking : service.getBookingBySpecificDate(specificDate)) {
             bookingsByDate.add(convertToDto(booking));
         }
         return bookingsByDate;
