@@ -55,8 +55,7 @@ task integrationTests(type: Test) {
 	// we define a task with name 'integrationTests'
    useTestNG() {
        useDefaultListeners = true
-       suites 'src/test/java/testng.xml'
-       includeGroups 'Test preparation' 
+       suites 'src/test/resources/testng.xml'
    }
 }
 

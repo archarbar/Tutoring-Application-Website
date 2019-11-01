@@ -57,12 +57,22 @@ public class TutoringSessionController {
     }
 
     @GetMapping("/tutoringsessions/tutor/{tutor}")
-    public List<TutoringSessionDto> getTutoringSessionByTutor(@PathVariable Tutor tutor) {
+    public List<TutoringSessionDto> getTutoringSessionByTutor(@PathVariable String tutorId) {
+    	Tutor tutor = tutorService.getTutor(Integer.parseInt(tutorId));
         List<TutoringSessionDto> tutoringSessionDtos = new ArrayList<>();
         for (TutoringSession tutoringSession : service.getTutoringSessionByTutor(tutor)) {
             tutoringSessionDtos.add(convertToDto(tutoringSession));
         }
         return tutoringSessionDtos;
+    }
+    
+    @GetMapping(value= {"/tutoringsessions", "/tutoringsessions/"})
+    public List<TutoringSessionDto> getAllTutoringSessions(){
+    	List<TutoringSessionDto> tutoringSessionDtos = new ArrayList<TutoringSessionDto>();
+    	for (TutoringSession tutoringSession: service.getAllTutoringSessions()) {
+    		tutoringSessionDtos.add(convertToDto(tutoringSession));
+    	}    	
+    	return tutoringSessionDtos;
     }
 
     private TutoringSessionDto convertToDto(TutoringSession tutoringSession) {

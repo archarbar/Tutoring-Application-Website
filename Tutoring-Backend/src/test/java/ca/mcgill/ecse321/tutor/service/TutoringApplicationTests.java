@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.tutor.servicemockito;
+package ca.mcgill.ecse321.tutor.service;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

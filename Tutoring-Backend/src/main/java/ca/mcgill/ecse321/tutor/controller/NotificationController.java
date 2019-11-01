@@ -40,10 +40,8 @@ public class NotificationController {
 
     @GetMapping(value= {"/notifications/tutor", "/notifications/tutor/"})
     public List<NotificationDto> getNotificationByTutor(@RequestParam("tutorId") String tutorId) {
-    	List<Notification> allNotifications = service.getAllNotifications();
-    	List<NotificationDto> notificationDtos = new ArrayList<>();
-    	
-    	for (Notification notification: allNotifications) {
+    	List<NotificationDto> notificationDtos = new ArrayList<>();  	
+    	for (Notification notification: service.getAllNotifications()) {
     		if (notification.getTutor().getId().equals(Integer.parseInt(tutorId))) {
     			notificationDtos.add(convertToDto(notification));
     		}
@@ -52,10 +50,8 @@ public class NotificationController {
     }
     
     @PostMapping(value= {"/notification/new", "/notification/new/"})
-    public NotificationDto createNotification(@RequestParam("tutorId") String tutorId, @RequestParam("bookingId") String bookingId) {
-    	Booking b = bookingService.getBookingById(Integer.parseInt(bookingId));
-    	Tutor t = tutorService.getTutor(Integer.parseInt(tutorId));
-    	return convertToDto(service.createNotification(b, t));
+    public NotificationDto createNotification(@RequestParam("tutorId") String tutorId, @RequestParam("bookingId") String bookingId) {    	
+    	return convertToDto(service.createNotification(bookingService.getBookingById(Integer.parseInt(bookingId)), tutorService.getTutor(Integer.parseInt(tutorId))));
     }
 
     private NotificationDto convertToDto(Notification notification) {

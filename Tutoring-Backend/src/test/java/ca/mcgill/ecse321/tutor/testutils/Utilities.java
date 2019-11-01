@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.tutor.utilities;
+package ca.mcgill.ecse321.tutor.testutils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

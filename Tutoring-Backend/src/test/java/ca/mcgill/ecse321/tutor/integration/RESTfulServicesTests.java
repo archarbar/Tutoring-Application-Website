@@ -131,10 +131,12 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 
 	// Test variables 
 	TimeSlot timeSlot;
+	TimeSlot timeSlot2;
 	Manager manager;
 	Tutor tutor;
 	TutoringSession tutoringSession;
 	Booking booking;
+	Booking booking2;
 	Notification notification;
 	Course course;
 	Rating rating;
@@ -176,6 +178,7 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 
 		// Create timeSlot 
 		timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
+		timeSlot2 = timeSlotService.createTimeSlot(Time.valueOf("13:12:12"), Time.valueOf("14:12:12"), DayOfTheWeek.FRIDAY);
 		
 		// Create course 
 		course = courseService.createCourse("Test", Level.CEGEP);
@@ -190,6 +193,7 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 		
 		// Create booking in database
 		booking = bookingService.createBooking(tutorEmail, studentSet, Date.valueOf("2019-10-10"), timeSlot, course);
+		booking2= bookingService.createBooking(tutorEmail, studentSet, Date.valueOf("2019-10-11"), timeSlot2, course);
 	}
 	
 
@@ -247,14 +251,14 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 		// Assure successful connection 
 		assertEquals(response.getStatusCode(), HttpStatus.OK);
 			}
-//	
+	
 //	@Test(priority=3, groups="Notification", dependsOnMethods="testCreateNotification")
 //	public void testGetNotificationByTutor() {
 //		int tutorId = tutor.getId();
 //		LinkedMultiValueMap<String, Integer> params = new LinkedMultiValueMap<>();
 //		params.add("tutorId", tutorId);
 //		HttpEntity<LinkedMultiValueMap<String, Integer>> entity = new HttpEntity<LinkedMultiValueMap<String, Integer>>(params, headers);
-//		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/notifications/tutor" + tutorId), HttpMethod.GET, entity, String.class);
+//		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/notifications/tutor/" + tutorId), HttpMethod.GET, entity, String.class);
 //
 //		// Verify response is not null 
 //		assertNotNull(response);
@@ -391,7 +395,7 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 //	
 //	}
 //	
-//	@Test(priority=11, groups="Rating")
+//	@Test(priority=11, groups="Rating", dependsOnMethods="testCreateRating")
 //	public void testGetRating() {
 //		int ratingId = ratingService.getAllRatings().get(0).getId();
 //		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
@@ -412,7 +416,7 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 	/* <------ Queries ------> */
 //	@Test(priority=11, groups="Queries")
 //	public void testGetBookingById() {
-//		String bookingId = booking.getId().toString();
+//		String bookingId = booking2.getId().toString();
 //		// Due to domain model design, a booking and a tutor has be created in the database in order to perform tests on notification.
 //		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
 //		params.add("bookingId", bookingId);
@@ -496,12 +500,12 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 	/**
 	 * Testing implementation of fifth most important use caes 
 	 */
-	@Test
-	public void testTutorNotification() {
+	@Test(priority=12, groups="Use Cases")
+	public void testNotifyTutor() {
 		int numberOfTutorNotifications = notificationService.getNotificationsByTutor(tutor).size();
 		LinkedMultiValueMap<String, Integer> params = new LinkedMultiValueMap<>();
 		params.add("tutorId", tutor.getId());
-		params.add("bookingId", booking.getId());
+		params.add("bookingId", booking2.getId());
 		HttpEntity<LinkedMultiValueMap<String, Integer>> entity = new HttpEntity<LinkedMultiValueMap<String, Integer>>(params, headers); // HttpEntity<T> is a helper object which encapsulates header and body of an HTTP request or response.
 		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/bookings/new"), HttpMethod.POST, entity, String.class);
 		
