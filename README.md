@@ -27,11 +27,11 @@ The objective of this project is to design a software solution for a new tutorin
 ## Deliverable 2: Due October 27, 2019
 |  Team members   |	     Responsibility     | Hours|
 |-----------------|-------------------------|------|
-|    Michael Li   |    |  |
-|    Tony Ou      | Unit testing | 6 |
+|    Michael Li   | RESTful testing, Integration testing  | 25 |
+|    Tony Ou      | Unit testing | 25 |
 | Patrick Tweddell| RESTful services, Mockito Unit Testing  | 25 |
-|  William Zhang  | | |
-|  Victor Zhong   |  |  |
+|  William Zhang  | Controller RESTful testing, Integration testing | 30 |
+|  Victor Zhong   | Unit testing, Mockito Unit Testing, QA Plan and Report | 30 |
 
    * [Report](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Report-(Sprint-2))
    * [QA Plan](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/software-qa-plan)
