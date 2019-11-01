@@ -156,7 +156,7 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 		String lastName = "Lennon";
 		String tutorEmail = "duQuebec@poushon.com";
 		String password = "123456";
-		tutor = tutorService.createTutor(firstName, lastName, tutorEmail, password, manager);
+		tutor = tutorService.createTutor(firstName, lastName, tutorEmail, password);
 
 		// Create timeSlot 
 		timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
