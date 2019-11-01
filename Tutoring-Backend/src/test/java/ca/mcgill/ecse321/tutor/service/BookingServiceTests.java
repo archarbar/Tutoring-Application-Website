@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +58,7 @@ public class BookingServiceTests {
 	private TutoringSessionRepository tutoringSessionRepository;
 
 
-	@Before
+
 	@After
 	public void clearDatabase() {
 		ratingRepository.deleteAll();
@@ -93,7 +92,7 @@ public class BookingServiceTests {
 		List<Booking> allBookings = bookingService.getAllBookings();
 
 		assertEquals(1, allBookings.size());
-		assertEquals(tutorEmail, allBookings.get(0).getTutorEmail());
+		assertEquals("arthurmorgan@redemption.com", allBookings.get(0).getTutorEmail());
 		assertEquals(timeSlot.getId(), allBookings.get(0).getTimeSlot().getId());
 		assertEquals(course.getId(), allBookings.get(0).getCourse().getId());
 	}
@@ -121,7 +120,7 @@ public class BookingServiceTests {
 		// check no change in memory
 		assertEquals(0, bookingService.getAllBookings().size());
 	}
-	
+
 	@Test
 	public void testCreateBookingNullTutor() {
 		assertEquals(0, bookingService.getAllBookings().size());
@@ -149,7 +148,7 @@ public class BookingServiceTests {
 		// check no change in memory
 		assertEquals(0, bookingService.getAllBookings().size());
 	}
-	
+
 	@Test
 	public void testCreateBookingNullStudent() {
 		assertEquals(0, bookingService.getAllBookings().size());
@@ -168,6 +167,88 @@ public class BookingServiceTests {
 
 		// check error
 		assertEquals("A student needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, bookingService.getAllBookings().size());
+	}
+
+	@Test
+	public void testCreateBookingNullDate() {
+		assertEquals(0, bookingService.getAllBookings().size());
+
+		String tutorEmail = "arthurmorgan@redemption.com";
+		Course course = courseService.createCourse("test", Level.CEGEP);
+		String firstName = "Michael";
+		String lastName = "Li";
+		String email = "mlej@live.com";
+		Student student = studentService.createStudent(firstName, lastName, email);
+		Set<Student> studentSet = new HashSet<Student>();
+		studentSet.add(student);
+		TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
+		String error = null;
+
+		try {
+			bookingService.createBooking(tutorEmail, studentSet, null, timeSlot, course);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A date needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, bookingService.getAllBookings().size());
+	}
+
+	@Test
+	public void testCreateBookingNullTimeSlot() {
+		assertEquals(0, bookingService.getAllBookings().size());
+
+		String tutorEmail = "arthurmorgan@redemption.com";
+		Course course = courseService.createCourse("test", Level.CEGEP);
+		String firstName = "Michael";
+		String lastName = "Li";
+		String email = "mlej@live.com";
+		Student student = studentService.createStudent(firstName, lastName, email);
+		Set<Student> studentSet = new HashSet<Student>();
+		studentSet.add(student);
+		String error = null;
+
+		try {
+			bookingService.createBooking(tutorEmail, studentSet, Date.valueOf("2019-10-10"), null, course);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A time slot needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, bookingService.getAllBookings().size());
+	}
+
+	@Test
+	public void testCreateBookingNullCourse() {
+		assertEquals(0, bookingService.getAllBookings().size());
+
+		String tutorEmail = "arthurmorgan@redemption.com";
+		String firstName = "Michael";
+		String lastName = "Li";
+		String email = "mlej@live.com";
+		Student student = studentService.createStudent(firstName, lastName, email);
+		Set<Student> studentSet = new HashSet<Student>();
+		studentSet.add(student);
+		TimeSlot timeSlot = timeSlotService.createTimeSlot(Time.valueOf("10:12:12"), Time.valueOf("12:12:12"), DayOfTheWeek.THURSDAY);
+		String error = null;
+
+		try {
+			bookingService.createBooking(tutorEmail, studentSet, Date.valueOf("2019-10-10"), timeSlot, null);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A course needs to be specified!", error);
 
 		// check no change in memory
 		assertEquals(0, bookingService.getAllBookings().size());

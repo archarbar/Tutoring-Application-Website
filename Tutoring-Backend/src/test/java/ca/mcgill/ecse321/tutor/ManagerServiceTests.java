@@ -1,8 +1,13 @@
-package ca.mcgill.ecse321.tutor.servicemockito;
+package ca.mcgill.ecse321.tutor;
 
-import ca.mcgill.ecse321.tutor.dao.ManagerRepository;
-import ca.mcgill.ecse321.tutor.service.ManagerService;
-import ca.mcgill.ecse321.tutor.model.Manager;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,12 +16,9 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.when;
+import ca.mcgill.ecse321.tutor.dao.ManagerRepository;
+import ca.mcgill.ecse321.tutor.model.Manager;
+import ca.mcgill.ecse321.tutor.service.ManagerService;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -54,6 +56,15 @@ public class ManagerServiceTests {
     public void testGetManager() {
         assertEquals(SUCCESS_KEY, managerService.getManager(SUCCESS_KEY).getId());
         assertEquals(SUCCESS_KEY, managerService.getAllManagers().get(0).getId());
+    }
+    
+    @Test
+    public void testCreateManager() {
+		try {
+			manager = managerService.createManager();
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
     }
 
 }

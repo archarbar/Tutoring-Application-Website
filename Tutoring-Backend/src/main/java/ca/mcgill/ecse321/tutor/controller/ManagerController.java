@@ -1,18 +1,13 @@
 package ca.mcgill.ecse321.tutor.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import ca.mcgill.ecse321.tutor.dto.ManagerDto;
+import ca.mcgill.ecse321.tutor.model.Manager;
+import ca.mcgill.ecse321.tutor.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import ca.mcgill.ecse321.tutor.dto.ManagerDto;
-import ca.mcgill.ecse321.tutor.model.Manager;
-import ca.mcgill.ecse321.tutor.service.ManagerService;
 
 @CrossOrigin(origins = "*")
 @RestController

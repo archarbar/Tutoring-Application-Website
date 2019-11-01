@@ -6,7 +6,6 @@ import static org.junit.Assert.fail;
 import java.util.List;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +32,6 @@ public class RoomServiceTests {
 	@Autowired
 	private ManagerService managerService;
 
-	@Before
 	@After
 	public void clearDatabase() {
 		roomRepository.deleteAll();
@@ -104,7 +102,73 @@ public class RoomServiceTests {
 		// check no change in memory
 		assertEquals(0, roomService.getAllRooms().size());
 	}
-	
+
+	@Test
+	public void testCreateRoomNegativeNumber() {
+		assertEquals(0, roomService.getAllRooms().size());
+
+		Integer number = -12;
+		Integer capacity = 30;
+		Manager manager = managerService.createManager();
+		String error = null;
+
+		try {
+			roomService.createRoom(number, capacity , manager);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("The room number has to be bigger than 0!", error);
+
+		// check no change in memory
+		assertEquals(0, roomService.getAllRooms().size());
+	}
+
+	@Test
+	public void testCreateRoomNullNumber() {
+		assertEquals(0, roomService.getAllRooms().size());
+
+		Integer number = null;
+		Integer capacity = 25;
+		Manager manager = managerService.createManager();
+		String error = null;
+
+		try {
+			roomService.createRoom(number, capacity , manager);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A room number needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, roomService.getAllRooms().size());
+	}
+
+	@Test
+	public void testCreateRoomNullCapacity() {
+		assertEquals(0, roomService.getAllRooms().size());
+
+		Integer number = 9;
+		Integer capacity = null;
+		Manager manager = managerService.createManager();
+		String error = null;
+
+		try {
+			roomService.createRoom(number, capacity , manager);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("A room capacity needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, roomService.getAllRooms().size());
+	}
+
 	@Test
 	public void testCreateRoomNullManager() {
 		assertEquals(0, roomService.getAllRooms().size());

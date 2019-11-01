@@ -11,7 +11,7 @@ public class NotificationDto {
     public NotificationDto(Booking booking, Tutor tutor, int notificationId) {
         this.booking = booking;
         this.tutor = tutor;
-        notificationId = notificationId;
+        this.notificationId = notificationId;
     }
 
     public Booking getBooking() {

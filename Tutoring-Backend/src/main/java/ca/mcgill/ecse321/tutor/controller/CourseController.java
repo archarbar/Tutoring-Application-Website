@@ -24,7 +24,7 @@ public class CourseController {
         return convertToDto(service.getCourseById(courseId));
     }
 
-    @GetMapping("/course/level/{level}")
+    @GetMapping("/course/{level}")
     public ArrayList<CourseDto> getCoursesByLevel (@PathVariable Level level) {
         ArrayList<CourseDto> returnCourse = new ArrayList<>();
         ArrayList<Course> courses = service.getCourseByCourseLevel(level);
@@ -34,7 +34,7 @@ public class CourseController {
         return returnCourse;
     }
 
-    @GetMapping("/course/name/{courseName}")
+    @GetMapping("/course/{courseName}")
     public CourseDto getCourseByName (@PathVariable String courseName) {
         return convertToDto(service.getCourseByCourseName(courseName));
     }

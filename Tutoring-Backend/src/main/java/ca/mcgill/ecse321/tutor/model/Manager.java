@@ -7,8 +7,6 @@ import ca.mcgill.ecse321.tutor.model.Tutor;
 import java.util.Set;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 public class Manager{
   private Integer id;
@@ -22,8 +20,7 @@ public class Manager{
     return this.id;
   }
   private Set<Tutor> tutor;
-  
-  @JsonIgnore
+
   @OneToMany(mappedBy="manager")
   public Set<Tutor> getTutor() {
     return this.tutor;
@@ -34,8 +31,7 @@ public class Manager{
   }
 
   private Set<Room> room;
-  
-  @JsonIgnore
+
   @OneToMany(mappedBy="manager")
   public Set<Room> getRoom() {
     return this.room;

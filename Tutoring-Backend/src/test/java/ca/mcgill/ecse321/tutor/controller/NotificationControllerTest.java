@@ -90,15 +90,15 @@ public class NotificationControllerTest {
 	private MockMvc mockMvc;
 
 	public void clearDatabase() {
-		notificationRepository.deleteAll();
-		bookingRepository.deleteAll();
 		tutoringSessionRepository.deleteAll();
-		tutorRepository.deleteAll();
-		studentRepository.deleteAll();
-		managerRepository.deleteAll();
-		courseRepository.deleteAll();
-		roomRepository.deleteAll();
 		ratingRepository.deleteAll();
+		notificationRepository.deleteAll();
+		roomRepository.deleteAll();
+		bookingRepository.deleteAll();
+		tutorRepository.deleteAll();
+		managerRepository.deleteAll();
+		studentRepository.deleteAll();
+		courseRepository.deleteAll();
 		timeslotRepository.deleteAll();
 	}
 
@@ -114,7 +114,7 @@ public class NotificationControllerTest {
 	}
 
 	@Test
-	public void testCreateCourse() throws Exception {
+	public void testCreateNotification() throws Exception {
 		
 		String tutorEmail = "marcusfenix@gears.com";
 		Course course = courseService.createCourse("test", Level.CEGEP);
@@ -135,7 +135,7 @@ public class NotificationControllerTest {
 		Tutor tutor = tutorService.createTutor(tutorFirstName, tutorLastName, tutorEmail, password);
 		int tutorId = tutor.getId();
 		
-		this.mockMvc.perform(post("/notification")
+		this.mockMvc.perform(post("/notification/new")
 				.param("booking", Integer.toString(bookingId))
 				.param("tutor", Integer.toString(tutorId))
 				)

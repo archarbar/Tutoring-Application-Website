@@ -6,6 +6,9 @@ import javax.persistence.ManyToOne;
 import java.util.Set;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.DiscriminatorValue;
 
 @Entity
@@ -51,6 +54,7 @@ public class Tutor extends Person{
 
   private Set<Notification> notification;
 
+  @JsonIgnore
   @OneToMany(mappedBy="tutor")
   public Set<Notification> getNotification() {
     return this.notification;

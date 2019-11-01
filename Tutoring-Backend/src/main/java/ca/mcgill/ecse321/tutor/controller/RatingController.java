@@ -46,7 +46,7 @@ public class RatingController {
         return convertToDto(service.getRating(Integer.parseInt(ratingId)));
     }
 
-    @GetMapping("/rating/student/{student}")
+    @GetMapping("/rating/student{student}Ratings")
     public List<RatingDto> getAllRatingsForStudent(@PathVariable Student student) {
         List<RatingDto> ratings = new ArrayList<>();
         for (Rating rating : service.getAllRatings()) {

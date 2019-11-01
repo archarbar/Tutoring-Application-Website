@@ -76,5 +76,23 @@ public class CourseService {
 		}
 		return resultList;
 	}
+	
+	@Transactional
+	public Course deleteCourse(Course course) {
+		if (course == null) {
+			throw new IllegalArgumentException("A course needs to be specified!");
+		}
+		courseRepository.delete(course);
+		return course;
+	}
+	
+	@Transactional
+	public Integer deleteCourseById(Integer Id) {
+		if (Id == null) {
+			throw new IllegalArgumentException("A course Id needs to be specified!");
+		}
+		courseRepository.deleteById(Id);
+		return Id;
+	}
 
 }
