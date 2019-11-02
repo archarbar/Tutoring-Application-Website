@@ -27,7 +27,7 @@ The objective of this project is to design a software solution for a new tutorin
 ## Deliverable 2: Due October 27, 2019
 |  Team members   |	     Responsibility     | Hours|
 |-----------------|-------------------------|------|
-|    Michael Li   | Use Cases, RESTful testing, Integration testing, Project Management  | 35 |
+|    Michael Li   | Use Cases, RESTful testing, Integration testing, Project Management  | 40 |
 |    Tony Ou      | Unit testing, Mockito Unit Testing | 35 |
 | Patrick Tweddell| RESTful services, Mockito Unit Testing  | 25 |
 |  William Zhang  | Controller RESTful testing, Integration testing | 35 |
