@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 import java.util.List;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class TutorServiceTests {
 	@Autowired
 	private TutorService tutorService;
 
+	@Before
 	@After
 	public void clearDatabase() {
 		bookingRepository.deleteAll();
@@ -61,20 +63,22 @@ public class TutorServiceTests {
 	@Test
 	public void testCreateTutorNull() {
 		assertEquals(0, tutorService.getAllTutors().size());
-		String firstName = "Marcus";
-		String lastName = "Fenix";
-		String email = "marcusfenix@gears.com";
-		String password = "locust";
+		String firstName = null;
+		String lastName = null;
+		String email = null;
+		String password = null;
+		String error = null;
 		try {
 			tutorService.createTutor(firstName, lastName, email, password);
 		} catch (IllegalArgumentException e) {
-			// Check that no error occurred
-			fail();
+			error = e.getMessage();
 		}
-		List<Tutor> allTutors = tutorService.getAllTutors();
-		assertEquals(1, allTutors.size());
-		assertEquals(firstName, allTutors.get(0).getFirstName());
-		assertEquals(email, allTutors.get(0).getEmail());
+
+		// check error
+		assertEquals("A first name needs to be specified! A last name needs to be specified! An email needs to be specified! A password needs to be specified!", error);
+
+		// check no change in memory
+		assertEquals(0, tutorService.getAllTutors().size());
 	}
 
 
@@ -99,6 +103,25 @@ public class TutorServiceTests {
 	//		// check no change in memory
 	//		assertEquals(0, tutorService.getAllTutors().size());
 	//	}
+	
+//	@Test
+//	public void testChangeHourlyRate() { // test setter methods
+//		assertEquals(0, tutorService.getAllTutors().size());
+//		
+//		String firstName = "Marcus";
+//		String lastName = "Fenix";
+//		String email = "marcusfenix@gears.com";
+//		String password = "locust";
+//		double newHourlyRate= 30.5;
+//		Tutor t = tutorService.createTutor(firstName, lastName, email, password);
+//		t.setIsApproved(true);
+//		try {
+//			tutorService.changeHourlyRate(t.getId(), newHourlyRate);
+//		} catch (IllegalArgumentException e) {
+//			fail();
+//		}
+//		assertEquals(newHourlyRate, tutorService.getTutor(t.getId()).getHourlyRate(), 0.01);
+//	}
 
 	@Test
 	public void testCreateTutorWhiteSpace() {
