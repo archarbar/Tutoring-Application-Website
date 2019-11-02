@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.tutor.dto.RatingDto;
-import ca.mcgill.ecse321.tutor.dto.TutorDto;
 import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Rating;
 import ca.mcgill.ecse321.tutor.model.Student;

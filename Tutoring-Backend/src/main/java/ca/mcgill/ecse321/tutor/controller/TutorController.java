@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashSet;
-import java.util.Set;
 
 import ca.mcgill.ecse321.tutor.dto.TutorDto;
 import ca.mcgill.ecse321.tutor.model.Booking;
@@ -25,8 +23,7 @@ import ca.mcgill.ecse321.tutor.service.TutorService;
 public class TutorController {
     @Autowired
     private TutorService service;
-    @Autowired
-    private BookingService bookingService;
+
 
     @PostMapping("/tutor/new")
     public TutorDto createTutor(@RequestParam("tutorFirstName") String tutorFirstName,
@@ -53,19 +50,7 @@ public class TutorController {
         }
     }
     
-    @GetMapping("tutor/booking/student/{rating}")
-    public TutorDto getStudentRatingFromBooking(@RequestParam("tutorId") String tutorId,
-    											@RequestParam("bookingId") String bookingId) {
-    	Booking booking = bookingService.getBookingById(Integer.parseInt(bookingId));
-    	Set <Rating> ratings = new HashSet<Rating>();
-    	for(Student student: booking.getStudent()) {
-    		for (Rating rating: student.getRating()) {
-    			ratings.add(rating);
-    		}
-    	}
-    }
-    
-    @PutMapping("tutor/{hourlyRate}")
+    @PutMapping("/tutor/{hourlyRate}")
     public TutorDto changeHourlyRate(@RequestParam("tutorId") String tutorId, @PathVariable String hourlyRate) {
     	Tutor tutor = service.changeHourlyRate(Integer.parseInt(tutorId), Double.parseDouble(hourlyRate));
     	return convertToDto(tutor);
