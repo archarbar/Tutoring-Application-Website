@@ -5,11 +5,19 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import ca.mcgill.ecse321.tutor.dto.TutorDto;
+import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Tutor;
+import ca.mcgill.ecse321.tutor.model.Student;
+import ca.mcgill.ecse321.tutor.model.Rating;
+import ca.mcgill.ecse321.tutor.service.BookingService;
 import ca.mcgill.ecse321.tutor.service.TutorService;
 
 @CrossOrigin(origins = "*")
@@ -17,6 +25,8 @@ import ca.mcgill.ecse321.tutor.service.TutorService;
 public class TutorController {
     @Autowired
     private TutorService service;
+    @Autowired
+    private BookingService bookingService;
 
     @PostMapping("/tutor/new")
     public TutorDto createTutor(@RequestParam("tutorFirstName") String tutorFirstName,
@@ -42,7 +52,24 @@ public class TutorController {
             throw new IllegalArgumentException("Wrong Password, try again.");
         }
     }
-
+    
+    @GetMapping("tutor/booking/student/{rating}")
+    public TutorDto getStudentRatingFromBooking(@RequestParam("tutorId") String tutorId,
+    											@RequestParam("bookingId") String bookingId) {
+    	Booking booking = bookingService.getBookingById(Integer.parseInt(bookingId));
+    	Set <Rating> ratings = new HashSet<Rating>();
+    	for(Student student: booking.getStudent()) {
+    		for (Rating rating: student.getRating()) {
+    			ratings.add(rating);
+    		}
+    	}
+    }
+    
+    @PutMapping("tutor/{hourlyRate}")
+    public TutorDto changeHourlyRate(@RequestParam("tutorId") String tutorId, @PathVariable String hourlyRate) {
+    	Tutor tutor = service.changeHourlyRate(Integer.parseInt(tutorId), Double.parseDouble(hourlyRate));
+    	return convertToDto(tutor);
+    }
 
     private TutorDto convertToDto(Tutor tutor) {
         if (tutor == null) throw new IllegalArgumentException("Tutor must be specified!");
