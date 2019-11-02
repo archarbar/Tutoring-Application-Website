@@ -44,7 +44,7 @@ public class TutoringSessionController {
     												@RequestParam("roomId") String roomId, 
     												@RequestParam("tutorId") String tutorId){
         Booking booking = bookingService.getBookingById(Integer.parseInt(bookingId));
-        Tutor tutor = tutorService.getTutor(Integer.parseInt(tutorId));
+        Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
         Room room = roomService.getRoom(Integer.parseInt(roomId));       
     	TutoringSession tutoringSession = service.createTutoringSession(booking.getSpecificDate(),
                 tutor, room, booking, booking.getTimeSlot());
@@ -58,7 +58,7 @@ public class TutoringSessionController {
 
     @GetMapping("/tutoringsessions/tutor/{tutor}")
     public List<TutoringSessionDto> getTutoringSessionByTutor(@PathVariable String tutorId) {
-    	Tutor tutor = tutorService.getTutor(Integer.parseInt(tutorId));
+    	Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
         List<TutoringSessionDto> tutoringSessionDtos = new ArrayList<>();
         for (TutoringSession tutoringSession : service.getTutoringSessionByTutor(tutor)) {
             tutoringSessionDtos.add(convertToDto(tutoringSession));

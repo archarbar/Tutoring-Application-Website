@@ -23,7 +23,7 @@ public class TutorService {
 	@Autowired
 	TutorRepository tutorRepository;
 
-	
+
 	@Autowired
 	CourseRepository courseRepository;
 
@@ -64,7 +64,7 @@ public class TutorService {
 	}
 
 	@Transactional
-	public Tutor getTutor(Integer id) {
+	public Tutor getTutorById(Integer id) {
 		if (id == null) {
 			throw new IllegalArgumentException("A tutor ID needs to be specified!");
 		}
@@ -144,7 +144,26 @@ public class TutorService {
 			}
 		}
 	}
-	
+
+	@Transactional
+	public void addCourseForTutor(Tutor tutor, String courseName) {
+		String error = "";
+		if (tutor == null) {
+			error = error + "A tutor needs to be specified! ";
+		}
+		if (courseName == null || courseName.trim().length() == 0) {
+			error = error + "A course name needs to be specified! ";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		Course course = courseRepository.findCourseByCourseName(courseName);
+		Set<Course> courses = tutor.getCourse();
+		courses.add(course);
+		tutor.setCourse(courses);
+	}
+
 	@Transactional
 	public Tutor approvedTutor(String tutorId, String tutorPassword, String hourlyRate) {
 		String error = "";
@@ -162,12 +181,12 @@ public class TutorService {
 			throw new IllegalArgumentException(error);
 		}
 		Tutor tutor = tutorRepository.findTutorById(Integer.parseInt(tutorId));
-    	tutor.setPassword(tutorPassword);
-    	tutor.setHourlyRate(Double.parseDouble(hourlyRate));
+		tutor.setPassword(tutorPassword);
+		tutor.setHourlyRate(Double.parseDouble(hourlyRate));
 		return tutor;
 	}
-	
-	
+
+
 	@Transactional
 	public List<Tutor> getTutorsByCourse(Course course) {
 		if (course == null) {
@@ -197,7 +216,7 @@ public class TutorService {
 			rate = rate + tutor.getHourlyRate();
 		}
 		double averageRate = rate / numberOfTutors;
-		
+
 		return Double.toString(averageRate);
 	}
 

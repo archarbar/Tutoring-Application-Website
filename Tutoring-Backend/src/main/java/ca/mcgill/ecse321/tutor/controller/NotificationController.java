@@ -51,7 +51,7 @@ public class NotificationController {
     
     @PostMapping(value= {"/notification/new", "/notification/new/"})
     public NotificationDto createNotification(@RequestParam("tutorId") String tutorId, @RequestParam("bookingId") String bookingId) {    	
-    	return convertToDto(service.createNotification(bookingService.getBookingById(Integer.parseInt(bookingId)), tutorService.getTutor(Integer.parseInt(tutorId))));
+    	return convertToDto(service.createNotification(bookingService.getBookingById(Integer.parseInt(bookingId)), tutorService.getTutorById(Integer.parseInt(tutorId))));
     }
 
     private NotificationDto convertToDto(Notification notification) {

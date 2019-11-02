@@ -35,7 +35,7 @@ public class TutorController {
 
     @GetMapping("/tutor/{tutorId}")
     public TutorDto getTutorById(@PathVariable String tutorId) {
-        return convertToDto(service.getTutor(Integer.parseInt(tutorId)));
+        return convertToDto(service.getTutorById(Integer.parseInt(tutorId)));
     }
 
     @GetMapping("/login")
