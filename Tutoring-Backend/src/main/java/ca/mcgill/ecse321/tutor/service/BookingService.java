@@ -99,6 +99,10 @@ public class BookingService {
 		}
 		return resultList;
 	}
+
+	public void deleteBookingById(int bookingId) {
+		bookingRepository.deleteById(bookingId);;
+	}
 	
 
 }

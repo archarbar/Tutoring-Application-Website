@@ -54,7 +54,6 @@ public class TutorController {
     						   @RequestParam("password") String tutorPassword,
     						   @RequestParam("hourlyRate") String hourlyRate) throws IllegalArgumentException{
     	Tutor tutor = service.approvedTutor(tutorId, tutorPassword, hourlyRate);
-    	//TODO: add service call to add timeslots
     	return convertToDto(tutor);
     }
     

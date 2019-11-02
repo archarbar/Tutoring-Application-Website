@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,6 +55,12 @@ public class BookingController {
         }
         return bookingsByDate;
     }
+    
+    //PART 2 USE CASE 8
+    @DeleteMapping("/booking/decline/{bookingId}")
+    public void deleteBooking(@PathVariable("bookingId") String bookingId) {
+    	service.deleteBookingById(Integer.parseInt(bookingId));
+    }    
     
     @PostMapping("/bookings/new")
     public void createNotificationFromBooking(@RequestParam("tutorId") String tutorId, @RequestParam("bookingId") String bookingId) {
