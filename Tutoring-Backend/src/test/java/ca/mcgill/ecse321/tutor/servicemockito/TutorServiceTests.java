@@ -130,7 +130,7 @@ public class TutorServiceTests {
 		}
 
 		// check error
-		assertEquals("A first name needs to be specified! A last name needs to be specified! An email needs to be specified! A password needs to be specified! A manager needs to be specified!", error);
+		assertEquals("A first name needs to be specified! A last name needs to be specified! An email needs to be specified! A password needs to be specified!", error);
 	}
 
 	@Test
