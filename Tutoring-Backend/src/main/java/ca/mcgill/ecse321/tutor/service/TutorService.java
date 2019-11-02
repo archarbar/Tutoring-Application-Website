@@ -64,7 +64,7 @@ public class TutorService {
 	}
 
 	@Transactional
-	public Tutor getTutor(Integer id) {
+	public Tutor getTutorById(Integer id) {
 		if (id == null) {
 			throw new IllegalArgumentException("A tutor ID needs to be specified!");
 		}

@@ -46,7 +46,7 @@ public class TimeSlotController {
 			@RequestParam("endTime") String endTime, 
 			@RequestParam("dayOfTheWeek") String weekDay,
 			@RequestParam("tutorId") String tutorId) {
-		Tutor tutor = tutorService.getTutor(Integer.parseInt(tutorId));
+		Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
 		tutorService.addTimeSlotForTutor(tutor, startTime, endTime, weekDay);
 	}
 	
@@ -55,7 +55,7 @@ public class TimeSlotController {
 	@PostMapping("/timeslot/{tutorId}/remove")
 	public void removeTimeSlotForTutor(@RequestParam("timeSlotId") String timeSlotId,
 			@RequestParam("tutorId") String tutorId) {
-		Tutor tutor = tutorService.getTutor(Integer.parseInt(tutorId));
+		Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
 		tutorService.removeTimeSlotForTutor(tutor, Integer.parseInt(timeSlotId));
 	}
 

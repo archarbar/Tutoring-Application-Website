@@ -46,7 +46,7 @@ public class CourseController {
 	@PostMapping("/course/{tutorId}/add")
 	public void addCourseForTutor(@RequestParam("courseName") String courseName,
 			@RequestParam("tutorId") String tutorId) {
-		Tutor tutor = tutorService.getTutor(Integer.parseInt(tutorId));
+		Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
 		tutorService.addCourseForTutor(tutor, courseName);
 	}
 
