@@ -48,12 +48,21 @@ public class TutorController {
         }
     }
     
+    //USE CASE 2
     @PutMapping("/tutor/approved/")
     public TutorDto setAccount(@RequestParam("tutorId") String tutorId,
     						   @RequestParam("password") String tutorPassword,
     						   @RequestParam("hourlyRate") String hourlyRate) throws IllegalArgumentException{
-    	Tutor tutor = service.approvedTutor(tutorId, tutorPassword, hourlyRate);   	 
+    	Tutor tutor = service.approvedTutor(tutorId, tutorPassword, hourlyRate);
+    	//TODO: add service call to add timeslots
     	return convertToDto(tutor);
+    }
+    
+    //USE CASE 11
+    @GetMapping("/tutors/{courseId}/hourlyRate")
+    public String getHourlyRates(@RequestParam("courseId") String courseId) throws IllegalArgumentException{
+    	String hourlyRates = service.getHourlyRates(courseId);
+    	return hourlyRates;
     }
 
 

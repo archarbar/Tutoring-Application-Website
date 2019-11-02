@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ca.mcgill.ecse321.tutor.dao.CourseRepository;
 import ca.mcgill.ecse321.tutor.dao.TutorRepository;
+import ca.mcgill.ecse321.tutor.model.Booking;
+import ca.mcgill.ecse321.tutor.model.Course;
 import ca.mcgill.ecse321.tutor.model.Manager;
 import ca.mcgill.ecse321.tutor.model.Tutor;
 
@@ -16,6 +19,9 @@ public class TutorService {
 
 	@Autowired
 	TutorRepository tutorRepository;
+	
+	@Autowired
+	CourseRepository courseRepository;
 
 	@Transactional
 	public Tutor createTutor(String firstName, String lastName, String email, String password) {
@@ -99,8 +105,40 @@ public class TutorService {
 		Tutor tutor = tutorRepository.findTutorById(Integer.parseInt(tutorId));
     	tutor.setPassword(tutorPassword);
     	tutor.setHourlyRate(Double.parseDouble(hourlyRate));
-		// TODO Auto-generated method stub
 		return tutor;
+	}
+	
+	@Transactional
+	public List<Tutor> getTutorsByCourse(Course course) {
+		if (course == null) {
+			throw new IllegalArgumentException("A course needs to be specified!");
+		}
+		List<Tutor> tutorsByCourse = new ArrayList<>();
+		for (Tutor tutor : tutorRepository.findByCourse(course)) {
+			tutorsByCourse.add(tutor);
+		}
+		return tutorsByCourse;
+	}
+
+	@Transactional
+	public String getHourlyRates(String courseId) {
+		String error = "";
+		if (courseId == null || courseId.trim().length() == 0) {
+			error = error + "A first name needs to be specified! ";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		double rate = 0;
+		Course course = courseRepository.findCourseById(Integer.parseInt(courseId));
+		int numberOfTutors = tutorRepository.findByCourse(course).size();
+		for(Tutor tutor : tutorRepository.findByCourse(course)) {
+			rate = rate + tutor.getHourlyRate();
+		}
+		double averageRate = rate / numberOfTutors;
+		
+		return Double.toString(averageRate);
 	}
 
 }
