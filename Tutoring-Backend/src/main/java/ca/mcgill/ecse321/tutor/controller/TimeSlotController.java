@@ -38,6 +38,8 @@ public class TimeSlotController {
 		DayOfTheWeek dayOfTheWeek = DayOfTheWeek.valueOf(weekDay.toUpperCase().trim());    	
 		return convertToDto(service.createTimeSlot(st, et, dayOfTheWeek));
 	}
+	
+	// USE CASE 3
 
 	@PostMapping("/timeslot/{tutorId}/add")
 	public void addTimeSlotForTutor(@RequestParam("startTime") String startTime,
@@ -47,6 +49,8 @@ public class TimeSlotController {
 		Tutor tutor = tutorService.getTutor(Integer.parseInt(tutorId));
 		tutorService.addTimeSlotForTutor(tutor, startTime, endTime, weekDay);
 	}
+	
+	// USE CASE 3
 
 	@PostMapping("/timeslot/{tutorId}/remove")
 	public void removeTimeSlotForTutor(@RequestParam("timeSlotId") String timeSlotId,
