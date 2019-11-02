@@ -69,7 +69,6 @@ public class BookingController {
     	Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
     	notificationService.createNotification(booking, tutor);    	
     }
-   
 
     private BookingDto convertToDto(Booking booking) {
         if (booking == null) {
