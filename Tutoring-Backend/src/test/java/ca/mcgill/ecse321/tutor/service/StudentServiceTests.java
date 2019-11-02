@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import org.junit.After;
+import org.junit.Before;
 
 import ca.mcgill.ecse321.tutor.model.Student;
 
@@ -28,6 +29,7 @@ public class StudentServiceTests {
 	@Autowired
 	private StudentRepository studentRepository;
 
+	@Before
 	@After
 	public void clearDatabase() {
 		studentRepository.deleteAll();

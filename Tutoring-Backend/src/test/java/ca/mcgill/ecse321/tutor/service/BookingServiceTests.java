@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +59,7 @@ public class BookingServiceTests {
 	private TutoringSessionRepository tutoringSessionRepository;
 
 
-
+	@Before
 	@After
 	public void clearDatabase() {
 		ratingRepository.deleteAll();

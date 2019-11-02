@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import org.junit.After;
+import org.junit.Before;
 
 import ca.mcgill.ecse321.tutor.model.Manager;
 
@@ -25,6 +26,7 @@ public class ManagerServiceTests {
 	@Autowired
 	private ManagerService managerService;
 
+	@Before
 	@After
 	public void clearDatabase() {
 		managerRepository.deleteAll();
