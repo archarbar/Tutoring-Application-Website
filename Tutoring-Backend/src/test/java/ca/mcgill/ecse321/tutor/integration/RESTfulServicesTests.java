@@ -20,6 +20,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -34,6 +37,7 @@ import ca.mcgill.ecse321.tutor.dao.StudentRepository;
 import ca.mcgill.ecse321.tutor.dao.TimeSlotRepository;
 import ca.mcgill.ecse321.tutor.dao.TutorRepository;
 import ca.mcgill.ecse321.tutor.dao.TutoringSessionRepository;
+import ca.mcgill.ecse321.tutor.dto.TutorDto;
 import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Course;
 import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
@@ -497,14 +501,6 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 	}
 	
 	/* <-------- Use Case Tests ------> */
-	// Use case 1: The system shall allow a potential tutor to submit their job application by submitting his first name, last name, highest level of education, phone number, email and resume.
-	// Use case 2: The system shall allow a verified tutor to create an account with the approved courses from the application by setting his password, availabilities, and hourly rate.
-	// Use case 3: The system shall allow a tutor with an account to modify his availabilities. 
-	// Use case 4: The system shall allow a tutor with an account to modify his course offerings (adding courses requires manager approval). 
-	// Use case 5: The system shall notify a tutor when he receives a booking.
-	/**
-	 * Testing implementation of fifth most important use caes 
-	 */
 	@Test(priority=12, groups="Use Cases")
 	public void testNotifyTutor() {
 		int numberOfTutorNotifications = notificationService.getNotificationsByTutor(tutor).size();
@@ -523,7 +519,35 @@ public class RESTfulServicesTests extends AbstractTestNGSpringContextTests {
 		// Verify tutor has an additional notification
 		assertEquals(notificationService.getNotificationsByTutor(tutor).size() - numberOfTutorNotifications, 1);
 	}
+	
+	@Test(priority=12, groups="Use Cases")
+	public void testTutorChangeHourlyRate() {
+		String newHourlyRate = "17";
+		String tutorId = tutor.getId().toString();
+		LinkedMultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
+		params.add("tutorId", tutorId);
+		params.add("hourlyRate", newHourlyRate);
+		HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(params, headers); 
+		ResponseEntity<String> response = restTemplate.exchange(constructURLWithLocalPort("/tutor/hourlyrate/" + newHourlyRate), HttpMethod.PUT, entity, String.class);
+		
+		// Make sure response code is 200
+		assertEquals(response.getStatusCodeValue(),200);
 
+		// Verify response is not null 
+		assertNotNull(response);
+	}
+	
+//	@Test(priority=12, groups="Use Cases")
+//	@Test(priority=12, groups="Use Cases")
+//	@Test(priority=12, groups="Use Cases")
+//	@Test(priority=12, groups="Use Cases")
+//	@Test(priority=12, groups="Use Cases")
+//	@Test(priority=12, groups="Use Cases")
+//	@Test(priority=12, groups="Use Cases")
+//	@Test(priority=12, groups="Use Cases")
+//	@Test(priority=12, groups="Use Cases")
+	
+	
 	private String constructURLWithLocalPort(String URI) {
 		return "http://localhost:" + port + URI;
 	}	

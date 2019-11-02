@@ -50,7 +50,7 @@ public class TutorController {
         }
     }
     
-    @PutMapping("/tutor/{hourlyRate}")
+    @PutMapping("/tutor/hourlyrate/{hourlyRate}")
     public TutorDto changeHourlyRate(@RequestParam("tutorId") String tutorId, @PathVariable String hourlyRate) {
     	Tutor tutor = service.changeHourlyRate(Integer.parseInt(tutorId), Double.parseDouble(hourlyRate));
     	return convertToDto(tutor);
