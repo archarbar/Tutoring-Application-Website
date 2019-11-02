@@ -59,7 +59,7 @@ public class BookingController {
     public void createNotificationFromBooking(@RequestParam("tutorId") String tutorId, @RequestParam("bookingId") String bookingId) {
     	// Upon receiving a new booking, the tutor point of view creates a new notification.
     	Booking booking = service.getBookingById(Integer.parseInt(bookingId));
-    	Tutor tutor = tutorService.getTutor(Integer.parseInt(tutorId));
+    	Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
     	notificationService.createNotification(booking, tutor);    	
     }
    
