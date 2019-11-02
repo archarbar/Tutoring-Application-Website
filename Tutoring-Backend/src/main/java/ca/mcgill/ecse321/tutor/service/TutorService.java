@@ -1,17 +1,20 @@
 package ca.mcgill.ecse321.tutor.service;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.tutor.dao.CourseRepository;
+import ca.mcgill.ecse321.tutor.dao.TimeSlotRepository;
 import ca.mcgill.ecse321.tutor.dao.TutorRepository;
-import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Course;
-import ca.mcgill.ecse321.tutor.model.Manager;
+import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
+import ca.mcgill.ecse321.tutor.model.TimeSlot;
 import ca.mcgill.ecse321.tutor.model.Tutor;
 
 @Service
@@ -19,9 +22,14 @@ public class TutorService {
 
 	@Autowired
 	TutorRepository tutorRepository;
+
 	
 	@Autowired
 	CourseRepository courseRepository;
+
+	@Autowired
+	TimeSlotRepository timeSlotRepository;
+
 
 	@Transactional
 	public Tutor createTutor(String firstName, String lastName, String email, String password) {
@@ -87,6 +95,57 @@ public class TutorService {
 	}
 
 	@Transactional
+	public void addTimeSlotForTutor(Tutor tutor, String startTime, String endTime, String weekDay) {
+		String error = "";
+		if (tutor == null) {
+			error = error + "A tutor needs to be specified! ";
+		}
+		if (startTime == null || startTime.trim().length() == 0) {
+			error = error + "A start time needs to be specified! ";
+		}
+		if (endTime == null || endTime.trim().length() == 0) {
+			error = error + "A end time needs to be specified! ";
+		}
+		if (weekDay == null || weekDay.trim().length() == 0) {
+			error = error + "A weekday needs to be specified!";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		TimeSlot timeSlot = new TimeSlot();
+		timeSlot.setStartTime(Time.valueOf(startTime));
+		timeSlot.setEndTime(Time.valueOf(endTime));
+		timeSlot.setDayOfTheWeek(DayOfTheWeek.valueOf(weekDay));
+		timeSlotRepository.save(timeSlot);
+		Set<TimeSlot> timeslots = tutor.getTimeSlot();
+		timeslots.add(timeSlot);
+		tutor.setTimeSlot(timeslots);
+	}
+
+	@Transactional
+	public void removeTimeSlotForTutor(Tutor tutor, Integer timeSlotId) {
+		String error = "";
+		if (tutor == null) {
+			error = error + "A tutor needs to be specified! ";
+		}
+		if (timeSlotId == null) {
+			error = error + "A timeSlot ID needs to be specified!";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		Set<TimeSlot> timeslots = tutor.getTimeSlot();
+		for (TimeSlot timeSlot : timeslots) {
+			if (timeSlot.getId() == timeSlotId) {
+				timeslots.remove(timeSlot);
+				break;
+			}
+		}
+	}
+	
+	@Transactional
 	public Tutor approvedTutor(String tutorId, String tutorPassword, String hourlyRate) {
 		String error = "";
 		if (tutorId == null || tutorId.trim().length() == 0) {
@@ -107,6 +166,7 @@ public class TutorService {
     	tutor.setHourlyRate(Double.parseDouble(hourlyRate));
 		return tutor;
 	}
+	
 	
 	@Transactional
 	public List<Tutor> getTutorsByCourse(Course course) {

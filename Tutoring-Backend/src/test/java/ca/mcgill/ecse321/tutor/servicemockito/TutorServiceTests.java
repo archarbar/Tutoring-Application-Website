@@ -70,7 +70,7 @@ public class TutorServiceTests {
 
 	@Test
 	public void testGetTutor(){
-		assertEquals(SUCCESS_KEY, tutorService.getTutor(SUCCESS_KEY).getId());
+		assertEquals(SUCCESS_KEY, tutorService.getTutorById(SUCCESS_KEY).getId());
 		assertEquals(EMAIL_KEY, tutorService.getTutorByEmail(EMAIL_KEY).getEmail());
 		assertEquals(SUCCESS_KEY, tutorService.getAllTutors().get(0).getId());
 	}
