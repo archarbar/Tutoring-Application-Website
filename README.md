@@ -28,10 +28,10 @@ The objective of this project is to design a software solution for a new tutorin
 |  Team members   |	     Responsibility     | Hours|
 |-----------------|-------------------------|------|
 |    Michael Li   | Use Cases, RESTful testing, Integration testing, Project Management  | 35 |
-|    Tony Ou      | Unit testing, Mockito Unit Testing | 25 |
+|    Tony Ou      | Unit testing, Mockito Unit Testing | 35 |
 | Patrick Tweddell| RESTful services, Mockito Unit Testing  | 25 |
-|  William Zhang  | Controller RESTful testing, Integration testing | 30 |
-|  Victor Zhong   | Unit testing, Mockito Unit Testing, QA Plan and Report | 30 |
+|  William Zhang  | Controller RESTful testing, Integration testing | 35 |
+|  Victor Zhong   | Unit testing, Mockito Unit Testing, QA Plan and Report | 35 |
 
    * [Report](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Report-(Sprint-2))
    * [QA Plan](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/software-qa-plan)
