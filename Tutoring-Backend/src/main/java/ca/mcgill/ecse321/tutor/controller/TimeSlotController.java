@@ -39,13 +39,20 @@ public class TimeSlotController {
 		return convertToDto(service.createTimeSlot(st, et, dayOfTheWeek));
 	}
 
-	@PostMapping("/timeslot/{tutorId}/new")
+	@PostMapping("/timeslot/{tutorId}/add")
 	public void addTimeSlotForTutor(@RequestParam("startTime") String startTime,
 			@RequestParam("endTime") String endTime, 
 			@RequestParam("dayOfTheWeek") String weekDay,
 			@RequestParam("tutorId") String tutorId) {
 		Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
 		tutorService.addTimeSlotForTutor(tutor, startTime, endTime, weekDay);
+	}
+
+	@PostMapping("/timeslot/{tutorId}/remove")
+	public void removeTimeSlotForTutor(@RequestParam("timeSlotId") String timeSlotId,
+			@RequestParam("tutorId") String tutorId) {
+		Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
+		tutorService.removeTimeSlotForTutor(tutor, Integer.parseInt(timeSlotId));
 	}
 
 	@GetMapping("/timeslot/{timeSlotId}")

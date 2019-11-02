@@ -89,6 +89,9 @@ public class TutorService {
 	@Transactional
 	public void addTimeSlotForTutor(Tutor tutor, String startTime, String endTime, String weekDay) {
 		String error = "";
+		if (tutor == null) {
+			error = error + "A tutor needs to be specified! ";
+		}
 		if (startTime == null || startTime.trim().length() == 0) {
 			error = error + "A start time needs to be specified! ";
 		}
@@ -110,6 +113,28 @@ public class TutorService {
 		Set<TimeSlot> timeslots = tutor.getTimeSlot();
 		timeslots.add(timeSlot);
 		tutor.setTimeSlot(timeslots);
+	}
+
+	@Transactional
+	public void removeTimeSlotForTutor(Tutor tutor, Integer timeSlotId) {
+		String error = "";
+		if (tutor == null) {
+			error = error + "A tutor needs to be specified! ";
+		}
+		if (timeSlotId == null) {
+			error = error + "A timeSlot ID needs to be specified!";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		Set<TimeSlot> timeslots = tutor.getTimeSlot();
+		for (TimeSlot timeSlot : timeslots) {
+			if (timeSlot.getId() == timeSlotId) {
+				timeslots.remove(timeSlot);
+				break;
+			}
+		}
 	}
 
 }
