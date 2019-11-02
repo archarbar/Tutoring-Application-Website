@@ -80,4 +80,27 @@ public class TutorService {
 		return resultList;
 	}
 
+	@Transactional
+	public Tutor approvedTutor(String tutorId, String tutorPassword, String hourlyRate) {
+		String error = "";
+		if (tutorId == null || tutorId.trim().length() == 0) {
+			error = error + "A first name needs to be specified! ";
+		}
+		if (tutorPassword == null || tutorPassword.trim().length() == 0) {
+			error = error + "A last name needs to be specified! ";
+		}
+		if (hourlyRate == null || hourlyRate.trim().length() == 0) {
+			error = error + "An hourly rate needs to be specified! ";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		Tutor tutor = tutorRepository.findTutorById(Integer.parseInt(tutorId));
+    	tutor.setPassword(tutorPassword);
+    	tutor.setHourlyRate(Double.parseDouble(hourlyRate));
+		// TODO Auto-generated method stub
+		return tutor;
+	}
+
 }

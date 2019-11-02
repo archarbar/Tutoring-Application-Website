@@ -5,9 +5,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.mcgill.ecse321.tutor.dao.TutorRepository;
 import ca.mcgill.ecse321.tutor.dto.TutorDto;
 import ca.mcgill.ecse321.tutor.model.Tutor;
 import ca.mcgill.ecse321.tutor.service.TutorService;
@@ -17,6 +19,9 @@ import ca.mcgill.ecse321.tutor.service.TutorService;
 public class TutorController {
     @Autowired
     private TutorService service;
+    
+    @Autowired
+    private TutorRepository repository;
 
     @PostMapping("/tutor/new")
     public TutorDto createTutor(@RequestParam("tutorFirstName") String tutorFirstName,
@@ -41,6 +46,14 @@ public class TutorController {
         else{
             throw new IllegalArgumentException("Wrong Password, try again.");
         }
+    }
+    
+    @PutMapping("/tutor/approved/")
+    public TutorDto setAccount(@RequestParam("tutorId") String tutorId,
+    						   @RequestParam("password") String tutorPassword,
+    						   @RequestParam("hourlyRate") String hourlyRate) throws IllegalArgumentException{
+    	Tutor tutor = service.approvedTutor(tutorId, tutorPassword, hourlyRate);   	 
+    	return convertToDto(tutor);
     }
 
 
