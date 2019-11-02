@@ -56,7 +56,7 @@ public class TutoringSessionController {
         return convertToDto(service.getTutoringSessionById(Integer.parseInt(tutoringSessionId)));
     }
 
-    @GetMapping("/tutoringsessions/tutor/{tutor}")
+    @GetMapping("/tutoringsessions/tutor/{tutorId}")
     public List<TutoringSessionDto> getTutoringSessionByTutor(@PathVariable String tutorId) {
     	Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
         List<TutoringSessionDto> tutoringSessionDtos = new ArrayList<>();
