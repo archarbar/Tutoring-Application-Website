@@ -257,27 +257,6 @@ public class TutorServiceTests {
 	}
 	
 	@Test
-	public void testChangeHourlyRate() { // test setter methods
-		assertEquals(0, tutorService.getAllTutors().size());
-		
-		String firstName = "Marcus";
-		String lastName = "Fenix";
-		String email = "marcusfenix@gears.com";
-		String password = "locust";
-		double newHourlyRate= 30.5;
-		Tutor t = tutorService.createTutor(firstName, lastName, email, password);
-		t.setIsApproved(true);
-		try {
-			tutorService.changeHourlyRate(t.getId(), newHourlyRate);
-			tutorRepository.save(t);
-		} catch (IllegalArgumentException e) {
-			fail();
-		}
-		List<Tutor> allTutors = tutorService.getAllTutors();
-		assertEquals(newHourlyRate, allTutors.get(0).getHourlyRate(), 0.01);
-	}
-
-	@Test
 	public void testChangeTutorFirstName() { // test setter methods
 		assertEquals(0, tutorService.getAllTutors().size());
 		String firstName = "Marcus";
