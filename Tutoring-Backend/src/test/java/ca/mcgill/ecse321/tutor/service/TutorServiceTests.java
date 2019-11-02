@@ -82,26 +82,46 @@ public class TutorServiceTests {
 	}
 
 
-	@Test
-	public void testCreateTutorEmpty() {
-		assertEquals(0, tutorService.getAllTutors().size());
-		String firstName = "";
-		String lastName = "";
-		String email = "";
-		String password = "";
-		String error = null;
-		try {
-			tutorService.createTutor(firstName, lastName, email, password);
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-
-		// check error
-		assertEquals("A first name needs to be specified! A last name needs to be specified! An email needs to be specified! A password needs to be specified!", error);
-
-		// check no change in memory
-		assertEquals(0, tutorService.getAllTutors().size());
-	}
+	//	@Test
+	//	public void testCreateTutorEmpty() {
+	//		assertEquals(0, tutorService.getAllTutors().size());
+	//		String firstName = "";
+	//		String lastName = "";
+	//		String email = "";
+	//		String password = "";
+	//		Manager manager = managerService.createManager();
+	//		String error = null;
+	//		try {
+	//			tutorService.createTutor(firstName, lastName, email, password);
+	//		} catch (IllegalArgumentException e) {
+	//			error = e.getMessage();
+	//		}
+	//
+	//		// check error
+	//		assertEquals("A first name needs to be specified! A last name needs to be specified! An email needs to be specified! A password needs to be specified!", error);
+	//
+	//		// check no change in memory
+	//		assertEquals(0, tutorService.getAllTutors().size());
+	//	}
+	
+//	@Test
+//	public void testChangeHourlyRate() { // test setter methods
+//		assertEquals(0, tutorService.getAllTutors().size());
+//		
+//		String firstName = "Marcus";
+//		String lastName = "Fenix";
+//		String email = "marcusfenix@gears.com";
+//		String password = "locust";
+//		double newHourlyRate= 30.5;
+//		Tutor t = tutorService.createTutor(firstName, lastName, email, password);
+//		t.setIsApproved(true);
+//		try {
+//			tutorService.changeHourlyRate(t.getId(), newHourlyRate);
+//		} catch (IllegalArgumentException e) {
+//			fail();
+//		}
+//		assertEquals(newHourlyRate, tutorService.getTutor(t.getId()).getHourlyRate(), 0.01);
+//	}
 
 	@Test
 	public void testCreateTutorWhiteSpace() {
