@@ -40,7 +40,7 @@ public class CourseController {
 	public CourseDto getCourseById(@PathVariable String courseId) {
 		return convertToDto(service.getCourseById(Integer.parseInt(courseId)));
 	}
-	
+
 	// USE CASE 5
 
 	@PostMapping("/course/{tutorId}/add")

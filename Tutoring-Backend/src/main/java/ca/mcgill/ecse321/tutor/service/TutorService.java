@@ -64,6 +64,15 @@ public class TutorService {
 	}
 
 	@Transactional
+	public Tutor changeHourlyRate(Integer tutorId, double hourlyRate) {
+		Tutor tutor = getTutorById(tutorId);
+		if (tutor.getIsApproved() == true) {
+			tutor.setHourlyRate(hourlyRate);
+		}
+		return tutor;
+	}
+
+	@Transactional
 	public Tutor getTutorById(Integer id) {
 		if (id == null) {
 			throw new IllegalArgumentException("A tutor ID needs to be specified!");

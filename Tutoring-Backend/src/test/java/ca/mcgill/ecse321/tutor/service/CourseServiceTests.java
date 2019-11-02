@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import org.junit.After;
+import org.junit.Before;
 
 import ca.mcgill.ecse321.tutor.model.Course;
 import ca.mcgill.ecse321.tutor.model.Level;
@@ -28,6 +29,7 @@ public class CourseServiceTests {
 	@Autowired
 	private CourseRepository courseRepository;
 
+	@Before
 	@After
 	public void clearDatabase() {
 		courseRepository.deleteAll();
