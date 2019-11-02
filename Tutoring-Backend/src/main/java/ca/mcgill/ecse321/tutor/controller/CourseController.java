@@ -35,9 +35,10 @@ public class CourseController {
     }
 
     @GetMapping("/course/level/{level}")
-    public ArrayList<CourseDto> getCoursesByLevel (@PathVariable Level level) {
+    public ArrayList<CourseDto> getCoursesByLevel (@PathVariable String level) {
+    	Level educationLevel = Level.valueOf(level);
         ArrayList<CourseDto> returnCourse = new ArrayList<>();
-        ArrayList<Course> courses = service.getCourseByCourseLevel(level);
+        ArrayList<Course> courses = service.getCourseByCourseLevel(educationLevel);
         for (Course course : courses) {
             returnCourse.add(convertToDto(course));
         }
