@@ -48,6 +48,15 @@ public class TutorService {
 		tutorRepository.save(tutor);
 		return tutor;
 	}
+	
+	@Transactional
+	public Tutor changeHourlyRate(Integer tutorId, double hourlyRate) {
+		Tutor tutor = getTutor(tutorId);
+		if (tutor.getIsApproved() == true) {
+			tutor.setHourlyRate(hourlyRate);
+		}
+		return tutor;
+	}
 
 	@Transactional
 	public Tutor getTutor(Integer id) {
