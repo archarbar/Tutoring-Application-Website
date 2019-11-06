@@ -13,7 +13,7 @@ The objective of this project is to design a software solution for a new tutorin
 ## Deliverable 1: Due October 13, 2019
 |  Team members   |	     Responsibility     | Hours|
 |-----------------|-------------------------|------|
-|    Michael Li   | Build System and Continuous Integration  | 20 |
+|    Michael Li   | Backend Build System and Continuous Integration  | 20 |
 |    Tony Ou      | Testing of Persistence & Persistence Layer  | 35 |
 | Patrick Tweddell| Project Management and Project Report  | 20 |
 |  William Zhang  | Testing of Persistence & Persistence Layer  | 35 |
@@ -37,3 +37,14 @@ The objective of this project is to design a software solution for a new tutorin
    * [QA Plan](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/software-qa-plan)
    * [QA Report](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/QA-Report)
    * [RESTful Services](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/RESTful-Services)
+   
+   ## Deliverable 3: Due November 17, 2019
+|  Team members   |	     Responsibility     | Hours|
+|-----------------|-------------------------|------|
+|    Michael Li   | Backend Services, Project Management, Architecture Model, Integration of Backend and Frontend  | 2 |
+|    Tony Ou      | Frontend, Integration of Backend and Frontend, Frontend Build System | 1 |
+|  William Zhang  | Frontend, Integration of Backend and Frontend, Frontend Build System | 1 |
+|  Victor Zhong   | Architecture Model, Integration of Backend and Frontend, Backend Services  | 1 |
+
+* [Report]
+* [Frontend]
