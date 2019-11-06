@@ -68,8 +68,8 @@ public class TutorService {
 		Tutor tutor = getTutorById(tutorId);
 		if (tutor.getIsApproved() == true) {
 			tutor.setHourlyRate(hourlyRate);
-			tutorRepository.save(tutor);
 		}		
+		tutorRepository.save(tutor);
 		return tutor;
 	}
 

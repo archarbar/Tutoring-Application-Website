@@ -104,24 +104,25 @@ public class TutorServiceTests {
 	//		assertEquals(0, tutorService.getAllTutors().size());
 	//	}
 	
-//	@Test
-//	public void testChangeHourlyRate() { // test setter methods
-//		assertEquals(0, tutorService.getAllTutors().size());
-//		
-//		String firstName = "Marcus";
-//		String lastName = "Fenix";
-//		String email = "marcusfenix@gears.com";
-//		String password = "locust";
-//		double newHourlyRate= 30.5;
-//		Tutor t = tutorService.createTutor(firstName, lastName, email, password);
-//		t.setIsApproved(true);
-//		try {
-//			tutorService.changeHourlyRate(t.getId(), newHourlyRate);
-//		} catch (IllegalArgumentException e) {
-//			fail();
-//		}
-//		assertEquals(newHourlyRate, tutorService.getTutor(t.getId()).getHourlyRate(), 0.01);
-//	}
+	@Test
+	public void testChangeHourlyRate() { // test setter methods
+		assertEquals(0, tutorService.getAllTutors().size());
+		
+		String firstName = "Marcus";
+		String lastName = "Fenix";
+		String email = "marcusfenix@gears.com";
+		String password = "locust";
+		double newHourlyRate= 30.5;
+		Tutor t = tutorService.createTutor(firstName, lastName, email, password);
+		t.setIsApproved(true);
+		tutorRepository.save(t);
+		try {
+			tutorService.changeHourlyRate(t.getId(), newHourlyRate);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertEquals(newHourlyRate, tutorService.getTutorById(t.getId()).getHourlyRate(), 0.01);
+	}
 
 	@Test
 	public void testCreateTutorWhiteSpace() {

@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.tutor.dto.TimeSlotDto;
-import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
 import ca.mcgill.ecse321.tutor.model.TimeSlot;
 import ca.mcgill.ecse321.tutor.model.Tutor;
-import ca.mcgill.ecse321.tutor.model.TutoringSession;
+import ca.mcgill.ecse321.tutor.service.BookingService;
 import ca.mcgill.ecse321.tutor.service.TimeSlotService;
 import ca.mcgill.ecse321.tutor.service.TutorService;
+import ca.mcgill.ecse321.tutor.service.TutoringSessionService;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -27,6 +27,10 @@ public class TimeSlotController {
 	private TimeSlotService service;
 	@Autowired
 	private TutorService tutorService;
+	@Autowired
+	private BookingService bookingService;	
+	@Autowired
+	private TutoringSessionService tutoringSessionService;
 
 	@PostMapping("/timeslot/new")
 	public TimeSlotDto createTimeSlot(@RequestParam("startTime") String startTime,
@@ -41,7 +45,7 @@ public class TimeSlotController {
 	
 	// USE CASE 3
 
-	@PostMapping("/timeslot/{tutorId}/add")
+	@PostMapping("/timeslot/{tutorId}/new")
 	public void addTimeSlotForTutor(@RequestParam("startTime") String startTime,
 			@RequestParam("endTime") String endTime, 
 			@RequestParam("dayOfTheWeek") String weekDay,
@@ -52,7 +56,7 @@ public class TimeSlotController {
 	
 	// USE CASE 3
 
-	@PostMapping("/timeslot/{tutorId}/remove")
+	@PostMapping("/timeslot/{tutorId}/delete")
 	public void removeTimeSlotForTutor(@RequestParam("timeSlotId") String timeSlotId,
 			@RequestParam("tutorId") String tutorId) {
 		Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
@@ -66,13 +70,13 @@ public class TimeSlotController {
 
 
 	@GetMapping("/timeslot/booking/{booking}")
-	public TimeSlotDto getTimeSlotByBooking(@RequestParam Booking booking) {
-		return convertToDto(service.getTimeSlotByBooking(booking));
+	public TimeSlotDto getTimeSlotByBooking(@RequestParam String bookingId) {
+		return convertToDto(service.getTimeSlotByBooking(bookingService.getBookingById(Integer.parseInt(bookingId))));
 	}
 
 	@GetMapping("/timeslot/tutoringsession/{tutoringSession}")
-	public TimeSlotDto getTimeSlotByTutoringSession(@RequestParam TutoringSession tutoringSession) {
-		return convertToDto(service.getTimeSlotByTutoringSession(tutoringSession));
+	public TimeSlotDto getTimeSlotByTutoringSession(@RequestParam String tutoringSessionId) {
+		return convertToDto(service.getTimeSlotByTutoringSession(tutoringSessionService.getTutoringSessionById(Integer.parseInt(tutoringSessionId))));
 	}
 
 	private TimeSlotDto convertToDto(TimeSlot timeSlot) {
