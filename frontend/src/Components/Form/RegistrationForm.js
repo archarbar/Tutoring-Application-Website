@@ -91,10 +91,8 @@ class RegistrationForm extends Component {
             confirmError: false,
             entered: false,
             emailDuplicateError: false,
-            isDesktop: false,
             registering: false,
         }
-        this.updatePredicate = this.updatePredicate.bind(this);
         this.handleEvent = this.handleEvent.bind(this)
         this.handleClickForm = this.handleClickForm.bind(this)
         this.handleChangePassword = this.handleChangePassword.bind(this)
@@ -157,26 +155,12 @@ class RegistrationForm extends Component {
         return this.state.password === '' || this.state.confirmPassword === ''
     }
 
-    updatePredicate() {
-        this.setState({ isDesktop: window.outerWidth >= 760 });
-    }
-
     componentDidMount() {
-        document.title = this.getTitle()
-        this.updatePredicate();
-        window.addEventListener("resize", this.updatePredicate);
-    }
-
-    getTitle() {
-        let { lang } = this.props
-        let message = ""
-        lang === 'en' ? message = "RailVision Analytics | Register" : message = "Analyse RailVision | Registration"
-        return message
+        document.title = "TutorGang | Register"
     }
 
     render() {
         const { classes } = this.props;
-        const { isDesktop } = this.state;
 
         return (
             <div className={classes.mainContainer}>
@@ -186,7 +170,7 @@ class RegistrationForm extends Component {
                         </h1>
                     <div
                         className={classes.textfieldContainer}
-                        style={isDesktop ? { width: '60%' } : { width: '80%' }}
+                        style={{ width: '60%' }}
                     >
                         {this.state.firstError ?
 
@@ -319,7 +303,7 @@ class RegistrationForm extends Component {
                         size="large"
                         color="primary"
                         aria-label="Add"
-                        className={isDesktop ? classes.button : classes.buttonMobile}
+                        className={classes.button}
                         onClick={this.handleClickForm}
                         style={this.state.registering ? { opacity: 0.7 } : null}
                     >
