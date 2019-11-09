@@ -18,50 +18,47 @@ const styles = () => ({
         // gridTemplateRows: '0vh 0px 95vh 1fr auto',
         // maxWidth: '100vw',
     },
-    // mainImageContainer: {
-    //     gridRowStart: 3,
-    //     // backgroundImage: `url(${mainImage})`,
-    //     opacity:'1',
-    //     backgroundPosition: 'center',
-    //     backgroundSize: 'cover',
-    //     // backgroundColor: 'rgba(1, 1, 1, 0)',
-    //     display: 'flex',
-    //     alignItems: 'center',
-    //     // flexDirection: 'column',
-    //     justifyContent: 'center',
-    // },
-    mainImage: {
-        position:'relative',
+    mainImageContainer: {
+
+        height:'90vh',
         width:'100vw',
+        backgroundImage: `url(${mainImage})`,
+        backgroundSize:'cover',
+        backgroundPosition:'center',
+        // filter:'blur(3px)',
+        maxWidth:'100%',
 
-        backgroundColor: 'rgba(1,1,1, 0.8)',
-        // textAlign: 'center',
+        display: 'flex',
+        alignItems: 'center',
+        // flexDirection: 'column',
+        justifyContent: 'center',
     },
-    // titleContainer: {
-    //     gridRowStart: 1,
-    //     display: 'flex',
-    //     justifyContent: 'center',
-    //     fontStyle: 'italic',
-    //     fontSize: 20,
-    //     padding: '0 160px',
-    //     gridColumnStart: 'span 3',
-    //     maxWidth: '100vw',
-    // },
-    // mainImageText:{
-    //     position:'absolute',
-    //     // gridRowStart:,
-    //     width:'80vw',
-    //     height:'40vh',
-    //     color: 'white', 
-    //     fontSize: 30,
-    //     margin:'auto',
-    //     textAlign: 'center',
-    //     alignItems:'center',
-    //     lineHeight:'3',
-    //     backgroundColor: 'rgba(1,1,1, 0.8)',
-
-    //     // marginLeft: '20px'
-    // }
+    blackLayer: {
+        backgroundColor: 'rgba(0,0,0, 0.5)',/* Black w/opacity/see-through */
+        color: 'white',
+        fontWeight: 'bold',
+        position: 'absolute',
+        zIndex: '2',
+        width: '100vw',
+        textAlign: 'center',
+        alignItems:'center',
+        justifyContent:'center',
+        margin:'auto',
+        maxWidth:'100%',
+        height:'90vh',
+        maxHeight:'100%',
+    },
+    mainImageText:{
+        width:'80vw',
+        height:'100%',
+        color: 'white', 
+        fontSize: 25,
+        margin:'auto',
+        display:'flex',
+        textAlign: 'center',
+        alignItems:'center',
+        lineHeight:'3',
+    }
 });
 
 class HomePage extends React.Component {
@@ -87,21 +84,16 @@ class HomePage extends React.Component {
             <div>
                 <TopBar />
                 <div className={classes.mainContainer}>
-                    <div
-                        className={classes.mainImageContainer}
-                    >
-                        <div className={classes.mainImageDiv}>
-                            <img src={mainImage}  className = {classes.mainImage} alt="Tutor session" />
-
+                    <div className={classes.mainImageContainer}>
+                        {/* <img src={mainImage}  className = {classes.mainImage} alt="Tutor session" /> */}
+                        <div className={classes.blackLayer}>
                             <h1 className={classes.mainImageText}>
-                                We're looking for passionate tutors to help teach the youth of tomorrow. <br/>
-                                Share your passion with the world and sign up today! 
+                                We're looking for passionate tutors to help teach the youth of tomorrow. <br />
+                                Share your passion with the world and sign up today!
                             </h1>
-                            {/* INSERT BUTTON HERE TO SIGN UP */}
                         </div>
-                        <div>
 
-                        </div>
+                        {/* INSERT BUTTON HERE TO SIGN UP */}
                     </div>
                 </div>
             </div>
@@ -111,7 +103,89 @@ class HomePage extends React.Component {
 
 HomePage.propTypes = {
     classes: PropTypes.object.isRequired,
-  };
+};
 
 export default withStyles(styles)(HomePage);
 
+
+// import React from 'react';
+// import './App.css';
+// import SimpleAppBar from './Components/Appbar/appbar.js'
+// import { makeStyles } from '@material-ui/core/styles';
+// import backgroundPictureOne from './Pictures/wallpaper.jpg'
+// import Button from '@material-ui/core/Button';
+
+
+// const useStyles = makeStyles({
+//   firstBox:{
+//     height:'90vh',
+//     width:'100vw',
+//     backgroundImage: `url(${backgroundPictureOne})`,
+//     backgroundSize:'cover',
+//     backgroundPosition:'center',
+//     // filter:'blur(3px)',
+//     maxWidth:'100%',
+//   },
+//   textFirstBox:{
+//     backgroundColor: 'rgb(0,0,0)', /* Fallback color */
+//     backgroundColor: 'rgba(0,0,0, 0.4)',/* Black w/opacity/see-through */
+//     color: 'white',
+//     fontWeight: 'bold',
+//     position: 'absolute',
+//     top: '20vh',
+//     zIndex: '2',
+//     width: '100vw',
+//     textAlign: 'center',
+//     maxWidth:'100%',
+//   },
+//   title:{
+//     fontSize:'50px',
+//     paddingTop:'20px',
+//   },
+//   text:{
+//     fontSize:'24px',
+//     padding:'20px',
+//     paddingTop:'0'
+//   },
+//   secondBox:{
+//     height:'90vh',
+//     width:'90vw',
+//     margin:'auto',
+//     backgroundColor:'yellow',
+//     backgroundSize:'cover',
+//     backgroundPosition:'center',
+//   },
+//   button:{
+//     marginBottom:'30px',
+//   }
+// });
+
+
+// function App() {
+//   const classes = useStyles();
+//   return (
+//     <div className="App">
+//       <SimpleAppBar/>
+//       <div className={classes.firstBox}></div>
+//       <div className={classes.textFirstBox}>
+//         <p className={classes.title}>Our solution for affordable housing.</p>
+//         <p className={classes.text}>Affordable housing means reducing the complexity of mortgages and facilitating the transition from tenant to owner</p>
+//         <Button variant="contained" className={classes.button}>
+//           Learn more
+//         </Button>
+//       </div>
+//       <div>
+//         <p>hello</p>
+//         <p>hello</p>
+//         <p>hello</p>
+//         <p>hello</p>
+//       </div>
+//       {/* <div className={classes.secondBox}>
+
+//       </div> */}
+
+//     </div>
+//   );
+// }
+
+// export default App;
