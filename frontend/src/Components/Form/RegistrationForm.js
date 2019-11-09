@@ -12,7 +12,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 const styles = theme => ({
     mainContainer: {
         borderStyle: 'solid',
-        borderColor: "primary",
+        borderColor: "#979797",
         borderWidth: 2,
         borderRadius: 40,
         width: '35vw',
