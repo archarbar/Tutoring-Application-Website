@@ -1,14 +1,12 @@
 // React
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
 
 // Components
 import TopBar from '../TopBar.js';
 
 // Material-UI
 import { withStyles } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
 
 import mainImage from '../Images/tutor.jpg'
 
@@ -19,18 +17,14 @@ const styles = () => ({
         // maxWidth: '100vw',
     },
     mainImageContainer: {
-
         height:'90vh',
         width:'100vw',
         backgroundImage: `url(${mainImage})`,
         backgroundSize:'cover',
         backgroundPosition:'center',
-        // filter:'blur(3px)',
         maxWidth:'100%',
-
         display: 'flex',
         alignItems: 'center',
-        // flexDirection: 'column',
         justifyContent: 'center',
     },
     blackLayer: {
@@ -70,7 +64,6 @@ class HomePage extends React.Component {
     render() {
 
         const { classes } = this.props;
-        const { width } = this.state;
 
         return (
             <div>
