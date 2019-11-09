@@ -37,27 +37,19 @@ const styles = () => ({
         backgroundColor: 'rgba(0,0,0, 0.5)',/* Black w/opacity/see-through */
         color: 'white',
         fontWeight: 'bold',
-        position: 'absolute',
+        display: 'flex',
         zIndex: '2',
-        width: '100vw',
-        textAlign: 'center',
+        width: '100%',
         alignItems:'center',
         justifyContent:'center',
         margin:'auto',
-        maxWidth:'100%',
         height:'90vh',
-        maxHeight:'100%',
     },
     mainImageText:{
-        width:'80vw',
-        height:'100%',
         color: 'white', 
         fontSize: 25,
-        margin:'auto',
-        display:'flex',
-        textAlign: 'center',
-        alignItems:'center',
         lineHeight:'3',
+        textAlign: 'center',
     }
 });
 
