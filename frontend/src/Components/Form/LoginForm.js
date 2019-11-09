@@ -1,6 +1,7 @@
 // React
 import React from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
 // Material-UI
 import { withStyles } from '@material-ui/core/styles';
@@ -54,7 +55,7 @@ const styles = theme => ({
         fontSize: 14,
     },
     signin: {
-        color: '#9D1010',
+        color: '#3f51b5',
         fontWeight: 630,
         display: 'inline'
     },
@@ -79,15 +80,15 @@ const styles = theme => ({
     },
 });
 
-// const onMouseOut = event => {
-//     const el = event.target;
-//     el.style.color = "#9D1010";
-// }
+const onMouseOut = event => {
+    const el = event.target;
+    el.style.color = '#3f51b5';
+}
 
-// const onMouseOver = event => {
-//     const el = event.target;
-//     el.style.color = "#7D1D1D"
-// }
+const onMouseOver = event => {
+    const el = event.target;
+    el.style.color = "#081769"
+}
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -211,11 +212,11 @@ class LoginForm extends React.Component {
                         <p>
                             Don't have an account yet?
                               &nbsp;
-              {/* <NavLink to="/register" style={{ color: 'inherit', textDecoration: 'none' }}>
+              <NavLink to="/register" style={{ textDecoration: 'none' }}>
                                 <p className={classes.signin} onMouseEnter={event => onMouseOver(event)} onMouseOut={event => onMouseOut(event)}>
                                     Register
                                 </p>
-                            </NavLink> */}
+                            </NavLink>
                         </p>
                     </div>
                 </form>

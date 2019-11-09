@@ -1,23 +1,23 @@
 import React from 'react';
 import './App.css';
-import ButtonAppBar from "./Components/TopBar.js"
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+// Components
 import HomePage from './Components/WebPages/HomePage.js'
+import RegisterPage from './Components/WebPages/RegisterPage'
+import LoginPage from './Components/WebPages/LoginPage'
 
 function App() {
   return (
-    // <div className="App">
     <Router>
       <Switch>
-        <Route path = '/'>
-          <HomePage/>
+        <Route exact path='/'>
+          <HomePage />
         </Route>
-
+        <Route exact path="/register" component={RegisterPage} />
+        <Route exact path="/login" component={LoginPage} />
       </Switch>
     </Router>
-      // <ButtonAppBar/>
-    // </div>
   );
 }
 

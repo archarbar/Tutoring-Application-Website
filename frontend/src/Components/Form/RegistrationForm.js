@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { NavLink } from 'react-router-dom';
 
 // Material-UI
 import { withStyles } from '@material-ui/core/styles';
@@ -38,7 +39,7 @@ const styles = theme => ({
         marginRight: 'auto'
     },
     signin: {
-        color: '#9D1010',
+        color: '#3f51b5',
         fontWeight: 630
     },
     textfieldContainer: {
@@ -64,15 +65,15 @@ const styles = theme => ({
     },
 });
 
-// const onMouseOut = event => {
-//     const el = event.target;
-//     el.style.color = "#9D1010";
-// }
+const onMouseOut = event => {
+    const el = event.target;
+    el.style.color = '#3f51b5';
+}
 
-// const onMouseOver = event => {
-//     const el = event.target;
-//     el.style.color = "#7D1D1D"
-// }
+const onMouseOver = event => {
+    const el = event.target;
+    el.style.color = "#081769"
+}
 
 class RegistrationForm extends Component {
 
@@ -313,15 +314,15 @@ class RegistrationForm extends Component {
                         <p>
                             Already have an account?
                             &nbsp;
-                {/* <NavLink to="/login" style={{ textDecoration: 'none' }}>
-                                    <p
-                                        className={classes.signin}
-                                        onMouseEnter={event => onMouseOver(event)}
-                                        onMouseOut={event => onMouseOut(event)}
-                                    >
-                                        Login
+                <NavLink to="/login" style={{ textDecoration: 'none' }}>
+                                <p
+                                    className={classes.signin}
+                                    onMouseEnter={event => onMouseOver(event)}
+                                    onMouseOut={event => onMouseOut(event)}
+                                >
+                                    Login
                                     </p>
-                                </NavLink> */}
+                            </NavLink>
                         </p>
                     </div>
                 </form>
