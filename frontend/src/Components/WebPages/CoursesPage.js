@@ -10,10 +10,10 @@ const styles = theme => ({
     
 })
 
-class Dashboard extends Component {
+class CoursesPage extends Component {
 
     componentDidMount() {
-        document.title = "TutorGang | Dashboard"
+        document.title = "TutorGang | MyCourses"
     }
 
     render() {
@@ -25,4 +25,4 @@ class Dashboard extends Component {
     }
 }
 
-export default withStyles(styles)(Dashboard);
+export default withStyles(styles)(CoursesPage);

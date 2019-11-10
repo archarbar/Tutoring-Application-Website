@@ -13,7 +13,7 @@ const styles = theme => ({
         borderStyle: 'solid',
         borderWidth: 2,
         borderRadius: 40,
-        borderColor: '#979797',
+        borderColor: '#DADADA',
         width: '35vw',
         minWidth: 500,
         minHeight: '38vh',

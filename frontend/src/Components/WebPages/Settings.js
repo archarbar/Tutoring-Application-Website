@@ -1,7 +1,6 @@
 // React
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 
 // Material-UI
 import { withStyles } from '@material-ui/core/styles';
@@ -13,9 +12,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import Topbar from '../TopBar/TopBarLoggedIn'
-
-// Other
+import SideBar from '../TopBar/SideBar'
 
 const styles = theme => ({
     mainContainer: {
@@ -225,7 +222,7 @@ class SettingsPage extends Component {
 
         return (
             <div>
-                <Topbar />
+                <SideBar />
                 <div
                     className={classes.mainContainer}
                     onClick={this.props.closeDrawer}

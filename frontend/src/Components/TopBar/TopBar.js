@@ -5,7 +5,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 
 import Logo from '../Images/logo.png'
 
@@ -32,7 +31,7 @@ export default function ButtonAppBar() {
       <AppBar position="static">
         <Toolbar>
            <IconButton onClick={() => redirectTo("/")} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <img src = {Logo} style={{width:35, height:35}} />
+            <img src={Logo} style={{width:35, height:35}} alt={"Logo"} />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             TutorMe!
