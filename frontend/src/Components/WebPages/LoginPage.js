@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 // Components
 import LoginForm from '../Form/LoginForm'
-import ButtonAppBar from "../TopBar"
+import ButtonAppBar from "../TopBar/TopBar"
 
 export default class LoginPage extends Component {
     render() {

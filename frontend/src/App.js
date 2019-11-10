@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import HomePage from './Components/WebPages/HomePage.js'
 import RegisterPage from './Components/WebPages/RegisterPage'
 import LoginPage from './Components/WebPages/LoginPage'
+import SettingsPage from './Components/WebPages/Settings'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         </Route>
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/login" component={LoginPage} />
+        <Route path = '/settings' component={SettingsPage} />
       </Switch>
     </Router>
   );

@@ -5,9 +5,13 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import MoreIcon from '@material-ui/icons/MoreHoriz';
 
-import Logo from './Images/logo.png'
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+
+import Logo from '../Images/logo.png'
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,6 +31,17 @@ const useStyles = makeStyles(theme => ({
 export default function ButtonAppBar() {
   const classes = useStyles();
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -37,10 +52,26 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             TutorMe!
           </Typography>
-          <Button  onClick={() => redirectTo("/register")} className = {classes.button} color="inherit">Apply</Button>
-          <Button onClick={() => redirectTo("/login")} color="inherit">Login</Button>
+
+
+          <Button aria-controls="simple-menu" aria-haspopup="true" style={{color: 'white'}}onClick={handleClick}>
+        {/* Menu */}
+        <MoreIcon/>
+      </Button>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>Logout</MenuItem>
+      </Menu>
+
         </Toolbar>
       </AppBar>
+
     </div>
   );
 }

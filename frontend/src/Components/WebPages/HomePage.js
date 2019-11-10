@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Components
-import TopBar from '../TopBar.js';
+import TopBar from '../TopBar/TopBar.js';
 
 // Material-UI
 import { withStyles } from '@material-ui/core/styles';
@@ -91,86 +91,3 @@ HomePage.propTypes = {
 };
 
 export default withStyles(styles)(HomePage);
-
-
-// import React from 'react';
-// import './App.css';
-// import SimpleAppBar from './Components/Appbar/appbar.js'
-// import { makeStyles } from '@material-ui/core/styles';
-// import backgroundPictureOne from './Pictures/wallpaper.jpg'
-// import Button from '@material-ui/core/Button';
-
-
-// const useStyles = makeStyles({
-//   firstBox:{
-//     height:'90vh',
-//     width:'100vw',
-//     backgroundImage: `url(${backgroundPictureOne})`,
-//     backgroundSize:'cover',
-//     backgroundPosition:'center',
-//     // filter:'blur(3px)',
-//     maxWidth:'100%',
-//   },
-//   textFirstBox:{
-//     backgroundColor: 'rgb(0,0,0)', /* Fallback color */
-//     backgroundColor: 'rgba(0,0,0, 0.4)',/* Black w/opacity/see-through */
-//     color: 'white',
-//     fontWeight: 'bold',
-//     position: 'absolute',
-//     top: '20vh',
-//     zIndex: '2',
-//     width: '100vw',
-//     textAlign: 'center',
-//     maxWidth:'100%',
-//   },
-//   title:{
-//     fontSize:'50px',
-//     paddingTop:'20px',
-//   },
-//   text:{
-//     fontSize:'24px',
-//     padding:'20px',
-//     paddingTop:'0'
-//   },
-//   secondBox:{
-//     height:'90vh',
-//     width:'90vw',
-//     margin:'auto',
-//     backgroundColor:'yellow',
-//     backgroundSize:'cover',
-//     backgroundPosition:'center',
-//   },
-//   button:{
-//     marginBottom:'30px',
-//   }
-// });
-
-
-// function App() {
-//   const classes = useStyles();
-//   return (
-//     <div className="App">
-//       <SimpleAppBar/>
-//       <div className={classes.firstBox}></div>
-//       <div className={classes.textFirstBox}>
-//         <p className={classes.title}>Our solution for affordable housing.</p>
-//         <p className={classes.text}>Affordable housing means reducing the complexity of mortgages and facilitating the transition from tenant to owner</p>
-//         <Button variant="contained" className={classes.button}>
-//           Learn more
-//         </Button>
-//       </div>
-//       <div>
-//         <p>hello</p>
-//         <p>hello</p>
-//         <p>hello</p>
-//         <p>hello</p>
-//       </div>
-//       {/* <div className={classes.secondBox}>
-
-//       </div> */}
-
-//     </div>
-//   );
-// }
-
-// export default App;
