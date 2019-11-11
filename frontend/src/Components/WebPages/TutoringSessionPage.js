@@ -1,11 +1,11 @@
 // React
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // MUI
 import { withStyles } from '@material-ui/core/styles';
 
-import SideBar from '../TopBar/SideBar'
+import SideBar from '../TopBar/SideBar';
 
 const styles = theme => ({
     mainContainer: {
@@ -28,10 +28,10 @@ const styles = theme => ({
     }
 })
 
-class Dashboard extends Component {
+class TutoringSessionPage extends Component {
 
     componentDidMount() {
-        document.title = "TutorGang | Dashboard"
+        document.title = "TutorGang | My Sessions"
     }
 
     render() {
@@ -43,10 +43,10 @@ class Dashboard extends Component {
                 <SideBar />
                 <div className={classes.mainContainer}>
                     <div>
-                        <h1 style={{ marginTop: 0 }}>Welcome back, (INSERT NAME HERE)</h1>
+                        <h1 style={{ marginTop: 0 }}>My Sessions</h1>
                     </div>
                     <div className={classes.courseContainer}>
-                        <h1>LIST NEW BOOKINGS HERE</h1>
+                        <h1>LIST TUTORING SESSIONS HERE</h1>
                     </div>
                 </div>
             </div>
@@ -54,8 +54,8 @@ class Dashboard extends Component {
     }
 }
 
-Dashboard.propTypes = {
+TutoringSessionPage.propTypes = {
     classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(Dashboard);
+export default withStyles(styles)(TutoringSessionPage);

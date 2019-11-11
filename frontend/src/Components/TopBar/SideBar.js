@@ -26,6 +26,8 @@ import MoreIcon from '@material-ui/icons/MoreHoriz';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import GroupIcon from '@material-ui/icons/Group';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import ApartmentIcon from '@material-ui/icons/Apartment';
 
 // Other
 
@@ -55,6 +57,7 @@ const styles = theme => ({
     flexGrow: 1,
     textAlign: 'left',
     fontWeight: 520,
+    paddingLeft: 50,
   },
   menuButton: {
     marginRight: 20
@@ -207,11 +210,19 @@ class SideBar extends React.Component {
             </ListItem>
             <ListItem button component={Link} to="/students">
               <ListItemIcon><GroupIcon /> </ListItemIcon>
-              <ListItemText primary={'My students'} />
+              <ListItemText primary={'My Students'} />
             </ListItem>
             <ListItem button component={Link} to="/courses">
               <ListItemIcon><MenuBookIcon /> </ListItemIcon>
-              <ListItemText primary={'My courses'} />
+              <ListItemText primary={'My Courses'} />
+            </ListItem>
+            <ListItem button component={Link} to="/tutoringsessions">
+              <ListItemIcon><ApartmentIcon /> </ListItemIcon>
+              <ListItemText primary={'My Sessions'} />
+            </ListItem>
+            <ListItem button component={Link} to="/timeslots">
+              <ListItemIcon><AccessTimeIcon /> </ListItemIcon>
+              <ListItemText primary={'My TimeSlots'} />
             </ListItem>
             <ListItem button component={Link} to="/settings">
               <ListItemIcon><SettingsIcon /> </ListItemIcon>
