@@ -96,25 +96,19 @@ class RegistrationForm extends Component {
             entered: false,
             emailDuplicateError: false,
             registering: false,
+            applicationSent: false,
         }
         this.handleEvent = this.handleEvent.bind(this)
         this.handleClickForm = this.handleClickForm.bind(this)
         this.handleChangePassword = this.handleChangePassword.bind(this)
         this.handleChangeConfirm = this.handleChangeConfirm.bind(this)
-        this.handleKeyPress = this.handleKeyPress.bind(this)
     }
 
     handleEvent = e => {
         this.setState({ [e.target.name]: e.target.value });
-        alert(e.target.value);
-    }
-
-    handleKeyPress = e => {
-        this.handleClickForm()
     }
 
     handleClickForm() {
-
         var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         var isEmailCorrect = this.state.email.match(re);
         var isPasswordCorrect = this.state.password.length >= 8;
@@ -146,7 +140,12 @@ class RegistrationForm extends Component {
 
     sendRegisterForm() {
         const { firstName, lastName, email, password } = this.state;
-        API.registerTutor({ firstName, lastName, email, password });
+        API.registerTutor({ 'firstName': firstName, 'lastName': lastName, 'email': email, 'password': password }).then(res => { console.log(res)
+            res.status != 200 ? this.setState({ emailDuplicateError: true, myText: res.data.error, registering: false, })
+                : this.setState({ applicationSent: true });
+        }).catch(error => {
+        });
+        this.setState({ applicationSent: true })
     }
 
     handleChangePassword(event) {
@@ -171,172 +170,203 @@ class RegistrationForm extends Component {
 
     render() {
         const { classes } = this.props;
+        const { applicationSent } = this.state;
 
-        return (
-            <div className={classes.mainContainer}>
-                <form noValidate>
-                    <h1 className={classes.title}>
-                        Registration
+        if (!applicationSent) {
+
+            return (
+                <div className={classes.mainContainer}>
+                    <form noValidate>
+                        <h1 className={classes.title}>
+                            Registration
                         </h1>
-                    <div
-                        className={classes.textfieldContainer}
-                        style={{ width: '60%' }}
-                    >
-                        {this.state.firstError ?
+                        <div
+                            className={classes.textfieldContainer}
+                            style={{ width: '60%' }}
+                        >
+                            {this.state.firstError ?
 
-                            <p className={classes.error}>
-                                A first name is required
+                                <p className={classes.error}>
+                                    A first name is required
                                 </p> : null}
-                        <TextField
-                            label={"First Name*"}
-                            name="firstName"
-                            margin="normal"
-                            variant="outlined"
-                            fullWidth
-                            error={this.state.firstError}
-                            value={this.state.firstName}
-                            onChange={e => this.handleEvent(e)}
-                            onKeyPress={e => this.handleKeyPress(e)}
-                            errorStyle={{ color: 'primary' }}
-                        />
-                        {this.state.lastError ?
-                            <p className={classes.error}>
-                                A last name is required
+                            <TextField
+                                label={"First Name*"}
+                                name="firstName"
+                                margin="normal"
+                                variant="outlined"
+                                fullWidth
+                                error={this.state.firstError}
+                                value={this.state.firstName}
+                                onChange={e => this.handleEvent(e)}
+                                errorStyle={{ color: 'primary' }}
+                            />
+                            {this.state.lastError ?
+                                <p className={classes.error}>
+                                    A last name is required
                                 </p> : null}
-                        <TextField
-                            label={"Last Name*"}
-                            name="lastName"
-                            margin="normal"
-                            variant="outlined"
-                            fullWidth
-                            error={this.state.lastError}
-                            value={this.state.lastName}
-                            onChange={e => this.handleEvent(e)}
-                            onKeyPress={e => this.handleKeyPress(e)}
-                        />
-                        {this.state.emailDuplicateError ?
-                            <p className={classes.error}>
-                                The email is already in use
+                            <TextField
+                                label={"Last Name*"}
+                                name="lastName"
+                                margin="normal"
+                                variant="outlined"
+                                fullWidth
+                                error={this.state.lastError}
+                                value={this.state.lastName}
+                                onChange={e => this.handleEvent(e)}
+                            />
+                            {this.state.emailDuplicateError ?
+                                <p className={classes.error}>
+                                    The email is already in use
                                 </p> : null}
-                        {this.state.emailError ?
-                            <p className={classes.error}>
-                                A valid email is required
+                            {this.state.emailError ?
+                                <p className={classes.error}>
+                                    A valid email is required
                                 </p> : null}
-                        <TextField
-                            label={"Email Address*"}
-                            name="email"
-                            margin="normal"
-                            variant="outlined"
-                            fullWidth
-                            error={this.state.emailError || this.state.emailDuplicateError}
-                            value={this.state.email}
-                            onChange={e => this.handleEvent(e)}
-                            onKeyPress={e => this.handleKeyPress(e)}
-                        />
-                        {this.state.passwordError ?
-                            <p className={classes.error}>
-                                A valid password is required
+                            <TextField
+                                label={"Email Address*"}
+                                name="email"
+                                margin="normal"
+                                variant="outlined"
+                                fullWidth
+                                error={this.state.emailError || this.state.emailDuplicateError}
+                                value={this.state.email}
+                                onChange={e => this.handleEvent(e)}
+                            />
+                            {this.state.passwordError ?
+                                <p className={classes.error}>
+                                    A valid password is required
                                     </p> : null}
-                        <TextField
-                            id="outlined-password-input"
-                            label={"Password"}
-                            type="password"
-                            name="password"
-                            margin="normal"
-                            variant="outlined"
-                            fullWidth
-                            error={this.state.passwordError}
-                            value={this.state.password}
-                            onChange={this.handleChangePassword}
-                            onKeyPress={e => this.handleKeyPress(e)}
-                            InputProps={!this.isPasswordInputEmpty() ? (this.isPasswordInputCorrect() ?
-                                {
-                                    endAdornment: (
-                                        <InputAdornment position="start">
-                                            <Right />
-                                        </InputAdornment>
-                                    ),
-                                } :
-                                {
-                                    endAdornment: (
-                                        <InputAdornment position="start">
-                                            <Wrong color="error" />
-                                        </InputAdornment>
-                                    )
-                                }) : null}
-                        />
-                        <div style={{ position: 'relative', display: 'inline-block' }}>
-                            <p
-                                style={{
-                                    textAlign: 'left',
-                                    margin: 0,
-                                    padding: 0,
-                                    marginLeft: 'auto',
-                                    marginRight: 'auto',
-                                    fontSize: 13,
-                                    color: '#9E9E9E'
-                                }}>
-                                Minimum length of 8 characters
-                                    </p>
-                        </div>
-                        <TextField
-                            id="outlined-confirmPassword-input"
-                            label={"Confirm Password"}
-                            type="password"
-                            name="confirmPassword"
-                            margin="normal"
-                            variant="outlined"
-                            fullWidth
-                            error={this.state.confirmError}
-                            value={this.state.confirmPassword}
-                            onChange={this.handleChangeConfirm}
-                            onKeyPress={e => this.handleKeyPress(e)}
-                            InputProps={!this.isPasswordInputEmpty() ? (this.isPasswordInputCorrect() ?
-                                {
-                                    endAdornment: (
-                                        <InputAdornment position="start">
-                                            <Right />
-                                        </InputAdornment>
-                                    ),
-                                } :
-                                {
-                                    endAdornment: (
-                                        <InputAdornment position="start">
-                                            <Wrong color="error" />
-                                        </InputAdornment>
-                                    )
-                                }) : null}
-                        />
-                    </div>
-                    <Fab
-                        variant="extended"
-                        size="large"
-                        color="primary"
-                        aria-label="Add"
-                        className={classes.button}
-                        onClick={this.handleClickForm}
-                        style={this.state.registering ? { opacity: 0.7 } : null}
-                    >
-                        Submit
-                            </Fab>
-                    <div className={classes.p}>
-                        <p>
-                            Already have an account?
-                            &nbsp;
-                <NavLink to="/login" style={{ textDecoration: 'none' }}>
+                            <TextField
+                                id="outlined-password-input"
+                                label={"Password"}
+                                type="password"
+                                name="password"
+                                margin="normal"
+                                variant="outlined"
+                                fullWidth
+                                error={this.state.passwordError}
+                                value={this.state.password}
+                                onChange={this.handleChangePassword}
+                                InputProps={!this.isPasswordInputEmpty() ? (this.isPasswordInputCorrect() ?
+                                    {
+                                        endAdornment: (
+                                            <InputAdornment position="start">
+                                                <Right />
+                                            </InputAdornment>
+                                        ),
+                                    } :
+                                    {
+                                        endAdornment: (
+                                            <InputAdornment position="start">
+                                                <Wrong color="error" />
+                                            </InputAdornment>
+                                        )
+                                    }) : null}
+                            />
+                            <div style={{ position: 'relative', display: 'inline-block' }}>
                                 <p
-                                    className={classes.signin}
-                                    onMouseEnter={event => onMouseOver(event)}
-                                    onMouseOut={event => onMouseOut(event)}
-                                >
-                                    Login
+                                    style={{
+                                        textAlign: 'left',
+                                        margin: 0,
+                                        padding: 0,
+                                        marginLeft: 'auto',
+                                        marginRight: 'auto',
+                                        fontSize: 13,
+                                        color: '#9E9E9E'
+                                    }}>
+                                    Minimum length of 8 characters
                                     </p>
-                            </NavLink>
-                        </p>
-                    </div>
-                </form>
-            </div>
-        )
+                            </div>
+                            <TextField
+                                id="outlined-confirmPassword-input"
+                                label={"Confirm Password"}
+                                type="password"
+                                name="confirmPassword"
+                                margin="normal"
+                                variant="outlined"
+                                fullWidth
+                                error={this.state.confirmError}
+                                value={this.state.confirmPassword}
+                                onChange={this.handleChangeConfirm}
+                                InputProps={!this.isPasswordInputEmpty() ? (this.isPasswordInputCorrect() ?
+                                    {
+                                        endAdornment: (
+                                            <InputAdornment position="start">
+                                                <Right />
+                                            </InputAdornment>
+                                        ),
+                                    } :
+                                    {
+                                        endAdornment: (
+                                            <InputAdornment position="start">
+                                                <Wrong color="error" />
+                                            </InputAdornment>
+                                        )
+                                    }) : null}
+                            />
+                        </div>
+                        <Fab
+                            variant="extended"
+                            size="large"
+                            color="primary"
+                            aria-label="Add"
+                            className={classes.button}
+                            onClick={this.handleClickForm}
+                            style={this.state.registering ? { opacity: 0.7 } : null}
+                        >
+                            {this.state.registering ? "Signing up..." : "Submit"}
+                        </Fab>
+                        <div className={classes.p}>
+                            <p>
+                                Already have an account?
+                                &nbsp;
+                <NavLink to="/login" style={{ textDecoration: 'none' }}>
+                                    <p
+                                        className={classes.signin}
+                                        onMouseEnter={event => onMouseOver(event)}
+                                        onMouseOut={event => onMouseOut(event)}
+                                    >
+                                        Login
+                                    </p>
+                                </NavLink>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            )
+        }
+        else {
+            return (
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginTop: '15vh',
+                    }}
+                >
+                    <h1
+                        style={{
+                            textAlign: 'center'
+                        }}
+                    >
+                        Registration Complete!
+                    </h1>
+                    <h4
+                        style={{
+                            width: '50vw',
+                            textAlign: 'center',
+                            fontWeight: 510,
+                            fontSize: 18,
+                            lineHeight: 2,
+                        }}
+                    >
+                        Thank you for applying for applying as a tutor! We will review your details and send you an email letting you know whether your application has been successful or not.
+                    </h4>
+                </div>
+            )
+        }
     }
 }
 
