@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+
 // Material-UI
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -13,12 +14,13 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import SideBar from '../TopBar/SideBar'
+import Courses from '../Courses/Courses'
 
 const styles = theme => ({
     mainContainer: {
         minWidth: 'calc(100% - 94px)',
         minHeight: '100vh',
-        // marginLeft: '92px',
+        marginLeft: '92px',
         marginRight: 'auto',
         paddingTop: '65px',
         backgroundColor: '#F4F4F4',
@@ -153,6 +155,8 @@ class SettingsPage extends Component {
             currentCompanies: [],
             open: false,
             translatedMessage: '',
+            courses:[[]],
+            hourlyRate:12,
             // variant:'warning'
             passwordExpansion: false
         }
@@ -412,13 +416,67 @@ class SettingsPage extends Component {
                                 </ div>
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
+
+                        <ExpansionPanel>
+                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                <Typography className={classes.heading}>
+                                    Hourly Rate
+                </Typography>
+                                <Typography className={classes.secondaryHeading}>
+                                    {this.state.hourlyRate}
+                                </Typography>
+                            </ExpansionPanelSummary>
+                            <ExpansionPanelDetails>
+                                <div className={classes.phoneDiv}>
+                                    <Typography>
+
+                                        <form style={{ display: 'inline' }}>
+                                            <TextField
+                                                label={"New Hourly Rate"}
+                                                id="formatted-numberformat-input"
+                                                margin="normal"
+                                                variant="outlined"
+                                                name="newHourlyRate"
+                                                autoComplete="tel"
+                                                fullWidth
+                                                className={classes.textFieldPhone}
+                                                error={this.state.hourlyRateError}
+                                                value={this.state.newHourlyRate}
+                                                onChange={e => this.handleEvent(e)}
+
+                                            />
+                                            <Button
+                                                variant="contained"
+                                                className={classes.phoneButton}
+                                                color="primary"
+                                                aria-label="Add"
+                                                fullWidth
+                                                onClick={this.handleClickRate}
+                                                size="large"
+                                            >
+                                                Change Hourly Rate
+                      </Button>
+                                        </form>
+
+                                    </Typography>
+                                </div>
+                            </ExpansionPanelDetails>
+                        </ExpansionPanel>
                     </div>
 
                     <Typography variant="h6" color="inherit" className={classes.subTitle}>
                         Current Courses
                     </Typography>
 
-                    <div className={classes.panel2}>
+                    <div className={classes.panel}>
+                        <Courses name="Calculus I" level="University"/>
+                        <Courses name="Calculus II" level="University"/>
+                        <Courses name="Calculus III" level="University"/>
+                        <Courses name="Calculus IV" level="University"/>
+                        <Courses name="Algebra I" level="University"/>
+                        <Courses name="Algebra II" level="University"/>
+                        <Courses name="Underwater Basket Weaving" level="University"/>
+                        <Courses name="Yessir" level="High School"/>
 
                     </div>
                 </div>
