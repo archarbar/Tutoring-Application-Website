@@ -9,6 +9,9 @@ import Right from '@material-ui/icons/Done';
 import Wrong from '@material-ui/icons/Clear';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
+// Other
+import API from '../Utilities/API';
+
 const styles = theme => ({
     mainContainer: {
         borderStyle: 'solid',
@@ -102,7 +105,8 @@ class RegistrationForm extends Component {
     }
 
     handleEvent = e => {
-        this.setState({ [e.target.name]: e.target.value })
+        this.setState({ [e.target.name]: e.target.value });
+        alert(e.target.value);
     }
 
     handleKeyPress = e => {
@@ -140,8 +144,13 @@ class RegistrationForm extends Component {
         }
     }
 
+    sendRegisterForm() {
+        const { firstName, lastName, email, password } = this.state;
+        API.registerTutor({ firstName, lastName, email, password });
+    }
+
     handleChangePassword(event) {
-        this.setState({ password: event.target.value })
+        this.setState({ password: event.target.value });
     }
 
     handleChangeConfirm(event) {
