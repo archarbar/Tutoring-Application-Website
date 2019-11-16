@@ -53,7 +53,7 @@ public class RatingController {
     }
     
     @GetMapping(value= {"/ratings", "/ratings/"})
-    public List<RatingDto> getRatings() {
+    public List<RatingDto> getAllRatings() {
     	List<RatingDto> ratings = new ArrayList<RatingDto>();
         for (Rating rating: service.getAllRatings()) {
         	ratings.add(convertToDto(rating));
