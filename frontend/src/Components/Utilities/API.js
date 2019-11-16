@@ -41,6 +41,42 @@ var API = {
         })
     },
 
+    getBookingById(bookingId) {
+        const requestUrl = '/booking/' + bookingId;
+
+        return axios({
+            method: 'get',
+            url: requestUrl,
+        })
+    },
+
+    getAllBookings() {
+        const requestUrl = '/bookings/';
+
+        return axios({
+            method: 'get',
+            url: requestUrl,
+        })
+    },
+
+    getBookingByDate(date) {
+        const requestUrl = '/booking/date/' + date;
+
+        return axios({
+            method: 'get',
+            url: requestUrl,
+        })
+    },
+
+    deleteBooking(bookingId) {
+        const requestUrl = '/booking/decline/' + bookingId;
+
+        return axios({
+            method: 'delete',
+            url: requestUrl,
+        })
+    },
+
     changeHourlyRate(tutorForm) {
         const hourlyRate = tutorForm.hourlyRate;
         const tutorId = tutorForm.tutorId;
