@@ -144,6 +144,7 @@ class RegistrationForm extends Component {
             res.status != 200 ? this.setState({ emailDuplicateError: true, myText: res.data.error, registering: false, })
                 : this.setState({ applicationSent: true });
         }).catch(error => {
+            console.log(error);
         });
         this.setState({ applicationSent: true })
     }

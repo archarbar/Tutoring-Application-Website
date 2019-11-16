@@ -2,7 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 //MUI
 
@@ -45,6 +45,8 @@ class DropdownMenu extends React.Component {
   }
 
   handleLogout = () => {
+    window.sessionStorage.clear();
+    this.props.history.push('/');
   }
 
   render() {
@@ -109,4 +111,4 @@ DropdownMenu.propTypes = {
   changeLogout: PropTypes.func.isRequired
 };
 
-export default (withStyles(styles, { withTheme: true })(DropdownMenu));
+export default withRouter(withStyles(styles, { withTheme: true })(DropdownMenu));

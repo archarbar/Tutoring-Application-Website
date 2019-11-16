@@ -1,12 +1,15 @@
 // React
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect, withRouter } from 'react-router-dom';
 
 // Material-UI
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
+
+// Other
+import API from '../Utilities/API';
 
 const styles = theme => ({
     mainContainer: {
@@ -102,6 +105,8 @@ class LoginForm extends React.Component {
             emailError: false,
             passwordError: false,
             loggingIn: false,
+            networkError: false,
+            redirect: false,
         }
         this.handleEvent = this.handleEvent.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -132,6 +137,19 @@ class LoginForm extends React.Component {
                 passwordError: !isPasswordCorrect,
                 loggingIn: true,
             })
+            const { email, password } = this.state;
+
+            API.loginTutor({ 'email': email, 'password': password }).then(res => {
+                if (res.status == 200) {
+                    this.props.history.push('/dashboard');
+                    window.sessionStorage.setItem("sessionInfo", JSON.stringify(res.data));
+                }
+                else {
+                    this.setState({ networkError: true });
+                }
+            }).catch(error => {
+                console.log(error);
+            })
         }
         else {
             this.setState({
@@ -146,7 +164,11 @@ class LoginForm extends React.Component {
     render() {
 
         const { classes, lang } = this.props;
-        const { loggingIn } = this.state;
+        const { loggingIn, redirect } = this.state;
+
+        if (redirect) {
+            return <Redirect to='/dashboard' />
+        }
 
         return (
             <div className={classes.mainContainer}>
@@ -230,4 +252,4 @@ LoginForm.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(LoginForm);
+export default withRouter(withStyles(styles)(LoginForm));

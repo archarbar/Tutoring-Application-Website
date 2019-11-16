@@ -14,6 +14,19 @@ var API = {
            url: requestUrl,
            data: registerForm,
         });
+    },
+
+    loginTutor(loginForm) {
+        const email = loginForm.email;
+        const password = loginForm.password;
+
+        const requestUrl = '/login?Email=' + email + '&Password=' + password;
+
+        return axios({
+            method: 'get',
+            url: requestUrl,
+            data: loginForm,
+        })
     }
 }
 
