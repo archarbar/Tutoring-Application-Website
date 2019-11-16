@@ -143,7 +143,7 @@ class RegistrationForm extends Component {
     sendRegisterForm() {
         const { firstName, lastName, email, password } = this.state;
         API.registerTutor({ 'firstName': firstName, 'lastName': lastName, 'email': email, 'password': password }).then(res => { console.log(res)
-            res.status != 200 ? this.setState({ emailDuplicateError: true, myText: res.data.error, registering: false, })
+            res.status !== 200 ? this.setState({ emailDuplicateError: true, myText: res.data.error, registering: false, })
                 : this.setState({ applicationSent: true });
         }).catch(error => {
             console.log(error);
