@@ -26,6 +26,8 @@ const styles = theme => ({
         textAlign: 'center',
         boxShadow: "0 6px 8px rgba(0,0,0,0.20), 0 1px 2px rgba(0,0,0,0.24)",
         minWidth: 350,
+        display: 'flex',
+        maxWidth: 600,
     },
     button: {
         width: '40%',
@@ -62,7 +64,7 @@ const styles = theme => ({
     },
     error: {
         margin: 0,
-        color: "#AC101D",
+        color: '#3f51b5',
         fontSize: 14,
         marginTop: 15,
     },
