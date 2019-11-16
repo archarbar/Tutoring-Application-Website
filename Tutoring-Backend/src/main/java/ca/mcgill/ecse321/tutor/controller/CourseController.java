@@ -27,15 +27,6 @@ public class CourseController {
 	@Autowired
 	private TutorService tutorService;
 
-	@GetMapping(value= {"/courses", "/courses/"})
-	public List<CourseDto> getAllCourses() {
-		List<CourseDto> cDtos = new ArrayList<CourseDto>();
-		for (Course course: service.getAllCourses()) {
-			cDtos.add(convertToDto(course));
-		}
-		return cDtos;
-	}
-
 	@GetMapping("/course/{courseId}")
 	public CourseDto getCourseById(@PathVariable String courseId) {
 		return convertToDto(service.getCourseById(Integer.parseInt(courseId)));
@@ -64,7 +55,15 @@ public class CourseController {
 	public CourseDto getCourseByName (@PathVariable String courseName) {
 		return convertToDto(service.getCourseByCourseName(courseName));
 	}
-
+	
+	@GetMapping(value= {"/courses", "/courses/"})
+	public List<CourseDto> getAllCourses() {
+		List<CourseDto> cDtos = new ArrayList<CourseDto>();
+		for (Course course: service.getAllCourses()) {
+			cDtos.add(convertToDto(course));
+		}
+		return cDtos;
+	}
 
 	private CourseDto convertToDto(Course course) {
 		if (course == null) throw new IllegalArgumentException("This course does not exist!");
