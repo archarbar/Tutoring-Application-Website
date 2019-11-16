@@ -1,6 +1,9 @@
 import axios from 'axios';
 
 var API = {
+
+    // Tutor controller calls
+
     registerTutor(registerForm) {
         const firstName = registerForm.firstName;
         const lastName = registerForm.lastName;
@@ -27,7 +30,31 @@ var API = {
             url: requestUrl,
             data: loginForm,
         })
+    },
+
+    getTutorById(tutorId) {
+        const requestUrl = '/tutor/' + tutorId;
+
+        return axios({
+            method: 'get',
+            url: requestUrl,
+        })
+    },
+
+    changeHourlyRate(tutorForm) {
+        const hourlyRate = tutorForm.hourlyRate;
+        const tutorId = tutorForm.tutorId;
+
+        const requestUrl = '/tutor/hourlyrate/' + hourlyRate + '?tutorId=' + tutorId; 
+
+        return axios({
+            method: 'put',
+            url: requestUrl,
+            data: tutorForm,
+        })
     }
+
+
 }
 
 export default API;

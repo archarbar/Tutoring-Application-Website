@@ -56,7 +56,6 @@ const styles = theme => ({
         marginTop: '8%',
         marginBottom: '8%',
         display: 'inline-block',
-        fontSize: 14,
     },
     signin: {
         color: '#3f51b5',
@@ -72,7 +71,9 @@ const styles = theme => ({
     },
     error: {
         margin: 0,
-        fontSize: 14
+        fontSize: 14,
+        color: '#3f51b5',
+        fontWeight: 500,
     },
     forgotPassword: {
         fontSize: 14,
@@ -142,13 +143,13 @@ class LoginForm extends React.Component {
             API.loginTutor({ 'email': email, 'password': password }).then(res => {
                 if (res.status == 200) {
                     this.props.history.push('/dashboard');
-                    window.sessionStorage.setItem("sessionInfo", JSON.stringify(res.data));
-                }
-                else {
-                    this.setState({ networkError: true });
                 }
             }).catch(error => {
                 console.log(error);
+                this.setState({
+                    networkError: true,
+                    loggingIn: false,
+                });
             })
         }
         else {
@@ -177,7 +178,7 @@ class LoginForm extends React.Component {
                         Login
           </h1>
                     {/* ErrorHandling for invalid email and empty password */}
-                    {this.state.firstError ? <p className={classes.error}>{this.state.myText}</p> : null}
+                    {this.state.networkError ? <p className={classes.error}>The email or password is invalid</p> : null}
                     {this.state.emailError ?
                         <p className={classes.error}>
                             A valid email is required
