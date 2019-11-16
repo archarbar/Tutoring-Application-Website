@@ -141,7 +141,7 @@ class LoginForm extends React.Component {
             const { email, password } = this.state;
 
             API.loginTutor({ 'email': email, 'password': password }).then(res => {
-                if (res.status == 200) {
+                if (res.status === 200) {
                     this.props.history.push('/dashboard');
                 }
             }).catch(error => {
