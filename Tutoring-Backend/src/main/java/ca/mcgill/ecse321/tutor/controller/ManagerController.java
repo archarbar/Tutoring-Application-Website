@@ -21,7 +21,7 @@ public class ManagerController {
     private ManagerService service;
 
     @GetMapping(value={"/manager/{managerId}"})
-    public ManagerDto getManager(@PathVariable String managerId) {
+    public ManagerDto getManagerById(@PathVariable String managerId) {
         return convertToDto(service.getManager(Integer.parseInt(managerId)));
     }
     
