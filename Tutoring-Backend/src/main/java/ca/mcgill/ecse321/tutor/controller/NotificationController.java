@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,12 +34,12 @@ public class NotificationController {
     @Autowired 
     private TutorService tutorService;    
     
-    @GetMapping("/notifications/{notificationId}")
+    @GetMapping("/notification/{notificationId}")
     public NotificationDto getNotificationById(@PathVariable("notificationId") String notificationId) {
         return convertToDto(service.getNotification(Integer.parseInt(notificationId)));
     }
 
-    @GetMapping(value= {"/notifications/tutor/{tutorId}"})
+    @GetMapping(value= {"/notification/tutor/{tutorId}"})
     public List<NotificationDto> getNotificationByTutor(@PathVariable("tutorId") String tutorId) {
     	List<NotificationDto> notificationDtos = new ArrayList<>();  	
     	for (Notification notification: service.getAllNotifications()) {
@@ -52,6 +53,14 @@ public class NotificationController {
     @PostMapping(value= {"/notification/new", "/notification/new/"})
     public NotificationDto createNotification(@RequestParam("tutorId") String tutorId, @RequestParam("bookingId") String bookingId) {    	
     	return convertToDto(service.createNotification(bookingService.getBookingById(Integer.parseInt(bookingId)), tutorService.getTutorById(Integer.parseInt(tutorId))));
+    }
+    
+    @PostMapping("/notification/new")
+    public void createNotificationFromBooking(@PathVariable("tutorId") String tutorId, @RequestBody String bookingId) {
+    	// Upon receiving a new booking, the tutor point of view creates a new notification.
+    	Booking booking = bookingService.getBookingById(Integer.parseInt(bookingId));
+    	Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
+    	service.createNotification(booking, tutor);    	
     }
 
     private NotificationDto convertToDto(Notification notification) {

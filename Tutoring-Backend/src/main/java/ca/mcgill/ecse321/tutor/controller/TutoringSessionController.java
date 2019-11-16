@@ -51,12 +51,12 @@ public class TutoringSessionController {
         return convertToDto(tutoringSession);
     }
 
-    @GetMapping("/tutoringsessions/{tutoringSessionId}")
+    @GetMapping("/tutoringsession/{tutoringSessionId}")
     public TutoringSessionDto getTutoringSessionById(@PathVariable("tutoringSessionId") String tutoringSessionId) {
         return convertToDto(service.getTutoringSessionById(Integer.parseInt(tutoringSessionId)));
     }
 
-    @GetMapping("/tutoringsessions/tutor/{tutorId}")
+    @GetMapping("/tutoringsession/tutor/{tutorId}")
     public List<TutoringSessionDto> getTutoringSessionByTutor(@PathVariable String tutorId) {
     	Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
         List<TutoringSessionDto> tutoringSessionDtos = new ArrayList<>();

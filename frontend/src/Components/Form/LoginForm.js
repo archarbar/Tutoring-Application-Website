@@ -185,7 +185,7 @@ class LoginForm extends React.Component {
             </p> : null}
                     <TextField
                         id="outlined-email-input"
-                        label={lang === 'en' ? "Email Address" : "Courriel"}
+                        label={lang === 'en' ? "Email Address" : "Email Address"}
                         className={classes.textField}
                         type="text"
                         name="email"
@@ -204,7 +204,7 @@ class LoginForm extends React.Component {
             </p> : null}
                     <TextField
                         id="outlined-email-input"
-                        label={lang === 'en' ? "Password" : "Mot de passe"}
+                        label={lang === 'en' ? "Password" : "Password"}
                         className={classes.textField}
                         type="password"
                         name="password"

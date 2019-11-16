@@ -32,7 +32,7 @@ public class BookingController {
     private TutorService tutorService;
 
 
-    @GetMapping(value = "/bookings/{bookingId}")
+    @GetMapping(value = "/booking/{bookingId}")
     public BookingDto getBookingById(@PathVariable("bookingId") String bookingId) {
         return convertToDto(service.getBookingById(Integer.parseInt(bookingId)));
     }    
@@ -46,7 +46,7 @@ public class BookingController {
     	return bDtos;
     }
 
-    @GetMapping("/bookings/date/{date}")
+    @GetMapping("/booking/date/{date}")
     public List<BookingDto> getBookingByDate(@PathVariable("date") String date) {
     	Date specificDate = Date.valueOf(date);
         List<BookingDto> bookingsByDate = new ArrayList<>();
@@ -61,14 +61,6 @@ public class BookingController {
     public void deleteBooking(@PathVariable("bookingId") String bookingId) {
     	service.deleteBookingById(Integer.parseInt(bookingId));
     }    
-    
-    @PostMapping("/bookings/new")
-    public void createNotificationFromBooking(@RequestParam("tutorId") String tutorId, @RequestParam("bookingId") String bookingId) {
-    	// Upon receiving a new booking, the tutor point of view creates a new notification.
-    	Booking booking = service.getBookingById(Integer.parseInt(bookingId));
-    	Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
-    	notificationService.createNotification(booking, tutor);    	
-    }
 
     private BookingDto convertToDto(Booking booking) {
         if (booking == null) {
