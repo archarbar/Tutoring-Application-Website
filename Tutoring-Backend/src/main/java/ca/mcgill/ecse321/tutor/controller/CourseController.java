@@ -50,6 +50,16 @@ public class CourseController {
 		}
 		return returnCourse;
 	}
+	
+	@GetMapping("/course/{tutorId}/get")
+	public ArrayList<CourseDto> getCourseByTutor(@PathVariable String tutorId) {
+		ArrayList<CourseDto> returnCourse = new ArrayList<>();
+		ArrayList<Course> courses = service.getCourseByTutor(Integer.parseInt(tutorId));
+		for (Course course : courses) {
+			returnCourse.add(convertToDto(course));
+		}
+		return returnCourse;
+	}
 
 	@GetMapping("/course/name/{courseName}")
 	public CourseDto getCourseByName (@PathVariable String courseName) {
