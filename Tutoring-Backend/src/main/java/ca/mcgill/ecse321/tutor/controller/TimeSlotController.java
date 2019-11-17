@@ -31,6 +31,11 @@ public class TimeSlotController {
 	private BookingService bookingService;	
 	@Autowired
 	private TutoringSessionService tutoringSessionService;
+	
+	@GetMapping("/timeslot/{timeSlotId}")
+	public TimeSlotDto getTimeSlotById(@PathVariable String timeSlotId) {
+		return convertToDto(service.getTimeSlotById(Integer.parseInt(timeSlotId)));
+	}
 
 	@PostMapping("/timeslot/new")
 	public TimeSlotDto createTimeSlot(@RequestParam("startTime") String startTime,
@@ -45,7 +50,7 @@ public class TimeSlotController {
 	
 	// USE CASE 3
 
-	@PostMapping("/timeslot/{tutorId}/new")
+	@PostMapping("/timeslot/tutor/{tutorId}/new")
 	public void addTimeSlotForTutor(@RequestParam("startTime") String startTime,
 			@RequestParam("endTime") String endTime, 
 			@RequestParam("dayOfTheWeek") String weekDay,
@@ -56,25 +61,19 @@ public class TimeSlotController {
 	
 	// USE CASE 3
 
-	@PostMapping("/timeslot/{tutorId}/delete")
+	@PostMapping("/timeslot/tutor/{tutorId}")
 	public void removeTimeSlotForTutor(@RequestParam("timeSlotId") String timeSlotId,
 			@RequestParam("tutorId") String tutorId) {
 		Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
 		tutorService.removeTimeSlotForTutor(tutor, Integer.parseInt(timeSlotId));
 	}
 
-	@GetMapping("/timeslot/{timeSlotId}")
-	public TimeSlotDto getTimeSlotById(@PathVariable String timeSlotId) {
-		return convertToDto(service.getTimeSlotById(Integer.parseInt(timeSlotId)));
-	}
-
-
-	@GetMapping("/timeslot/booking/{booking}")
+	@GetMapping("/timeslot/booking/{bookingId}")
 	public TimeSlotDto getTimeSlotByBooking(@RequestParam String bookingId) {
 		return convertToDto(service.getTimeSlotByBooking(bookingService.getBookingById(Integer.parseInt(bookingId))));
 	}
 
-	@GetMapping("/timeslot/tutoringsession/{tutoringSession}")
+	@GetMapping("/timeslot/tutoringsession/{tutoringSessionId}")
 	public TimeSlotDto getTimeSlotByTutoringSession(@RequestParam String tutoringSessionId) {
 		return convertToDto(service.getTimeSlotByTutoringSession(tutoringSessionService.getTutoringSessionById(Integer.parseInt(tutoringSessionId))));
 	}
