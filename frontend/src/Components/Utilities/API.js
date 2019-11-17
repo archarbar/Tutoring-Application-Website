@@ -146,10 +146,10 @@ var API = {
     },
 
     createRating(ratingForm) {
-        const stars = bookingForm.stars;
-        const comment = bookingForm.comment;
-        const studentId = bookingForm.studentId;
-        const tutoringSessionId = bookingForm.tutoringSessionId;
+        const stars = ratingForm.stars;
+        const comment = ratingForm.comment;
+        const studentId = ratingForm.studentId;
+        const tutoringSessionId = ratingForm.tutoringSessionId;
 
         const requestUrl = '/rating/new/?stars=' + stars + '&comment=' + comment + '&studentId=' + studentId + '&tutoringSessionId' + tutoringSessionId;
 
