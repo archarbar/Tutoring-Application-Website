@@ -21,7 +21,6 @@ const styles = theme => ({
         // marginLeft: '92px',
         marginRight: 'auto',
         paddingTop: '65px',
-        backgroundColor: '#F4F4F4',
     },
     welcomeBlock: {
         marginTop: '5vh',
@@ -50,7 +49,11 @@ const styles = theme => ({
         width: '80%',
         marginLeft: 'auto',
         marginRight: 'auto',
-        paddingBottom: '3%'
+        borderStyle: 'solid',
+        borderColor: "#DADADA",
+        borderWidth: 2,
+        borderRadius: 5,
+        boxShadow: 'none',
     },
     insidePassword: {
         marginTop: 0,
@@ -137,7 +140,7 @@ class SettingsPage extends Component {
             firstName: 'William',
             lastName: 'Zhang',
             email: 'william.zhang@coolguy99.com',
-            emailError:false,
+            emailError: false,
             phoneNumber: '1AMC00L',
             newPhoneNumber: '',
             phoneError: false,
@@ -218,27 +221,13 @@ class SettingsPage extends Component {
     render() {
 
         const { classes, lang } = this.props;
-        const { isDesktop, open, translatedMessage } = this.state;
 
         return (
             <div>
                 <SideBar />
                 <div
                     className={classes.mainContainer}
-                    onClick={this.props.closeDrawer}
                 >
-                    <div className={classes.welcomeBlock}>
-                        <h1
-                            style={{
-                                textAlign: 'center',
-                                color: '#7E7E7E',
-                                fontWeight: 520,
-                            }}
-                        >
-                            Profile
-                        </h1>
-                    </div>
-
                     <Typography variant="h6" color="inherit" className={classes.subTitle}>
                         General user settings
                     </Typography>
@@ -412,14 +401,6 @@ class SettingsPage extends Component {
                                 </ div>
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
-                    </div>
-
-                    <Typography variant="h6" color="inherit" className={classes.subTitle}>
-                        Current Courses
-                    </Typography>
-
-                    <div className={classes.panel2}>
-
                     </div>
                 </div>
 
