@@ -11,6 +11,12 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 // Other
 import MaskedInput from 'react-text-mask';
@@ -38,16 +44,22 @@ const styles = theme => ({
         borderStyle: 'solid',
         borderColor: "#DADADA",
         borderWidth: 2,
-        borderRadius: 40,
-        padding: 10
+        borderRadius: 5,
     },
     currentContainer: {
-        border: '1px solid #000000',
-        minHeight: 400,
+        minHeight: 200,
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: 'space-around',
         marginTop: 20,
+        width: '80%',
+        flexDirection: 'column',
+    },
+    tableContainer: {
+        borderStyle: 'solid',
+        borderColor: "#DADADA",
+        borderWidth: 2,
+        borderRadius: 5,
+        boxShadow: 'none',
     },
     textField: {
         minWidth: 150
@@ -83,6 +95,16 @@ TextMaskCustom.propTypes = {
     inputRef: PropTypes.func.isRequired,
 };
 
+function createData(startTime, endTime, weekDay) {
+    return { startTime, endTime, weekDay };
+}
+
+const rows = [
+    createData('10:00', '11:00', 'Monday'),
+    createData('13:00', '15:00', 'Saturday'),
+    createData('17:00', '19:00', 'Wednesday'),
+];
+
 class TimeSlotPage extends Component {
 
     constructor(props) {
@@ -91,10 +113,12 @@ class TimeSlotPage extends Component {
             phoneNumber: '  :  ',
             startTime: 'hi',
             endTime: '',
+            weekDay: '',
             startEmpty: false,
             endEmpty: false,
-            startError: false,
-            endError: false
+            dayEmpty: false,
+            startError: true,
+            endError: true
         }
         this.handleClick = this.handleClick.bind(this);
     }
@@ -127,6 +151,8 @@ class TimeSlotPage extends Component {
                 this.setState({
                     startError: noErrorStart,
                     endError: noErrorEnd,
+                    startEmpty: false,
+                    endEmpty: false,
                 })
             }
         }
@@ -147,7 +173,7 @@ class TimeSlotPage extends Component {
                     <div className={classes.newContainer}>
                         <div className={classes.innerContainer}>
                             {startEmpty ? <p className={classes.error}>The start time cannot be empty!</p> : null}
-                            {startError ? <p className={classes.error}>Wrong format!</p> : null}
+                            {!startError ? <p className={classes.error}>Wrong format!</p> : null}
                             <TextField
                                 id="outlined-basic"
                                 className={classes.textField}
@@ -155,7 +181,7 @@ class TimeSlotPage extends Component {
                                 margin="normal"
                                 variant="outlined"
                                 name="startTime"
-                                error={startError || startEmpty}
+                                error={!startError || startEmpty}
                                 value={this.state.startTime}
                                 onChange={e => this.handleEvent(e)}
                                 InputProps={{
@@ -165,7 +191,7 @@ class TimeSlotPage extends Component {
                         </div>
                         <div className={classes.innerContainer}>
                             {endEmpty ? <p className={classes.error}>The end time cannot be empty!</p> : null}
-                            {endError ? <p className={classes.error}>Wrong format!</p> : null}
+                            {!endError ? <p className={classes.error}>Wrong format!</p> : null}
                             <TextField
                                 id="outlined-basic"
                                 className={classes.textField}
@@ -173,7 +199,7 @@ class TimeSlotPage extends Component {
                                 margin="normal"
                                 variant="outlined"
                                 name="endTime"
-                                error={endError || endEmpty}
+                                error={!endError || endEmpty}
                                 value={this.state.endTime}
                                 onChange={e => this.handleEvent(e)}
                                 InputProps={{
@@ -182,20 +208,23 @@ class TimeSlotPage extends Component {
                             />
                         </div>
                         <div className={classes.innerContainer}>
-                            <FormControl variant="outlined" className={classes.textField} style={{marginTop: 8}}>
+                            <FormControl variant="outlined" className={classes.textField} style={{ marginTop: 8 }}>
                                 <InputLabel>
                                     Day
                                 </InputLabel>
                                 <Select
                                     labelWidth={25}
+                                    onChange={e => this.handleEvent(e)}
+                                    value={this.state.weekDay}
+                                    name="weekDay"
                                 >
-                                    <MenuItem value={'Monday'}>Monday</MenuItem>
-                                    <MenuItem value={'Tuesday'}>Tuesday</MenuItem>
-                                    <MenuItem value={'Wednesday'}>Wednesday</MenuItem>
-                                    <MenuItem value={'Thursday'}>Thursday</MenuItem>
-                                    <MenuItem value={'Friday'}>Friday</MenuItem>
-                                    <MenuItem value={'Saturday'}>Saturday</MenuItem>
-                                    <MenuItem value={'Sunday'}>Sunday</MenuItem>
+                                    <MenuItem value={'MONDAY'}>Monday</MenuItem>
+                                    <MenuItem value={'TUESDAY'}>Tuesday</MenuItem>
+                                    <MenuItem value={'WEDNESDAY'}>Wednesday</MenuItem>
+                                    <MenuItem value={'THURSDAY'}>Thursday</MenuItem>
+                                    <MenuItem value={'FRIDAY'}>Friday</MenuItem>
+                                    <MenuItem value={'SATURDAY'}>Saturday</MenuItem>
+                                    <MenuItem value={'SUNDAY'}>Sunday</MenuItem>
                                 </Select>
                             </FormControl>
                         </div>
@@ -204,7 +233,7 @@ class TimeSlotPage extends Component {
                             color="primary"
                             className={classes.button}
                             onClick={this.handleClick}
-                            style={{marginTop: 8}}
+                            style={{ marginTop: 8 }}
                         >
                             Add TimeSlot
                         </Button>
@@ -213,7 +242,26 @@ class TimeSlotPage extends Component {
                         <h1 style={{ marginTop: 40 }}>My TimeSlots</h1>
                     </div>
                     <div className={classes.currentContainer}>
-                        <h1>LIST TIMESLOTS HERE</h1>
+                        <Paper className={classes.tableContainer}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell align="left">Start time</TableCell>
+                                        <TableCell align="left">End time</TableCell>
+                                        <TableCell align="left">Day of the week</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {rows.map(row => (
+                                        <TableRow key={row.name}>
+                                            <TableCell align="left">{row.startTime}</TableCell>
+                                            <TableCell align="left">{row.endTime}</TableCell>
+                                            <TableCell align="left">{row.weekDay}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </Paper>
                     </div>
                 </div>
             </div>

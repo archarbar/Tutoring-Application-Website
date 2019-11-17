@@ -254,7 +254,7 @@ class RegistrationForm extends Component {
                                     {
                                         endAdornment: (
                                             <InputAdornment position="start">
-                                                <Right />
+                                                <Right color="secondary" />
                                             </InputAdornment>
                                         ),
                                     } :
@@ -295,7 +295,7 @@ class RegistrationForm extends Component {
                                     {
                                         endAdornment: (
                                             <InputAdornment position="start">
-                                                <Right />
+                                                <Right color="secondary" />
                                             </InputAdornment>
                                         ),
                                     } :
