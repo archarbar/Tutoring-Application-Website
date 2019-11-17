@@ -132,6 +132,7 @@ var API = {
         return axios({
             method: 'post',
             url: requestUrl,
+            data: bookingForm
         })
     },
 
@@ -156,6 +157,7 @@ var API = {
         return axios({
             method: 'post',
             url: requestUrl,
+            data: ratingForm
         })
     },
 
@@ -244,6 +246,7 @@ var API = {
         return axios({
             method: 'post',
             url: requestUrl,
+            data: timeSlotForm
         })
     },
 
@@ -258,6 +261,7 @@ var API = {
         return axios({
             method: 'post',
             url: requestUrl,
+            data: timeSlotForm
         })
     },
 
@@ -270,6 +274,7 @@ var API = {
         return axios({
             method: 'delete',
             url: requestUrl,
+            data: timeSlotForm
         })
     },
 
@@ -362,6 +367,7 @@ var API = {
         return axios({
             method: 'post',
             url: requestUrl,
+            data: tutoringSessionForm
         })
     },
 
