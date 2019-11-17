@@ -1,5 +1,7 @@
 package ca.mcgill.ecse321.tutor.dao;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 import ca.mcgill.ecse321.tutor.model.Booking;
@@ -16,5 +18,6 @@ public interface TimeSlotRepository extends CrudRepository<TimeSlot, Integer>{
   
   TimeSlot findByTutoringSession(TutoringSession tutoringSession);
 
+  List<TimeSlot> findTimeSlotByTutor(Integer tutorId);
 }
 

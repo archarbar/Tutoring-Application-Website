@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.tutor.controller;
 
 import java.sql.Time;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -35,6 +36,16 @@ public class TimeSlotController {
 	@GetMapping("/timeslot/{timeSlotId}")
 	public TimeSlotDto getTimeSlotById(@PathVariable String timeSlotId) {
 		return convertToDto(service.getTimeSlotById(Integer.parseInt(timeSlotId)));
+	}
+	
+	@GetMapping("/timeslot/tutor/{tutorId}")
+	public ArrayList<TimeSlotDto> getTimeSlotByTutor(@PathVariable String tutorId) {
+		ArrayList<TimeSlotDto> returnTimeSlot = new ArrayList<>();
+		ArrayList<TimeSlot> timeSlots = service.getTimeSlotByTutor(Integer.parseInt(tutorId));
+		for (TimeSlot timeSlot : timeSlots) {
+			returnTimeSlot.add(convertToDto(timeSlot));
+		}
+		return returnTimeSlot;
 	}
 
 	@PostMapping("/timeslot/new")

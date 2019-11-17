@@ -73,6 +73,15 @@ public class TimeSlotService {
 		TimeSlot timeSlot = timeSlotRepository.findByTutoringSession(tutoringSession);
 		return timeSlot;
 	}
+	
+	@Transactional
+	public ArrayList<TimeSlot> getTimeSlotByTutor(Integer tutorId) {
+		ArrayList<TimeSlot> timeSlotByTutor = new ArrayList<>();
+		for (TimeSlot timeSlot : timeSlotRepository.findTimeSlotByTutor(tutorId)) {
+			timeSlotByTutor.add(timeSlot);
+		}
+		return timeSlotByTutor;
+	}
 
 	@Transactional
 	public List<TimeSlot> getAllTimeSlots(){
