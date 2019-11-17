@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 import SideBar from '../TopBar/SideBar'
+import API from '../Utilities/API';
 
 const styles = theme => ({
     mainContainer: {
@@ -29,21 +30,35 @@ const styles = theme => ({
 })
 
 class Dashboard extends Component {
-
+    constructor(props){
+        super(props)
+        this.state = {
+            tutorId : '',
+            tutorName: ''
+        }
+    }
     componentDidMount() {
         document.title = "TutorGang | Dashboard";
+        var id = localStorage.getItem('tutorId')
+        API.getTutorById(id)
+        .then(res =>{
+            this.setState({
+                tutorId : id,
+                tutorName : res.data.firstName + ' ' + res.data.lastName
+            })
+        })
+
     }
 
     render() {
 
         const { classes } = this.props;
-
         return (
             <div>
                 <SideBar />
                 <div className={classes.mainContainer}>
                     <div>
-                        <h1 style={{ marginTop: 0 }}>Welcome back, </h1>
+                        <h1 style={{ marginTop: 0 }}>Welcome back, {this.state.tutorName} </h1>
                     </div>
                     <div className={classes.courseContainer}>
                         <h1>LIST NEW BOOKINGS HERE</h1>
