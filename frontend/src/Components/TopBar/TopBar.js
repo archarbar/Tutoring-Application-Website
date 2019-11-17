@@ -30,13 +30,13 @@ export default function ButtonAppBar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-           <IconButton onClick={() => redirectTo("/")} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <img src={Logo} style={{width:35, height:35}} alt={"Logo"} />
+          <IconButton onClick={() => redirectTo("/")} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <img src={Logo} style={{ width: 35, height: 35 }} alt={"Logo"} />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            TutorMe!
+            BigBrain Tutoring
           </Typography>
-          <Button  onClick={() => redirectTo("/register")} className = {classes.button} color="inherit">Apply</Button>
+          <Button onClick={() => redirectTo("/register")} className={classes.button} color="inherit">Apply</Button>
           <Button onClick={() => redirectTo("/login")} color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
@@ -45,6 +45,6 @@ export default function ButtonAppBar() {
 }
 
 
-function redirectTo(name){
+function redirectTo(name) {
   window.location.pathname = name;
 }

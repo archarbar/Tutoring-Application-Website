@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 
 // Material-UI
 import { withStyles } from '@material-ui/core/styles';
@@ -142,13 +142,14 @@ class RegistrationForm extends Component {
 
     sendRegisterForm() {
         const { firstName, lastName, email, password } = this.state;
-        API.registerTutor({ 'firstName': firstName, 'lastName': lastName, 'email': email, 'password': password }).then(res => { console.log(res)
+        API.registerTutor({ 'firstName': firstName, 'lastName': lastName, 'email': email, 'password': password })
+        .then(res => { console.log(res)
             res.status !== 200 ? this.setState({ emailDuplicateError: true, myText: res.data.error, registering: false, })
                 : this.setState({ applicationSent: true });
         }).catch(error => {
             console.log(error);
+            this.props.history.push('/502')
         });
-        this.setState({ applicationSent: true })
     }
 
     handleChangePassword(event) {
@@ -254,7 +255,7 @@ class RegistrationForm extends Component {
                                     {
                                         endAdornment: (
                                             <InputAdornment position="start">
-                                                <Right />
+                                                <Right color="secondary" />
                                             </InputAdornment>
                                         ),
                                     } :
@@ -295,7 +296,7 @@ class RegistrationForm extends Component {
                                     {
                                         endAdornment: (
                                             <InputAdornment position="start">
-                                                <Right />
+                                                <Right color="secondary" />
                                             </InputAdornment>
                                         ),
                                     } :
@@ -373,4 +374,4 @@ class RegistrationForm extends Component {
     }
 }
 
-export default withStyles(styles)(RegistrationForm);
+export default withRouter(withStyles(styles)(RegistrationForm));

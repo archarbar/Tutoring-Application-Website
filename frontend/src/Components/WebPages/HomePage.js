@@ -17,7 +17,7 @@ const styles = () => ({
         // maxWidth: '100vw',
     },
     mainImageContainer: {
-        height:'90vh',
+        height:'100vh',
         width:'100vw',
         backgroundImage: `url(${mainImage})`,
         backgroundSize:'cover',
@@ -37,7 +37,7 @@ const styles = () => ({
         alignItems:'center',
         justifyContent:'center',
         margin:'auto',
-        height:'90vh',
+        height:'100vh',
     },
     mainImageText:{
         color: 'white', 
@@ -58,7 +58,7 @@ class HomePage extends React.Component {
 
     componentDidMount() {
         window.addEventListener('resize', this.updateDimensions);
-        document.title = "HomePage"
+        document.title = "BigBrain Tutoring | Home"
     }
 
     render() {
