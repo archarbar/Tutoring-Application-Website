@@ -141,23 +141,10 @@ class LoginForm extends React.Component {
             const { email, password } = this.state;
 
             API.loginTutor({ 'email': email, 'password': password }).then(res => {
-                if (res.status === 200) {
-                    this.props.history.push('/dashboard');
-                }
+                res.status !== 200 ? this.setState({ networkError: true, loggingIn: false, password: "", })
+                : this.props.history.push('/dashboard');
             }).catch(error => {
-                console.log(error);
-                this.setState({
-                    networkError: true,
-                    loggingIn: false,
-                });
-            })
-        }
-        else {
-            this.setState({
-                emailError: !isEmailCorrect,
-                passwordError: !isPasswordCorrect,
-                loggingIn: false,
-                password: "",
+                this.setState({ networkError: true, loggingIn: false, password: "", });
             })
         }
     }
@@ -166,10 +153,6 @@ class LoginForm extends React.Component {
 
         const { classes, lang } = this.props;
         const { loggingIn, redirect } = this.state;
-
-        if (redirect) {
-            return <Redirect to='/dashboard' />
-        }
 
         return (
             <div className={classes.mainContainer}>

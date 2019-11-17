@@ -145,19 +145,19 @@ var API = {
         })
     },
 
-    createRating(ratingForm) {
-        const stars = bookingForm.stars;
-        const comment = bookingForm.comment;
-        const studentId = bookingForm.studentId;
-        const tutoringSessionId = bookingForm.tutoringSessionId;
+    // createRating(ratingForm) {
+    //     const stars = bookingForm.stars;
+    //     const comment = bookingForm.comment;
+    //     const studentId = bookingForm.studentId;
+    //     const tutoringSessionId = bookingForm.tutoringSessionId;
 
-        const requestUrl = '/rating/new/?stars=' + stars + '&comment=' + comment + '&studentId=' + studentId + '&tutoringSessionId' + tutoringSessionId;
+    //     const requestUrl = '/rating/new/?stars=' + stars + '&comment=' + comment + '&studentId=' + studentId + '&tutoringSessionId' + tutoringSessionId;
 
-        return axios({
-            method: 'post',
-            url: requestUrl,
-        })
-    },
+    //     return axios({
+    //         method: 'post',
+    //         url: requestUrl,
+    //     })
+    // },
 
     getAllRatings() {
         const requestUrl = '/ratings/';
@@ -244,6 +244,7 @@ var API = {
         return axios({
             method: 'post',
             url: requestUrl,
+            data: timeSlotForm,
         })
     },
 
