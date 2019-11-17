@@ -127,11 +127,12 @@ class TimeSlotPage extends Component {
 
     componentDidMount() {
         document.title = "BigBrain Tutoring | My TimeSlots"
-    }
-
-    componentDidUpdate() {
         this.getAllTimeSlots();
     }
+
+    // componentDidUpdate() {
+        
+    // }
 
     handleEvent = e => {
         this.setState({ [e.target.name]: e.target.value })
@@ -140,11 +141,12 @@ class TimeSlotPage extends Component {
     getAllTimeSlots() {
         var allTimeSlots;
         API.getTimeSlotByTutor(localStorage.getItem('tutorId')).then(res => {
+            alert(JSON.stringify(res))
             allTimeSlots = res.data.map(x => {
                 return x;
             });
             this.setState({
-                allTimeSLots: allTimeSlots
+                allTimeSlots: allTimeSlots
             })
         })
     }
@@ -172,7 +174,9 @@ class TimeSlotPage extends Component {
                     'weekDay': 'Monday',
                     'tutorId': id,
                  }).then(res => {
+                    //  alert(JSON.stringify(res))
                      console.log(res);
+                     this.getAllTimeSlots();
                  }).catch(error => {
                      console.log(error);
                  })

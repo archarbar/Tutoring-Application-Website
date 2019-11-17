@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.tutor.service;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -105,9 +106,9 @@ public class TutorService {
 	}
 
 	@Transactional
-	public void addTimeSlotForTutor(Tutor tutor, String startTime, String endTime, String weekDay) {
+	public void addTimeSlotForTutor(Set<Tutor> tutors, String startTime, String endTime, String weekDay) {
 		String error = "";
-		if (tutor == null) {
+		if (tutors == null) {
 			error = error + "A tutor needs to be specified! ";
 		}
 		if (startTime == null || startTime.trim().length() == 0) {
@@ -124,13 +125,15 @@ public class TutorService {
 			throw new IllegalArgumentException(error);
 		}
 		TimeSlot timeSlot = new TimeSlot();
+		
+		timeSlot.setTutor(tutors);
 		timeSlot.setStartTime(Time.valueOf(startTime));
 		timeSlot.setEndTime(Time.valueOf(endTime));
 		timeSlot.setDayOfTheWeek(DayOfTheWeek.valueOf(weekDay));
 		timeSlotRepository.save(timeSlot);
-		Set<TimeSlot> timeslots = tutor.getTimeSlot();
-		timeslots.add(timeSlot);
-		tutor.setTimeSlot(timeslots);
+//		Set<TimeSlot> timeslots = tutor.getTimeSlot();
+//		timeslots.add(timeSlot);
+//		tutor.setTimeSlot(timeslots);
 	}
 
 	@Transactional

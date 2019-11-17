@@ -66,6 +66,7 @@ public class TimeSlotService {
 		TimeSlot timeSlot = timeSlotRepository.findByBooking(booking);
 		return timeSlot;
 	}
+	
 
 	@Transactional
 	public TimeSlot getTimeSlotByTutoringSession(TutoringSession tutoringSession) {
