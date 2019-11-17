@@ -42,7 +42,7 @@ The objective of this project is to design a software solution for a new tutorin
 |  Team members   |	     Responsibility     | Hours|
 |-----------------|-------------------------|------|
 |    Michael Li   | Backend Services, Project Management, Architecture Model, Integration of Backend and Frontend  | 5 |
-|    Tony Ou      | Frontend implementation, Integration of Backend and Frontend, Frontend Build System | 10 |
+|    Tony Ou      | Frontend implementation, Integration of Backend and Frontend, Frontend Build System | 15 |
 |  William Zhang  | Frontend implementation, Integration of Backend and Frontend, Frontend Build System | 5 |
 |  Victor Zhong   | Architecture Model, Integration of Backend and Frontend, Backend Services  | 10 |
 

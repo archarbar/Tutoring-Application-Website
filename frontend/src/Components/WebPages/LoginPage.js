@@ -5,11 +5,14 @@ import LoginForm from '../Form/LoginForm'
 import ButtonAppBar from "../TopBar/TopBar"
 
 export default class LoginPage extends Component {
+    // constructor(props){
+    //     super(props);
+    // }
     render() {
         return (
             <div>
                 <ButtonAppBar />
-                <LoginForm />
+                <LoginForm setId={this.props.setId} />
             </div>
         )
     }
