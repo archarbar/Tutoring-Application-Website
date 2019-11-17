@@ -53,7 +53,7 @@ public class RatingController {
     }
     
     @GetMapping(value= {"/ratings", "/ratings/"})
-    public List<RatingDto> getRatings() {
+    public List<RatingDto> getAllRatings() {
     	List<RatingDto> ratings = new ArrayList<RatingDto>();
         for (Rating rating: service.getAllRatings()) {
         	ratings.add(convertToDto(rating));
@@ -72,7 +72,7 @@ public class RatingController {
         return ratings;
     }
 
-    @GetMapping("/rating/student/booking/tutor")
+    @GetMapping(value= {"/rating/student/booking/{bookingId}"})
     public List<RatingDto> getStudentRatingByBooking(@RequestParam("bookingId") String bookingId) {
     	Booking booking = bookingService.getBookingById(Integer.parseInt(bookingId));
     	List<RatingDto> ratings = new ArrayList<RatingDto>();

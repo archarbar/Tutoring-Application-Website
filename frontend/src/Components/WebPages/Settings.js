@@ -293,7 +293,7 @@ class SettingsPage extends Component {
                                                 onClick={this.handleClickPhone}
                                                 size="large"
                                             >
-                                                Change Phone Number
+                                                Change Email
                                             </Button>
                                         </form>
 
@@ -361,7 +361,7 @@ class SettingsPage extends Component {
                                 <div className={classes.insidePassword}>
                                     <TextField
                                         id="old-password"
-                                        label={lang === 'en' ? 'Old Password' : 'Ancien mot de passe'}
+                                        label={lang === 'en' ? 'Old Password' : 'Old Password'}
                                         className={classes.textField}
                                         type="password"
                                         name="oldPassword"
@@ -374,7 +374,7 @@ class SettingsPage extends Component {
                                     />
                                     <TextField
                                         id="new-password"
-                                        label={lang === 'en' ? 'New Password' : 'Nouveau mot de passe'}
+                                        label={lang === 'en' ? 'New Password' : 'New Password'}
                                         className={classes.textField}
                                         type="password"
                                         name="newPassword"
@@ -387,7 +387,7 @@ class SettingsPage extends Component {
                                     />
                                     <TextField
                                         id="confirm-new-password"
-                                        label={lang === 'en' ? 'Confirm New Password' : 'Confirmer le nouveau mot de passe'}
+                                        label={lang === 'en' ? 'Confirm New Password' : 'Confirm New Password'}
                                         className={classes.textField}
                                         type="password"
                                         name="confirmNewPassword"

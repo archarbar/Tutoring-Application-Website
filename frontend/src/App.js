@@ -13,25 +13,28 @@ import TimeSlotPage from './Components/WebPages/TimeSlotPage'
 import TutoringSessionPage from './Components/WebPages/TutoringSessionPage'
 import SettingsPage from './Components/WebPages/Settings'
 import ErrorPage502 from './Components/ErrorPages/ErrorPage502'
+import ThemeWrapper from './Components/ThemeWrapper'
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path='/'>
-          <HomePage />
-        </Route>
-        <Route exact path="/register" component={RegisterPage} />
-        <Route exact path="/login" component={LoginPage} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/students" component={StudentsPage} />
-        <Route path="/courses" component={CoursesPage} />
-        <Route path="/timeslots" component={TimeSlotPage} />
-        <Route path="/tutoringsessions" component={TutoringSessionPage} />
-        <Route path='/settings' component={SettingsPage} />
-        <Route path="/502" component={ErrorPage502} />
-      </Switch>
-    </Router>
+    <ThemeWrapper>
+      <Router>
+        <Switch>
+          <Route exact path='/'>
+            <HomePage />
+          </Route>
+          <Route exact path="/register" component={RegisterPage} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/students" component={StudentsPage} />
+          <Route path="/courses" component={CoursesPage} />
+          <Route path="/timeslots" component={TimeSlotPage} />
+          <Route path="/tutoringsessions" component={TutoringSessionPage} />
+          <Route path='/settings' component={SettingsPage} />
+          <Route path="/502" component={ErrorPage502} />
+        </Switch>
+      </Router>
+    </ThemeWrapper>
   );
 }
 

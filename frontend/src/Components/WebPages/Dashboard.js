@@ -31,7 +31,7 @@ const styles = theme => ({
 class Dashboard extends Component {
 
     componentDidMount() {
-        document.title = "TutorGang | Dashboard"
+        document.title = "TutorGang | Dashboard";
     }
 
     render() {
@@ -43,7 +43,7 @@ class Dashboard extends Component {
                 <SideBar />
                 <div className={classes.mainContainer}>
                     <div>
-                        <h1 style={{ marginTop: 0 }}>Welcome back, (INSERT NAME HERE)</h1>
+                        <h1 style={{ marginTop: 0 }}>Welcome back, </h1>
                     </div>
                     <div className={classes.courseContainer}>
                         <h1>LIST NEW BOOKINGS HERE</h1>
