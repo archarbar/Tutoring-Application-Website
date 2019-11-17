@@ -24,7 +24,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SettingsIcon from '@material-ui/icons/Settings';
 import MoreIcon from '@material-ui/icons/MoreHoriz';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import GroupIcon from '@material-ui/icons/Group';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import ApartmentIcon from '@material-ui/icons/Apartment';
