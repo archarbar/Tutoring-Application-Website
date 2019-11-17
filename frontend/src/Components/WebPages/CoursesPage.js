@@ -18,10 +18,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-// Other
-import MaskedInput from 'react-text-mask';
-import API from '../Utilities/API';
-
 const styles = theme => ({
     mainContainer: {
         position: 'relative',
@@ -94,19 +90,37 @@ class CoursesPage extends Component {
             nameEmpty: false,
             levelEmpty: false,
         }
+        this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
-        document.title = "TutorGang | MyCourses"
+        document.title = "BigBrain Tutoring | MyCourses"
     }
 
     handleEvent = e => {
         this.setState({ [e.target.name]: e.target.value })
     }
 
+    handleClick() {
+        const { courseName, courseLevel } = this.state;
+        var nameEmpty = courseName === '';
+        var levelEmpty = courseLevel === '';
+
+        if (nameEmpty || levelEmpty) {
+            this.setState({
+                nameEmpty: true,
+                levelEmpty: true,
+            })
+        } else {
+            //API CALL
+            alert("API CALL");
+        }
+    }
+
     render() {
 
         const { classes } = this.props;
+        const { nameEmpty, levelEmpty } = this.state;
 
         return (
             <div>
@@ -117,6 +131,7 @@ class CoursesPage extends Component {
                     </div>
                     <div className={classes.newContainer}>
                         <div className={classes.innerContainer}>
+                            {nameEmpty ? <p className={classes.error}>The course name cannot be empty!</p> : null}
                             <TextField
                                 id="outlined-basic"
                                 className={classes.textField}
@@ -125,11 +140,12 @@ class CoursesPage extends Component {
                                 variant="outlined"
                                 name="courseName"
                                 value={this.state.courseName}
-                                error={this.state.nameEmpty}
+                                error={nameEmpty}
                                 onChange={e => this.handleEvent(e)}
                             />
                         </div>
                         <div className={classes.innerContainer}>
+                            {levelEmpty ? <p className={classes.error}>The course level cannot be empty!</p> : null}
                             <FormControl variant="outlined" className={classes.textField} style={{ marginTop: 8 }}>
                                 <InputLabel>
                                     Level
@@ -139,6 +155,7 @@ class CoursesPage extends Component {
                                     onChange={e => this.handleEvent(e)}
                                     value={this.state.courseLevel}
                                     name="courseLevel"
+                                    error={levelEmpty}
                                 >
                                     <MenuItem value={'HIGHSCHOOL'}>Highschool</MenuItem>
                                     <MenuItem value={'CEGEP'}>CEGEP</MenuItem>
