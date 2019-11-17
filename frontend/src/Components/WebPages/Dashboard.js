@@ -64,7 +64,13 @@ class Dashboard extends Component {
     }
     componentDidMount() {
         document.title = "BigBrain Tutoring | Dashboard";
-        var id = localStorage.getItem('tutorId')
+        var id;
+        if(this.props.tutorId !== '0'){
+            id = this.props.tutorId;
+        }
+        else{
+            id = localStorage.getItem('tutorId')
+        }
         API.getTutorById(id)
         .then(res =>{
             this.setState({
