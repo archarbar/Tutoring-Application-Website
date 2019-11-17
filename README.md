@@ -41,10 +41,11 @@ The objective of this project is to design a software solution for a new tutorin
    ## Deliverable 3: Due November 17, 2019
 |  Team members   |	     Responsibility     | Hours|
 |-----------------|-------------------------|------|
-|    Michael Li   | Backend Services, Project Management, Architecture Model, Integration of Backend and Frontend  | 2 |
-|    Tony Ou      | Frontend implementation, Integration of Backend and Frontend, Frontend Build System | 1 |
-|  William Zhang  | Frontend implementation, Integration of Backend and Frontend, Frontend Build System | 1 |
-|  Victor Zhong   | Architecture Model, Integration of Backend and Frontend, Backend Services  | 1 |
+|    Michael Li   | Backend Services, Project Management, Architecture Model, Integration of Backend and Frontend  | 5 |
+|    Tony Ou      | Frontend implementation, Integration of Backend and Frontend, Frontend Build System | 10 |
+|  William Zhang  | Frontend implementation, Integration of Backend and Frontend, Frontend Build System | 5 |
+|  Victor Zhong   | Architecture Model, Integration of Backend and Frontend, Backend Services  | 10 |
 
 * [Report](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Report-(Sprint-3))
 * [Frontend](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Frontend)
+* [Architecture](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Architecture)
