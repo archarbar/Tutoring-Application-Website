@@ -136,6 +136,7 @@ class TimeSlotPage extends Component {
         var startEmpty = startTime === '';
         var endEmpty = endTime === '';
         var dayEmpty = weekDay === '';
+        var id = localStorage.getItem('tutorId');
 
         if (startEmpty || endEmpty || dayEmpty) {
             this.setState({
@@ -147,7 +148,16 @@ class TimeSlotPage extends Component {
             var noErrorStart = ((parseInt(this.state.startTime.slice(-2) % 30)) === 0 && parseInt(this.state.startTime.slice(0, 2)) >= 9 && parseInt(this.state.startTime.slice(0, 2)) <= 22);
             var noErrorEnd = ((parseInt(this.state.endTime.slice(-2) % 30)) === 0 && parseInt(this.state.endTime.slice(0, 2)) >= 9 && parseInt(this.state.endTime.slice(0, 2)) <= 22);
             if (noErrorStart && noErrorEnd) {
-                API.createTimeSlot({ 'startTime': startTime, 'endTime': endTime, 'weekDay': 'Monday' })
+                API.createTimeSlot({ 
+                    'startTime': startTime + ':00', 
+                    'endTime': endTime + ':00', 
+                    'weekDay': 'Monday',
+                    'tutorId': id,
+                 }).then(res => {
+                     console.log(res);
+                 }).catch(error => {
+                     console.log(error);
+                 })
             }
             else {
                 this.setState({
