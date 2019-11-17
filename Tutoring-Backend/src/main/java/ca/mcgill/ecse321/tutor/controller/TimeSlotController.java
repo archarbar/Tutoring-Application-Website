@@ -40,7 +40,8 @@ public class TimeSlotController {
 	@PostMapping("/timeslot/new")
 	public TimeSlotDto createTimeSlot(@RequestParam("startTime") String startTime,
 			@RequestParam("endTime") String endTime, 
-			@RequestParam("dayOfTheWeek") String weekDay) {
+			@RequestParam("weekDay") String weekDay) 
+					 {
 		// parse string into time and dayoftheweek enum 
 		Time st = Time.valueOf(startTime);
 		Time et = Time.valueOf(endTime);

@@ -9,9 +9,13 @@ export class ThemeWrapperComponent extends React.Component {
         primary: {
           main: '#3f51b5',
         },
+        secondary: {
+          main:'#1EC523',
+          error: '#C51E1E'
+        },
         error: {
           main: '#3f51b5',
-        }
+        },
       },
     });
 

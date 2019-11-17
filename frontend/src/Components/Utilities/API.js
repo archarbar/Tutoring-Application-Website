@@ -132,6 +132,7 @@ var API = {
         return axios({
             method: 'post',
             url: requestUrl,
+            data: bookingForm,
         })
     },
 
@@ -156,6 +157,7 @@ var API = {
         return axios({
             method: 'post',
             url: requestUrl,
+            data: ratingForm,
         })
     },
 
@@ -237,13 +239,14 @@ var API = {
     createTimeSlot(timeSlotForm) {
         const startTime = timeSlotForm.startTime;
         const endTime = timeSlotForm.endTime;
-        const dayOfTheWeek = timeSlotForm.dayOfTheWeek;
+        const weekDay = timeSlotForm.weekDay;
 
-        const requestUrl = '/timeslot/new/?startTime=' + startTime + '&endTime=' + endTime + '&dayOfTheWeek=' + dayOfTheWeek;
+        const requestUrl = '/timeslot/new/?startTime=' + startTime + '&endTime=' + endTime + '&weekDay=' + weekDay;
 
         return axios({
             method: 'post',
             url: requestUrl,
+            data: timeSlotForm,
         })
     },
 
@@ -258,6 +261,7 @@ var API = {
         return axios({
             method: 'post',
             url: requestUrl,
+            data: timeSlotForm,
         })
     },
 
@@ -270,6 +274,7 @@ var API = {
         return axios({
             method: 'delete',
             url: requestUrl,
+            data: timeSlotForm,
         })
     },
 
@@ -362,6 +367,7 @@ var API = {
         return axios({
             method: 'post',
             url: requestUrl,
+            data: tutoringSessionForm,
         })
     },
 
