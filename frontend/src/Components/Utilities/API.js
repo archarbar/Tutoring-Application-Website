@@ -49,12 +49,16 @@ var API = {
         })
     },
 
-    addCourseForTutor(tutorId) {
-        const requestUrl = '/course/' + tutorId + '/add';
+    addCourseForTutor(courseForm) {
+        const courseName = courseForm.courseName;
+        const tutorId = courseForm.tutorId;
+
+        const requestUrl = '/course/new?courseName=' + courseName + '&tutorId=' + tutorId;
 
         return axios({
             method: 'post',
             url: requestUrl,
+            data: courseForm,
         })
     },
 

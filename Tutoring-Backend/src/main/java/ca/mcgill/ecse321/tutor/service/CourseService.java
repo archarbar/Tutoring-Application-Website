@@ -16,6 +16,9 @@ public class CourseService {
 
 	@Autowired
 	CourseRepository courseRepository;
+	
+	@Autowired
+	TutorService tutorService;
 
 	@Transactional
 	public Course createCourse(String courseName, Level level) {
@@ -62,6 +65,15 @@ public class CourseService {
 			coursesByLevel.add(course);
 		}
 		return coursesByLevel;
+	}
+	
+	@Transactional
+	public ArrayList<Course> getCourseByTutor(Integer tutorId) {
+		ArrayList<Course> courseByTutor = new ArrayList<>();
+		for (Course course : courseRepository.findCourseByTutor(tutorService.getTutorById(tutorId))) {
+			courseByTutor.add(course);
+		}
+		return courseByTutor;
 	}
 
 	@Transactional

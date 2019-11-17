@@ -34,11 +34,13 @@ public class CourseController {
 
 	// USE CASE 5
 
-	@PostMapping("/course/{tutorId}/add")
+	@PostMapping("/course/new")
 	public void addCourseForTutor(@RequestParam("courseName") String courseName,
 			@RequestParam("tutorId") String tutorId) {
 		Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
+		Level courseLevel = service.getCourseByCourseName(courseName).getCourseLevel();
 		tutorService.addCourseForTutor(tutor, courseName);
+//		service.createCourse(courseName, courseLevel);
 	}
 
 	@GetMapping("/course/level/{level}")
@@ -49,6 +51,12 @@ public class CourseController {
 			returnCourse.add(convertToDto(course));
 		}
 		return returnCourse;
+	}
+	
+	@GetMapping("/course/tutor/{tutorId}")
+	public ArrayList<Course> getCourseByTutor(@PathVariable String tutorId) {
+		ArrayList<Course> courses = service.getCourseByTutor(Integer.parseInt(tutorId));
+		return courses;
 	}
 
 	@GetMapping("/course/name/{courseName}")

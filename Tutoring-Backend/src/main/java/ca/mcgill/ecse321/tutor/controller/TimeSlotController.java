@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.tutor.controller;
 
 import java.sql.Time;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -68,6 +69,7 @@ public class TimeSlotController {
 		Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
 		tutorService.removeTimeSlotForTutor(tutor, Integer.parseInt(timeSlotId));
 	}
+	
 
 	@GetMapping("/timeslot/booking/{bookingId}")
 	public TimeSlotDto getTimeSlotByBooking(@RequestParam String bookingId) {

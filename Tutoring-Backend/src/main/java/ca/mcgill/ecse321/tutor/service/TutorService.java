@@ -168,6 +168,7 @@ public class TutorService {
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
+		
 		Course course = courseRepository.findCourseByCourseName(courseName);
 		Set<Course> courses = tutor.getCourse();
 		courses.add(course);
