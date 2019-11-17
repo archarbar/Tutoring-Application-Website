@@ -208,10 +208,6 @@ class SideBar extends React.Component {
               <ListItemIcon> <DashboardIcon /> </ListItemIcon>
               <ListItemText primary={'Dashboard'} />
             </ListItem>
-            <ListItem button component={Link} to="/students">
-              <ListItemIcon><GroupIcon /> </ListItemIcon>
-              <ListItemText primary={'My Students'} />
-            </ListItem>
             <ListItem button component={Link} to="/courses">
               <ListItemIcon><MenuBookIcon /> </ListItemIcon>
               <ListItemText primary={'My Courses'} />

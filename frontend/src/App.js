@@ -8,7 +8,6 @@ import RegisterPage from './Components/WebPages/RegisterPage'
 import LoginPage from './Components/WebPages/LoginPage'
 import Dashboard from './Components/WebPages/Dashboard'
 import CoursesPage from './Components/WebPages/CoursesPage'
-import StudentsPage from './Components/WebPages/StudentsPage'
 import TimeSlotPage from './Components/WebPages/TimeSlotPage'
 import TutoringSessionPage from './Components/WebPages/TutoringSessionPage'
 import SettingsPage from './Components/WebPages/Settings'
@@ -26,7 +25,6 @@ function App() {
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/login" component={LoginPage} />
           <Route path="/dashboard" component={Dashboard} />
-          <Route path="/students" component={StudentsPage} />
           <Route path="/courses" component={CoursesPage} />
           <Route path="/timeslots" component={TimeSlotPage} />
           <Route path="/tutoringsessions" component={TutoringSessionPage} />
