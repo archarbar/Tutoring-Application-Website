@@ -236,6 +236,16 @@ var API = {
         })
     },
 
+    getTimeSlotByTutor(tutorId) {
+        const requestUrl = '/timeslot/tutor/' + tutorId;
+
+        return axios({
+            method: 'get',
+            url: requestUrl,
+            data: tutorId,
+        })
+    },
+
     createTimeSlot(timeSlotForm) {
         const startTime = timeSlotForm.startTime;
         const endTime = timeSlotForm.endTime;

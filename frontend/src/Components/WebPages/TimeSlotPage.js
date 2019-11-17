@@ -118,17 +118,35 @@ class TimeSlotPage extends Component {
             endEmpty: false,
             dayEmpty: false,
             startError: true,
-            endError: true
+            endError: true,
+            allTimeSlots: [],
         }
         this.handleClick = this.handleClick.bind(this);
+        this.getAllTimeSlots();
     }
 
     componentDidMount() {
         document.title = "BigBrain Tutoring | My TimeSlots"
     }
 
+    componentDidUpdate() {
+        this.getAllTimeSlots();
+    }
+
     handleEvent = e => {
         this.setState({ [e.target.name]: e.target.value })
+    }
+
+    getAllTimeSlots() {
+        var allTimeSlots;
+        API.getTimeSlotByTutor(localStorage.getItem('tutorId')).then(res => {
+            allTimeSlots = res.data.map(x => {
+                return x;
+            });
+            this.setState({
+                allTimeSLots: allTimeSlots
+            })
+        })
     }
 
     handleClick() {
@@ -174,7 +192,7 @@ class TimeSlotPage extends Component {
     render() {
 
         const { classes } = this.props;
-        const { endError, endEmpty, startError, startEmpty, dayEmpty } = this.state;
+        const { endError, endEmpty, startError, startEmpty, dayEmpty, allTimeSlots } = this.state;
 
         return (
             <div>
@@ -267,11 +285,11 @@ class TimeSlotPage extends Component {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {rows.map(row => (
-                                        <TableRow key={row.name}>
-                                            <TableCell align="left">{row.startTime}</TableCell>
-                                            <TableCell align="left">{row.endTime}</TableCell>
-                                            <TableCell align="left">{row.weekDay}</TableCell>
+                                    {allTimeSlots.map(timeSlot => (
+                                        <TableRow>
+                                            <TableCell align="left">{timeSlot.startTime}</TableCell>
+                                            <TableCell align="left">{timeSlot.endTime}</TableCell>
+                                            <TableCell align="left">{timeSlot.dayOfTheWeek}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
