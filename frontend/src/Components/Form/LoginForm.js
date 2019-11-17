@@ -143,8 +143,10 @@ class LoginForm extends React.Component {
 
             API.loginTutor({ 'email': email, 'password': password }).then(res => {
                 res.status !== 200 ? this.setState({ networkError: true, loggingIn: false, password: "", })
-                : this.props.history.push('/dashboard');
+                : 
                 this.props.setId(res.data)
+                this.props.history.push('/dashboard');
+                
             }).catch(error => {
                 this.setState({ networkError: true, loggingIn: false, password: "", });
             })
