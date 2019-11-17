@@ -9,6 +9,7 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 
 import SideBar from '../TopBar/SideBar'
+import API from '../Utilities/API';
 
 const styles = theme => ({
     mainContainer: {
@@ -77,15 +78,25 @@ class SettingsPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            firstName: 'William',
-            lastName: 'Zhang',
-            email: 'william.zhang@coolguy99.com',
+            firstName: '',
+            lastName: '',
+            email: '',
+            hourlyRate: ''
         }
     }
 
     componentDidMount() {
         document.title = "BigBrain Tutoring | Settings"
-
+        var id = localStorage.getItem('tutorId')
+        API.getTutorById(id)
+        .then(res =>{
+            this.setState({
+                firstName : res.data.firstName,
+                lastName: res.data.lastName,
+                email: res.data.email,
+                hourlyRate: res.data.hourlyRate
+            })
+        })
     }
 
     render() {
@@ -122,6 +133,17 @@ class SettingsPage extends Component {
                                 </Typography>
                                 <Typography className={classes.secondaryHeading}>
                                     {this.state.email}
+                                </Typography>
+                            </ExpansionPanelSummary>
+                        </ExpansionPanel>
+
+                        <ExpansionPanel expanded={false}>
+                            <ExpansionPanelSummary>
+                                <Typography className={classes.heading}>
+                                    Hourly Rate
+                                </Typography>
+                                <Typography className={classes.secondaryHeading}>
+                                    {this.state.hourlyRate}
                                 </Typography>
                             </ExpansionPanelSummary>
                         </ExpansionPanel>
