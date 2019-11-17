@@ -48,4 +48,4 @@ The objective of this project is to design a software solution for a new tutorin
 
 * [Report](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Report-(Sprint-3))
 * [Frontend](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Frontend)
-* [Architecture] (https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Architecture)
+* [Architecture](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Architecture)
