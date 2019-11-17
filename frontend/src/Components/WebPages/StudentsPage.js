@@ -31,7 +31,7 @@ const styles = theme => ({
 class StudentsPage extends Component {
 
     componentDidMount() {
-        document.title = "TutorGang | MyStudents"
+        document.title = "BigBrain Tutoring | My Students"
     }
 
     render() {

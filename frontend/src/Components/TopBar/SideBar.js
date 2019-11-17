@@ -57,7 +57,7 @@ const styles = theme => ({
     flexGrow: 1,
     textAlign: 'left',
     fontWeight: 520,
-    paddingLeft: 50,
+    paddingLeft: 70,
   },
   menuButton: {
     marginRight: 20
@@ -163,7 +163,7 @@ class SideBar extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.companyTitle}>
-              Tutoring
+              BigBrain Tutoring
             </Typography>
             <div className={classes.topButtons}>
               <ClickAwayListener onClickAway={this.handleCloseProfile}>

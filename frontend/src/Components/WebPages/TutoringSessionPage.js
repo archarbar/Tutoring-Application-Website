@@ -5,22 +5,12 @@ import PropTypes from 'prop-types';
 // MUI
 import { withStyles } from '@material-ui/core/styles';
 import SideBar from '../TopBar/SideBar';
-import { Button } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
-// Other
-import MaskedInput from 'react-text-mask';
-import API from '../Utilities/API';
 
 const styles = theme => ({
     mainContainer: {
@@ -63,7 +53,7 @@ const rows = [
 class TutoringSessionPage extends Component {
 
     componentDidMount() {
-        document.title = "TutorGang | My Sessions"
+        document.title = "BigBrain Tutoring | My Sessions"
     }
 
     render() {

@@ -18,10 +18,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-// Other
-import MaskedInput from 'react-text-mask';
-import API from '../Utilities/API';
-
 const styles = theme => ({
     mainContainer: {
         position: 'relative',
@@ -98,7 +94,7 @@ class CoursesPage extends Component {
     }
 
     componentDidMount() {
-        document.title = "TutorGang | MyCourses"
+        document.title = "BigBrain Tutoring | MyCourses"
     }
 
     handleEvent = e => {

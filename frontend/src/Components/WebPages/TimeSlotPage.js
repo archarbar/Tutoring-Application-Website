@@ -124,7 +124,7 @@ class TimeSlotPage extends Component {
     }
 
     componentDidMount() {
-        document.title = "TutorGang | My TimeSlots"
+        document.title = "BigBrain Tutoring | My TimeSlots"
     }
 
     handleEvent = e => {
