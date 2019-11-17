@@ -124,7 +124,7 @@ class TimeSlotPage extends Component {
     }
 
     componentDidMount() {
-        document.title = "TutorGang | My TimeSlots"
+        document.title = "BigBrain Tutoring | My TimeSlots"
     }
 
     handleEvent = e => {
@@ -133,13 +133,15 @@ class TimeSlotPage extends Component {
 
     handleClick() {
         const { startTime, endTime, weekDay } = this.state;
-        var startEmpty = this.state.startTime === '';
-        var endEmpty = this.state.endTime === '';
+        var startEmpty = startTime === '';
+        var endEmpty = endTime === '';
+        var dayEmpty = weekDay === '';
 
-        if (startEmpty || endEmpty) {
+        if (startEmpty || endEmpty || dayEmpty) {
             this.setState({
                 startEmpty: true,
                 endEmpty: true,
+                dayEmpty: true,
             })
         } else {
             var noErrorStart = ((parseInt(this.state.startTime.slice(-2) % 30)) === 0 && parseInt(this.state.startTime.slice(0, 2)) >= 9 && parseInt(this.state.startTime.slice(0, 2)) <= 22);
@@ -153,6 +155,7 @@ class TimeSlotPage extends Component {
                     endError: noErrorEnd,
                     startEmpty: false,
                     endEmpty: false,
+                    dayEmpty: false,
                 })
             }
         }
@@ -161,7 +164,7 @@ class TimeSlotPage extends Component {
     render() {
 
         const { classes } = this.props;
-        const { endError, endEmpty, startError, startEmpty } = this.state;
+        const { endError, endEmpty, startError, startEmpty, dayEmpty } = this.state;
 
         return (
             <div>
@@ -171,7 +174,7 @@ class TimeSlotPage extends Component {
                         <h1 style={{ marginTop: 0 }}>Add New TimeSlot</h1>
                     </div>
                     <div className={classes.newContainer}>
-                        <div className={classes.innerContainer}>
+                        <div>
                             {startEmpty ? <p className={classes.error}>The start time cannot be empty!</p> : null}
                             {!startError ? <p className={classes.error}>Wrong format!</p> : null}
                             <TextField
@@ -189,7 +192,7 @@ class TimeSlotPage extends Component {
                                 }}
                             />
                         </div>
-                        <div className={classes.innerContainer}>
+                        <div>
                             {endEmpty ? <p className={classes.error}>The end time cannot be empty!</p> : null}
                             {!endError ? <p className={classes.error}>Wrong format!</p> : null}
                             <TextField
@@ -207,7 +210,8 @@ class TimeSlotPage extends Component {
                                 }}
                             />
                         </div>
-                        <div className={classes.innerContainer}>
+                        <div>
+                            {dayEmpty ? <p className={classes.error}>The week day cannot be empty!</p> : null}
                             <FormControl variant="outlined" className={classes.textField} style={{ marginTop: 8 }}>
                                 <InputLabel>
                                     Day
@@ -217,6 +221,7 @@ class TimeSlotPage extends Component {
                                     onChange={e => this.handleEvent(e)}
                                     value={this.state.weekDay}
                                     name="weekDay"
+                                    error={dayEmpty}
                                 >
                                     <MenuItem value={'MONDAY'}>Monday</MenuItem>
                                     <MenuItem value={'TUESDAY'}>Tuesday</MenuItem>

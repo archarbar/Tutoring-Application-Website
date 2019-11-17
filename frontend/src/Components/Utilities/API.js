@@ -132,7 +132,7 @@ var API = {
         return axios({
             method: 'post',
             url: requestUrl,
-            data: bookingForm
+            data: bookingForm,
         })
     },
 
@@ -146,20 +146,20 @@ var API = {
         })
     },
 
-    // createRating(ratingForm) {
-    //     const stars = bookingForm.stars;
-    //     const comment = bookingForm.comment;
-    //     const studentId = bookingForm.studentId;
-    //     const tutoringSessionId = bookingForm.tutoringSessionId;
+    createRating(ratingForm) {
+        const stars = ratingForm.stars;
+        const comment = ratingForm.comment;
+        const studentId = ratingForm.studentId;
+        const tutoringSessionId = ratingForm.tutoringSessionId;
 
-    //     const requestUrl = '/rating/new/?stars=' + stars + '&comment=' + comment + '&studentId=' + studentId + '&tutoringSessionId' + tutoringSessionId;
+        const requestUrl = '/rating/new/?stars=' + stars + '&comment=' + comment + '&studentId=' + studentId + '&tutoringSessionId' + tutoringSessionId;
 
-    //     return axios({
-    //         method: 'post',
-    //         url: requestUrl,
-    //         data: ratingForm
-    //     })
-    // },
+        return axios({
+            method: 'post',
+            url: requestUrl,
+            data: ratingForm,
+        })
+    },
 
     getAllRatings() {
         const requestUrl = '/ratings/';
@@ -239,14 +239,14 @@ var API = {
     createTimeSlot(timeSlotForm) {
         const startTime = timeSlotForm.startTime;
         const endTime = timeSlotForm.endTime;
-        const dayOfTheWeek = timeSlotForm.dayOfTheWeek;
+        const weekDay = timeSlotForm.weekDay;
 
-        const requestUrl = '/timeslot/new/?startTime=' + startTime + '&endTime=' + endTime + '&dayOfTheWeek=' + dayOfTheWeek;
+        const requestUrl = '/timeslot/new/?startTime=' + startTime + '&endTime=' + endTime + '&weekDay=' + weekDay;
 
         return axios({
             method: 'post',
             url: requestUrl,
-            data: timeSlotForm
+            data: timeSlotForm,
         })
     },
 
@@ -261,7 +261,7 @@ var API = {
         return axios({
             method: 'post',
             url: requestUrl,
-            data: timeSlotForm
+            data: timeSlotForm,
         })
     },
 
@@ -274,7 +274,7 @@ var API = {
         return axios({
             method: 'delete',
             url: requestUrl,
-            data: timeSlotForm
+            data: timeSlotForm,
         })
     },
 
@@ -367,7 +367,7 @@ var API = {
         return axios({
             method: 'post',
             url: requestUrl,
-            data: tutoringSessionForm
+            data: tutoringSessionForm,
         })
     },
 
