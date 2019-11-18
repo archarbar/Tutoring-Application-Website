@@ -38,9 +38,7 @@ public class CourseController {
 	public void addCourseForTutor(@RequestParam("courseName") String courseName,
 			@RequestParam("tutorId") String tutorId) {
 		Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
-		Level courseLevel = service.getCourseByCourseName(courseName).getCourseLevel();
 		tutorService.addCourseForTutor(tutor, courseName);
-//		service.createCourse(courseName, courseLevel);
 	}
 
 	@GetMapping("/course/level/{level}")
@@ -53,10 +51,14 @@ public class CourseController {
 		return returnCourse;
 	}
 	
-	@GetMapping("/course/tutor/{tutorId}")
-	public ArrayList<Course> getCourseByTutor(@PathVariable String tutorId) {
+	@GetMapping("/course/{tutorId}/get")
+	public ArrayList<CourseDto> getCourseByTutor(@PathVariable String tutorId) {
+		ArrayList<CourseDto> returnCourse = new ArrayList<>();
 		ArrayList<Course> courses = service.getCourseByTutor(Integer.parseInt(tutorId));
-		return courses;
+		for (Course course : courses) {
+			returnCourse.add(convertToDto(course));
+		}
+		return returnCourse;
 	}
 
 	@GetMapping("/course/name/{courseName}")
