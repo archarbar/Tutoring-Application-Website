@@ -75,15 +75,6 @@ public class CourseService {
 		}
 		return coursesByLevel;
 	}
-	
-	@Transactional
-	public ArrayList<Course> getCourseByTutor(Integer tutorId) {
-		ArrayList<Course> courseByTutor = new ArrayList<>();
-		for (Course course : courseRepository.findCourseByTutor(tutorService.getTutorById(tutorId))) {
-			courseByTutor.add(course);
-		}
-		return courseByTutor;
-	}
 
 	@Transactional
 	public List<Course> getAllCourses(){
