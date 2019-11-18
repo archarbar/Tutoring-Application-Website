@@ -186,6 +186,8 @@ class TimeSlotPage extends Component {
         API.removeTimeSlotForTutor({ 
             'timeSlotId': timeSlotId, 
             'tutorId': id 
+        }).then(res => {
+            this.getAllTimeSlots();
         }).catch(error => {
             console.log(error);
         });

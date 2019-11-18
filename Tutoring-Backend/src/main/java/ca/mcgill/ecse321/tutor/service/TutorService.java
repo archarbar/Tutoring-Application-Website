@@ -149,13 +149,7 @@ public class TutorService {
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
-		Set<TimeSlot> timeslots = tutor.getTimeSlot();
-		for (TimeSlot timeSlot : timeslots) {
-			if (timeSlot.getId() == timeSlotId) {
-				timeslots.remove(timeSlot);
-				break;
-			}
-		}
+		timeSlotRepository.deleteById(timeSlotId);
 	}
 
 	@Transactional
