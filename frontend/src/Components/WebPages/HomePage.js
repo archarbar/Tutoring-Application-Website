@@ -1,6 +1,7 @@
 // React
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter, NavLink } from 'react-router-dom';
 
 // Components
 import TopBar from '../TopBar/TopBar.js';
@@ -9,6 +10,7 @@ import TopBar from '../TopBar/TopBar.js';
 import { withStyles } from '@material-ui/core/styles';
 
 import mainImage from '../Images/tutor.jpg'
+import { Button } from '@material-ui/core';
 
 const styles = () => ({
     mainContainer: {
@@ -17,12 +19,12 @@ const styles = () => ({
         // maxWidth: '100vw',
     },
     mainImageContainer: {
-        height:'100vh',
-        width:'100vw',
+        height: '93.5vh',
+        width: '100vw',
         backgroundImage: `url(${mainImage})`,
-        backgroundSize:'cover',
-        backgroundPosition:'center',
-        maxWidth:'100%',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        maxWidth: '100%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -32,17 +34,18 @@ const styles = () => ({
         color: 'white',
         fontWeight: 'bold',
         display: 'flex',
+        flexDirection: 'column',
         zIndex: '2',
         width: '100%',
-        alignItems:'center',
-        justifyContent:'center',
-        margin:'auto',
-        height:'100vh',
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 'auto',
+        height: '93.5vh',
     },
-    mainImageText:{
-        color: 'white', 
+    mainImageText: {
+        color: 'white',
         fontSize: 25,
-        lineHeight:'3',
+        lineHeight: '3',
         textAlign: 'center',
     }
 });
@@ -61,6 +64,10 @@ class HomePage extends React.Component {
         document.title = "BigBrain Tutoring | Home"
     }
 
+    handleClick() {
+        this.props.history.push('/register');
+    }
+
     render() {
 
         const { classes } = this.props;
@@ -73,12 +80,20 @@ class HomePage extends React.Component {
                         {/* <img src={mainImage}  className = {classes.mainImage} alt="Tutor session" /> */}
                         <div className={classes.blackLayer}>
                             <h1 className={classes.mainImageText}>
-                                We're looking for passionate tutors to help teach the youth of tomorrow. <br />
+                                We're looking for passionate BigBrain tutors to help teach the youth of tomorrow. <br />
                                 Share your passion with the world and sign up today!
                             </h1>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                style={{
+                                    width: 150,
+                                    height: 40
+                                }}
+                            >
+                                <NavLink to='/register' style={{ textDecoration: 'none', color: '#FFFFFF' }}>SIGN UP</NavLink>
+                            </Button>
                         </div>
-
-                        {/* INSERT BUTTON HERE TO SIGN UP */}
                     </div>
                 </div>
             </div>
@@ -90,4 +105,4 @@ HomePage.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(HomePage);
+export default withRouter(withStyles(styles)(HomePage));
