@@ -1,3 +1,12 @@
 language: java
 script:
+- cd frontend/
+- npm install
+- npm run build
+- cd ..
 - gradle build 
+
+deploy:
+  provider: heroku
+  api_key: 57e878de-93ac-4005-b4a4-a6d8f0b8250a
+  app: eventregistration-backend-302

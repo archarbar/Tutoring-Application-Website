@@ -34,7 +34,7 @@ public class CourseController {
 
 	// USE CASE 5
 
-	@PostMapping("/course/{tutorId}/add")
+	@PostMapping("/course/new")
 	public void addCourseForTutor(@RequestParam("courseName") String courseName,
 			@RequestParam("tutorId") String tutorId) {
 		Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
@@ -45,6 +45,16 @@ public class CourseController {
 	public ArrayList<CourseDto> getCoursesByLevel (@PathVariable Level level) {
 		ArrayList<CourseDto> returnCourse = new ArrayList<>();
 		ArrayList<Course> courses = service.getCourseByCourseLevel(level);
+		for (Course course : courses) {
+			returnCourse.add(convertToDto(course));
+		}
+		return returnCourse;
+	}
+	
+	@GetMapping("/course/{tutorId}/get")
+	public ArrayList<CourseDto> getCourseByTutor(@PathVariable String tutorId) {
+		ArrayList<CourseDto> returnCourse = new ArrayList<>();
+		ArrayList<Course> courses = service.getCourseByTutor(Integer.parseInt(tutorId));
 		for (Course course : courses) {
 			returnCourse.add(convertToDto(course));
 		}

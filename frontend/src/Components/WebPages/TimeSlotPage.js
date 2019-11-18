@@ -17,6 +17,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 // Other
 import MaskedInput from 'react-text-mask';
@@ -95,16 +97,6 @@ TextMaskCustom.propTypes = {
     inputRef: PropTypes.func.isRequired,
 };
 
-function createData(startTime, endTime, weekDay) {
-    return { startTime, endTime, weekDay };
-}
-
-const rows = [
-    createData('10:00', '11:00', 'Monday'),
-    createData('13:00', '15:00', 'Saturday'),
-    createData('17:00', '19:00', 'Wednesday'),
-];
-
 class TimeSlotPage extends Component {
 
     constructor(props) {
@@ -118,17 +110,35 @@ class TimeSlotPage extends Component {
             endEmpty: false,
             dayEmpty: false,
             startError: true,
-            endError: true
+            endError: true,
+            allTimeSlots: [],
+            selected: [],
         }
         this.handleClick = this.handleClick.bind(this);
+        this.getAllTimeSlots();
     }
 
     componentDidMount() {
         document.title = "BigBrain Tutoring | My TimeSlots"
+        this.getAllTimeSlots();
     }
 
     handleEvent = e => {
         this.setState({ [e.target.name]: e.target.value })
+    }
+
+    getAllTimeSlots() {
+        var allData;
+        API.getTimeSlotByTutor(localStorage.getItem('tutorId')).then(res => {
+            console.log(JSON.stringify(res))
+            allData = res.data.map(x => {
+                return x;
+            });
+            this.setState({
+                allTimeSlots: allData
+            })
+        })
+        return allData;
     }
 
     handleClick() {
@@ -136,7 +146,7 @@ class TimeSlotPage extends Component {
         var startEmpty = startTime === '';
         var endEmpty = endTime === '';
         var dayEmpty = weekDay === '';
-
+        var id = localStorage.getItem('tutorId');
         if (startEmpty || endEmpty || dayEmpty) {
             this.setState({
                 startEmpty: true,
@@ -144,10 +154,19 @@ class TimeSlotPage extends Component {
                 dayEmpty: true,
             })
         } else {
-            var noErrorStart = ((parseInt(this.state.startTime.slice(-2) % 30)) === 0 && parseInt(this.state.startTime.slice(0, 2)) >= 9 && parseInt(this.state.startTime.slice(0, 2)) <= 22);
-            var noErrorEnd = ((parseInt(this.state.endTime.slice(-2) % 30)) === 0 && parseInt(this.state.endTime.slice(0, 2)) >= 9 && parseInt(this.state.endTime.slice(0, 2)) <= 22);
+            var noErrorStart = (parseInt(this.state.startTime.slice(0, 2)) >= 9 && parseInt(this.state.startTime.slice(0, 2)) <= 22);
+            var noErrorEnd = (parseInt(this.state.endTime.slice(0, 2)) >= 9 && parseInt(this.state.endTime.slice(0, 2)) <= 22);
             if (noErrorStart && noErrorEnd) {
-                API.createTimeSlot({ 'startTime': startTime, 'endTime': endTime, 'weekDay': 'Monday' })
+                API.addTimeSlotForTutor({
+                    'startTime': startTime + ':00',
+                    'endTime': endTime + ':00',
+                    'dayOfTheWeek': weekDay,
+                    'tutorId': id,
+                }).then(res => {
+                    this.getAllTimeSlots();
+                }).catch(error => {
+                    console.log(error);
+                })
             }
             else {
                 this.setState({
@@ -161,10 +180,23 @@ class TimeSlotPage extends Component {
         }
     }
 
+    handleClickDelete(index) {
+        const timeSlotId = this.state.allTimeSlots[index].timeSlotId;
+        const id = localStorage.getItem('tutorId');
+        API.removeTimeSlotForTutor({ 
+            'timeSlotId': timeSlotId, 
+            'tutorId': id 
+        }).then(res => {
+            this.getAllTimeSlots();
+        }).catch(error => {
+            console.log(error);
+        });
+    } 
+
     render() {
 
         const { classes } = this.props;
-        const { endError, endEmpty, startError, startEmpty, dayEmpty } = this.state;
+        const { endError, endEmpty, startError, startEmpty, dayEmpty, allTimeSlots } = this.state;
 
         return (
             <div>
@@ -254,16 +286,27 @@ class TimeSlotPage extends Component {
                                         <TableCell align="left">Start time</TableCell>
                                         <TableCell align="left">End time</TableCell>
                                         <TableCell align="left">Day of the week</TableCell>
+                                        <TableCell align="left"></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {rows.map(row => (
-                                        <TableRow key={row.name}>
-                                            <TableCell align="left">{row.startTime}</TableCell>
-                                            <TableCell align="left">{row.endTime}</TableCell>
-                                            <TableCell align="left">{row.weekDay}</TableCell>
-                                        </TableRow>
-                                    ))}
+                                    {allTimeSlots.map((timeSlot, index) => {
+                                        return (
+                                            <TableRow>
+                                                <TableCell align="left">{timeSlot.startTime}</TableCell>
+                                                <TableCell align="left">{timeSlot.endTime}</TableCell>
+                                                <TableCell align="left">{timeSlot.dayOfTheWeek}</TableCell>
+                                                <TableCell align='left' size='small' >
+                                                    <IconButton
+                                                        id={index}
+                                                        onClick={() => this.handleClickDelete(index)}
+                                                    >
+                                                        <DeleteIcon />
+                                                    </IconButton>
+                                                </TableCell>
+                                            </TableRow>
+                                        )
+                                    })}
                                 </TableBody>
                             </Table>
                         </Paper>

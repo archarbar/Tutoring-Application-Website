@@ -19,6 +19,8 @@ public class TimeSlotService {
 
 	@Autowired
 	TimeSlotRepository timeSlotRepository;
+	@Autowired
+	TutorService tutorService;
 
 	@Transactional
 	public TimeSlot createTimeSlot(Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek) {
@@ -64,6 +66,7 @@ public class TimeSlotService {
 		TimeSlot timeSlot = timeSlotRepository.findByBooking(booking);
 		return timeSlot;
 	}
+	
 
 	@Transactional
 	public TimeSlot getTimeSlotByTutoringSession(TutoringSession tutoringSession) {
@@ -72,6 +75,15 @@ public class TimeSlotService {
 		}
 		TimeSlot timeSlot = timeSlotRepository.findByTutoringSession(tutoringSession);
 		return timeSlot;
+	}
+	
+	@Transactional
+	public ArrayList<TimeSlot> getTimeSlotByTutor(Integer tutorId) {
+		ArrayList<TimeSlot> timeSlotByTutor = new ArrayList<>();
+		for (TimeSlot timeSlot : timeSlotRepository.findTimeSlotByTutor(tutorService.getTutorById(tutorId))) {
+			timeSlotByTutor.add(timeSlot);
+		}
+		return timeSlotByTutor;
 	}
 
 	@Transactional

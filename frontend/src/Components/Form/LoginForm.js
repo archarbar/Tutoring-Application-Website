@@ -1,7 +1,7 @@
 // React
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink, Redirect, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 
 // Material-UI
 import { withStyles } from '@material-ui/core/styles';
@@ -143,8 +143,10 @@ class LoginForm extends React.Component {
 
             API.loginTutor({ 'email': email, 'password': password }).then(res => {
                 res.status !== 200 ? this.setState({ networkError: true, loggingIn: false, password: "", })
-                : this.props.history.push('/dashboard');
+                : 
                 this.props.setId(res.data)
+                this.props.history.push('/dashboard');
+                
             }).catch(error => {
                 this.setState({ networkError: true, loggingIn: false, password: "", });
             })
@@ -154,7 +156,7 @@ class LoginForm extends React.Component {
     render() {
 
         const { classes, lang } = this.props;
-        const { loggingIn, redirect } = this.state;
+        const { loggingIn } = this.state;
 
         return (
             <div className={classes.mainContainer}>

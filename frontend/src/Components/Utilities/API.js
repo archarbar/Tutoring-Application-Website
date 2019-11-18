@@ -49,12 +49,16 @@ var API = {
         })
     },
 
-    addCourseForTutor(tutorId) {
-        const requestUrl = '/course/' + tutorId + '/add';
+    addCourseForTutor(courseForm) {
+        const courseName = courseForm.courseName;
+        const tutorId = courseForm.tutorId;
+
+        const requestUrl = '/course/new?courseName=' + courseName + '&tutorId=' + tutorId;
 
         return axios({
             method: 'post',
             url: requestUrl,
+            data: courseForm,
         })
     },
 
@@ -236,6 +240,16 @@ var API = {
         })
     },
 
+    getTimeSlotByTutor(tutorId) {
+        const requestUrl = '/timeslot/tutor/' + tutorId;
+
+        return axios({
+            method: 'get',
+            url: requestUrl,
+            data: tutorId,
+        })
+    },
+
     createTimeSlot(timeSlotForm) {
         const startTime = timeSlotForm.startTime;
         const endTime = timeSlotForm.endTime;
@@ -250,13 +264,14 @@ var API = {
         })
     },
 
+
     addTimeSlotForTutor(timeSlotForm) {
         const startTime = timeSlotForm.startTime;
         const endTime = timeSlotForm.endTime;
         const dayOfTheWeek = timeSlotForm.dayOfTheWeek;
         const tutorId = timeSlotForm.tutorId;
 
-        const requestUrl = '/timeslot/tutor/' + tutorId + '/new/?startTime=' + startTime + '&endTime=' + endTime + '&dayOfTheWeek=' + dayOfTheWeek;
+        const requestUrl = '/timeslot/tutor/new/?startTime=' + startTime + '&endTime=' + endTime + '&dayOfTheWeek=' + dayOfTheWeek + '&tutorId=' + tutorId;
 
         return axios({
             method: 'post',
@@ -269,7 +284,7 @@ var API = {
         const timeSlotId = timeSlotForm.timeSlotId
         const tutorId = timeSlotForm.tutorId;
 
-        const requestUrl = '/timeslot/tutor/' + tutorId + '&timeSlotId=' + timeSlotId;
+        const requestUrl = '/timeslot/tutor/delete?timeSlotId=' + timeSlotId + '&tutorId=' + tutorId;
 
         return axios({
             method: 'delete',
