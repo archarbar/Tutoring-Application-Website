@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.tutor.service;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -124,6 +125,8 @@ public class TutorService {
 			throw new IllegalArgumentException(error);
 		}
 		TimeSlot timeSlot = new TimeSlot();
+		
+//		timeSlot.setTutor(tutors);
 		timeSlot.setStartTime(Time.valueOf(startTime));
 		timeSlot.setEndTime(Time.valueOf(endTime));
 		timeSlot.setDayOfTheWeek(DayOfTheWeek.valueOf(weekDay));
@@ -168,7 +171,6 @@ public class TutorService {
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
-		
 		Course course = courseRepository.findCourseByCourseName(courseName);
 		Set<Course> courses = tutor.getCourse();
 		courses.add(course);
@@ -230,5 +232,4 @@ public class TutorService {
 
 		return Double.toString(averageRate);
 	}
-
 }

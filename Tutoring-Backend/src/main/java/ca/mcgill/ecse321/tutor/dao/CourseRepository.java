@@ -20,5 +20,4 @@ public interface CourseRepository extends CrudRepository<Course, Integer>{
 	List<Course> findCourseByCourseLevel(Level level);
 	
 	List<Course> findCourseByTutor(Tutor tutor);
-	
 }
