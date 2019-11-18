@@ -7,10 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import SideBar from '../TopBar/SideBar';
 import { Button } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -36,7 +33,7 @@ const styles = theme => ({
         flexDirection: 'column',
     },
     newContainer: {
-        minHeight: 100,
+        minHeight: 150,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-around',
@@ -63,6 +60,9 @@ const styles = theme => ({
         borderRadius: 5,
         boxShadow: 'none',
     },
+    innerContainer: {
+        height: '100%',
+    },
     textField: {
         minWidth: 150
     },
@@ -73,6 +73,7 @@ const styles = theme => ({
     error: {
         margin: 0,
         color: '#3f51b5',
+        marginTop: 5
     }
 })
 
@@ -206,9 +207,9 @@ class TimeSlotPage extends Component {
                         <h1 style={{ marginTop: 0 }}>Add New TimeSlot</h1>
                     </div>
                     <div className={classes.newContainer}>
-                        <div>
+                        <div className={classes.innerContainer}>
                             {startEmpty ? <p className={classes.error}>The start time cannot be empty!</p> : null}
-                            {!startError ? <p className={classes.error}>Wrong format!</p> : null}
+                            {!startError ? <p className={classes.error}>The time must be between 9:00 and 22:00!</p> : null}
                             <TextField
                                 id="outlined-basic"
                                 className={classes.textField}
@@ -224,9 +225,9 @@ class TimeSlotPage extends Component {
                                 }}
                             />
                         </div>
-                        <div>
+                        <div className={classes.innerContainer}>
                             {endEmpty ? <p className={classes.error}>The end time cannot be empty!</p> : null}
-                            {!endError ? <p className={classes.error}>Wrong format!</p> : null}
+                            {!endError ? <p className={classes.error}>The time must be between 9:00 and 22:00!</p> : null}
                             <TextField
                                 id="outlined-basic"
                                 className={classes.textField}
@@ -242,18 +243,19 @@ class TimeSlotPage extends Component {
                                 }}
                             />
                         </div>
-                        <div>
+                        <div className={classes.innerContainer}>
                             {dayEmpty ? <p className={classes.error}>The week day cannot be empty!</p> : null}
-                            <FormControl variant="outlined" className={classes.textField} style={{ marginTop: 8 }}>
-                                <InputLabel>
-                                    Day
-                                </InputLabel>
-                                <Select
+                                <TextField
                                     labelWidth={25}
                                     onChange={e => this.handleEvent(e)}
                                     value={this.state.weekDay}
                                     name="weekDay"
                                     error={dayEmpty}
+                                    margin="normal"
+                                    select
+                                    className={classes.textField}
+                                    variant="outlined"
+                                    label="Day"
                                 >
                                     <MenuItem value={'MONDAY'}>Monday</MenuItem>
                                     <MenuItem value={'TUESDAY'}>Tuesday</MenuItem>
@@ -262,9 +264,9 @@ class TimeSlotPage extends Component {
                                     <MenuItem value={'FRIDAY'}>Friday</MenuItem>
                                     <MenuItem value={'SATURDAY'}>Saturday</MenuItem>
                                     <MenuItem value={'SUNDAY'}>Sunday</MenuItem>
-                                </Select>
-                            </FormControl>
+                                </TextField>
                         </div>
+                        <div className={classes.innerContainer}>
                         <Button
                             variant="contained"
                             color="primary"
@@ -274,6 +276,7 @@ class TimeSlotPage extends Component {
                         >
                             Add TimeSlot
                         </Button>
+                        </div>
                     </div>
                     <div>
                         <h1 style={{ marginTop: 40 }}>My TimeSlots</h1>
