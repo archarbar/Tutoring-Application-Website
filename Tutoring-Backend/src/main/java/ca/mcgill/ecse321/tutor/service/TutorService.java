@@ -106,9 +106,9 @@ public class TutorService {
 	}
 
 	@Transactional
-	public void addTimeSlotForTutor(Set<Tutor> tutors, String startTime, String endTime, String weekDay) {
+	public void addTimeSlotForTutor(Tutor tutor, String startTime, String endTime, String weekDay) {
 		String error = "";
-		if (tutors == null) {
+		if (tutor == null) {
 			error = error + "A tutor needs to be specified! ";
 		}
 		if (startTime == null || startTime.trim().length() == 0) {
@@ -126,14 +126,14 @@ public class TutorService {
 		}
 		TimeSlot timeSlot = new TimeSlot();
 		
-		timeSlot.setTutor(tutors);
+//		timeSlot.setTutor(tutors);
 		timeSlot.setStartTime(Time.valueOf(startTime));
 		timeSlot.setEndTime(Time.valueOf(endTime));
 		timeSlot.setDayOfTheWeek(DayOfTheWeek.valueOf(weekDay));
 		timeSlotRepository.save(timeSlot);
-//		Set<TimeSlot> timeslots = tutor.getTimeSlot();
-//		timeslots.add(timeSlot);
-//		tutor.setTimeSlot(timeslots);
+		Set<TimeSlot> timeslots = tutor.getTimeSlot();
+		timeslots.add(timeSlot);
+		tutor.setTimeSlot(timeslots);
 	}
 
 	@Transactional

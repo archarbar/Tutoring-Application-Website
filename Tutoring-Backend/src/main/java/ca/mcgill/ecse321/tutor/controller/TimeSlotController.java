@@ -84,8 +84,8 @@ public class TimeSlotController {
 			@RequestParam("dayOfTheWeek") String weekDay,
 			@RequestParam("tutorId") String tutorId) {
 		Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
-		Set<Tutor> tutorSet = new HashSet<Tutor>();
-		tutorService.addTimeSlotForTutor(tutorSet, startTime, endTime, weekDay);
+//		Set<Tutor> tutorSet = new HashSet<Tutor>();
+		tutorService.addTimeSlotForTutor(tutor, startTime, endTime, weekDay);
 	}
 	
 	// USE CASE 3
