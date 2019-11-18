@@ -149,6 +149,10 @@ public class TutorService {
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
+		TimeSlot timeslot = timeSlotRepository.findTimeSlotById(timeSlotId);
+		Set<TimeSlot> timeslots = tutor.getTimeSlot();
+		timeslots.remove(timeslot);
+		tutor.setTimeSlot(timeslots);
 		timeSlotRepository.deleteById(timeSlotId);
 	}
 
