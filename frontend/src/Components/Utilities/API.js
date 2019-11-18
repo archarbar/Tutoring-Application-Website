@@ -280,7 +280,7 @@ var API = {
         const timeSlotId = timeSlotForm.timeSlotId
         const tutorId = timeSlotForm.tutorId;
 
-        const requestUrl = '/timeslot/tutor/' + tutorId + '&timeSlotId=' + timeSlotId;
+        const requestUrl = '/timeslot/tutor/delete?timeSlotId=' + timeSlotId + '&tutorId=' + tutorId;
 
         return axios({
             method: 'delete',
