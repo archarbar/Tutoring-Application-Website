@@ -34,7 +34,7 @@ public class CourseController {
 
 	// USE CASE 5
 
-	@PostMapping("/course/{tutorId}/add")
+	@PostMapping("/course/new")
 	public void addCourseForTutor(@RequestParam("courseName") String courseName,
 			@RequestParam("tutorId") String tutorId) {
 		Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));

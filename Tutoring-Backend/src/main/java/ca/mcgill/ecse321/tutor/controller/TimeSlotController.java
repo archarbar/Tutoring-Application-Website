@@ -97,6 +97,7 @@ public class TimeSlotController {
 		Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
 		tutorService.removeTimeSlotForTutor(tutor, Integer.parseInt(timeSlotId));
 	}
+	
 
 	@GetMapping("/timeslot/booking/{bookingId}")
 	public TimeSlotDto getTimeSlotByBooking(@RequestParam String bookingId) {

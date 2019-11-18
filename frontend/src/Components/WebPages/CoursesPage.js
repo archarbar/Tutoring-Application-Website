@@ -17,6 +17,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import API from '../Utilities/API';
 
 const styles = theme => ({
     mainContainer: {
@@ -89,12 +90,13 @@ class CoursesPage extends Component {
             courseLevel: '',
             nameEmpty: false,
             levelEmpty: false,
+            tutorId : '',
         }
         this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
-        document.title = "BigBrain Tutoring | MyCourses"
+        document.title = "BigBrain Tutoring | MyCourses";
     }
 
     handleEvent = e => {
@@ -105,6 +107,7 @@ class CoursesPage extends Component {
         const { courseName, courseLevel } = this.state;
         var nameEmpty = courseName === '';
         var levelEmpty = courseLevel === '';
+        var id = localStorage.getItem('tutorId');
 
         if (nameEmpty || levelEmpty) {
             this.setState({
@@ -112,8 +115,7 @@ class CoursesPage extends Component {
                 levelEmpty: true,
             })
         } else {
-            //API CALL
-            alert("API CALL");
+            API.addCourseForTutor({ 'courseName': courseName, 'tutorId': id });
         }
     }
 

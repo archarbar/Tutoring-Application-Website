@@ -232,5 +232,4 @@ public class TutorService {
 
 		return Double.toString(averageRate);
 	}
-
 }
