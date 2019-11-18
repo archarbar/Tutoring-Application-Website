@@ -95,16 +95,6 @@ TextMaskCustom.propTypes = {
     inputRef: PropTypes.func.isRequired,
 };
 
-function createData(startTime, endTime, weekDay) {
-    return { startTime, endTime, weekDay };
-}
-
-const rows = [
-    createData('10:00', '11:00', 'Monday'),
-    createData('13:00', '15:00', 'Saturday'),
-    createData('17:00', '19:00', 'Wednesday'),
-];
-
 class TimeSlotPage extends Component {
 
     constructor(props) {
@@ -130,25 +120,22 @@ class TimeSlotPage extends Component {
         this.getAllTimeSlots();
     }
 
-    // componentDidUpdate() {
-        
-    // }
-
     handleEvent = e => {
         this.setState({ [e.target.name]: e.target.value })
     }
 
     getAllTimeSlots() {
-        var allTimeSlots;
+        var allData;
         API.getTimeSlotByTutor(localStorage.getItem('tutorId')).then(res => {
-            alert(JSON.stringify(res))
-            allTimeSlots = res.data.map(x => {
+            console.log(JSON.stringify(res))
+            allData = res.data.map(x => {
                 return x;
             });
             this.setState({
-                allTimeSlots: allTimeSlots
+                allTimeSlots: allData
             })
         })
+        return allData;
     }
 
     handleClick() {
@@ -157,7 +144,6 @@ class TimeSlotPage extends Component {
         var endEmpty = endTime === '';
         var dayEmpty = weekDay === '';
         var id = localStorage.getItem('tutorId');
-
         if (startEmpty || endEmpty || dayEmpty) {
             this.setState({
                 startEmpty: true,
@@ -165,17 +151,15 @@ class TimeSlotPage extends Component {
                 dayEmpty: true,
             })
         } else {
-            var noErrorStart = ((parseInt(this.state.startTime.slice(-2) % 30)) === 0 && parseInt(this.state.startTime.slice(0, 2)) >= 9 && parseInt(this.state.startTime.slice(0, 2)) <= 22);
-            var noErrorEnd = ((parseInt(this.state.endTime.slice(-2) % 30)) === 0 && parseInt(this.state.endTime.slice(0, 2)) >= 9 && parseInt(this.state.endTime.slice(0, 2)) <= 22);
+            var noErrorStart = (parseInt(this.state.startTime.slice(0, 2)) >= 9 && parseInt(this.state.startTime.slice(0, 2)) <= 22);
+            var noErrorEnd = (parseInt(this.state.endTime.slice(0, 2)) >= 9 && parseInt(this.state.endTime.slice(0, 2)) <= 22);
             if (noErrorStart && noErrorEnd) {
-                API.createTimeSlot({ 
+                API.addTimeSlotForTutor({ 
                     'startTime': startTime + ':00', 
                     'endTime': endTime + ':00', 
-                    'weekDay': 'Monday',
+                    'dayOfTheWeek': weekDay,
                     'tutorId': id,
                  }).then(res => {
-                    //  alert(JSON.stringify(res))
-                     console.log(res);
                      this.getAllTimeSlots();
                  }).catch(error => {
                      console.log(error);

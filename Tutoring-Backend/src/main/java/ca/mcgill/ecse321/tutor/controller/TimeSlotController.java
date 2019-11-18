@@ -78,7 +78,7 @@ public class TimeSlotController {
 	
 	// USE CASE 3
 
-	@PostMapping("/timeslot/tutor/{tutorId}/new")
+	@PostMapping("/timeslot/tutor/new")
 	public void addTimeSlotForTutor(@RequestParam("startTime") String startTime,
 			@RequestParam("endTime") String endTime, 
 			@RequestParam("dayOfTheWeek") String weekDay,

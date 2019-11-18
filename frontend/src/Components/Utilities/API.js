@@ -267,7 +267,7 @@ var API = {
         const dayOfTheWeek = timeSlotForm.dayOfTheWeek;
         const tutorId = timeSlotForm.tutorId;
 
-        const requestUrl = '/timeslot/tutor/' + tutorId + '/new/?startTime=' + startTime + '&endTime=' + endTime + '&dayOfTheWeek=' + dayOfTheWeek;
+        const requestUrl = '/timeslot/tutor/new/?startTime=' + startTime + '&endTime=' + endTime + '&dayOfTheWeek=' + dayOfTheWeek + '&tutorId=' + tutorId;
 
         return axios({
             method: 'post',
