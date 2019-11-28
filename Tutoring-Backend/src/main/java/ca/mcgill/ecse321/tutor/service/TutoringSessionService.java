@@ -65,11 +65,7 @@ public class TutoringSessionService {
 		
 		List<Notification> notifications = notificationService.getAllNotifications();
 		for(Notification notification: notifications) {
-			System.out.println(notification.getBooking().getId());
-			System.out.println(booking.getId());
-			System.out.println(booking.getId() == notification.getBooking().getId());
-			if( booking.getId() == notification.getBooking().getId()) {
-				System.out.println("DELETE NOTIFICATION");
+			if(Integer.compare(booking.getId(), notification.getBooking().getId()) == 0) {
 				notificationRepository.delete(notification);
 			}
 		}
