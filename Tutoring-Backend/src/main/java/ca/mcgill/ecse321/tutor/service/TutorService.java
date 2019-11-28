@@ -157,17 +157,10 @@ public class TutorService {
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
-		TimeSlot goalTimeSlot = timeSlotRepository.findTimeSlotById(timeSlotId);
-		Set<TimeSlot> newTimeSlots = new HashSet<TimeSlot>();
-		for (TimeSlot timeSlot: tutor.getTimeSlot()) {
-			if (timeSlot == goalTimeSlot) {
-				continue;
-			}
-			else {
-				newTimeSlots.add(timeSlot);
-			}
-		}
-		tutor.setTimeSlot(newTimeSlots);
+		TimeSlot timeslot = timeSlotRepository.findTimeSlotById(timeSlotId);
+		Set<TimeSlot> timeslots = tutor.getTimeSlot();
+		timeslots.remove(timeslot);
+		tutor.setTimeSlot(timeslots);
 		tutorRepository.save(tutor);
 		timeSlotRepository.deleteById(timeSlotId);
 	}

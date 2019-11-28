@@ -4,17 +4,17 @@ import PropTypes from 'prop-types';
 
 // MUI
 import { withStyles } from '@material-ui/core/styles';
-
-import API from '../Utilities/API';
-
-import SideBar from '../TopBar/SideBar';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { Button } from '@material-ui/core';
 
+// Components
+import API from '../Utilities/API';
+import SideBar from '../TopBar/SideBar';
 
 const styles = theme => ({
     mainContainer: {
@@ -32,7 +32,7 @@ const styles = theme => ({
         display: 'flex',
         alignItems: 'space-around',
         marginTop: 20,
-        width: '80%',
+        width: '90%',
         flexDirection: 'column',
     },
     tableContainer: {
@@ -52,13 +52,14 @@ const rows = [
     createData('ECSE321', 'Victor Zhong', '12/11/19', '10:00', '11:00'),
     createData('ECSE211', 'Michael Li', '25/05/20', '13:00', '15:00'),
     createData('ACC361', 'William Zhang', '08/02/20', '17:00', '19:00'),
+    createData('MATH240', 'Tony Ou', '08/02/20', '17:00', '19:00'),
 ];
 
 class Dashboard extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
-            tutorId : '',
+            tutorId: '',
             tutorName: ''
         }
     }
@@ -66,12 +67,12 @@ class Dashboard extends Component {
         document.title = "BigBrain Tutoring | Dashboard";
         var id = localStorage.getItem('tutorId')
         API.getTutorById(id)
-        .then(res =>{
-            this.setState({
-                tutorId : id,
-                tutorName : res.data.firstName + ' ' + res.data.lastName
+            .then(res => {
+                this.setState({
+                    tutorId: id,
+                    tutorName: res.data.firstName + ' ' + res.data.lastName
+                })
             })
-        })
     }
 
     render() {
@@ -97,6 +98,8 @@ class Dashboard extends Component {
                                         <TableCell align="left">Session Date</TableCell>
                                         <TableCell align="left">Start Time</TableCell>
                                         <TableCell align="left">End Time</TableCell>
+                                        <TableCell align="left"></TableCell>
+                                        <TableCell align="left"></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -107,6 +110,22 @@ class Dashboard extends Component {
                                             <TableCell align="left">{row.sessionDate}</TableCell>
                                             <TableCell align="left">{row.startTime}</TableCell>
                                             <TableCell align="left">{row.endTime}</TableCell>
+                                            <TableCell align="center">
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                >
+                                                    Accept
+                                                </Button>
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                >
+                                                    Decline
+                                                </Button>
+                                            </TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>

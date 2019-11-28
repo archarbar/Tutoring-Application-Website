@@ -366,7 +366,7 @@ class RegistrationForm extends Component {
                             lineHeight: 2,
                         }}
                     >
-                        Thank you for applying for applying as a tutor! We will review your details and send you an email letting you know whether your application has been successful or not.
+                        Thank you for applying for applying as a tutor! You may now login
                     </h4>
                 </div>
             )

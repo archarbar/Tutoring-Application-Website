@@ -47,10 +47,16 @@ function createData(sessionDate, roomNumber, bookingId, startTime, endTime) {
     return { sessionDate, roomNumber, bookingId, startTime, endTime };
 }
 
-const rows = [
+const upcomingSessions = [
     createData('12/11/19', '2511', '5', '10:00', '11:00'),
     createData('25/05/20', '3123', '11', '13:00', '15:00'),
     createData('08/02/20', '1252', '8', '17:00', '19:00'),
+];
+
+const pastSessions = [
+    createData('12/11/18', '2511', '5', '10:00', '11:00'),
+    createData('25/05/15', '3123', '11', '13:00', '15:00'),
+    createData('08/02/15', '1252', '8', '17:00', '19:00'),
 ];
 
 class TutoringSessionPage extends Component {
@@ -83,7 +89,7 @@ class TutoringSessionPage extends Component {
                 <SideBar />
                 <div className={classes.mainContainer}>
                     <div>
-                        <h1 style={{ marginTop: 0 }}>My Sessions</h1>
+                        <h1 style={{ marginTop: 0 }}>Upcoming Sessions</h1>
                     </div>
                     <div className={classes.currentContainer}>
                         <Paper className={classes.tableContainer}>
@@ -98,7 +104,36 @@ class TutoringSessionPage extends Component {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {rows.map(row => (
+                                    {upcomingSessions.map(row => (
+                                        <TableRow key={row.name}>
+                                            <TableCell align="left">{row.sessionDate}</TableCell>
+                                            <TableCell align="left">{row.roomNumber}</TableCell>
+                                            <TableCell align="left">{row.bookingId}</TableCell>
+                                            <TableCell align="left">{row.startTime}</TableCell>
+                                            <TableCell align="left">{row.endTime}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </Paper>
+                    </div>
+                    <div>
+                        <h1 style={{ marginTop: '4vh' }}>Past Sessions</h1>
+                    </div>
+                    <div className={classes.currentContainer}>
+                        <Paper className={classes.tableContainer}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell align="left">Date</TableCell>
+                                        <TableCell align="left">Room Number</TableCell>
+                                        <TableCell align="left">Booking ID</TableCell>
+                                        <TableCell align="left">Start Time</TableCell>
+                                        <TableCell align="left">End Time</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {pastSessions.map(row => (
                                         <TableRow key={row.name}>
                                             <TableCell align="left">{row.sessionDate}</TableCell>
                                             <TableCell align="left">{row.roomNumber}</TableCell>

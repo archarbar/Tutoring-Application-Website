@@ -13,11 +13,6 @@ import mainImage from '../Images/tutor.jpg'
 import { Button } from '@material-ui/core';
 
 const styles = () => ({
-    mainContainer: {
-        // display: 'grid',
-        // gridTemplateRows: '0vh 0px 95vh 1fr auto',
-        // maxWidth: '100vw',
-    },
     mainImageContainer: {
         height: '93.5vh',
         width: '100vw',
@@ -30,7 +25,7 @@ const styles = () => ({
         justifyContent: 'center',
     },
     blackLayer: {
-        backgroundColor: 'rgba(0,0,0, 0.5)',/* Black w/opacity/see-through */
+        backgroundColor: 'rgba(0,0,0, 0.5)',
         color: 'white',
         fontWeight: 'bold',
         display: 'flex',
