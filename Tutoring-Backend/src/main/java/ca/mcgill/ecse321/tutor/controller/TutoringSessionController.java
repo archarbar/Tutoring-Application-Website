@@ -72,6 +72,7 @@ public class TutoringSessionController {
     public List<TutoringSessionDto> getAllTutoringSessions(){
     	List<TutoringSessionDto> tutoringSessionDtos = new ArrayList<TutoringSessionDto>();
     	for (TutoringSession tutoringSession: service.getAllTutoringSessions()) {
+    		System.out.println("TUTORINGSESSIONFOUND");
     		tutoringSessionDtos.add(convertToDto(tutoringSession));
     	}    	
     	return tutoringSessionDtos;
@@ -80,7 +81,11 @@ public class TutoringSessionController {
     public TutoringSessionDto convertToDto(TutoringSession tutoringSession) {
         if (tutoringSession == null) throw new IllegalArgumentException("This tutoringSession does not exist!");
         System.out.println("attempting to return tutoringsessionDTO");
+        System.out.println(tutoringSession.getSessionDate());
+        System.out.println(tutoringSession.getTutor().getId());
+        System.out.println(tutoringSession.getRoom());
+        System.out.println(tutoringSession.getBooking());
         return new TutoringSessionDto(tutoringSession.getSessionDate(), tutoringSession.getTutor().getId(), tutoringSession.getRoom(),
-                timeSlotController.convertToDto(tutoringSession.getTimeSlot()), tutoringSession.getBooking(), tutoringSession.getId());
+                timeSlotController.convertToDto(tutoringSession.getTimeSlot()), tutoringSession.getId());
     }
 }

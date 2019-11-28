@@ -12,15 +12,13 @@ public class TutoringSessionDto {
     private Integer tutorId;
     private int roomNumber;
     private TimeSlotDto timeSlot;
-    private Integer booking;
     private int tutoringSessionId;
 
-    public TutoringSessionDto(Date sessionDate, Integer tutorId, Room room, TimeSlotDto timeSlotDto, Booking booking, int tutoringSessionId) {
+    public TutoringSessionDto(Date sessionDate, Integer tutorId, Room room, TimeSlotDto timeSlotDto, int tutoringSessionId) {
         this.sessionDate = sessionDate;
         this.tutorId = tutorId;
         this.roomNumber = room.getRoomNumber();
         this.timeSlot = timeSlotDto;
-        this.booking = booking.getId();
         this.tutoringSessionId = tutoringSessionId;
     }
 
@@ -40,9 +38,6 @@ public class TutoringSessionDto {
         return timeSlot;
     }
 
-    public Integer getBooking() {
-        return booking;
-    }
 
     public int getTutoringSessionId() {
         return tutoringSessionId;

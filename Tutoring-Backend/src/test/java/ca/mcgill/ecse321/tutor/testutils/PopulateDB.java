@@ -211,7 +211,7 @@ public class PopulateDB {
 		tutoringSessionRepository.save(tutoringSession);
 		System.out.println(tutoringSession);
 //		notificationRepository.delete(booking1.getNotification());
-		
+		System.out.println(tutorWill.getTutoringSession());
 //		List<Booking> allBookings = bookingService.getAllBookings();
 //		System.out.println(allBookings.get(0).getTutorEmail());
 		

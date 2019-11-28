@@ -187,6 +187,7 @@ public class BookingService {
 				break;
 			}
 		}
+
 		return approvedTutoringSession;
 		
 	}

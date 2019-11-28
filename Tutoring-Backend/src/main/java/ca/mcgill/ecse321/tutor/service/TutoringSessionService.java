@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.tutor.service;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.tutor.dao.BookingRepository;
 import ca.mcgill.ecse321.tutor.dao.NotificationRepository;
+import ca.mcgill.ecse321.tutor.dao.TutorRepository;
 import ca.mcgill.ecse321.tutor.dao.TutoringSessionRepository;
 import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Notification;
@@ -32,6 +34,8 @@ public class TutoringSessionService {
 	NotificationRepository notificationRepository;
 	@Autowired
 	NotificationService notificationService;
+	@Autowired
+	TutorRepository tutorRepository;
 	
 	@Transactional
 	public TutoringSession createTutoringSession(Date sessionDate, Tutor tutor, Room room,
@@ -61,8 +65,8 @@ public class TutoringSessionService {
 		tutoringSession.setTutor(tutor);
 		tutoringSession.setRoom(room);
 		tutoringSession.setTimeSlot(timeSlot);
-		booking.setTutoringSession(tutoringSession);
-		
+
+
 		List<Notification> notifications = notificationService.getAllNotifications();
 		for(Notification notification: notifications) {
 			if(Integer.compare(booking.getId(), notification.getBooking().getId()) == 0) {
@@ -70,8 +74,23 @@ public class TutoringSessionService {
 			}
 		}
 		tutoringSessionRepository.save(tutoringSession);
+		Set<TutoringSession> tutoringSessions = new HashSet<TutoringSession>();
+		if(tutor.getTutoringSession() != null) {
+			tutoringSessions = tutor.getTutoringSession();
+			tutoringSessions.add(tutoringSession);
+			tutor.setTutoringSession(tutoringSessions);
+			tutorRepository.save(tutor);
+		}else {
+			tutoringSessions.add(tutoringSession);
+			tutor.setTutoringSession(tutoringSessions);
+			tutorRepository.save(tutor);
+		}
+
+		System.out.println(tutoringSession);
+		booking.setTutoringSession(tutoringSession);
 		bookingRepository.save(booking);
 //		tutoringSession.setBooking(booking);
+//		tutoringSessionRepository.save(tutoringSession);
 
 		return tutoringSession;
 	}
