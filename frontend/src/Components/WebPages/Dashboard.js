@@ -44,17 +44,6 @@ const styles = theme => ({
     },
 })
 
-function createData(courseName, studentName, sessionDate, startTime, endTime) {
-    return { courseName, studentName, sessionDate, startTime, endTime };
-}
-
-const rows = [
-    createData('ECSE321', 'Victor Zhong', '12/11/19', '10:00', '11:00'),
-    createData('ECSE211', 'Michael Li', '25/05/20', '13:00', '15:00'),
-    createData('ACC361', 'William Zhang', '08/02/20', '17:00', '19:00'),
-    createData('MATH240', 'Tony Ou', '08/02/20', '17:00', '19:00'),
-];
-
 class Dashboard extends Component {
     constructor(props) {
         super(props)

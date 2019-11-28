@@ -73,16 +73,6 @@ const styles = theme => ({
     }
 })
 
-function createData(courseName, courseLevel) {
-    return { courseName, courseLevel };
-}
-
-const rows = [
-    createData('ECSE321', 'UNIVERSITY'),
-    createData('ECSE211', 'UNIVERSITY'),
-    createData('COMP206', 'UNIVERSITY'),
-];
-
 class CoursesPage extends Component {
 
     constructor(props) {
@@ -124,6 +114,8 @@ class CoursesPage extends Component {
             API.addCourseForTutor({ 'courseName': courseName, 'tutorId': id });
             this.setState({
                 open: true,
+                courseName: '',
+                courseLevel: '',
             })
         }
     }

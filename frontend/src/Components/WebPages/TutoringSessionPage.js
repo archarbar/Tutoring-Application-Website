@@ -47,12 +47,6 @@ function createData(sessionDate, roomNumber, bookingId, startTime, endTime) {
     return { sessionDate, roomNumber, bookingId, startTime, endTime };
 }
 
-const upcomingSessions = [
-    createData('12/11/19', '2511', '5', '10:00', '11:00'),
-    createData('25/05/20', '3123', '11', '13:00', '15:00'),
-    createData('08/02/20', '1252', '8', '17:00', '19:00'),
-];
-
 const pastSessions = [
     createData('12/11/18', '2511', '5', '10:00', '11:00'),
     createData('25/05/15', '3123', '11', '13:00', '15:00'),
