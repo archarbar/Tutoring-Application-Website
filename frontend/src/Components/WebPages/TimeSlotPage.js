@@ -16,6 +16,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Snackbar from '@material-ui/core/Snackbar';
+import CloseIcon from '@material-ui/icons/Close';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
 
 // Other
 import MaskedInput from 'react-text-mask';
@@ -33,7 +36,7 @@ const styles = theme => ({
         flexDirection: 'column',
     },
     newContainer: {
-        minHeight: 150,
+        minHeight: 140,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-around',
@@ -74,7 +77,7 @@ const styles = theme => ({
         margin: 0,
         color: '#3f51b5',
         marginTop: 5
-    }
+    },
 })
 
 function TextMaskCustom(props) {
@@ -114,8 +117,10 @@ class TimeSlotPage extends Component {
             endError: true,
             allTimeSlots: [],
             selected: [],
+            open: false,
         }
         this.handleClick = this.handleClick.bind(this);
+        this.handleClose = this.handleClose.bind(this);
         this.getAllTimeSlots();
     }
 
@@ -184,20 +189,33 @@ class TimeSlotPage extends Component {
     handleClickDelete(index) {
         const timeSlotId = this.state.allTimeSlots[index].timeSlotId;
         const id = localStorage.getItem('tutorId');
-        API.removeTimeSlotForTutor({ 
-            'timeSlotId': timeSlotId, 
-            'tutorId': id 
+        API.removeTimeSlotForTutor({
+            'timeSlotId': timeSlotId,
+            'tutorId': id
         }).then(res => {
-            this.getAllTimeSlots();
+            if (res.status === 500) {
+                this.setState({
+                    open: true,
+                })
+            }
+            else {
+                this.getAllTimeSlots();
+            }
         }).catch(error => {
             console.log(error);
         });
-    } 
+    }
+
+    handleClose = () => {
+        this.setState({
+            open: false,
+        });
+    };
 
     render() {
 
         const { classes } = this.props;
-        const { endError, endEmpty, startError, startEmpty, dayEmpty, allTimeSlots } = this.state;
+        const { endError, endEmpty, startError, startEmpty, dayEmpty, allTimeSlots, open } = this.state;
 
         return (
             <div>
@@ -245,36 +263,36 @@ class TimeSlotPage extends Component {
                         </div>
                         <div className={classes.innerContainer}>
                             {dayEmpty ? <p className={classes.error}>The week day cannot be empty!</p> : null}
-                                <TextField
-                                    labelWidth={25}
-                                    onChange={e => this.handleEvent(e)}
-                                    value={this.state.weekDay}
-                                    name="weekDay"
-                                    error={dayEmpty}
-                                    margin="normal"
-                                    select
-                                    className={classes.textField}
-                                    variant="outlined"
-                                    label="Day"
-                                >
-                                    <MenuItem value={'MONDAY'}>Monday</MenuItem>
-                                    <MenuItem value={'TUESDAY'}>Tuesday</MenuItem>
-                                    <MenuItem value={'WEDNESDAY'}>Wednesday</MenuItem>
-                                    <MenuItem value={'THURSDAY'}>Thursday</MenuItem>
-                                    <MenuItem value={'FRIDAY'}>Friday</MenuItem>
-                                    <MenuItem value={'SATURDAY'}>Saturday</MenuItem>
-                                    <MenuItem value={'SUNDAY'}>Sunday</MenuItem>
-                                </TextField>
+                            <TextField
+                                labelWidth={25}
+                                onChange={e => this.handleEvent(e)}
+                                value={this.state.weekDay}
+                                name="weekDay"
+                                error={dayEmpty}
+                                margin="normal"
+                                select
+                                className={classes.textField}
+                                variant="outlined"
+                                label="Day"
+                            >
+                                <MenuItem value={'MONDAY'}>Monday</MenuItem>
+                                <MenuItem value={'TUESDAY'}>Tuesday</MenuItem>
+                                <MenuItem value={'WEDNESDAY'}>Wednesday</MenuItem>
+                                <MenuItem value={'THURSDAY'}>Thursday</MenuItem>
+                                <MenuItem value={'FRIDAY'}>Friday</MenuItem>
+                                <MenuItem value={'SATURDAY'}>Saturday</MenuItem>
+                                <MenuItem value={'SUNDAY'}>Sunday</MenuItem>
+                            </TextField>
                         </div>
                         <div className={classes.innerContainer}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                            onClick={this.handleClick}
-                            style={{ marginTop: 8 }}
-                        >
-                            Add TimeSlot
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                className={classes.button}
+                                onClick={this.handleClick}
+                                style={{ marginTop: 8 }}
+                            >
+                                Add TimeSlot
                         </Button>
                         </div>
                     </div>
@@ -314,6 +332,33 @@ class TimeSlotPage extends Component {
                             </Table>
                         </Paper>
                     </div>
+                    <Snackbar
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                        }}
+                        open={open}
+                        autoHideDuration={3000}
+                        onClose={this.handleClose}
+                    >
+                        <SnackbarContent
+                            message={<span>A booking is associated with this timeslot!</span>}
+                            action={[
+                                <IconButton
+                                    key="close"
+                                    aria-label="Close"
+                                    color="inherit"
+                                    onClick={this.handleClose}
+                                >
+                                    <CloseIcon />
+                                </IconButton>,
+                            ]}
+                            style={{
+                                backgroundColor: '#3f51b5'
+                            }}
+                        >
+                        </SnackbarContent>
+                    </Snackbar>
                 </div>
             </div>
         )

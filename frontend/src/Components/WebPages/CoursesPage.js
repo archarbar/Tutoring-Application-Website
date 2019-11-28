@@ -4,19 +4,21 @@ import PropTypes from 'prop-types';
 
 // MUI
 import { withStyles } from '@material-ui/core/styles';
-import SideBar from '../TopBar/SideBar';
 import { Button } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import IconButton from '@material-ui/core/IconButton';
+import Snackbar from '@material-ui/core/Snackbar';
+import CloseIcon from '@material-ui/icons/Close';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+
+import SideBar from '../TopBar/SideBar';
 import API from '../Utilities/API';
 
 const styles = theme => ({
@@ -31,7 +33,7 @@ const styles = theme => ({
         flexDirection: 'column',
     },
     newContainer: {
-        minHeight: 100,
+        minHeight: 140,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-around',
@@ -90,7 +92,8 @@ class CoursesPage extends Component {
             courseLevel: '',
             nameEmpty: false,
             levelEmpty: false,
-            tutorId : '',
+            tutorId: '',
+            open: false,
         }
         this.handleClick = this.handleClick.bind(this);
     }
@@ -116,13 +119,22 @@ class CoursesPage extends Component {
             })
         } else {
             API.addCourseForTutor({ 'courseName': courseName, 'tutorId': id });
+            this.setState({
+                open: true,
+            })
         }
     }
+
+    handleClose = () => {
+        this.setState({
+            open: false,
+        });
+    };
 
     render() {
 
         const { classes } = this.props;
-        const { nameEmpty, levelEmpty } = this.state;
+        const { nameEmpty, levelEmpty, open } = this.state;
 
         return (
             <div>
@@ -148,22 +160,22 @@ class CoursesPage extends Component {
                         </div>
                         <div className={classes.innerContainer}>
                             {levelEmpty ? <p className={classes.error}>The course level cannot be empty!</p> : null}
-                            <FormControl variant="outlined" className={classes.textField} style={{ marginTop: 8 }}>
-                                <InputLabel>
-                                    Level
-                                </InputLabel>
-                                <Select
-                                    labelWidth={40}
-                                    onChange={e => this.handleEvent(e)}
-                                    value={this.state.courseLevel}
-                                    name="courseLevel"
-                                    error={levelEmpty}
-                                >
-                                    <MenuItem value={'HIGHSCHOOL'}>Highschool</MenuItem>
-                                    <MenuItem value={'CEGEP'}>CEGEP</MenuItem>
-                                    <MenuItem value={'UNIVERSITY'}>University</MenuItem>
-                                </Select>
-                            </FormControl>
+                            <TextField
+                                labelWidth={40}
+                                onChange={e => this.handleEvent(e)}
+                                value={this.state.courseLevel}
+                                name="courseLevel"
+                                error={levelEmpty}
+                                margin="normal"
+                                select
+                                className={classes.textField}
+                                variant="outlined"
+                                label="Level"
+                            >
+                                <MenuItem value={'HIGHSCHOOL'}>Highschool</MenuItem>
+                                <MenuItem value={'CEGEP'}>CEGEP</MenuItem>
+                                <MenuItem value={'UNIVERSITY'}>University</MenuItem>
+                            </TextField>
                         </div>
                         <Button
                             variant="contained"
@@ -198,6 +210,33 @@ class CoursesPage extends Component {
                             </Table>
                         </Paper>
                     </div>
+                    <Snackbar
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                        }}
+                        open={open}
+                        autoHideDuration={3000}
+                        onClose={this.handleClose}
+                    >
+                        <SnackbarContent
+                            message={<span>Course request sent to the manager!</span>}
+                            action={[
+                                <IconButton
+                                    key="close"
+                                    aria-label="Close"
+                                    color="inherit"
+                                    onClick={this.handleClose}
+                                >
+                                    <CloseIcon />
+                                </IconButton>,
+                            ]}
+                            style={{
+                                backgroundColor: '#3f51b5'
+                            }}
+                        >
+                        </SnackbarContent>
+                    </Snackbar>
                 </div>
             </div>
         )
