@@ -94,12 +94,15 @@ class CoursesPage extends Component {
             levelEmpty: false,
             tutorId: '',
             open: false,
+            allCourses: [],
         }
         this.handleClick = this.handleClick.bind(this);
+        this.getAllCourses();
     }
 
     componentDidMount() {
         document.title = "BigBrain Tutoring | MyCourses";
+        this.getAllCourses();
     }
 
     handleEvent = e => {
@@ -131,10 +134,24 @@ class CoursesPage extends Component {
         });
     };
 
+    getAllCourses() {
+        var allData;
+        API.getCourseForTutor(localStorage.getItem('tutorId')).then(res => {
+            console.log(JSON.stringify(res));
+            allData = res.data.map(x => {
+                return x;
+            });
+            this.setState({
+                allCourses: allData,
+            });
+        });
+        return allData;
+    }
+
     render() {
 
         const { classes } = this.props;
-        const { nameEmpty, levelEmpty, open } = this.state;
+        const { nameEmpty, levelEmpty, open, allCourses } = this.state;
 
         return (
             <div>
@@ -200,12 +217,14 @@ class CoursesPage extends Component {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {rows.map(row => (
-                                        <TableRow key={row.name}>
-                                            <TableCell align="left">{row.courseName}</TableCell>
-                                            <TableCell align="left">{row.courseLevel}</TableCell>
-                                        </TableRow>
-                                    ))}
+                                    {allCourses.map(course => {
+                                        return (
+                                            <TableRow>
+                                                <TableCell align="left">{course.courseName}</TableCell>
+                                                <TableCell align="left">{course.level}</TableCell>
+                                            </TableRow>
+                                        )
+                                    })}
                                 </TableBody>
                             </Table>
                         </Paper>
