@@ -61,9 +61,16 @@ const pastSessions = [
 
 class TutoringSessionPage extends Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            allSessions: [],
+        }
+        this.getAllTutoringSessions();
+    }
+
     componentDidMount() {
         document.title = "BigBrain Tutoring | My Sessions"
-        this.getAllTutoringSessions();
     }
 
     getAllTutoringSessions() {
@@ -83,6 +90,7 @@ class TutoringSessionPage extends Component {
     render() {
 
         const { classes } = this.props;
+        const { allSessions } = this.state;
 
         return (
             <div>
@@ -104,15 +112,17 @@ class TutoringSessionPage extends Component {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {upcomingSessions.map(row => (
-                                        <TableRow key={row.name}>
-                                            <TableCell align="left">{row.sessionDate}</TableCell>
-                                            <TableCell align="left">{row.roomNumber}</TableCell>
-                                            <TableCell align="left">{row.bookingId}</TableCell>
-                                            <TableCell align="left">{row.startTime}</TableCell>
-                                            <TableCell align="left">{row.endTime}</TableCell>
-                                        </TableRow>
-                                    ))}
+                                    {allSessions.map((session, index) => {
+                                        return (
+                                            <TableRow>
+                                                <TableCell align="left">{session.sessionDate}</TableCell>
+                                                <TableCell align="left">{session.roomNumber}</TableCell>
+                                                <TableCell align="left">{session.bookingId}</TableCell>
+                                                <TableCell align="left">{session.startTime}</TableCell>
+                                                <TableCell align="left">{session.endTime}</TableCell>
+                                            </TableRow>
+                                        )
+                                    })}
                                 </TableBody>
                             </Table>
                         </Paper>

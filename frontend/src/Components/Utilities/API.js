@@ -21,12 +21,13 @@ var API = {
         })
     },
 
-    getBookingByDate(date) {
-        const requestUrl = '/booking/date/' + date;
+    getAllBookingsByTutor(tutorId) {
+        const requestUrl = '/booking/tutor/' + tutorId;
 
         return axios({
             method: 'get',
             url: requestUrl,
+            data: tutorId,
         })
     },
 
@@ -310,7 +311,7 @@ var API = {
             url: requestUrl,
         })
     },
-    
+
     // TUTOR CONTROLLER CALLS
     registerTutor(registerForm) {
         const firstName = registerForm.firstName;
@@ -321,9 +322,9 @@ var API = {
         const requestUrl = '/tutor/new?tutorFirstName=' + firstName + '&tutorLastName=' + lastName + '&tutorEmail=' + email + '&tutorPassword=' + password;
 
         return axios({
-           method: 'post',
-           url: requestUrl,
-           data: registerForm,
+            method: 'post',
+            url: requestUrl,
+            data: registerForm,
         });
     },
 
@@ -353,7 +354,7 @@ var API = {
         const hourlyRate = tutorForm.hourlyRate;
         const tutorId = tutorForm.tutorId;
 
-        const requestUrl = '/tutor/hourlyrate/' + hourlyRate + '?tutorId=' + tutorId; 
+        const requestUrl = '/tutor/hourlyrate/' + hourlyRate + '?tutorId=' + tutorId;
 
         return axios({
             method: 'put',

@@ -60,9 +60,12 @@ class Dashboard extends Component {
         super(props)
         this.state = {
             tutorId: '',
-            tutorName: ''
+            tutorName: '',
+            allBookings: [],
         }
+        this.getAllBookings();
     }
+
     componentDidMount() {
         document.title = "BigBrain Tutoring | Dashboard";
         var id = localStorage.getItem('tutorId')
@@ -75,9 +78,33 @@ class Dashboard extends Component {
             })
     }
 
+    getAllBookings() {
+        var allData;
+        API.getAllBookingsByTutor(localStorage.getItem('tutorId')).then(res => {
+            console.log(JSON.stringify(res));
+            allData = res.data.map(x => {
+                return x;
+            });
+            this.setState({
+                allBookings: allData
+            });
+        });
+        return allData;
+    }
+
+    handleClickAccept(index) {
+        alert(index);
+    }
+
+    handleClickDecline(index) {
+        alert(index);
+    }
+
     render() {
 
         const { classes } = this.props;
+        const { allBookings } = this.state;
+
         return (
             <div>
                 <SideBar />
@@ -103,31 +130,37 @@ class Dashboard extends Component {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {rows.map(row => (
-                                        <TableRow key={row.name}>
-                                            <TableCell align="left">{row.courseName}</TableCell>
-                                            <TableCell align="left">{row.studentName}</TableCell>
-                                            <TableCell align="left">{row.sessionDate}</TableCell>
-                                            <TableCell align="left">{row.startTime}</TableCell>
-                                            <TableCell align="left">{row.endTime}</TableCell>
-                                            <TableCell align="center">
-                                                <Button
-                                                    variant="contained"
-                                                    color="primary"
-                                                >
-                                                    Accept
+                                    {allBookings.map((booking, index) => {
+                                        return (
+                                            <TableRow>
+                                                <TableCell align="left">{booking.courseName}</TableCell>
+                                                <TableCell align="left">{booking.studentName}</TableCell>
+                                                <TableCell align="left">{booking.sessionDate}</TableCell>
+                                                <TableCell align="left">{booking.startTime}</TableCell>
+                                                <TableCell align="left">{booking.endTime}</TableCell>
+                                                <TableCell align="center">
+                                                    <Button
+                                                        id={index}
+                                                        variant="contained"
+                                                        color="primary"
+                                                        onClick={() => this.handleClickAccept(index)}
+                                                    >
+                                                        Accept
                                                 </Button>
-                                            </TableCell>
-                                            <TableCell align="center">
-                                                <Button
-                                                    variant="contained"
-                                                    color="primary"
-                                                >
-                                                    Decline
+                                                </TableCell>
+                                                <TableCell align="center">
+                                                    <Button
+                                                        id={index}
+                                                        variant="contained"
+                                                        color="primary"
+                                                        onClick={() => this.handleClickDecline(index)}
+                                                    >
+                                                        Decline
                                                 </Button>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
+                                                </TableCell>
+                                            </TableRow>
+                                        )
+                                    })}
                                 </TableBody>
                             </Table>
                         </Paper>
