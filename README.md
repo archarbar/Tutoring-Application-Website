@@ -57,3 +57,5 @@ The objective of this project is to design a software solution for a new tutorin
 |    Tony Ou      | Build System, Continuous Integration, and Delivery | 5 |
 |  William Zhang  | Build System, Continuous Integration, and Delivery | 5 |
 |  Victor Zhong   | Code Quality, User Documentation | 5 |
+* [Report](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Report-(Sprint-4))
+* [Mobile App](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Mobile-Application)
