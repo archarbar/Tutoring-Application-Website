@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.tutor.dto.BookingDto;
 import ca.mcgill.ecse321.tutor.dto.TimeSlotDto;
+import ca.mcgill.ecse321.tutor.dto.TutoringSessionDto;
 import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Student;
 import ca.mcgill.ecse321.tutor.model.Tutor;
+import ca.mcgill.ecse321.tutor.model.TutoringSession;
 import ca.mcgill.ecse321.tutor.service.BookingService;
 import ca.mcgill.ecse321.tutor.service.NotificationService;
 import ca.mcgill.ecse321.tutor.service.TutorService;
@@ -34,7 +36,7 @@ public class BookingController {
     private TutorService tutorService;
     
     TimeSlotController timeSlotController = new TimeSlotController();
-
+    TutoringSessionController tutoringSessionController = new TutoringSessionController();
 
     @GetMapping(value = "/booking/{bookingId}")
     public BookingDto getBookingById(@PathVariable("bookingId") String bookingId) {
@@ -77,8 +79,12 @@ public class BookingController {
     }   
     
     @DeleteMapping("/booking/accept/{bookingId}")
-    public void acceptBooking(@PathVariable("bookingId") String bookingId) {
-    	service.acceptBookingById(Integer.parseInt(bookingId));
+    public TutoringSessionDto acceptBooking(@PathVariable("bookingId") String bookingId) {
+    	TutoringSession tutoringSession = service.acceptBookingById(Integer.parseInt(bookingId));
+    	if(tutoringSession == null) {
+    		throw new IllegalArgumentException("There are no available rooms!");
+    	}
+    	return tutoringSessionController.convertToDto(tutoringSession);
     }    
 
     public BookingDto convertToDto(Booking booking) {

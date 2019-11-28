@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.tutor.service;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,9 +17,11 @@ import ca.mcgill.ecse321.tutor.dao.TutorRepository;
 import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Course;
 import ca.mcgill.ecse321.tutor.model.Notification;
+import ca.mcgill.ecse321.tutor.model.Room;
 import ca.mcgill.ecse321.tutor.model.Student;
 import ca.mcgill.ecse321.tutor.model.TimeSlot;
 import ca.mcgill.ecse321.tutor.model.Tutor;
+import ca.mcgill.ecse321.tutor.model.TutoringSession;
 
 @Service
 public class BookingService {
@@ -34,6 +37,12 @@ public class BookingService {
 	
 	@Autowired
 	NotificationService notificationService;
+	
+	@Autowired
+	RoomService roomService;
+	
+	@Autowired
+	TutoringSessionService tutoringSessionService;
 	
 	@Transactional
 	public Booking createBooking(String tutorEmail, Set<Student> studentSet, Date specificDate, 
@@ -133,12 +142,52 @@ public class BookingService {
 		Notification notification = booking.getNotification();
 		notificationRepository.delete(notification);
 		bookingRepository.delete(booking);
-
 		
 	}
 
-	public void acceptBookingById(int parseInt) {
-		// TODO Auto-generated method stub
+	public TutoringSession acceptBookingById(int parseInt) {
+		Booking booking = bookingRepository.findBookingById(parseInt);
+		Notification notification = booking.getNotification();
+		Time bookingStartTime = booking.getTimeSlot().getStartTime();
+		Time bookingEndTime = booking.getTimeSlot().getEndTime();
+		Tutor tutor = notification.getTutor();
+		TimeSlot timeSlot = booking.getTimeSlot();
+		notificationRepository.delete(notification);
+		TutoringSession approvedTutoringSession = null;
+		List<Room> rooms = roomService.getAllRooms();
+		for(Room room: rooms) {
+			boolean roomAvailable = true;
+			Set<TutoringSession> tutoringSessions = room.getTutoringSession();
+			for (TutoringSession tutoringSession : tutoringSessions) {
+				if(tutoringSession.getSessionDate() == booking.getSpecificDate()) {
+					Time startTime = tutoringSession.getTimeSlot().getStartTime();
+					Time endTime = tutoringSession.getTimeSlot().getEndTime();
+					if(startTime.before(bookingStartTime) && (endTime.after(bookingEndTime))) {
+						roomAvailable = false;
+					}
+					else if(startTime.before(bookingEndTime) && endTime.after(bookingEndTime)) {
+						roomAvailable = false;
+					}
+					else if(startTime.after(bookingStartTime) && endTime.before(bookingEndTime)) {
+						roomAvailable = false;
+					}
+					else if(startTime.before(bookingStartTime) && endTime.after(bookingStartTime)) {
+						roomAvailable = false;
+					}
+					else if(startTime.after(bookingStartTime) && startTime.before(bookingEndTime)) {
+						roomAvailable = false;
+					}
+					else if(endTime.after(bookingStartTime) && endTime.before(bookingEndTime)) {
+						roomAvailable = false;
+					}
+				}
+			}
+			if(roomAvailable) {
+				approvedTutoringSession = tutoringSessionService.createTutoringSession(booking.getSpecificDate(),tutor , room, booking, timeSlot);
+				break;
+			}
+		}
+		return approvedTutoringSession;
 		
 	}
 

@@ -3,13 +3,17 @@ package ca.mcgill.ecse321.tutor.service;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ca.mcgill.ecse321.tutor.dao.BookingRepository;
+import ca.mcgill.ecse321.tutor.dao.NotificationRepository;
 import ca.mcgill.ecse321.tutor.dao.TutoringSessionRepository;
 import ca.mcgill.ecse321.tutor.model.Booking;
+import ca.mcgill.ecse321.tutor.model.Notification;
 import ca.mcgill.ecse321.tutor.model.Room;
 import ca.mcgill.ecse321.tutor.model.Tutor;
 import ca.mcgill.ecse321.tutor.model.TutoringSession;
@@ -21,6 +25,14 @@ public class TutoringSessionService {
 	@Autowired
 	TutoringSessionRepository tutoringSessionRepository;
 
+	@Autowired
+	BookingRepository bookingRepository;
+	
+	@Autowired
+	NotificationRepository notificationRepository;
+	@Autowired
+	NotificationService notificationService;
+	
 	@Transactional
 	public TutoringSession createTutoringSession(Date sessionDate, Tutor tutor, Room room,
 			Booking booking, TimeSlot timeSlot) {
@@ -49,8 +61,22 @@ public class TutoringSessionService {
 		tutoringSession.setTutor(tutor);
 		tutoringSession.setRoom(room);
 		tutoringSession.setTimeSlot(timeSlot);
-		tutoringSession.setBooking(booking);
+		booking.setTutoringSession(tutoringSession);
+		
+		List<Notification> notifications = notificationService.getAllNotifications();
+		for(Notification notification: notifications) {
+			System.out.println(notification.getBooking().getId());
+			System.out.println(booking.getId());
+			System.out.println(booking.getId() == notification.getBooking().getId());
+			if( booking.getId() == notification.getBooking().getId()) {
+				System.out.println("DELETE NOTIFICATION");
+				notificationRepository.delete(notification);
+			}
+		}
 		tutoringSessionRepository.save(tutoringSession);
+		bookingRepository.save(booking);
+//		tutoringSession.setBooking(booking);
+
 		return tutoringSession;
 	}
 

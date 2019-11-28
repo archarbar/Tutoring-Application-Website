@@ -37,6 +37,8 @@ public class TutoringSessionController {
 
     @Autowired
     private RoomService roomService;
+    
+    TimeSlotController timeSlotController = new TimeSlotController();
 
     @PostMapping("/tutoringsession/new")
     public TutoringSessionDto createTutoringSession(
@@ -75,9 +77,10 @@ public class TutoringSessionController {
     	return tutoringSessionDtos;
     }
 
-    private TutoringSessionDto convertToDto(TutoringSession tutoringSession) {
+    public TutoringSessionDto convertToDto(TutoringSession tutoringSession) {
         if (tutoringSession == null) throw new IllegalArgumentException("This tutoringSession does not exist!");
-        return new TutoringSessionDto(tutoringSession.getSessionDate(), tutoringSession.getTutor(), tutoringSession.getRoom(),
-                tutoringSession.getTimeSlot(), tutoringSession.getBooking(), tutoringSession.getId());
+        System.out.println("attempting to return tutoringsessionDTO");
+        return new TutoringSessionDto(tutoringSession.getSessionDate(), tutoringSession.getTutor().getId(), tutoringSession.getRoom(),
+                timeSlotController.convertToDto(tutoringSession.getTimeSlot()), tutoringSession.getBooking(), tutoringSession.getId());
     }
 }

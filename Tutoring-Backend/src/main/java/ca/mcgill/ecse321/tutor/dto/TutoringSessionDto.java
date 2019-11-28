@@ -9,18 +9,18 @@ import java.util.Date;
 
 public class TutoringSessionDto {
     private Date sessionDate;
-    private Tutor tutor;
-    private Room room;
-    private TimeSlot timeSlot;
-    private Booking booking;
+    private Integer tutorId;
+    private int roomNumber;
+    private TimeSlotDto timeSlot;
+    private Integer booking;
     private int tutoringSessionId;
 
-    public TutoringSessionDto(Date sessionDate, Tutor tutor, Room room, TimeSlot timeSlot, Booking booking, int tutoringSessionId) {
+    public TutoringSessionDto(Date sessionDate, Integer tutorId, Room room, TimeSlotDto timeSlotDto, Booking booking, int tutoringSessionId) {
         this.sessionDate = sessionDate;
-        this.tutor = tutor;
-        this.room = room;
-        this.timeSlot = timeSlot;
-        this.booking = booking;
+        this.tutorId = tutorId;
+        this.roomNumber = room.getRoomNumber();
+        this.timeSlot = timeSlotDto;
+        this.booking = booking.getId();
         this.tutoringSessionId = tutoringSessionId;
     }
 
@@ -28,19 +28,19 @@ public class TutoringSessionDto {
         return sessionDate;
     }
 
-    public Tutor getTutor() {
-        return tutor;
+    public Integer getTutor() {
+        return tutorId;
     }
 
-    public Room getRoom() {
-        return room;
+    public int getRoom() {
+        return roomNumber;
     }
 
-    public TimeSlot getTimeSlot() {
+    public TimeSlotDto getTimeSlot() {
         return timeSlot;
     }
 
-    public Booking getBooking() {
+    public Integer getBooking() {
         return booking;
     }
 

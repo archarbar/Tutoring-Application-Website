@@ -30,9 +30,11 @@ import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
 import ca.mcgill.ecse321.tutor.model.Level;
 import ca.mcgill.ecse321.tutor.model.Manager;
 import ca.mcgill.ecse321.tutor.model.Notification;
+import ca.mcgill.ecse321.tutor.model.Room;
 import ca.mcgill.ecse321.tutor.model.Student;
 import ca.mcgill.ecse321.tutor.model.TimeSlot;
 import ca.mcgill.ecse321.tutor.model.Tutor;
+import ca.mcgill.ecse321.tutor.model.TutoringSession;
 import ca.mcgill.ecse321.tutor.service.BookingService;
 import ca.mcgill.ecse321.tutor.service.CourseService;
 import ca.mcgill.ecse321.tutor.service.ManagerService;
@@ -101,10 +103,10 @@ public class PopulateDB {
 	@Before
 	public void deleteDatabase() {
 		ratingRepository.deleteAll();
+		bookingRepository.deleteAll();
 		tutoringSessionRepository.deleteAll();
 		notificationRepository.deleteAll();
 		roomRepository.deleteAll();
-		bookingRepository.deleteAll();
 		tutorRepository.deleteAll();
 		managerRepository.deleteAll();
 		studentRepository.deleteAll();
@@ -162,7 +164,7 @@ public class PopulateDB {
 		String courseName211 = "ECSE 211";
 		Level level211 = Level.UNIVERSITY;
 		Course ECSE211 = courseService.createCourse(courseName211, level211);
-		courseRepository.save(ECSE211);
+//		courseRepository.save(ECSE211);
 		
 		Set<Course> courseSet = new HashSet<Course>();
 		courseSet.add(ECSE321);
@@ -171,16 +173,17 @@ public class PopulateDB {
 		
 		tutorWill.setCourse(courseSet);
 		
-		
+		TimeSlot timeSlot3 = timeSlotService.createTimeSlot(Time.valueOf("10:00:00"), Time.valueOf("12:00:00"), DayOfTheWeek.FRIDAY);
+		TimeSlot timeSlot2 = timeSlotService.createTimeSlot(Time.valueOf("13:00:00"), Time.valueOf("15:00:00"), DayOfTheWeek.MONDAY);
 		TimeSlot timeSlot1 = timeSlotService.createTimeSlot(Time.valueOf("10:00:00"), Time.valueOf("12:00:00"), DayOfTheWeek.MONDAY);
-		TimeSlot timeSlot2 = timeSlotService.createTimeSlot(Time.valueOf("14:00:00"), Time.valueOf("16:00:00"), DayOfTheWeek.MONDAY);
+		
 
 		Set<TimeSlot> timeSlotSet = new HashSet<TimeSlot>();
 		timeSlotSet.add(timeSlot1);
 		timeSlotSet.add(timeSlot2);
 		
 		tutorWill.setTimeSlot(timeSlotSet);
-		
+		tutorRepository.save(tutorWill);
 //		TimeSlot timeSlot1 = tutorService.addTimeSlotForTutor(tutorWill, "10:00:00", "12:00:00", "MONDAY");
 		timeSlotRepository.save(timeSlot1);
 		timeSlotRepository.save(timeSlot2);
@@ -188,32 +191,36 @@ public class PopulateDB {
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(studentVic);
 		
-		Booking booking = bookingService.createBooking(emailWill, studentSet, Date.valueOf("2019-10-10"), timeSlot1, ECSE321);
-//		Notification notification = notificationService.createNotification(booking, tutorWill);
-//		notificationRepository.save(notification);
-//		System.out.println(booking);
-		bookingRepository.save(booking);
-//		Set<Booking> bookingSet = timeSlot1.getBooking();
-		
-//		System.out.println(notification.getBooking());
-//		for (Booking bookingg: bookingSet) {
-//			System.out.println(bookingg);
-//		}
-//		Set<Notification> notifications =  tutorWill.getNotification();
-//		for (Notification notification: notifications) {
-//			System.out.println(notification);
-//		}
-//		System.out.println(notifications.get(0));
+		Booking booking1 = bookingService.createBooking(emailWill, studentSet, Date.valueOf("2019-11-29"), timeSlot3, ECSE321);
+		Booking booking2 = bookingService.createBooking(emailWill, studentSet, Date.valueOf("2019-12-2"), timeSlot1, ECSE321);
+		Booking booking3 = bookingService.createBooking(emailWill, studentSet, Date.valueOf("2019-12-2"), timeSlot2, ECSE321);
+
+//		bookingRepository.save(booking1);
+//		bookingRepository.save(booking2);
+//		bookingRepository.save(booking3);
+
+		Room room1 = roomService.createRoom(1, 2, manager);
+//		roomRepository.save(room1);
+		Room room2 = roomService.createRoom(2, 2, manager);
+//		roomRepository.save(room2);
 		
 		
+		TutoringSession tutoringSession = tutoringSessionService.createTutoringSession(booking1.getSpecificDate(), 
+																						tutorWill, room1, booking1,
+																						booking1.getTimeSlot());
+		tutoringSessionRepository.save(tutoringSession);
+		System.out.println(tutoringSession);
+//		notificationRepository.delete(booking1.getNotification());
 		
-		List<Booking> allBookings = bookingService.getAllBookings();
-		System.out.println(allBookings.get(0).getTutorEmail());
+//		List<Booking> allBookings = bookingService.getAllBookings();
+//		System.out.println(allBookings.get(0).getTutorEmail());
+		
+//		bookingService.declineBookingById(booking.getId());
 //		studentVic.setBooking(bookingSet);
 //		System.out.println(timeSlot1.getBooking().get(0));
-		studentRepository.save(studentVic);
-		tutorRepository.save(tutorWill);
-		bookingRepository.save(booking);
+//		studentRepository.save(studentVic);
+//		tutorRepository.save(tutorWill);
+//		bookingRepository.save(booking);
 		
 		
 		

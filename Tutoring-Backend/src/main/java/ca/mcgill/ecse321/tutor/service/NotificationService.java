@@ -4,9 +4,11 @@ import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Notification;
 import ca.mcgill.ecse321.tutor.model.Tutor;
 import ca.mcgill.ecse321.tutor.dao.NotificationRepository;
+import ca.mcgill.ecse321.tutor.dao.TutorRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,8 @@ public class NotificationService {
 
 	@Autowired
 	NotificationRepository notificationRepository;
+	@Autowired
+	TutorRepository tutorRepository;
 
 	@Transactional
 	public Notification createNotification(Booking booking, Tutor tutor) {
@@ -33,6 +37,10 @@ public class NotificationService {
 		}
 		Notification notification = new Notification();
 		notification.setBooking(booking);
+		Set<Notification> notifications = tutor.getNotification();
+		notifications.add(notification);
+		tutor.setNotification(notifications);
+		tutorRepository.save(tutor);
 		notification.setTutor(tutor);
 		notificationRepository.save(notification);
 		return notification;
