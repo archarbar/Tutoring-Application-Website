@@ -5,22 +5,23 @@ import ca.mcgill.ecse321.tutor.model.Student;
 import ca.mcgill.ecse321.tutor.model.TimeSlot;
 
 import java.sql.Date;
+import java.util.Set;
 
 public class BookingDto {
     private String tutorEmail;
     private Date specificDate;
-    private TimeSlot timeSlot;
-    private Student student;
-    private Course course;
+    private TimeSlotDto timeSlot;
+    private String studentName;
+    private String course;
     private int bookingId;
 
-    public BookingDto(int bookingId, String tutorEmail, Date specificDate, TimeSlot timeSlot, Student student, Course course) {
+    public BookingDto(int bookingId, String tutorEmail, Date specificDate, TimeSlotDto timeSlotDto, String studentName, String courseName) {
         this.bookingId = bookingId;
         this.tutorEmail = tutorEmail;
         this.specificDate = specificDate;
-        this.timeSlot = timeSlot;
-        this.student = student;
-        this.course = course;
+        this.timeSlot = timeSlotDto;
+        this.studentName = studentName;
+        this.course = courseName;
     }
 
     public int getbookingId() {
@@ -35,15 +36,15 @@ public class BookingDto {
         return specificDate;
     }
 
-    public TimeSlot getTimeSlot() {
+    public TimeSlotDto getTimeSlot() {
         return timeSlot;
     }
 
-    public Student getStudent() {
-        return student;
+    public String getStudentName() {
+        return studentName;
     }
 
-    public Course getCourse() {
+    public String getCourse() {
         return course;
     }
 }

@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.tutor.controller;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.tutor.dto.BookingDto;
+import ca.mcgill.ecse321.tutor.dto.TimeSlotDto;
 import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Student;
 import ca.mcgill.ecse321.tutor.model.Tutor;
@@ -30,6 +32,8 @@ public class BookingController {
     private NotificationService notificationService;
     @Autowired
     private TutorService tutorService;
+    
+    TimeSlotController timeSlotController = new TimeSlotController();
 
 
     @GetMapping(value = "/booking/{bookingId}")
@@ -39,8 +43,18 @@ public class BookingController {
 
     @GetMapping(value = {"/bookings", "/bookings/"})
     public List<BookingDto> getAllBookings() {
-    	List<BookingDto> bDtos = new ArrayList<BookingDto>();
+    	ArrayList<BookingDto> bDtos = new ArrayList<BookingDto>();
     	for(Booking booking: service.getAllBookings()) {
+    		bDtos.add(convertToDto(booking));
+    	}
+    	return bDtos;
+    }
+    
+    @GetMapping(value = {"/booking/tutor/{tutorId}", "/booking/tutor/{tutorId}/"})
+    public List<BookingDto> getAllBookingsByTutor(@PathVariable("tutorId") String tutorId) {
+    	ArrayList<BookingDto> bDtos = new ArrayList<BookingDto>();
+    	ArrayList<Booking> bookings = service.getBookingByTutorId(tutorId);
+    	for(Booking booking: bookings) {
     		bDtos.add(convertToDto(booking));
     	}
     	return bDtos;
@@ -49,7 +63,7 @@ public class BookingController {
     @GetMapping("/booking/date/{date}")
     public List<BookingDto> getBookingByDate(@PathVariable("date") String date) {
     	Date specificDate = Date.valueOf(date);
-        List<BookingDto> bookingsByDate = new ArrayList<>();
+    	ArrayList<BookingDto> bookingsByDate = new ArrayList<>();
         for (Booking booking : service.getBookingBySpecificDate(specificDate)) {
             bookingsByDate.add(convertToDto(booking));
         }
@@ -58,16 +72,29 @@ public class BookingController {
     
     //PART 2 USE CASE 8
     @DeleteMapping("/booking/decline/{bookingId}")
-    public void deleteBooking(@PathVariable("bookingId") String bookingId) {
-    	service.deleteBookingById(Integer.parseInt(bookingId));
+    public void declineBooking(@PathVariable("bookingId") String bookingId) {
+    	service.declineBookingById(Integer.parseInt(bookingId));
+    }   
+    
+    @DeleteMapping("/booking/accept/{bookingId}")
+    public void acceptBooking(@PathVariable("bookingId") String bookingId) {
+    	service.acceptBookingById(Integer.parseInt(bookingId));
     }    
 
-    private BookingDto convertToDto(Booking booking) {
+    public BookingDto convertToDto(Booking booking) {
+    	BookingDto bookingDTO = null;
+    	
         if (booking == null) {
             throw new IllegalArgumentException("There is no booking!");
         }
-        return new BookingDto(booking.getId(), booking.getTutorEmail(), booking.getSpecificDate(),
-                booking.getTimeSlot(), (Student) booking.getStudent(), booking.getCourse());
+    	for (Student student : booking.getStudent()) {
+            bookingDTO = new BookingDto(booking.getId(), booking.getTutorEmail(), booking.getSpecificDate(),
+            		timeSlotController.convertToDto(booking.getTimeSlot()),
+            		student.getFirstName()+ " " +student.getLastName(), 
+            		booking.getCourse().getCourseName());
+        }
+    	return bookingDTO;
+        
     }
 
 

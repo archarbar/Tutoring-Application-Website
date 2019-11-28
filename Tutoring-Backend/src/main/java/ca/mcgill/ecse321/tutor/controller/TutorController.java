@@ -53,6 +53,7 @@ public class TutorController {
 
     private TutorDto convertToDto(Tutor tutor) {
         if (tutor == null) throw new IllegalArgumentException("Tutor must be specified!");
-        return new TutorDto(tutor.getFirstName(), tutor.getLastName(), tutor.getEmail(), tutor.getManager(), tutor.getIsApproved());
+        return new TutorDto(tutor.getFirstName(), tutor.getLastName(), tutor.getEmail(), tutor.getManager(),
+        		tutor.getHourlyRate(),  tutor.getIsApproved());
     }
 }

@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.tutor.service;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -9,11 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ca.mcgill.ecse321.tutor.dao.BookingRepository; 
+import ca.mcgill.ecse321.tutor.dao.BookingRepository;
+import ca.mcgill.ecse321.tutor.dao.NotificationRepository;
+import ca.mcgill.ecse321.tutor.dao.TutorRepository;
 import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Course;
+import ca.mcgill.ecse321.tutor.model.Notification;
 import ca.mcgill.ecse321.tutor.model.Student;
 import ca.mcgill.ecse321.tutor.model.TimeSlot;
+import ca.mcgill.ecse321.tutor.model.Tutor;
 
 @Service
 public class BookingService {
@@ -21,6 +26,15 @@ public class BookingService {
 	@Autowired
 	BookingRepository bookingRepository;
 
+	@Autowired
+	TutorRepository tutorRepository;
+	
+	@Autowired
+	NotificationRepository notificationRepository;
+	
+	@Autowired
+	NotificationService notificationService;
+	
 	@Transactional
 	public Booking createBooking(String tutorEmail, Set<Student> studentSet, Date specificDate, 
 			TimeSlot timeSlot, Course course) {
@@ -51,6 +65,9 @@ public class BookingService {
 		booking.setStudent(studentSet);
 		booking.setCourse(course);
 		bookingRepository.save(booking);
+		Tutor tutor = tutorRepository.findTutorByEmail(tutorEmail);
+		Notification notification = notificationService.createNotification(booking, tutor);
+		notificationRepository.save(notification);
 		return booking;
 	}
 
@@ -100,9 +117,29 @@ public class BookingService {
 		return resultList;
 	}
 
-	public void deleteBookingById(int bookingId) {
-		bookingRepository.deleteById(bookingId);;
+
+	public ArrayList<Booking> getBookingByTutorId(String tutorId) {
+		Tutor tutor = tutorRepository.findTutorById(Integer.parseInt(tutorId));
+		Set<Notification> notifications = tutor.getNotification();
+		ArrayList<Booking> bookings = new ArrayList<Booking>();
+		for (Notification notification: notifications) {
+			bookings.add(notification.getBooking());
+		}
+		return bookings;
 	}
-	
+
+	public void declineBookingById(int parseInt) {
+		Booking booking = bookingRepository.findBookingById(parseInt);
+		Notification notification = booking.getNotification();
+		notificationRepository.delete(notification);
+		bookingRepository.delete(booking);
+
+		
+	}
+
+	public void acceptBookingById(int parseInt) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

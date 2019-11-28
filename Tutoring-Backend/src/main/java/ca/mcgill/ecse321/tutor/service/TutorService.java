@@ -106,7 +106,7 @@ public class TutorService {
 	}
 
 	@Transactional
-	public void addTimeSlotForTutor(Tutor tutor, String startTime, String endTime, String weekDay) {
+	public TimeSlot addTimeSlotForTutor(Tutor tutor, String startTime, String endTime, String weekDay) {
 		String error = "";
 		if (tutor == null) {
 			error = error + "A tutor needs to be specified! ";
@@ -131,9 +131,17 @@ public class TutorService {
 		timeSlot.setEndTime(Time.valueOf(endTime));
 		timeSlot.setDayOfTheWeek(DayOfTheWeek.valueOf(weekDay));
 		timeSlotRepository.save(timeSlot);
-		Set<TimeSlot> timeslots = tutor.getTimeSlot();
-		timeslots.add(timeSlot);
+		Set<TimeSlot> timeslots;
+		if (tutor.getTimeSlot() != null) {
+			timeslots = tutor.getTimeSlot();
+			timeslots.add(timeSlot);
+		}
+		else {
+			timeslots = new HashSet<TimeSlot>();
+		}
+		
 		tutor.setTimeSlot(timeslots);
+		return timeSlot;
 	}
 
 	@Transactional
@@ -149,6 +157,18 @@ public class TutorService {
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
+		TimeSlot goalTimeSlot = timeSlotRepository.findTimeSlotById(timeSlotId);
+		Set<TimeSlot> newTimeSlots = new HashSet<TimeSlot>();
+		for (TimeSlot timeSlot: tutor.getTimeSlot()) {
+			if (timeSlot == goalTimeSlot) {
+				continue;
+			}
+			else {
+				newTimeSlots.add(timeSlot);
+			}
+		}
+		tutor.setTimeSlot(newTimeSlots);
+		tutorRepository.save(tutor);
 		timeSlotRepository.deleteById(timeSlotId);
 	}
 

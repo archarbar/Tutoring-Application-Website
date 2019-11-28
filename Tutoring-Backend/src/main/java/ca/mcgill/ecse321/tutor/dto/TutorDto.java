@@ -8,14 +8,14 @@ public class TutorDto {
     private String email;
     private String password;
     private Manager manager;
-    private int hourlyRate;
+    private double hourlyRate;
     private boolean isApproved;
 
-    public TutorDto(String firstName, String lastName, String email, Manager manager, boolean isApproved) {
-        this(firstName, lastName, email, null, manager, 10, isApproved);
+    public TutorDto(String firstName, String lastName, String email, Manager manager, double hourlyRate, boolean isApproved) {
+        this(firstName, lastName, email,null, manager, hourlyRate, isApproved);
     }
 
-    public TutorDto(String firstName, String lastName, String email, String password, Manager manager, int hourlyRate, boolean isApproved) {
+    public TutorDto(String firstName, String lastName, String email, String password, Manager manager, double hourlyRate, boolean isApproved) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -65,7 +65,7 @@ public class TutorDto {
         this.password = password;
     }
 
-    public int getHourlyRate() {
+    public double getHourlyRate() {
         return hourlyRate;
     }
 

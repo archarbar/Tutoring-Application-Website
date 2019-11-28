@@ -109,7 +109,7 @@ public class TimeSlotController {
 		return convertToDto(service.getTimeSlotByTutoringSession(tutoringSessionService.getTutoringSessionById(Integer.parseInt(tutoringSessionId))));
 	}
 
-	private TimeSlotDto convertToDto(TimeSlot timeSlot) {
+	public TimeSlotDto convertToDto(TimeSlot timeSlot) {
 		if (timeSlot == null) throw new IllegalArgumentException("This timeSlot does not exist!");
 		return new TimeSlotDto(timeSlot.getStartTime(),timeSlot.getEndTime(), timeSlot.getDayOfTheWeek(), timeSlot.getId());
 	}

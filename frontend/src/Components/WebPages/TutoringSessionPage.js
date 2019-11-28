@@ -11,6 +11,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import API from '../Utilities/API';
+
+
 
 const styles = theme => ({
     mainContainer: {
@@ -54,6 +57,21 @@ class TutoringSessionPage extends Component {
 
     componentDidMount() {
         document.title = "BigBrain Tutoring | My Sessions"
+        this.getAllTutoringSessions();
+    }
+
+    getAllTutoringSessions() {
+        var allData;
+        API.getTutoringSessionByTutor(localStorage.getItem('tutorId')).then(res => {
+            console.log(JSON.stringify(res))
+            allData = res.data.map(x => {
+                return x;
+            });
+            this.setState({
+                allTimeSlots: allData
+            })
+        })
+        return allData;
     }
 
     render() {
