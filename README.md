@@ -10,7 +10,7 @@ The objective of this project is to design a software solution for a new tutorin
 |  William Zhang  |  Software Eng. | U2 |
 |  Victor Zhong   |  Software Eng. | U2 |
 
-## Deliverable 1: Due October 13, 2019
+## Deliverable 1: Due October 13th, 2019
 |  Team members   |	     Responsibility     | Hours|
 |-----------------|-------------------------|------|
 |    Michael Li   | Backend Build System and Continuous Integration  | 20 |
@@ -24,7 +24,7 @@ The objective of this project is to design a software solution for a new tutorin
    * [Use Case Diagram](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Use-Case-Diagram)
    * [Class Diagram](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Class-Diagram)
 
-## Deliverable 2: Due October 27, 2019
+## Deliverable 2: Due October 27th, 2019
 |  Team members   |	     Responsibility     | Hours|
 |-----------------|-------------------------|------|
 |    Michael Li   | Use Cases, RESTful testing, Integration testing, Project Management  | 40 |
@@ -38,7 +38,7 @@ The objective of this project is to design a software solution for a new tutorin
    * [QA Report](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/QA-Report)
    * [RESTful Services](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/RESTful-Services)
    
-   ## Deliverable 3: Due November 17, 2019
+## Deliverable 3: Due November 17th, 2019
 |  Team members   |	     Responsibility     | Hours|
 |-----------------|-------------------------|------|
 |    Michael Li   | Backend Services, Project Management, Architecture Model, Integration of Backend and Frontend  | 20 |
@@ -49,3 +49,11 @@ The objective of this project is to design a software solution for a new tutorin
 * [Report](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Report-(Sprint-3))
 * [Frontend](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Frontend)
 * [Architecture](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Architecture)
+
+## Deliverable 4: Due December 3rd, 2019
+|  Team members   |	     Responsibility     | Hours|
+|-----------------|-------------------------|------|
+|    Michael Li   | Mobile Application Frontend, Project Management | 5 |
+|    Tony Ou      | Build System, Continuous Integration, and Delivery | 5 |
+|  William Zhang  | Build System, Continuous Integration, and Delivery | 5 |
+|  Victor Zhong   | Code Quality, User Documentation | 5 |
