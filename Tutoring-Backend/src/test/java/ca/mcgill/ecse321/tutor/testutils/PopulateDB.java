@@ -181,12 +181,14 @@ public class PopulateDB {
 		Set<TimeSlot> timeSlotSet = new HashSet<TimeSlot>();
 		timeSlotSet.add(timeSlot1);
 		timeSlotSet.add(timeSlot2);
+		timeSlotSet.add(timeSlot3);
 		
 		tutorWill.setTimeSlot(timeSlotSet);
 		tutorRepository.save(tutorWill);
 //		TimeSlot timeSlot1 = tutorService.addTimeSlotForTutor(tutorWill, "10:00:00", "12:00:00", "MONDAY");
 		timeSlotRepository.save(timeSlot1);
 		timeSlotRepository.save(timeSlot2);
+		timeSlotRepository.save(timeSlot3);
 
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(studentVic);
@@ -206,7 +208,7 @@ public class PopulateDB {
 		
 		
 		TutoringSession tutoringSession = tutoringSessionService.createTutoringSession(booking1.getSpecificDate(), 
-																						tutorWill, room1, booking1,
+																						tutorWill, room2, booking1,
 																						booking1.getTimeSlot());
 		tutoringSessionRepository.save(tutoringSession);
 		System.out.println(tutoringSession);

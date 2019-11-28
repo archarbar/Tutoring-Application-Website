@@ -213,6 +213,9 @@ public class BookingService {
 						else if(endTime.after(bookingStartTime) && endTime.before(bookingEndTime)) {
 							roomAvailable = false;
 						}
+						else if(startTime.equals(bookingStartTime) && endTime.equals(bookingEndTime)) {
+							roomAvailable = false;
+						}
 					}
 				}
 			}
