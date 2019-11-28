@@ -85,8 +85,9 @@ public class TutoringSessionService {
 			tutor.setTutoringSession(tutoringSessions);
 			tutorRepository.save(tutor);
 		}
-
+		tutoringSessionRepository.save(tutoringSession);
 		System.out.println(tutoringSession);
+		booking.setNotification(null);
 		booking.setTutoringSession(tutoringSession);
 		bookingRepository.save(booking);
 //		tutoringSession.setBooking(booking);

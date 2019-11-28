@@ -65,6 +65,7 @@ class TutoringSessionPage extends Component {
 
     componentDidMount() {
         document.title = "BigBrain Tutoring | My Sessions"
+        this.getAllTutoringSessions();
     }
 
     getAllTutoringSessions() {
@@ -75,7 +76,7 @@ class TutoringSessionPage extends Component {
                 return x;
             });
             this.setState({
-                allTimeSlots: allData
+                allSessions: allData
             })
         })
         return allData;
@@ -100,7 +101,7 @@ class TutoringSessionPage extends Component {
                                     <TableRow>
                                         <TableCell align="left">Date</TableCell>
                                         <TableCell align="left">Room Number</TableCell>
-                                        <TableCell align="left">Booking ID</TableCell>
+                                        <TableCell align="left">Session ID</TableCell>
                                         <TableCell align="left">Start Time</TableCell>
                                         <TableCell align="left">End Time</TableCell>
                                     </TableRow>
@@ -110,10 +111,10 @@ class TutoringSessionPage extends Component {
                                         return (
                                             <TableRow>
                                                 <TableCell align="left">{session.sessionDate}</TableCell>
-                                                <TableCell align="left">{session.roomNumber}</TableCell>
-                                                <TableCell align="left">{session.bookingId}</TableCell>
-                                                <TableCell align="left">{session.startTime}</TableCell>
-                                                <TableCell align="left">{session.endTime}</TableCell>
+                                                <TableCell align="left">{session.room}</TableCell>
+                                                <TableCell align="left">{session.tutoringSessionId}</TableCell>
+                                                <TableCell align="left">{session.timeSlot.startTime}</TableCell>
+                                                <TableCell align="left">{session.timeSlot.endTime}</TableCell>
                                             </TableRow>
                                         )
                                     })}
@@ -131,7 +132,7 @@ class TutoringSessionPage extends Component {
                                     <TableRow>
                                         <TableCell align="left">Date</TableCell>
                                         <TableCell align="left">Room Number</TableCell>
-                                        <TableCell align="left">Booking ID</TableCell>
+                                        <TableCell align="left">Session ID</TableCell>
                                         <TableCell align="left">Start Time</TableCell>
                                         <TableCell align="left">End Time</TableCell>
                                     </TableRow>

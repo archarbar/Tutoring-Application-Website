@@ -400,7 +400,6 @@ var API = {
 
     getTutoringSessionByTutor(tutorId) {
         const requestUrl = '/tutoringsession/tutor/' + tutorId;
-        // const requestUrl = '/tutor/' + tutorId + '/tutoringSession';
 
         return axios({
             method: 'get',
