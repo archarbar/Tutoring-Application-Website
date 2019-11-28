@@ -40,6 +40,8 @@ public class BookingService {
 	
 	@Autowired
 	RoomService roomService;
+	@Autowired
+	TutorService tutorService;
 	
 	@Autowired
 	TutoringSessionService tutoringSessionService;
@@ -147,12 +149,24 @@ public class BookingService {
 
 	public TutoringSession acceptBookingById(int parseInt) {
 		Booking booking = bookingRepository.findBookingById(parseInt);
-		Notification notification = booking.getNotification();
+//		Notification notification = booking.getNotification();
+		List<Notification> notifications = notificationService.getAllNotifications();
+		for(Notification notification: notifications) {
+			if(Integer.compare(booking.getId(), notification.getBooking().getId()) == 0) {
+				notificationRepository.delete(notification);
+			}
+		}
 		Time bookingStartTime = booking.getTimeSlot().getStartTime();
 		Time bookingEndTime = booking.getTimeSlot().getEndTime();
-		Tutor tutor = notification.getTutor();
+		
+		List<Tutor> tutors = tutorService.getAllTutors();
+		Tutor realTutor= null;
+		for(Tutor tutor: tutors) {
+			if(booking.getTutorEmail() == tutor.getEmail()) {
+				realTutor = tutor;
+			}
+		}
 		TimeSlot timeSlot = booking.getTimeSlot();
-		notificationRepository.delete(notification);
 		TutoringSession approvedTutoringSession = null;
 		List<Room> rooms = roomService.getAllRooms();
 		for(Room room: rooms) {
@@ -183,7 +197,7 @@ public class BookingService {
 				}
 			}
 			if(roomAvailable) {
-				approvedTutoringSession = tutoringSessionService.createTutoringSession(booking.getSpecificDate(),tutor , room, booking, timeSlot);
+				approvedTutoringSession = tutoringSessionService.createTutoringSession(booking.getSpecificDate(),realTutor , room, booking, timeSlot);
 				break;
 			}
 		}
