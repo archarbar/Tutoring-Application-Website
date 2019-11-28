@@ -42,7 +42,8 @@ public class BookingService {
 	RoomService roomService;
 	@Autowired
 	TutorService tutorService;
-	
+	@Autowired
+	TimeSlotService timeSlotService;
 	@Autowired
 	TutoringSessionService tutoringSessionService;
 	
@@ -150,49 +151,68 @@ public class BookingService {
 	public TutoringSession acceptBookingById(int parseInt) {
 		Booking booking = bookingRepository.findBookingById(parseInt);
 //		Notification notification = booking.getNotification();
-		List<Notification> notifications = notificationService.getAllNotifications();
-		for(Notification notification: notifications) {
-			if(Integer.compare(booking.getId(), notification.getBooking().getId()) == 0) {
-				notificationRepository.delete(notification);
+//		List<Notification> notifications = notificationService.getAllNotifications();
+//		for(Notification notification: notifications) {
+//			if(Integer.compare(booking.getId(), notification.getBooking().getId()) == 0) {
+//				notificationRepository.delete(notification);
+//			}
+//		}
+		List<TimeSlot> timeslots = timeSlotService.getAllTimeSlots();
+		TimeSlot realTimeSlot = null;
+		for(TimeSlot timeSlot: timeslots) {
+			Set<Booking> bookings = timeSlot.getBooking();
+			for (Booking bookingg: bookings) {
+				if(Integer.compare(bookingg.getId(), booking.getId())== 0) {
+					System.out.println("found booking");
+					realTimeSlot = timeSlot;
+				}
 			}
+
 		}
-		Time bookingStartTime = booking.getTimeSlot().getStartTime();
-		Time bookingEndTime = booking.getTimeSlot().getEndTime();
+		System.out.println("about to get starttimess");
+		Time bookingStartTime = realTimeSlot.getStartTime();
+		Time bookingEndTime = realTimeSlot.getEndTime();
 		
 		List<Tutor> tutors = tutorService.getAllTutors();
 		Tutor realTutor= null;
 		for(Tutor tutor: tutors) {
-			if(booking.getTutorEmail() == tutor.getEmail()) {
+			System.out.println(booking.getTutorEmail());
+			System.out.println(tutor.getEmail());
+			if(booking.getTutorEmail().equals(tutor.getEmail())) {
+				System.out.println("got my tutor");
 				realTutor = tutor;
 			}
 		}
+		List<TutoringSession> tutoringSessions = tutoringSessionService.getAllTutoringSessions();
 		TimeSlot timeSlot = booking.getTimeSlot();
 		TutoringSession approvedTutoringSession = null;
 		List<Room> rooms = roomService.getAllRooms();
 		for(Room room: rooms) {
 			boolean roomAvailable = true;
-			Set<TutoringSession> tutoringSessions = room.getTutoringSession();
 			for (TutoringSession tutoringSession : tutoringSessions) {
-				if(tutoringSession.getSessionDate() == booking.getSpecificDate()) {
-					Time startTime = tutoringSession.getTimeSlot().getStartTime();
-					Time endTime = tutoringSession.getTimeSlot().getEndTime();
-					if(startTime.before(bookingStartTime) && (endTime.after(bookingEndTime))) {
-						roomAvailable = false;
-					}
-					else if(startTime.before(bookingEndTime) && endTime.after(bookingEndTime)) {
-						roomAvailable = false;
-					}
-					else if(startTime.after(bookingStartTime) && endTime.before(bookingEndTime)) {
-						roomAvailable = false;
-					}
-					else if(startTime.before(bookingStartTime) && endTime.after(bookingStartTime)) {
-						roomAvailable = false;
-					}
-					else if(startTime.after(bookingStartTime) && startTime.before(bookingEndTime)) {
-						roomAvailable = false;
-					}
-					else if(endTime.after(bookingStartTime) && endTime.before(bookingEndTime)) {
-						roomAvailable = false;
+				if(Integer.compare(tutoringSession.getRoom().getId(),
+						room.getId()) == 0) {
+					if(tutoringSession.getSessionDate() == booking.getSpecificDate()) {
+						Time startTime = tutoringSession.getTimeSlot().getStartTime();
+						Time endTime = tutoringSession.getTimeSlot().getEndTime();
+						if(startTime.before(bookingStartTime) && (endTime.after(bookingEndTime))) {
+							roomAvailable = false;
+						}
+						else if(startTime.before(bookingEndTime) && endTime.after(bookingEndTime)) {
+							roomAvailable = false;
+						}
+						else if(startTime.after(bookingStartTime) && endTime.before(bookingEndTime)) {
+							roomAvailable = false;
+						}
+						else if(startTime.before(bookingStartTime) && endTime.after(bookingStartTime)) {
+							roomAvailable = false;
+						}
+						else if(startTime.after(bookingStartTime) && startTime.before(bookingEndTime)) {
+							roomAvailable = false;
+						}
+						else if(endTime.after(bookingStartTime) && endTime.before(bookingEndTime)) {
+							roomAvailable = false;
+						}
 					}
 				}
 			}

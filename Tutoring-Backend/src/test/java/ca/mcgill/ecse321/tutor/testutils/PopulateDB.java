@@ -210,8 +210,9 @@ public class PopulateDB {
 																						booking1.getTimeSlot());
 		tutoringSessionRepository.save(tutoringSession);
 		System.out.println(tutoringSession);
+		System.out.println(room1.getTutoringSession());
 //		notificationRepository.delete(booking1.getNotification());
-		System.out.println(tutorWill.getTutoringSession());
+//		System.out.println(tutorWill.getTutoringSession());
 //		List<Booking> allBookings = bookingService.getAllBookings();
 //		System.out.println(allBookings.get(0).getTutorEmail());
 		
