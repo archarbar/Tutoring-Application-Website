@@ -193,16 +193,12 @@ class TimeSlotPage extends Component {
             'timeSlotId': timeSlotId,
             'tutorId': id
         }).then(res => {
-            if (res.status === 500) {
-                this.setState({
-                    open: true,
-                })
-            }
-            else {
-                this.getAllTimeSlots();
-            }
+            this.getAllTimeSlots();
         }).catch(error => {
             console.log(error);
+            this.setState({
+                open: true,
+            })
         });
     }
 

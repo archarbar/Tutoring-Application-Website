@@ -3,23 +3,6 @@ import axios from 'axios';
 var API = {
 
     // BOOKING CONTROLLER CALLS
-    getBookingById(bookingId) {
-        const requestUrl = '/booking/' + bookingId;
-
-        return axios({
-            method: 'get',
-            url: requestUrl,
-        })
-    },
-
-    getAllBookings() {
-        const requestUrl = '/bookings/';
-
-        return axios({
-            method: 'get',
-            url: requestUrl,
-        })
-    },
 
     getAllBookingsByTutor(tutorId) {
         const requestUrl = '/booking/tutor/' + tutorId;
@@ -28,6 +11,24 @@ var API = {
             method: 'get',
             url: requestUrl,
             data: tutorId,
+        })
+    },
+
+    acceptBooking(bookingId) {
+        const requestUrl = '/booking/accept/' + bookingId;
+
+        return axios({
+            method: 'delete',
+            url: requestUrl,
+        })
+    },
+
+    declineBooking(bookingId) {
+        const requestUrl = '/booking/decline/' + bookingId;
+
+        return axios({
+            method: 'delete',
+            url: requestUrl,
         })
     },
 
@@ -60,6 +61,16 @@ var API = {
             method: 'post',
             url: requestUrl,
             data: courseForm,
+        })
+    },
+
+    getCourseForTutor(tutorId) {
+        const requestUrl = '/course/' + tutorId + '/get';
+
+        return axios({
+            method: 'get',
+            url: requestUrl,
+            data: tutorId,
         })
     },
 

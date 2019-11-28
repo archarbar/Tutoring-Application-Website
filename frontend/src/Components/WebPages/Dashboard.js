@@ -93,11 +93,21 @@ class Dashboard extends Component {
     }
 
     handleClickAccept(index) {
-        alert(index);
+        const bookingId = this.state.allBookings[index].bookingId;
+        API.acceptBooking(bookingId).then(res => {
+            this.getAllBookings();
+        }).catch(error => {
+            console.log(error)
+        })
     }
 
     handleClickDecline(index) {
-        alert(index);
+        const bookingId = this.state.allBookings[index].bookingId;
+        API.declineBooking(bookingId).then(res => {
+            this.getAllBookings();
+        }).catch(error => {
+            console.log(error)
+        })
     }
 
     render() {
@@ -133,11 +143,11 @@ class Dashboard extends Component {
                                     {allBookings.map((booking, index) => {
                                         return (
                                             <TableRow>
-                                                <TableCell align="left">{booking.courseName}</TableCell>
+                                                <TableCell align="left">{booking.course}</TableCell>
                                                 <TableCell align="left">{booking.studentName}</TableCell>
-                                                <TableCell align="left">{booking.sessionDate}</TableCell>
-                                                <TableCell align="left">{booking.startTime}</TableCell>
-                                                <TableCell align="left">{booking.endTime}</TableCell>
+                                                <TableCell align="left">{booking.specificDate}</TableCell>
+                                                <TableCell align="left">{booking.timeSlot.startTime}</TableCell>
+                                                <TableCell align="left">{booking.timeSlot.endTime}</TableCell>
                                                 <TableCell align="center">
                                                     <Button
                                                         id={index}
