@@ -8,4 +8,75 @@
     tools:context=".Register"
     tools:showIn="@layout/activity_register">
 
+
+    <EditText
+        android:id="@+id/registerTutorFirstName"
+        android:layout_width="215dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:hint="First Name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/registerTutorLastName"
+        android:layout_width="215dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:hint="Last Name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerTutorFirstName" />
+
+    <EditText
+        android:id="@+id/registerTutorEmail"
+        android:layout_width="215dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerTutorLastName" />
+
+    <EditText
+        android:id="@+id/registerTutorPassword"
+        android:layout_width="215dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerTutorEmail" />
+
+    <EditText
+        android:id="@+id/registerTutorConfirmPassword"
+        android:layout_width="213dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:hint="Confirm Password "
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerTutorPassword" />
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/registerButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerTutorConfirmPassword" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
