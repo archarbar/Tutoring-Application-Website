@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.loopj.android.http.RequestParams;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -11,9 +12,39 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
+/**
+ * Class that contains the main activity (first activity when the application starts)
+ */
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * Variable that keeps track of error message
+     */
+    private String error = null;
+
+
+    /**
+     * Method that displays the error message on the screen.
+     */
+    private void refreshErrorMessage() {
+        // set the error message
+        TextView tvError = (TextView) findViewById(R.id.error);
+        tvError.setText(error);
+
+        if (error == null || error.length() == 0) {
+            tvError.setVisibility(View.GONE);
+        } else {
+            tvError.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * Method specifying tasks on application initialization.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +60,40 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        refreshErrorMessage();
     }
+
+//    /**
+//     * Method that handles the login button.
+//     * @param v
+//     */
+//    public void login(View username, View password) {
+//        error = "";
+//        final TextView tv = (TextView) findViewById(R.id.newperson_name);
+//        final TextView tv = (TextView) findViewById(R.id.newperson_name);
+//        final TextView tv = (TextView) findViewById(R.id.newperson_name);
+//        final TextView tv = (TextView) findViewById(R.id.newperson_name);
+//        final TextView tv = (TextView) findViewById(R.id.newperson_name);
+//        final TextView tv = (TextView) findViewById(R.id.newperson_name);
+//        HttpUtils.post("persons/" + tv.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                refreshErrorMessage();
+//                tv.setText("");
+//            }
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                try {
+//                    error += errorResponse.get("message").toString();
+//                } catch (JSONException e) {
+//                    error += e.getMessage();
+//                }
+//                refreshErrorMessage();
+//            }
+//        });
+//    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
