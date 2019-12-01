@@ -1,6 +1,5 @@
 package ca.mcgill.ecse321.tutor.ui.login;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 
 import androidx.appcompat.widget.Toolbar;
@@ -9,11 +8,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -30,6 +24,11 @@ import com.loopj.android.http.RequestParams;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import ca.mcgill.ecse321.tutor.R;
 import ca.mcgill.ecse321.tutor.RegisterActivity;
@@ -63,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         final Button signUpButton = findViewById(R.id.signup);
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 openRegisterPage();
             }
         });
@@ -153,6 +152,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+<<<<<<< HEAD
     private void openRegisterPage(){
         Intent newIntent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(newIntent);
@@ -161,6 +161,11 @@ public class LoginActivity extends AppCompatActivity {
     private void openMainPage(){
         Intent newIntent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(newIntent);
+=======
+    public void openRegisterPage() {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+>>>>>>> victor_android
     }
 
     private void updateUiWithUser(LoggedInUserView model) {

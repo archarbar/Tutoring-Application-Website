@@ -1,6 +1,11 @@
 package ca.mcgill.ecse321.tutor;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -64,6 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     /**
      * Action handler for registration button
+     *
      * @param v
      */
     public void register(View v) {
@@ -88,6 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
                 refreshErrorMessage();
                 successfulMessage.setText("Successfully Registered!");
             }
+
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
