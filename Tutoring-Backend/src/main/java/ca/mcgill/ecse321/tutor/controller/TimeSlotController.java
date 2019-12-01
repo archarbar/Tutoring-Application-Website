@@ -17,10 +17,15 @@ import ca.mcgill.ecse321.tutor.dto.TimeSlotDto;
 import ca.mcgill.ecse321.tutor.model.DayOfTheWeek;
 import ca.mcgill.ecse321.tutor.model.TimeSlot;
 import ca.mcgill.ecse321.tutor.model.Tutor;
-import ca.mcgill.ecse321.tutor.service.BookingService;
 import ca.mcgill.ecse321.tutor.service.TimeSlotService;
 import ca.mcgill.ecse321.tutor.service.TutorService;
-import ca.mcgill.ecse321.tutor.service.TutoringSessionService;
+
+/**
+ * This class provides controller methods for the timeslot class
+ * 
+ * @author Tony Ou
+ *
+ */
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -30,11 +35,12 @@ public class TimeSlotController {
 	private TimeSlotService service;
 	@Autowired
 	private TutorService tutorService;
-	@Autowired
-	private BookingService bookingService;	
-	@Autowired
-	private TutoringSessionService tutoringSessionService;
 	
+	/**
+	 * API call to get all timeslots
+	 * 
+	 * @return A timeslot DTO
+	 */
 	
     @GetMapping(value= {"/timeslots", "/timeslots/"})
     public List<TimeSlotDto> getAllTimeSlots(){
@@ -45,10 +51,24 @@ public class TimeSlotController {
     	return tSDtos;
     }   
     
+    /**
+     * API call to get a timeslot using its id
+     * 
+     * @param timeSlotId The ID of the timeslot
+     * @return A timeslot DTO
+     */
+    
 	@GetMapping("/timeslot/{timeSlotId}")
 	public TimeSlotDto getTimeSlotById(@PathVariable String timeSlotId) {
 		return convertToDto(service.getTimeSlotById(Integer.parseInt(timeSlotId)));
 	}
+	
+	/**
+	 * API call to get all the timeslots of a specific tutor
+	 * 
+	 * @param tutorId The ID of the tutor
+	 * @return A timeslot DTO
+	 */
 	
 	@GetMapping("/timeslot/tutor/{tutorId}")
 	public ArrayList<TimeSlotDto> getTimeSlotByTutor(@PathVariable String tutorId) {
@@ -59,6 +79,15 @@ public class TimeSlotController {
 		}
 		return returnTimeSlot;
 	}
+	
+	/**
+	 * API call to post a new timeslot
+	 * 
+	 * @param startTime The start time of the timeslot
+	 * @param endTime The end time of the timeslot
+	 * @param weekDay The day in the week
+	 * @return A timeslot DTO
+	 */
 
 	@PostMapping("/timeslot/new")
 	public TimeSlotDto createTimeSlot(@RequestParam("startTime") String startTime,
@@ -72,7 +101,14 @@ public class TimeSlotController {
 		return convertToDto(service.createTimeSlot(st, et, dayOfTheWeek));
 	}
 	
-	// USE CASE 3
+	/**
+	 * API call to post a new timeslot for a specific tutor
+	 * 
+	 * @param startTime The start time of the timeslot
+	 * @param endTime The end time of the timeslot
+	 * @param weekDay The day in the week
+	 * @param tutorId The ID of the tutor
+	 */
 
 	@PostMapping("/timeslot/tutor/new")
 	public void addTimeSlotForTutor(@RequestParam("startTime") String startTime,
@@ -80,11 +116,15 @@ public class TimeSlotController {
 			@RequestParam("dayOfTheWeek") String weekDay,
 			@RequestParam("tutorId") String tutorId) {
 		Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
-//		Set<Tutor> tutorSet = new HashSet<Tutor>();
 		tutorService.addTimeSlotForTutor(tutor, startTime, endTime, weekDay);
 	}
 	
-	// USE CASE 3
+	/**
+	 * API call to delete a specific timeslot for a tutor
+	 * 
+	 * @param timeSlotId The ID of the timeslot
+	 * @param tutorId The ID of the tutor
+	 */
 
 	@DeleteMapping("/timeslot/tutor/delete")
 	public void removeTimeSlotForTutor(@RequestParam("timeSlotId") String timeSlotId,
@@ -93,16 +133,12 @@ public class TimeSlotController {
 		tutorService.removeTimeSlotForTutor(tutor, Integer.parseInt(timeSlotId));
 	}
 	
-
-	@GetMapping("/timeslot/booking/{bookingId}")
-	public TimeSlotDto getTimeSlotByBooking(@RequestParam String bookingId) {
-		return convertToDto(service.getTimeSlotByBooking(bookingService.getBookingById(Integer.parseInt(bookingId))));
-	}
-
-	@GetMapping("/timeslot/tutoringsession/{tutoringSessionId}")
-	public TimeSlotDto getTimeSlotByTutoringSession(@RequestParam String tutoringSessionId) {
-		return convertToDto(service.getTimeSlotByTutoringSession(tutoringSessionService.getTutoringSessionById(Integer.parseInt(tutoringSessionId))));
-	}
+	/**
+	 * Method to convert a timeslot object into a timeslot dto
+	 * 
+	 * @param timeSlot A timeslot object
+	 * @return A timeslot DTO
+	 */
 
 	public TimeSlotDto convertToDto(TimeSlot timeSlot) {
 		if (timeSlot == null) throw new IllegalArgumentException("This timeSlot does not exist!");
