@@ -40,16 +40,9 @@ public class RegisterActivity extends AppCompatActivity {
                 register(v);
             }
         });
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        Toolbar toolbar = findViewById(R.id.RegistrationToolBar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Registration");
 
         refreshErrorMessage();
     }

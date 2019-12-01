@@ -59,8 +59,6 @@ public class LoginActivity extends AppCompatActivity {
         final Button loginButton = findViewById(R.id.Login);
         final ProgressBar loadingProgressBar = findViewById(R.id.PasswordProgress);
 
-//        sucessfulMessage = findViewById(R.id.log)
-
         // Determine what to do when signUpButton is clicked
         final Button signUpButton = findViewById(R.id.signup);
         signUpButton.setOnClickListener(new View.OnClickListener() {
@@ -70,13 +68,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-//        // Determine what to do when signUpButton is clicked
-//        loginButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v){
-//                login();
-//            }
-//        });
+        // Determine what to do when signUpButton is clicked
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                login();
+            }
+        });
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -155,8 +153,13 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void openRegisterPage(){
+    private void openRegisterPage(){
         Intent newIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(newIntent);
+    }
+
+    private void openMainPage(){
+        Intent newIntent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(newIntent);
     }
 
@@ -191,8 +194,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 refreshErrorMessage();
                 successfulMessage.setText("Successfully Registered!");
-
-                // Render next page
+                openMainPage();
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
