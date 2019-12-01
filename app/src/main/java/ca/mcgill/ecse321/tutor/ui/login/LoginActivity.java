@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Determine what to do when signUpButton is clicked
         signUpButton = (Button) findViewById(R.id.SignUp);
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 openRegisterPage();
