@@ -18,6 +18,13 @@ import ca.mcgill.ecse321.tutor.model.Tutor;
 import ca.mcgill.ecse321.tutor.service.CourseService;
 import ca.mcgill.ecse321.tutor.service.TutorService;
 
+/**
+ * This class provides controller methods for the course class
+ * 
+ * @author Tony Ou
+ *
+ */
+
 @CrossOrigin(origins = "*")
 @RestController
 public class CourseController {
@@ -31,8 +38,13 @@ public class CourseController {
 	public CourseDto getCourseById(@PathVariable String courseId) {
 		return convertToDto(service.getCourseById(Integer.parseInt(courseId)));
 	}
-
-	// USE CASE 5
+	
+	/**
+	 * API call to add a new course for a specific tutor
+	 * 
+	 * @param courseName The name of the course
+	 * @param tutorId The ID of the tutor
+	 */
 
 	@PostMapping("/course/new")
 	public void addCourseForTutor(@RequestParam("courseName") String courseName,
@@ -40,6 +52,13 @@ public class CourseController {
 		Tutor tutor = tutorService.getTutorById(Integer.parseInt(tutorId));
 		tutorService.addCourseForTutor(tutor, courseName);
 	}
+	
+	/**
+	 * API call to retrieve all courses by an education level
+	 * 
+	 * @param level The education level of the course
+	 * @return A course DTO
+	 */
 
 	@GetMapping("/course/level/{level}")
 	public ArrayList<CourseDto> getCoursesByLevel (@PathVariable Level level) {
@@ -51,6 +70,13 @@ public class CourseController {
 		return returnCourse;
 	}
 	
+	/**
+	 * API call to retrieve all courses from a specific tutor
+	 * 
+	 * @param tutorId The ID of the tutor
+	 * @return A course DTO
+	 */
+	
 	@GetMapping("/course/{tutorId}/get")
 	public ArrayList<CourseDto> getCourseByTutor(@PathVariable String tutorId) {
 		ArrayList<CourseDto> returnCourse = new ArrayList<>();
@@ -60,11 +86,24 @@ public class CourseController {
 		}
 		return returnCourse;
 	}
+	
+	/**
+	 * API call to retrieve a course by its name
+	 * 
+	 * @param courseName The name of the course
+	 * @return A course DTO
+	 */
 
 	@GetMapping("/course/name/{courseName}")
 	public CourseDto getCourseByName (@PathVariable String courseName) {
 		return convertToDto(service.getCourseByCourseName(courseName));
 	}
+	
+	/**
+	 * API call to retrieve all courses
+	 * 
+	 * @return A course DTO
+	 */
 	
 	@GetMapping(value= {"/courses", "/courses/"})
 	public List<CourseDto> getAllCourses() {
@@ -74,6 +113,13 @@ public class CourseController {
 		}
 		return cDtos;
 	}
+	
+	/**
+	 * Method to convert a course object to a Course DTO
+	 * 
+	 * @param course A course object
+	 * @return A course DTO instance
+	 */
 
 	private CourseDto convertToDto(Course course) {
 		if (course == null) throw new IllegalArgumentException("This course does not exist!");

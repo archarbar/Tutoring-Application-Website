@@ -126,7 +126,7 @@ public class BookingController {
 	 * Method to convert a booking object into a booking DTO
 	 * 
 	 * @param booking A booking object
-	 * @return A booking DTO
+	 * @return A booking DTO instance
 	 */
 
 	public BookingDto convertToDto(Booking booking) {
