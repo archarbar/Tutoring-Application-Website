@@ -1,8 +1,8 @@
 package ca.mcgill.ecse321.tutor.data;
 
-import ca.mcgill.ecse321.tutor.data.model.LoggedInUser;
-
 import java.io.IOException;
+
+import ca.mcgill.ecse321.tutor.data.model.LoggedInUser;
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.

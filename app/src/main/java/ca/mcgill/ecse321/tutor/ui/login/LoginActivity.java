@@ -1,18 +1,8 @@
 package ca.mcgill.ecse321.tutor.ui.login;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -23,6 +13,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import ca.mcgill.ecse321.tutor.R;
 import ca.mcgill.ecse321.tutor.RegisterActivity;
@@ -48,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         signUpButton = (Button) findViewById(R.id.SignUp);
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 openRegisterPage();
             }
         });
@@ -130,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void openRegisterPage(){
+    public void openRegisterPage() {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }

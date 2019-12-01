@@ -1,15 +1,15 @@
 package ca.mcgill.ecse321.tutor.ui.login;
 
+import android.util.Patterns;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import android.util.Patterns;
-
+import ca.mcgill.ecse321.tutor.R;
 import ca.mcgill.ecse321.tutor.data.LoginRepository;
 import ca.mcgill.ecse321.tutor.data.Result;
 import ca.mcgill.ecse321.tutor.data.model.LoggedInUser;
-import ca.mcgill.ecse321.tutor.R;
 
 public class LoginViewModel extends ViewModel {
 
