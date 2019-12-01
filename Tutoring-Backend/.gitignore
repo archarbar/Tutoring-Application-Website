@@ -1,6 +1,9 @@
 HELP.md
 .gradle
-build/
+build/bin/*
+build/generated/*
+build/resources/*
+build/tmp/*
 bin/*
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
