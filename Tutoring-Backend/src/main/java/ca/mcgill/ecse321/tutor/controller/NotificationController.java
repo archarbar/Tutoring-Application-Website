@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ca.mcgill.ecse321.tutor.dto.NotificationDto;
 import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Notification;
-import ca.mcgill.ecse321.tutor.model.Person;
 import ca.mcgill.ecse321.tutor.model.Tutor;
 import ca.mcgill.ecse321.tutor.service.BookingService;
 import ca.mcgill.ecse321.tutor.service.NotificationService;

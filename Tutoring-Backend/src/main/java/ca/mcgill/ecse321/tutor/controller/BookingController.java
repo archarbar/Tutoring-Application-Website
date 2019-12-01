@@ -3,37 +3,26 @@ package ca.mcgill.ecse321.tutor.controller;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.tutor.dto.BookingDto;
-import ca.mcgill.ecse321.tutor.dto.TimeSlotDto;
 import ca.mcgill.ecse321.tutor.dto.TutoringSessionDto;
 import ca.mcgill.ecse321.tutor.model.Booking;
 import ca.mcgill.ecse321.tutor.model.Student;
-import ca.mcgill.ecse321.tutor.model.Tutor;
 import ca.mcgill.ecse321.tutor.model.TutoringSession;
 import ca.mcgill.ecse321.tutor.service.BookingService;
-import ca.mcgill.ecse321.tutor.service.NotificationService;
-import ca.mcgill.ecse321.tutor.service.TutorService;
 
 @CrossOrigin(origins = "*")
 @RestController
 public class BookingController {
     @Autowired
     private BookingService service;
-    @Autowired
-    private NotificationService notificationService;
-    @Autowired
-    private TutorService tutorService;
     
     TimeSlotController timeSlotController = new TimeSlotController();
     TutoringSessionController tutoringSessionController = new TutoringSessionController();

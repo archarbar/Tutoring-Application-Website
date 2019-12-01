@@ -1,11 +1,6 @@
 package ca.mcgill.ecse321.tutor.dto;
 
-import ca.mcgill.ecse321.tutor.model.Course;
-import ca.mcgill.ecse321.tutor.model.Student;
-import ca.mcgill.ecse321.tutor.model.TimeSlot;
-
 import java.sql.Date;
-import java.util.Set;
 
 public class BookingDto {
     private String tutorEmail;
