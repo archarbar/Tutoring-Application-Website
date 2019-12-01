@@ -7,14 +7,34 @@
     android:layout_height="match_parent"
     tools:context=".ui.login.LoginActivity">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.appbar.AppBarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/AppTheme.AppBarOverlay">
+
+                        <androidx.appcompat.widget.Toolbar
+                            android:id="@+id/LoginToolBar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#70BB29"
+                            app:popupTheme="@style/AppTheme.PopupOverlay" />
+                </com.google.android.material.appbar.AppBarLayout>
+        </LinearLayout>
+
         <TextView
             android:id="@+id/registrationError"
-            android:layout_width="0dp"
+            android:layout_width="2dp"
             android:layout_height="0dp"
-            android:layout_marginTop="21dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="392dp"
             android:layout_marginBottom="40dp"
-            android:text=""
             android:textColor="@color/colorAccent"
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/password"
@@ -65,7 +85,6 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="24dp"
             android:autoLink="all"
-            android:autoText="true"
             android:hint="@string/prompt_password"
             android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionDone"
@@ -85,14 +104,14 @@
             android:layout_marginStart="48dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="64dp"
-            android:backgroundTint="@color/colorAccent"
+            android:backgroundTint="#8BC34A"
             android:enabled="false"
             android:text="@string/LoginButton"
             android:textAllCaps="false"
             android:textColor="#FFFCFC"
             android:textColorHint="#002B0B0B"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/SignUp"
+            app:layout_constraintEnd_toStartOf="@+id/signup"
             app:layout_constraintHorizontal_bias="0.262"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password"
@@ -113,13 +132,13 @@
             app:layout_constraintVertical_bias="0.3" />
 
         <Button
-            android:id="@+id/SignUp"
+            android:id="@+id/signup"
             android:layout_width="93dp"
             android:layout_height="39dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="76dp"
             android:layout_marginBottom="264dp"
-            android:backgroundTint="@color/YuYunFavorite"
+            android:backgroundTint="#8BC34A"
             android:text="@string/SignUpButton"
             android:textAllCaps="false"
             android:textColor="#F0FFFFFF"

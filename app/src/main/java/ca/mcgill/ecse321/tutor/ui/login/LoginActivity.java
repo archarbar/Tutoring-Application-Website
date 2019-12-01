@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.tutor.ui.login;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -24,13 +25,23 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import ca.mcgill.ecse321.tutor.R;
 import ca.mcgill.ecse321.tutor.RegisterActivity;
+import ca.mcgill.ecse321.tutor.utils.HttpUtils;
+import cz.msebera.android.httpclient.Header;
 
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
-    private Button signUpButton;
+
+    private TextView successfulMessage;
+    private String error = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,20 +49,34 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
+        Toolbar toolbar = findViewById(R.id.LoginToolBar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Login");
+
 
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.Login);
         final ProgressBar loadingProgressBar = findViewById(R.id.PasswordProgress);
 
+//        sucessfulMessage = findViewById(R.id.log)
+
         // Determine what to do when signUpButton is clicked
-        signUpButton = (Button) findViewById(R.id.SignUp);
+        final Button signUpButton = findViewById(R.id.signup);
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 openRegisterPage();
             }
         });
+
+//        // Determine what to do when signUpButton is clicked
+//        loginButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v){
+//                login();
+//            }
+//        });
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -131,8 +156,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void openRegisterPage(){
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
+        Intent newIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(newIntent);
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
@@ -145,5 +170,55 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Action handler for login button.
+     *
+     * @param v
+     */
+    public void login(View v) {
+
+        error = "";
+
+        TextView username = (TextView) findViewById(R.id.username);
+        TextView password = (TextView) findViewById(R.id.password);
+
+        RequestParams params = new RequestParams();
+        params.put("Email", username.getText().toString());
+        params.put("Password", password.getText().toString());
+
+        HttpUtils.post("/login", params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                refreshErrorMessage();
+                successfulMessage.setText("Successfully Registered!");
+
+                // Render next page
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                try {
+                    error += errorResponse.get("message").toString();
+                } catch (JSONException e) {
+                    error += e.getMessage();
+                }
+                refreshErrorMessage();
+            }
+        });
+    }
+
+    /**
+     * Method that shows the error message.
+     */
+    private void refreshErrorMessage() {
+        // set the error message
+        TextView tvError = (TextView) findViewById(R.id.registrationError);
+        tvError.setText(error);
+
+        if (error == null || error.length() == 0) {
+            tvError.setVisibility(View.GONE);
+        } else {
+            tvError.setVisibility(View.VISIBLE);
+        }
+    }
 
 }
