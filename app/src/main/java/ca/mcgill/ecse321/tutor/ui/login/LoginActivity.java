@@ -130,6 +130,11 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    public void openRegisterPage(){
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
+
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
         // TODO : initiate successful logged in experience
@@ -140,9 +145,5 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
 
-    public void openRegisterPage(){
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
-    }
 
 }
