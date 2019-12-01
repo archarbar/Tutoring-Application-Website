@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.tutor;
+package ca.mcgill.ecse321.tutor.utils;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;

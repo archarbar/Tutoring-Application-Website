@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.loopj.android.http.RequestParams;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void refreshErrorMessage() {
         // set the error message
-        TextView tvError = (TextView) findViewById(R.id.error);
+        TextView tvError = (TextView) findViewById(R.id.registrationError);
         tvError.setText(error);
 
         if (error == null || error.length() == 0) {

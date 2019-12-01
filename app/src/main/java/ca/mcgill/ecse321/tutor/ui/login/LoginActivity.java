@@ -1,10 +1,12 @@
 package ca.mcgill.ecse321.tutor.ui.login;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -23,10 +25,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ca.mcgill.ecse321.tutor.R;
+import ca.mcgill.ecse321.tutor.RegisterActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
+    private Button signUpButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,7 +42,16 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.Login);
-        final ProgressBar loadingProgressBar = findViewById(R.id.PasswordLabel);
+        final ProgressBar loadingProgressBar = findViewById(R.id.PasswordProgress);
+
+        // Determine what to do when signUpButton is clicked
+        signUpButton = (Button) findViewById(R.id.SignUp);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                openRegisterPage();
+            }
+        });
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -126,4 +139,10 @@ public class LoginActivity extends AppCompatActivity {
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
+
+    public void openRegisterPage(){
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
+
 }
