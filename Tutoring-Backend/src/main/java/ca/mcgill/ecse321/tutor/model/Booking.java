@@ -1,20 +1,17 @@
 package ca.mcgill.ecse321.tutor.model;
 
+import java.sql.Date;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
-import java.sql.Date;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import java.util.Set;
-import javax.persistence.ManyToMany;
 
 @Entity
 public class Booking{

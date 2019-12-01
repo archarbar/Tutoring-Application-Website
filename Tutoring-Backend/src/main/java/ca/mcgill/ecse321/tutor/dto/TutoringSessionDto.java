@@ -1,11 +1,8 @@
 package ca.mcgill.ecse321.tutor.dto;
 
-import ca.mcgill.ecse321.tutor.model.Booking;
-import ca.mcgill.ecse321.tutor.model.Room;
-import ca.mcgill.ecse321.tutor.model.TimeSlot;
-import ca.mcgill.ecse321.tutor.model.Tutor;
-
 import java.util.Date;
+
+import ca.mcgill.ecse321.tutor.model.Room;
 
 public class TutoringSessionDto {
     private Date sessionDate;
