@@ -36,9 +36,9 @@ public class TutorController {
     }
 
     @GetMapping("/login")
-    public Integer login(@RequestParam("Email") String email, @RequestParam("Password") String password){
+    public TutorDto login(@RequestParam("Email") String email, @RequestParam("Password") String password){
         if (service.getTutorByEmail(email).getPassword().contentEquals(password)){
-            return (service.getTutorByEmail(email).getId());
+            return (convertToDto(service.getTutorByEmail(email)));
         }
         else{
             throw new IllegalArgumentException("Wrong Password, try again.");
