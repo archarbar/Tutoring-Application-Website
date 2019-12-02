@@ -35,8 +35,8 @@ public class TutorController {
         return convertToDto(service.getTutorById(Integer.parseInt(tutorId)));
     }
 
-    @GetMapping("/login")
-    public TutorDto login(@RequestParam("Email") String email, @RequestParam("Password") String password){
+    @GetMapping("/login/{Email}/{Password}")
+    public TutorDto login(@PathVariable("Email") String email, @PathVariable("Password") String password){
         if (service.getTutorByEmail(email).getPassword().contentEquals(password)){
             return (convertToDto(service.getTutorByEmail(email)));
         }
