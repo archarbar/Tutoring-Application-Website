@@ -78,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
 
         TextView username = (TextView) findViewById(R.id.username);
         TextView password = (TextView) findViewById(R.id.password);
+        final TextView loginMessage = (TextView) findViewById(R.id.loginMessage);
 
         RequestParams params = new RequestParams();
         params.put("Email", username.getText().toString());
@@ -92,9 +93,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
-                refreshErrorMessage();
-                successfulMessage.setText("Successfully logged in!");
                 Log.v("Login", "onSuccess" +  response.toString());
+                refreshErrorMessage();
+
+                loginMessage.setText("Successfully logged in!");
                 openMainPage();
             }
             @Override

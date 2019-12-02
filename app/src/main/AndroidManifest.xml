@@ -21,5 +21,8 @@
         <activity
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register" />
+        <activity
+            android:name=".MainActivity"
+            android:label="Dashboard"/>
     </application>
 </manifest>

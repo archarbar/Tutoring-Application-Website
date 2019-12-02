@@ -28,14 +28,14 @@ public class MainActivity extends AppCompatActivity {
      */
     private void refreshErrorMessage() {
         // set the error message
-        TextView tvError = (TextView) findViewById(R.id.registrationError);
-        tvError.setText(error);
+//        TextView tvError = (TextView) findViewById(R.id.registrationError);
+////        tvError.setText(error);
 
-        if (error == null || error.length() == 0) {
-            tvError.setVisibility(View.GONE);
-        } else {
-            tvError.setVisibility(View.VISIBLE);
-        }
+//        if (error == null || error.length() == 0) {
+//            tvError.setVisibility(View.GONE);
+//        } else {
+//            tvError.setVisibility(View.VISIBLE);
+//        }
     }
 
     /**
