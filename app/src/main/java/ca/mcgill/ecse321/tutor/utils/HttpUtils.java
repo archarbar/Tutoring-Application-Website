@@ -7,6 +7,8 @@ import com.loopj.android.http.RequestParams;
 public class HttpUtils {
     public static final String DEFAULT_BASE_URL = "https://ecse321-tutor-backend.herokuapp.com/";
 
+    public static final String LOCAL_BASE_URL = "http://localhost:8080/";
+
     private static String baseUrl;
     private static AsyncHttpClient client = new AsyncHttpClient();
 

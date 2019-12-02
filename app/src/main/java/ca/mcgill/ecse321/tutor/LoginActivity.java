@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
      * Action handler for login button.
      */
     public void login() {
-
+        Log.d("ok","ok");
         error = "";
 
         TextView username = (TextView) findViewById(R.id.username);
@@ -82,7 +82,12 @@ public class LoginActivity extends AppCompatActivity {
         RequestParams params = new RequestParams();
         params.put("Email", username.getText().toString());
         params.put("Password", password.getText().toString());
-        HttpUtils.get("login" , params, new JsonHttpResponseHandler() {
+        Log.d("email", username.getText().toString());
+        Log.d("password",password.getText().toString() );
+        String url = "login/" + username.getText().toString() + '/' + password.getText().toString();
+        Log.d("url", url);
+
+        HttpUtils.get("login/" + username.getText().toString() + '/' + password.getText().toString(), null, new JsonHttpResponseHandler() {
 //        HttpUtils.get("login?Email=" + username.getText().toString() + "&Password=" + password.getText().toString(),  new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
