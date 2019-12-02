@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.tutor;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -7,17 +8,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                register(v);
+                register();
             }
         });
         Toolbar toolbar = findViewById(R.id.RegistrationToolBar);
@@ -69,10 +63,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     /**
      * Action handler for registration button
-     *
-     * @param v
      */
-    public void register(View v) {
+    public void register() {
 
         error = "";
 
@@ -85,14 +77,15 @@ public class RegisterActivity extends AppCompatActivity {
         RequestParams params = new RequestParams();
         params.put("tutorFirstName", firstNameView.getText().toString());
         params.put("tutorLastName", lastNameView.getText().toString());
-        params.put("tutorEmail", passwordView.getText().toString());
-        params.put("tutorPassword", emailView.getText().toString());
+        params.put("tutorEmail", emailView.getText().toString());
+        params.put("tutorPassword", passwordView.getText().toString());
 
         HttpUtils.post("tutor/new", params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 refreshErrorMessage();
-                successfulMessage.setText("Successfully Registered!");
+                successfulMessage.setText("Successfully Registered!\nRedirecting to Login page");
+                openLoginPage();
             }
 
             @Override
@@ -105,6 +98,11 @@ public class RegisterActivity extends AppCompatActivity {
                 refreshErrorMessage();
             }
         });
+    }
+
+    private void openLoginPage(){
+            Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(loginIntent);
     }
 
 
