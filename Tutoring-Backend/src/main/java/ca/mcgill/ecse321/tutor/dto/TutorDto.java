@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.tutor.dto;
 import ca.mcgill.ecse321.tutor.model.Manager;
 
 public class TutorDto {
+	private String tutorId;
     private String firstName;
     private String lastName;
     private String email;
@@ -11,12 +12,13 @@ public class TutorDto {
     private double hourlyRate;
     private boolean isApproved;
 
-    public TutorDto(String firstName, String lastName, String email, Manager manager, double hourlyRate, boolean isApproved) {
-        this(firstName, lastName, email,null, manager, hourlyRate, isApproved);
+    public TutorDto(String tutorId, String firstName, String lastName, String email, Manager manager, double hourlyRate, boolean isApproved) {
+        this(tutorId, firstName, lastName, email,null, manager, hourlyRate, isApproved);
     }
 
-    public TutorDto(String firstName, String lastName, String email, String password, Manager manager, double hourlyRate, boolean isApproved) {
-        this.firstName = firstName;
+    public TutorDto(String tutorId, String firstName, String lastName, String email, String password, Manager manager, double hourlyRate, boolean isApproved) {
+        this.tutorId = tutorId;
+    	this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
@@ -25,6 +27,9 @@ public class TutorDto {
         this.isApproved = isApproved;
     }
 
+    public String getTutorId() {
+    	return tutorId;
+    }
     public Manager getManager() {
         return manager;
     }
