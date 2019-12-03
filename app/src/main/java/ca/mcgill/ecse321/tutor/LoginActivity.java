@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.tutor;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -64,8 +63,9 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(newIntent);
     }
 
-    private void openMainPage() {
-        Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+    private void openMainPage(String tutorId) {
+        Intent mainIntent = new Intent(LoginActivity.this, BookingsActivity.class);
+        mainIntent.putExtra("tutorId", tutorId);
         startActivity(mainIntent);
     }
 
@@ -83,21 +83,26 @@ public class LoginActivity extends AppCompatActivity {
         RequestParams params = new RequestParams();
         params.put("Email", username.getText().toString());
         params.put("Password", password.getText().toString());
+
         Log.d("email", username.getText().toString());
         Log.d("password",password.getText().toString() );
         String url = "login/" + username.getText().toString() + '/' + password.getText().toString();
         Log.d("url", url);
 
         HttpUtils.get("login/" + username.getText().toString() + '/' + password.getText().toString(), null, new JsonHttpResponseHandler() {
-//        HttpUtils.get("login?Email=" + username.getText().toString() + "&Password=" + password.getText().toString(),  new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
+//                super.onSuccess(statusCode, headers, response);
                 Log.v("Login", "onSuccess" +  response.toString());
                 refreshErrorMessage();
-
-                loginMessage.setText("Successfully logged in!");
-                openMainPage();
+                try {
+                    response.get("tutorId");
+                    String tutorId = response.getString("tutorId");
+                    loginMessage.setText("Successfully logged in!");
+                    openMainPage(tutorId);
+                }catch (JSONException e){
+                    Log.d("json", e.toString());
+                }
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TimeSlotsActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_anchor="@+id/constraintLayout"
+        app:layout_anchorGravity="center"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".BookingsActivity"
+        tools:showIn="@layout/activity_booking">
+
+        <Button
+            android:id="@+id/bookings"
+            android:layout_width="81dp"
+            android:layout_height="0dp"
+            android:lines="1"
+            android:text="@string/bookings"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sessions"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/taskbar"
+            app:layout_constraintTop_toTopOf="@+id/taskbar" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/taskbar"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/courses"
+            android:layout_width="81dp"
+            android:layout_height="0dp"
+            android:text="@string/courses"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/timeslots"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/sessions"
+            app:layout_constraintTop_toTopOf="@+id/taskbar" />
+
+        <Button
+            android:id="@+id/settings"
+            android:layout_width="81dp"
+            android:layout_height="0dp"
+            android:text="@string/settings"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/timeslots"
+            app:layout_constraintTop_toTopOf="@+id/taskbar" />
+
+        <Button
+            android:id="@+id/timeslots"
+            android:layout_width="81dp"
+            android:layout_height="0dp"
+            android:text="@string/timeslots"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/settings"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/taskbar"
+            app:layout_constraintTop_toTopOf="@+id/taskbar" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            android:text="Welcome Back!"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/subTitle"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:lines="1"
+            android:text="@string/timeslots"
+            app:layout_constraintBottom_toTopOf="@+id/scrollView1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:layout_constraintVertical_bias="0.044" />
+
+        <Button
+            android:id="@+id/sessions"
+            android:layout_width="81dp"
+            android:layout_height="0dp"
+            android:text="@string/sessions"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/courses"
+            app:layout_constraintStart_toEndOf="@+id/bookings"
+            app:layout_constraintTop_toTopOf="@+id/taskbar" />
+
+        <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/taskbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerTimeSlots">
+
+            <HorizontalScrollView
+                android:id="@+id/hscrll1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/RelativeLayout1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <TableLayout
+                        android:id="@+id/timeSlotsTable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"></TableLayout>
+                </RelativeLayout>
+            </HorizontalScrollView>
+        </ScrollView>
+
+        <Spinner
+            android:id="@+id/spinnerTimeSlots"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:entries="@array/day_of_the_week"
+            app:layout_constraintEnd_toStartOf="@+id/addTimeSlotButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/startTimeTimeSlots" />
+
+        <EditText
+            android:id="@+id/startTimeTimeSlots"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:hint="Start Time"
+            android:inputType="time"
+            app:layout_constraintEnd_toStartOf="@+id/endTimeTimeSlots"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/subTitle" />
+
+        <EditText
+            android:id="@+id/endTimeTimeSlots"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="31dp"
+            android:ems="10"
+            android:hint="End Time"
+            android:inputType="time"
+            app:layout_constraintBottom_toTopOf="@+id/addTimeSlotButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/startTimeTimeSlots"
+            app:layout_constraintTop_toBottomOf="@+id/subTitle" />
+
+        <Button
+            android:id="@+id/addTimeSlotButton"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="Add Time Slot"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/spinnerTimeSlots"
+            app:layout_constraintTop_toBottomOf="@+id/endTimeTimeSlots" />
+
+        <TextView
+            android:id="@+id/timeSlotError"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            android:text="Time Format: HH:MM:SS"
+            app:layout_constraintBottom_toTopOf="@+id/endTimeTimeSlots"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/subTitle"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:layout_constraintVertical_bias="0.205" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

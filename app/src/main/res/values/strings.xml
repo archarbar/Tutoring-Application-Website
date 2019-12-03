@@ -23,4 +23,13 @@
     <string name="courses">"Courses"</string>
     <string name="timeslots">"Time Slots"</string>
     <string name="settings">"Settings"</string>
+    <string-array name="day_of_the_week">
+        <item>MONDAY</item>
+        <item>TUESDAY</item>
+        <item>WEDNESDAY</item>
+        <item>THURSDAY</item>
+        <item>FRIDAY</item>
+        <item>SATURDAY</item>
+        <item>SUNDAY</item>
+    </string-array>
 </resources>
