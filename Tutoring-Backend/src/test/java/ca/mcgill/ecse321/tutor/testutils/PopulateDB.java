@@ -184,8 +184,11 @@ public class PopulateDB {
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(studentVic);
 
-		Booking booking1 = bookingService.createBooking(emailWill, studentSet, Date.valueOf("2019-11-29"), timeSlot3, ECSE321);
-
+		Booking booking1 = bookingService.createBooking(emailWill, studentSet, Date.valueOf("2019-12-27"), timeSlot3, ECSE321);
+		Booking booking2 = bookingService.createBooking(emailWill, studentSet, Date.valueOf("2019-12-23"), timeSlot1, ECSE321);
+		Booking booking3 = bookingService.createBooking(emailWill, studentSet, Date.valueOf("2019-12-23"), timeSlot2, ECSE321);
+		
+		
 		Room room1 = roomService.createRoom(1, 2, manager);
 		//		roomRepository.save(room1);
 		Room room2 = roomService.createRoom(2, 2, manager);
