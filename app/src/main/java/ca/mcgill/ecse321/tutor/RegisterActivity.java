@@ -20,13 +20,15 @@ import ca.mcgill.ecse321.tutor.utils.HttpUtils;
 import cz.msebera.android.httpclient.Header;
 
 public class RegisterActivity extends AppCompatActivity {
-
+    /**
+     * Contains all from requests sent from this activity.
+     */
     private String error = null;
 
     /**
      * Method that is executed when the page is launched.
      *
-     * @param savedInstanceState
+     * @param savedInstanceState : previous state of activity.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,16 +76,18 @@ public class RegisterActivity extends AppCompatActivity {
         final TextView emailView = (TextView) findViewById(R.id.registerTutorEmail);
         final TextView successfulMessage = (TextView) findViewById(R.id.registrationMessage);
 
+        // Set up parameters.
         RequestParams params = new RequestParams();
         params.put("tutorFirstName", firstNameView.getText().toString());
         params.put("tutorLastName", lastNameView.getText().toString());
         params.put("tutorEmail", emailView.getText().toString());
         params.put("tutorPassword", passwordView.getText().toString());
-
+        // Send post request to sign up a new tutor
         HttpUtils.post("tutor/new", params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 refreshErrorMessage();
+                // If successful, display a message and transition to login page.
                 successfulMessage.setText("Successfully Registered!\nRedirecting to Login page");
                 openLoginPage();
             }
@@ -100,6 +104,9 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Return to Login page from sign up page.
+     */
     private void openLoginPage(){
             Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
             startActivity(loginIntent);

@@ -1,20 +1,16 @@
 package ca.mcgill.ecse321.tutor;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -28,9 +24,17 @@ import cz.msebera.android.httpclient.Header;
 
 
 public class SessionsActivity extends AppCompatActivity {
-
+    /**
+     * ID of the tutor currently signed in.
+     */
     public String tutorId;
+    /**
+     * JSONArray of all sessions associated with the tutor
+     */
     public JSONArray sessions;
+    /**
+     * contains errors from requests
+     */
     public String error;
 
     /**
@@ -53,7 +57,7 @@ public class SessionsActivity extends AppCompatActivity {
             Log.d("unable to grab tutor id", e.toString());
         }
 
-        // Determine what to do when signUpButton is clicked
+        // Determine what to do when bookings button is clicked
         final Button bookingsButton = findViewById(R.id.bookings);
         bookingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +67,7 @@ public class SessionsActivity extends AppCompatActivity {
         });
 
 
-        // Determine what to do when signUpButton is clicked
+        // Determine what to do when courses button is clicked
         final Button coursesButton = findViewById(R.id.courses);
         coursesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +76,7 @@ public class SessionsActivity extends AppCompatActivity {
             }
         });
 
-        // Determine what to do when signUpButton is clicked
+        // Determine what to do when time slots button is clicked
         final Button timeSlotsButton = findViewById(R.id.timeslots);
         timeSlotsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +85,7 @@ public class SessionsActivity extends AppCompatActivity {
             }
         });
 
-        // Determine what to do when signUpButton is clicked
+        // Determine what to do when settings button is clicked
         final Button settingsButton = findViewById(R.id.settings);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,46 +94,44 @@ public class SessionsActivity extends AppCompatActivity {
             }
         });
 
-
-//        refreshErrorMessage();
     }
 
+    /**
+     * Get all sessions associated with a tutor
+     * Initialize a table with all sessions after receiving response.
+     * @param tutorId : ID of the tutor currently logged in.
+     */
     private void getSessions(String tutorId) {
         HttpUtils.get("tutoringsession/tutor/" + tutorId , new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-//                super.onSuccess(statusCode, headers, response);
-//                refreshErrorMessage();
-                Log.d("Bookings", "onSuccess");
+                super.onSuccess(statusCode, headers, response);
                 sessions = response;
-//                init(response);
+                // Initializes the table.
                 initializeTable(sessions);
-                try {
-                    JSONObject booking1 = response.getJSONObject(0);
-                    String bookingId = booking1.getString("bookingId");
 
-                } catch (JSONException e) {
-                    Log.d("sessions","unable to parse json");
-                }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, errorResponse.toString(), throwable);
-                Log.d("booking", "fail");
                 try {
                     error += errorResponse.get("message").toString();
                 } catch (JSONException e) {
                     error += e.getMessage();
                 }
-//                refreshErrorMessage();
             }
         });
     }
 
+    /**
+     * Generate a new tabble with all sessions associated with this tutor
+     * @param sessions : JSONArray of all sessions
+     */
     private void initializeTable(JSONArray sessions) {
         TableLayout stk =  findViewById(R.id.sessionTable);
         stk.removeAllViewsInLayout();
+        // New table row for all column names.
         TableRow tbrow0 = new TableRow(this);
         TextView tv0 = new TextView(this);
         tv0.setText(" Date ");
@@ -148,9 +150,11 @@ public class SessionsActivity extends AppCompatActivity {
         tv3.setTextColor(Color.BLACK);
         tbrow0.addView(tv3);
         stk.addView(tbrow0);
+        // Iterate through all sessions.
         for (int i=0; i < sessions.length(); i++) {
             try{
                 JSONObject session = sessions.getJSONObject(i);
+                //Assign a value for each column
                 TableRow tbrow = new TableRow(this);
                 TextView t1v = new TextView(this);
                 t1v.setText(session.getString("sessionDate"));
@@ -176,12 +180,6 @@ public class SessionsActivity extends AppCompatActivity {
                 tbrow.addView(t4v);
                 tbrow.setId(i);
                 tbrow.setPadding(0,48,0,0);
-//                tbrow.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v){
-//                        openPopUp(v.getId());
-//                    }
-//                });
                 stk.addView(tbrow);
 
             }catch(JSONException e){
@@ -191,22 +189,37 @@ public class SessionsActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Method to transition to bookings page.
+     * @param tutorId : the ID of the currently logged in tutor.
+     */
     private void openBookingsPage(String tutorId) {
         Intent mainIntent = new Intent(this, BookingsActivity.class);
         mainIntent.putExtra("tutorId", tutorId);
         startActivity(mainIntent);
     }
+    /**
+     * Method to transition to courses page.
+     * @param tutorId : the ID of the currently logged in tutor.
+     */
     private void openCoursesPage(String tutorId) {
         Intent mainIntent = new Intent(this, CoursesActivity.class);
         mainIntent.putExtra("tutorId", tutorId);
         startActivity(mainIntent);
     }
+    /**
+     * Method to transition to time slots page.
+     * @param tutorId : the ID of the currently logged in tutor.
+     */
     private void openTimeSlotsPage(String tutorId) {
         Intent mainIntent = new Intent(this, TimeSlotsActivity.class);
         mainIntent.putExtra("tutorId", tutorId);
         startActivity(mainIntent);
     }
+    /**
+     * Method to transition to settings page.
+     * @param tutorId : the ID of the currently logged in tutor.
+     */
     private void openSettingsPage(String tutorId) {
         Intent mainIntent = new Intent(this, SettingsActivity.class);
         mainIntent.putExtra("tutorId", tutorId);

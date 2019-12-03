@@ -6,8 +6,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -32,11 +30,20 @@ import cz.msebera.android.httpclient.Header;
 public class BookingsActivity extends AppCompatActivity {
 
     /**
-     * Variable that keeps track of error message
+     * Variable that keeps track of error message.
      */
     private String error = null;
+    /**
+     * The currently logged in tutor ID.
+     */
     public String tutorId;
+    /**
+     * A JSONArray of all bookings associated with the tutor.
+     */
     public JSONArray bookings;
+    /**
+     * A string for the currently selected bookingId.
+     */
     public String bookingId;
 
 
@@ -55,6 +62,10 @@ public class BookingsActivity extends AppCompatActivity {
 //        }
     }
 
+    /**
+     * method that gets all bookings associated with a tutor
+     * @param tutorId : the ID of the tutor (should be retrieved on login)
+     */
     private void getBookings(String tutorId) {
         Log.d("booking", "sending a request with tutorId" + tutorId);
         Log.d("booking", "booking/tutor/" + tutorId);
@@ -95,7 +106,7 @@ public class BookingsActivity extends AppCompatActivity {
     /**
      * Method specifying tasks on application initialization.
      *
-     * @param savedInstanceState
+     * @param savedInstanceState : last state of the activity, will be null if first started
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +122,7 @@ public class BookingsActivity extends AppCompatActivity {
             Log.d("unable to grab tutor id", e.toString());
         }
 
-        // Determine what to do when signUpButton is clicked
+        // Determine what to do when settings button is clicked
         final Button sessionsButton = findViewById(R.id.sessions);
         sessionsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,7 +131,7 @@ public class BookingsActivity extends AppCompatActivity {
             }
         });
 
-        // Determine what to do when signUpButton is clicked
+        // Determine what to do when courses button is clicked
         final Button coursesButton = findViewById(R.id.courses);
         coursesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,7 +140,7 @@ public class BookingsActivity extends AppCompatActivity {
             }
         });
 
-        // Determine what to do when signUpButton is clicked
+        // Determine what to do when time slot button is clicked
         final Button timeSlotsButton = findViewById(R.id.timeslots);
         timeSlotsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,7 +149,7 @@ public class BookingsActivity extends AppCompatActivity {
             }
         });
 
-        // Determine what to do when signUpButton is clicked
+        // Determine what to do when settings button is clicked
         final Button settingsButton = findViewById(R.id.settings);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,33 +163,19 @@ public class BookingsActivity extends AppCompatActivity {
     }
 
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
+    /**
+     * Initialize all bookings and place them in a table
+     * Need the table to have id: "bookingTable".
+     * @param response : JSONArray of all bookings to display
+     */
     public void init(JSONArray response) {
         TableLayout stk =  findViewById(R.id.bookingTable);
+        //Clear all views in the table
         stk.removeAllViewsInLayout();
+        // Create a new row, this will be all column titles
         TableRow tbrow0 = new TableRow(this);
+
+        //Add a text view for each column we want.
         TextView tv0 = new TextView(this);
         tv0.setText(" Course ");
         tv0.setTextColor(Color.BLACK);
@@ -200,6 +197,7 @@ public class BookingsActivity extends AppCompatActivity {
         tv4.setTextColor(Color.BLACK);
         tbrow0.addView(tv4);
         stk.addView(tbrow0);
+        //Iterate through the list of bookings.
         for (int i=0; i < response.length(); i++) {
             try{
                 JSONObject booking1 = response.getJSONObject(i);
@@ -233,6 +231,7 @@ public class BookingsActivity extends AppCompatActivity {
                 tbrow.addView(t5v);
                 tbrow.setId(i);
                 tbrow.setPadding(0,48,0,0);
+                // Adding an onclick listener for when the row is clicked.
                 tbrow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v){
@@ -244,12 +243,13 @@ public class BookingsActivity extends AppCompatActivity {
             }catch(JSONException e){
                 Log.d("booking", e.toString());
             }
-
-
         }
-
     }
 
+    /**
+     * Open a pop up alert if a booking is pressed.
+     * @param bookingNumber : the index that the booking appears in the table.
+     */
     private void openPopUp(final int bookingNumber) {
         String course = null;
         String student = null;
@@ -266,12 +266,11 @@ public class BookingsActivity extends AppCompatActivity {
             endTime = specificBooking.getJSONObject("timeSlot").getString("endTime");
             endTime = endTime.substring(0, endTime.length() - 3 );
             bookingId = specificBooking.getString("bookingId");
-
-
         }catch(JSONException e){
-
+            error += e.toString();
         }
 
+        // Create a new alert dialog with options for the booking.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
         builder.setTitle("Booking Information");
@@ -315,13 +314,30 @@ public class BookingsActivity extends AppCompatActivity {
 //        PopupWindow(View contentView, int width, int height, boolean focusable)
     }
 
+    /**
+     * Method to delete a booking.
+     * Refreshes the list of bookings after deleting.
+     * @param bookingId : the ID of the booking to be deleted.
+     */
     private void declineBooking(String bookingId) {
-        HttpUtils.delete("booking/decline/" + bookingId , new RequestParams(), new JsonHttpResponseHandler() {});
-        getBookings(tutorId);
+        try{
+            HttpUtils.delete("booking/decline/" + bookingId , new RequestParams(), new JsonHttpResponseHandler() {});
+            getBookings(tutorId);
+        }catch(Exception e){
+            getBookings(tutorId);
+        }
+
+
     }
 
+    /**
+     * Method to accept a booking
+     * Refreshes a list of bookings after accepting.
+     * @param bookingId : the ID of the booking to be accepted
+     */
     private void acceptBooking(String bookingId) {
         HttpUtils.delete("booking/accept/" + bookingId , new RequestParams(), new JsonHttpResponseHandler() {
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 //                super.onSuccess(statusCode, headers, response);
@@ -344,22 +360,37 @@ public class BookingsActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * Method to transition to sessions page.
+     * @param tutorId : the ID of the currently logged in tutor.
+     */
     private void openSessionsPage(String tutorId) {
         Intent mainIntent = new Intent(this, SessionsActivity.class);
         mainIntent.putExtra("tutorId", tutorId);
         startActivity(mainIntent);
     }
+    /**
+     * Method to transition to courses page.
+     * @param tutorId : the ID of the currently logged in tutor.
+     */
     private void openCoursesPage(String tutorId) {
         Intent mainIntent = new Intent(this, CoursesActivity.class);
         mainIntent.putExtra("tutorId", tutorId);
         startActivity(mainIntent);
     }
+    /**
+     * Method to transition to time slots page.
+     * @param tutorId : the ID of the currently logged in tutor.
+     */
     private void openTimeSlotsPage(String tutorId) {
         Intent mainIntent = new Intent(this, TimeSlotsActivity.class);
         mainIntent.putExtra("tutorId", tutorId);
         startActivity(mainIntent);
     }
+    /**
+     * Method to transition to settings page.
+     * @param tutorId : the ID of the currently logged in tutor.
+     */
     private void openSettingsPage(String tutorId) {
         Intent mainIntent = new Intent(this, SettingsActivity.class);
         mainIntent.putExtra("tutorId", tutorId);

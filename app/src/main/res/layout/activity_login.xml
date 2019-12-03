@@ -51,7 +51,6 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="392dp"
         android:layout_marginBottom="40dp"
-        android:text="asdasd"
         android:textColor="@color/colorAccent"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/password"
