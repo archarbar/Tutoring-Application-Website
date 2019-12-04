@@ -54,17 +54,17 @@ The objective of this project is to design a software solution for a new tutorin
 |  Team members   |	     Responsibility     | Hours|
 |-----------------|-------------------------|------|
 |    Michael Li   | Mobile Application Frontend, Project Management | 20 |
-|    Tony Ou      | Build System, Continuous Integration, and Delivery | 20 |
-|  William Zhang  | Build System, Continuous Integration, and Delivery | 20 |
-|  Victor Zhong   | Code Quality, User Documentation | 20 |
+|    Tony Ou      | Code Quality, User Documentation | 15 |
+|  William Zhang  | Mobile Application Frontend | 30 |
+|  Victor Zhong   | Build System, Continuous Integration, and Delivery | 10 |
 * [Report](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Report-(Sprint-4))
 * [Mobile App](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Mobile-Application)
 
 ## Deliverable 5: Due November 28rd, 2019
 |  Team members   |	     Responsibility     | Hours|
 |-----------------|-------------------------|------|
-|    Michael Li   | In charge of the MVC | 10 |
-|    Tony Ou      | Frontend for ReactJS | 10 |
-|  William Zhang  | Backend Development and Slides | 10 |
-|  Victor Zhong   | Design Decisions | 10 |
+|    Michael Li   | In charge of the MVC | 4 |
+|    Tony Ou      | Frontend for ReactJS | 4 |
+|  William Zhang  | Backend Development and Slides | 4 |
+|  Victor Zhong   | Design Decisions | 4 |
 
