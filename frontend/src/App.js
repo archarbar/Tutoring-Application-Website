@@ -19,7 +19,7 @@ function App() {
 
   const setId = (newTutorId) => {
     setTutorId(newTutorId)
-    localStorage.setItem('tutorId', newTutorId)
+    localStorage.setItem('tutorId', newTutorId.tutorId)
   }
   return (
     <ThemeWrapper>
