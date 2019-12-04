@@ -131,6 +131,15 @@ public class BookingsActivity extends AppCompatActivity {
             }
         });
 
+        // Determine what to do when signOutButton is pressed.
+        final Button signOutButton = findViewById(R.id.signOutButton);
+        signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOut();
+            }
+        });
+
         // Determine what to do when settings button is clicked
         final Button settingsButton = findViewById(R.id.settings);
         settingsButton.setOnClickListener(new View.OnClickListener() {
@@ -305,6 +314,14 @@ public class BookingsActivity extends AppCompatActivity {
         } catch (Exception e) {
             getBookings(tutorId);
         }
+    }
+
+    /**
+     * Method that signs out and returns to the login page.
+     */
+    private void signOut() {
+        Intent mainIntent = new Intent(this, LoginActivity.class);
+        startActivity(mainIntent);
     }
 
     /**
