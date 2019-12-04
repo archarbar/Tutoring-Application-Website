@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -46,35 +47,18 @@ public class BookingsActivity extends AppCompatActivity {
      */
     public String bookingId;
 
-
-    /**
-     * Method that displays the error message on the screen.
-     */
-    private void refreshErrorMessage() {
-        // set the error message
-//        TextView tvError = (TextView) findViewById(R.id.registrationError);
-////        tvError.setText(error);
-
-//        if (error == null || error.length() == 0) {
-//            tvError.setVisibility(View.GONE);
-//        } else {
-//            tvError.setVisibility(View.VISIBLE);
-//        }
-    }
-
     /**
      * method that gets all bookings associated with a tutor
+     *
      * @param tutorId : the ID of the tutor (should be retrieved on login)
      */
     private void getBookings(String tutorId) {
         Log.d("booking", "sending a request with tutorId" + tutorId);
         Log.d("booking", "booking/tutor/" + tutorId);
-        HttpUtils.get("booking/tutor/" + tutorId , new RequestParams(), new JsonHttpResponseHandler() {
+        HttpUtils.get("booking/tutor/" + tutorId, new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-//                super.onSuccess(statusCode, headers, response);
-//                refreshErrorMessage();
                 Log.d("Bookings", "onSuccess");
                 bookings = response;
                 init(response);
@@ -85,7 +69,7 @@ public class BookingsActivity extends AppCompatActivity {
                     Log.d("booking", booking1.toString());
                     Log.d("booking", bookingId);
                 } catch (JSONException e) {
-                    Log.d("booking","unable to parse json");
+                    Log.d("booking", "unable to parse json");
                 }
             }
 
@@ -98,7 +82,6 @@ public class BookingsActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     error += e.getMessage();
                 }
-//                refreshErrorMessage();
             }
         });
     }
@@ -114,11 +97,10 @@ public class BookingsActivity extends AppCompatActivity {
         // Grab the activity main layout and generate it.
         setContentView(R.layout.activity_booking);
 
-        try{
+        try {
             tutorId = getIntent().getStringExtra("tutorId");
             getBookings(tutorId);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             Log.d("unable to grab tutor id", e.toString());
         }
 
@@ -158,18 +140,16 @@ public class BookingsActivity extends AppCompatActivity {
             }
         });
 
-
-//        refreshErrorMessage();
     }
-
 
     /**
      * Initialize all bookings and place them in a table
      * Need the table to have id: "bookingTable".
+     *
      * @param response : JSONArray of all bookings to display
      */
     public void init(JSONArray response) {
-        TableLayout stk =  findViewById(R.id.bookingTable);
+        TableLayout stk = findViewById(R.id.bookingTable);
         //Clear all views in the table
         stk.removeAllViewsInLayout();
         // Create a new row, this will be all column titles
@@ -198,8 +178,8 @@ public class BookingsActivity extends AppCompatActivity {
         tbrow0.addView(tv4);
         stk.addView(tbrow0);
         //Iterate through the list of bookings.
-        for (int i=0; i < response.length(); i++) {
-            try{
+        for (int i = 0; i < response.length(); i++) {
+            try {
                 JSONObject booking1 = response.getJSONObject(i);
                 TableRow tbrow = new TableRow(this);
                 TextView t1v = new TextView(this);
@@ -219,28 +199,28 @@ public class BookingsActivity extends AppCompatActivity {
                 tbrow.addView(t3v);
                 TextView t4v = new TextView(this);
                 String startTime = booking1.getJSONObject("timeSlot").getString("startTime");
-                t4v.setText(startTime.substring(0, startTime.length() - 3 ));
+                t4v.setText(startTime.substring(0, startTime.length() - 3));
                 t4v.setTextColor(Color.BLACK);
                 t4v.setGravity(Gravity.CENTER);
                 tbrow.addView(t4v);
                 TextView t5v = new TextView(this);
                 String endTime = booking1.getJSONObject("timeSlot").getString("endTime");
-                t5v.setText(endTime.substring(0, endTime.length() - 3 ));
+                t5v.setText(endTime.substring(0, endTime.length() - 3));
                 t5v.setTextColor(Color.BLACK);
                 t5v.setGravity(Gravity.CENTER);
                 tbrow.addView(t5v);
                 tbrow.setId(i);
-                tbrow.setPadding(0,48,0,0);
+                tbrow.setPadding(0, 48, 0, 0);
                 // Adding an onclick listener for when the row is clicked.
                 tbrow.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v){
+                    public void onClick(View v) {
                         openPopUp(v.getId());
                     }
                 });
                 stk.addView(tbrow);
 
-            }catch(JSONException e){
+            } catch (JSONException e) {
                 Log.d("booking", e.toString());
             }
         }
@@ -248,6 +228,7 @@ public class BookingsActivity extends AppCompatActivity {
 
     /**
      * Open a pop up alert if a booking is pressed.
+     *
      * @param bookingNumber : the index that the booking appears in the table.
      */
     private void openPopUp(final int bookingNumber) {
@@ -256,7 +237,7 @@ public class BookingsActivity extends AppCompatActivity {
         String date = null;
         String startTime = null;
         String endTime = null;
-        try{
+        try {
             JSONObject specificBooking = bookings.getJSONObject(bookingNumber);
             course = specificBooking.getString("course");
             student = specificBooking.getString("studentName");
@@ -264,9 +245,9 @@ public class BookingsActivity extends AppCompatActivity {
             startTime = specificBooking.getJSONObject("timeSlot").getString("startTime");
             startTime = startTime.substring(0, startTime.length() - 3);
             endTime = specificBooking.getJSONObject("timeSlot").getString("endTime");
-            endTime = endTime.substring(0, endTime.length() - 3 );
+            endTime = endTime.substring(0, endTime.length() - 3);
             bookingId = specificBooking.getString("bookingId");
-        }catch(JSONException e){
+        } catch (JSONException e) {
             error += e.toString();
         }
 
@@ -276,9 +257,9 @@ public class BookingsActivity extends AppCompatActivity {
         builder.setTitle("Booking Information");
         builder.setMessage(
                 "Course: " + course + "\n" +
-                "Student Name: " + student + "\n" +
-                "Date: " + date + "\n" +
-                "Time: " + startTime + "-" + endTime
+                        "Student Name: " + student + "\n" +
+                        "Date: " + date + "\n" +
+                        "Time: " + startTime + "-" + endTime
         );
 
         builder.setPositiveButton("Confirm",
@@ -292,18 +273,15 @@ public class BookingsActivity extends AppCompatActivity {
                     }
                 });
         builder.setNeutralButton("Cancel",
-                new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int id)
-                    {
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
-//                        Log.d("booking", Integer.to);
                     }
                 });
         builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                
+
                 Log.d("booking", Integer.toString(bookingNumber));
                 declineBooking(bookingId);
             }
@@ -311,37 +289,35 @@ public class BookingsActivity extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
-//        PopupWindow(View contentView, int width, int height, boolean focusable)
     }
 
     /**
      * Method to delete a booking.
      * Refreshes the list of bookings after deleting.
+     *
      * @param bookingId : the ID of the booking to be deleted.
      */
     private void declineBooking(String bookingId) {
-        try{
-            HttpUtils.delete("booking/decline/" + bookingId , new RequestParams(), new JsonHttpResponseHandler() {});
+        try {
+            HttpUtils.delete("booking/decline/" + bookingId, new RequestParams(), new JsonHttpResponseHandler() {
+            });
             getBookings(tutorId);
-        }catch(Exception e){
+        } catch (Exception e) {
             getBookings(tutorId);
         }
-
-
     }
 
     /**
      * Method to accept a booking
      * Refreshes a list of bookings after accepting.
+     *
      * @param bookingId : the ID of the booking to be accepted
      */
     private void acceptBooking(String bookingId) {
-        HttpUtils.delete("booking/accept/" + bookingId , new RequestParams(), new JsonHttpResponseHandler() {
+        HttpUtils.delete("booking/accept/" + bookingId, new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                super.onSuccess(statusCode, headers, response);
-//                refreshErrorMessage();
                 getBookings(tutorId);
 
             }
@@ -354,14 +330,13 @@ public class BookingsActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     error += e.getMessage();
                 }
-//                refreshErrorMessage();
             }
         });
     }
 
-
     /**
      * Method to transition to sessions page.
+     *
      * @param tutorId : the ID of the currently logged in tutor.
      */
     private void openSessionsPage(String tutorId) {
@@ -369,8 +344,10 @@ public class BookingsActivity extends AppCompatActivity {
         mainIntent.putExtra("tutorId", tutorId);
         startActivity(mainIntent);
     }
+
     /**
      * Method to transition to courses page.
+     *
      * @param tutorId : the ID of the currently logged in tutor.
      */
     private void openCoursesPage(String tutorId) {
@@ -378,8 +355,10 @@ public class BookingsActivity extends AppCompatActivity {
         mainIntent.putExtra("tutorId", tutorId);
         startActivity(mainIntent);
     }
+
     /**
      * Method to transition to time slots page.
+     *
      * @param tutorId : the ID of the currently logged in tutor.
      */
     private void openTimeSlotsPage(String tutorId) {
@@ -387,8 +366,10 @@ public class BookingsActivity extends AppCompatActivity {
         mainIntent.putExtra("tutorId", tutorId);
         startActivity(mainIntent);
     }
+
     /**
      * Method to transition to settings page.
+     *
      * @param tutorId : the ID of the currently logged in tutor.
      */
     private void openSettingsPage(String tutorId) {

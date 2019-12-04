@@ -92,7 +92,6 @@ public class SettingsActivity extends AppCompatActivity {
                 openTimeSlotsPage(tutorId);
             }
         });
-
     }
 
     /**
@@ -104,8 +103,6 @@ public class SettingsActivity extends AppCompatActivity {
         HttpUtils.get("tutor/" + tutorId , new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                super.onSuccess(statusCode, headers, response);
-//                refreshErrorMessage();
                 try {
                     tutorName = response.getString("firstName") + " " + response.getString("lastName");
                     tutorEmail = response.getString("email");
@@ -193,5 +190,4 @@ public class SettingsActivity extends AppCompatActivity {
         mainIntent.putExtra("tutorId", tutorId);
         startActivity(mainIntent);
     }
-
 }

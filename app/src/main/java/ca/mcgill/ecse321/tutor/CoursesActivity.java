@@ -122,7 +122,6 @@ public class CoursesActivity extends AppCompatActivity {
                     }
                 });
 
-
         AlertDialog dialog = builder.create();
         dialog.show();
 
@@ -137,7 +136,6 @@ public class CoursesActivity extends AppCompatActivity {
         HttpUtils.get("course/" + tutorId + "/get" , new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-//                super.onSuccess(statusCode, headers, response);
                 courses = response;
                 initializeCourses(courses);
             }

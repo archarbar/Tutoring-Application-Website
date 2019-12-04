@@ -24,6 +24,7 @@ import cz.msebera.android.httpclient.Header;
 
 
 public class SessionsActivity extends AppCompatActivity {
+
     /**
      * ID of the tutor currently signed in.
      */
@@ -109,7 +110,6 @@ public class SessionsActivity extends AppCompatActivity {
                 sessions = response;
                 // Initializes the table.
                 initializeTable(sessions);
-
             }
 
             @Override
@@ -185,7 +185,6 @@ public class SessionsActivity extends AppCompatActivity {
             }catch(JSONException e){
                 Log.d("booking", e.toString());
             }
-
         }
     }
 
@@ -198,6 +197,7 @@ public class SessionsActivity extends AppCompatActivity {
         mainIntent.putExtra("tutorId", tutorId);
         startActivity(mainIntent);
     }
+
     /**
      * Method to transition to courses page.
      * @param tutorId : the ID of the currently logged in tutor.
@@ -207,6 +207,7 @@ public class SessionsActivity extends AppCompatActivity {
         mainIntent.putExtra("tutorId", tutorId);
         startActivity(mainIntent);
     }
+
     /**
      * Method to transition to time slots page.
      * @param tutorId : the ID of the currently logged in tutor.
@@ -216,6 +217,7 @@ public class SessionsActivity extends AppCompatActivity {
         mainIntent.putExtra("tutorId", tutorId);
         startActivity(mainIntent);
     }
+
     /**
      * Method to transition to settings page.
      * @param tutorId : the ID of the currently logged in tutor.

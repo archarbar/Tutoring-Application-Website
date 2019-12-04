@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -51,6 +52,7 @@ public class TimeSlotsActivity extends AppCompatActivity {
 
     /**
      * Called upon creation of activity.
+     *
      * @param savedInstanceState : previous state of activity if there was one.
      */
     @Override
@@ -58,11 +60,10 @@ public class TimeSlotsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_slots);
 
-        try{
+        try {
             tutorId = getIntent().getStringExtra("tutorId");
             getTimeSlots(tutorId);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             Log.d("unable to grab tutor id", e.toString());
         }
         // Determine what to do when bookings button is clicked
@@ -116,12 +117,12 @@ public class TimeSlotsActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView,
                                        View selectedItemView, int position, long id) {
                 try {
-                    dayOfTheWeek =parentView.getItemAtPosition(position).toString();
-                }
-                catch (Exception e) {
+                    dayOfTheWeek = parentView.getItemAtPosition(position).toString();
+                } catch (Exception e) {
                     error = error + e.toString();
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
             }
@@ -137,33 +138,36 @@ public class TimeSlotsActivity extends AppCompatActivity {
 
     /**
      * Method to add a new time slot for the tutor.
-     * @param startTime : start time of time slot.
-     * @param endTime : end time of time slot.
+     *
+     * @param startTime    : start time of time slot.
+     * @param endTime      : end time of time slot.
      * @param dayOfTheWeek : day of the week associated with the time slot.
      */
     private void addTimeSlot(String startTime, String endTime, String dayOfTheWeek) {
         // If both start and end time are correctly formatted, send the request
-        if(verifyTime(startTime) && verifyTime(endTime)){
+        if (verifyTime(startTime) && verifyTime(endTime)) {
             RequestParams params = new RequestParams();
             params.put("startTime", startTime);
             params.put("endTime", endTime);
             params.put("dayOfTheWeek", dayOfTheWeek);
             params.put("tutorId", tutorId);
             // Generate a new request and update the current table of time slots.
-            try{
-                HttpUtils.post("timeslot/tutor/new", params, new JsonHttpResponseHandler() {});
+            try {
+                HttpUtils.post("timeslot/tutor/new", params, new JsonHttpResponseHandler() {
+                });
                 getTimeSlots(tutorId);
-            }catch (Exception e){
+            } catch (Exception e) {
                 getTimeSlots(tutorId);
             }
 
-        }else{
+        } else {
             refreshErrorMessage("Please enter time with format HH:MM:SS");
         }
     }
 
     /**
      * Updates the error message in case time slots are entered incorrectly.
+     *
      * @param s : error message
      */
     private void refreshErrorMessage(String s) {
@@ -173,17 +177,18 @@ public class TimeSlotsActivity extends AppCompatActivity {
 
     /**
      * Method to verify that the time entered is formatted correctly.
+     *
      * @param startTime : time to be verified for valid formatting
      * @return true if time is valid, false otherwise.
      */
     private boolean verifyTime(String startTime) {
-        if(startTime.contains(":")){
+        if (startTime.contains(":")) {
             String[] times = startTime.split(":");
-            if(times.length != 3){
+            if (times.length != 3) {
                 return false;
             }
-            for(String time: times){
-                if(!isNumeric(time) || time.length() != 2){
+            for (String time : times) {
+                if (!isNumeric(time) || time.length() != 2) {
                     return false;
                 }
             }
@@ -194,6 +199,7 @@ public class TimeSlotsActivity extends AppCompatActivity {
 
     /**
      * Boolean method that returns true if all values in the str are digits.
+     *
      * @param strNum : input string that must be only digits.
      * @return true if strNum is only digits, false otherwise.
      */
@@ -212,19 +218,19 @@ public class TimeSlotsActivity extends AppCompatActivity {
     /**
      * Method that retrieves all time slots associated with the tutor.
      * Generates a table of all time slots after.
+     *
      * @param tutorId : ID of the tutor currently signed in.
      */
     private void getTimeSlots(String tutorId) {
-        HttpUtils.get("timeslot/tutor/" + tutorId , new RequestParams(), new JsonHttpResponseHandler() {
+        HttpUtils.get("timeslot/tutor/" + tutorId, new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-//                super.onSuccess(statusCode, headers, response);
                 timeSlots = response;
                 initializeTimeSlots(timeSlots);
             }
+
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-//                super.onFailure(statusCode, headers, errorResponse.toString(), throwable);
                 try {
                     error += errorResponse.get("message").toString();
                 } catch (JSONException e) {
@@ -237,10 +243,11 @@ public class TimeSlotsActivity extends AppCompatActivity {
     /**
      * Initializes a table of all time slots associated with the tutor
      * Need table id to be "timeSlotsTable".
+     *
      * @param timeSlots : JSONArray of all time slots associated with tutor.
      */
     private void initializeTimeSlots(JSONArray timeSlots) {
-        TableLayout stk =  findViewById(R.id.timeSlotsTable);
+        TableLayout stk = findViewById(R.id.timeSlotsTable);
         // Removes all previous views in table
         stk.removeAllViewsInLayout();
         //Generates all column names
@@ -253,45 +260,42 @@ public class TimeSlotsActivity extends AppCompatActivity {
         tv1.setText(" Start Time ");
         tv1.setTextColor(Color.BLACK);
         tbrow0.addView(tv1);
-        TextView tv2= new TextView(this);
+        TextView tv2 = new TextView(this);
         tv2.setText(" End Time ");
         tv2.setTextColor(Color.BLACK);
         tbrow0.addView(tv2);
         // Add column names to the table
         stk.addView(tbrow0);
         // Iterate through all time slots.
-        for (int i=0; i < timeSlots.length(); i++) {
-            try{
+        for (int i = 0; i < timeSlots.length(); i++) {
+            try {
                 JSONObject timeSlot = timeSlots.getJSONObject(i);
                 //Generate a new row for each time slot.
                 TableRow tbrow = new TableRow(this);
                 TextView t1v = new TextView(this);
                 t1v.setText(timeSlot.getString("dayOfTheWeek"));
                 t1v.setTextColor(Color.BLACK);
-//                t1v.setGravity(Gravity.CENTER);
                 tbrow.addView(t1v);
                 TextView t2v = new TextView(this);
                 t2v.setText(timeSlot.getString("startTime"));
                 t2v.setTextColor(Color.BLACK);
-//                t2v.setGravity(Gravity.CENTER);
                 tbrow.addView(t2v);
                 TextView t3v = new TextView(this);
                 t3v.setText(timeSlot.getString("endTime"));
                 t3v.setTextColor(Color.BLACK);
-//                t3v.setGravity(Gravity.CENTER);
                 tbrow.addView(t3v);
                 tbrow.setId(i);
-                tbrow.setPadding(0,48,0,0);
+                tbrow.setPadding(0, 48, 0, 0);
                 // Create an on click listener when a time slot is clicked on.
                 tbrow.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v){
+                    public void onClick(View v) {
                         // Calls this method every time a time slot is clicked.
                         openPopUp(v.getId());
                     }
                 });
                 stk.addView(tbrow);
-            }catch(JSONException e){
+            } catch (JSONException e) {
                 error += e.toString();
             }
         }
@@ -299,20 +303,21 @@ public class TimeSlotsActivity extends AppCompatActivity {
 
     /**
      * Method to generate an alert when a time slot is clicked.
+     *
      * @param id : index of the time slot being pressed.
      */
     private void openPopUp(int id) {
         String startTime = null;
         String endTime = null;
         String dayOfTheWeek = null;
-        try{
+        try {
             // Parse though the time slot to retrieve the time slot information.
             JSONObject timeslot = timeSlots.getJSONObject(id);
             dayOfTheWeek = timeslot.getString("dayOfTheWeek");
             startTime = timeslot.getString("startTime");
             endTime = timeslot.getString("endTime");
             selectedTimeSlotId = timeslot.getInt("timeSlotId");
-        }catch(JSONException e){
+        } catch (JSONException e) {
             error += e.toString();
         }
         //Create a new alert dialog
@@ -325,10 +330,8 @@ public class TimeSlotsActivity extends AppCompatActivity {
                         "End Time: " + endTime + "\n");
 
         builder.setNeutralButton("Ok",
-                new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int id)
-                    {
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }
                 });
@@ -346,21 +349,21 @@ public class TimeSlotsActivity extends AppCompatActivity {
 
     /**
      * Method to delete a selected time slot
+     *
      * @param selectedTimeSlotId : ID of the time slot to be deleted.
-     * @param tutorId : ID of the tutor associated with the time slot.
+     * @param tutorId            : ID of the tutor associated with the time slot.
      */
     private void deleteTimeSlot(int selectedTimeSlotId, String tutorId) {
         // Create the parameters for the request.
         RequestParams params = new RequestParams();
         params.put("timeSlotId", Integer.toString(selectedTimeSlotId));
         params.put("tutorId", tutorId);
-        try{
-            HttpUtils.delete("timeslot/tutor/delete", params, new JsonHttpResponseHandler(){
+        try {
+            HttpUtils.delete("timeslot/tutor/delete", params, new JsonHttpResponseHandler() {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-//                    super.onFailure(statusCode, headers, errorResponse.toString(), throwable);
                     try {
-                        if(errorResponse.get("message").toString().contains("SQL")){
+                        if (errorResponse.get("message").toString().contains("SQL")) {
                             refreshErrorMessage("There is a booking associated with this time slot!");
                         }
                         error += errorResponse.get("message").toString();
@@ -370,7 +373,7 @@ public class TimeSlotsActivity extends AppCompatActivity {
                 }
             });
             getTimeSlots(tutorId);
-        }catch(Exception e){
+        } catch (Exception e) {
             getTimeSlots(tutorId);
         }
 
@@ -380,6 +383,7 @@ public class TimeSlotsActivity extends AppCompatActivity {
 
     /**
      * Method to transition to bookings page.
+     *
      * @param tutorId : the ID of the currently logged in tutor.
      */
     private void openBookingsPage(String tutorId) {
@@ -387,8 +391,10 @@ public class TimeSlotsActivity extends AppCompatActivity {
         mainIntent.putExtra("tutorId", tutorId);
         startActivity(mainIntent);
     }
+
     /**
      * Method to transition to sessions page.
+     *
      * @param tutorId : the ID of the currently logged in tutor.
      */
     private void openSessionsPage(String tutorId) {
@@ -396,8 +402,10 @@ public class TimeSlotsActivity extends AppCompatActivity {
         mainIntent.putExtra("tutorId", tutorId);
         startActivity(mainIntent);
     }
+
     /**
      * Method to transition to courses page.
+     *
      * @param tutorId : the ID of the currently logged in tutor.
      */
     private void openCoursesPage(String tutorId) {
@@ -405,8 +413,10 @@ public class TimeSlotsActivity extends AppCompatActivity {
         mainIntent.putExtra("tutorId", tutorId);
         startActivity(mainIntent);
     }
+
     /**
      * Method to transition to settings page.
+     *
      * @param tutorId : the ID of the currently logged in tutor.
      */
     private void openSettingsPage(String tutorId) {

@@ -112,5 +112,4 @@ public class RegisterActivity extends AppCompatActivity {
             startActivity(loginIntent);
     }
 
-
 }

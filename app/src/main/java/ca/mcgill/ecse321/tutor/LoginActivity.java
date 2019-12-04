@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * Method called on creation of activity
+     *
      * @param savedInstanceState : previous instance of the activity
      */
     @Override
@@ -40,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.LoginToolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Login");
-
 
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         // Determine what to do when login is clicked
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 login();
             }
         });
@@ -68,13 +68,14 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Transition between login activity and registration activity
      */
-    private void openRegisterPage(){
+    private void openRegisterPage() {
         Intent newIntent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(newIntent);
     }
 
     /**
      * Transition between login activity to booking activity.
+     *
      * @param tutorId
      */
     private void openBookingsPage(String tutorId) {
@@ -102,8 +103,7 @@ public class LoginActivity extends AppCompatActivity {
         HttpUtils.get("login/" + username.getText().toString() + '/' + password.getText().toString(), null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                super.onSuccess(statusCode, headers, response);
-                Log.v("Login", "onSuccess" +  response.toString());
+                Log.v("Login", "onSuccess" + response.toString());
                 refreshErrorMessage();
                 try {
                     response.get("tutorId");
@@ -111,14 +111,15 @@ public class LoginActivity extends AppCompatActivity {
                     loginMessage.setText("Successfully logged in!");
                     // Transition to bookings and pass the tutorId for future calls.
                     openBookingsPage(tutorId);
-                }catch (JSONException e){
+                } catch (JSONException e) {
                     Log.d("json", e.toString());
                 }
             }
+
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, errorResponse.toString(), throwable);
-                Log.v("Login", "onFailure" +  errorResponse.toString());
+                Log.v("Login", "onFailure" + errorResponse.toString());
                 // update the login message for the tutor to see.
                 loginMessage.setText("Invalid Email / Password");
                 try {
