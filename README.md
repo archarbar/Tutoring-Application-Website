@@ -59,6 +59,7 @@ The objective of this project is to design a software solution for a new tutorin
 |  Victor Zhong   | Build System, Continuous Integration, and Delivery | 10 |
 * [Report](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Report-(Sprint-4))
 * [Mobile App](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/Mobile-Application)
+* [User Documentation](https://github.com/McGill-ECSE321-Fall2019/project-group-5/wiki/User-Documentation)
 
 ## Deliverable 5: Due November 28rd, 2019
 |  Team members   |	     Responsibility     | Hours|
